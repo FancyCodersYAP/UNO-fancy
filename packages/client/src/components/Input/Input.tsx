@@ -1,6 +1,6 @@
 import React, { FC, InputHTMLAttributes } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
-import { StError, StInput, StInputContainer, StLabel } from './InputStyle';
+import { StError, StInput, StInputContainer, StLabel } from './style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
-import { StForm, StFormSubtitle, StFormTitle } from './FormStyle';
+import { StForm, StFormSubtitle, StFormTitle } from './style';
 import Input from 'components/Input';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/Login/Login';
@@ -38,11 +38,6 @@ const Form: FC<FormProps> = props => {
           />
         );
       })}
-      {/*<input*/}
-      {/*  {...register('test2', {*/}
-      {/*    validate: value => value === '1' || 'error message',*/}
-      {/*  })}*/}
-      {/*/>*/}
       {footer}
     </StForm>
   );
