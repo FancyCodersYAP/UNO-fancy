@@ -28,6 +28,7 @@ const Form: FC<FormProps> = props => {
       {fields.map(item => {
         return (
           <Input
+            key={`input-${item.name}`}
             register={register}
             error={Boolean(errors[item.name]?.message)}
             errorMessage={errors[item.name]?.message?.toString()}
