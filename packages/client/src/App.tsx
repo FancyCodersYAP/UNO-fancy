@@ -15,6 +15,7 @@ function App() {
   }, []);
   return (
     <div className="App">
+      <span style={{display: 'none'}}>Вот тут будет жить ваше приложение :)</span>
       <LoginForm />
     </div>
   );
