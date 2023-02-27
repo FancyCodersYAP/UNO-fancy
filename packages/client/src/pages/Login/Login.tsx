@@ -3,7 +3,7 @@ import { FieldValues } from 'react-hook-form';
 import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType } from 'utils/constants';
-import { StButton, StFooter, StSubmitButton } from 'components/Form/FormStyle';
+import { StButton, StFooter, StSubmitButton } from 'components/Form/style';
 import { StLeftSector, StRightSector, Separator } from 'styles/global';
 
 export interface LoginFormParams extends FieldValues {
