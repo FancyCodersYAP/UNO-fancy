@@ -1,25 +1,30 @@
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+// Для проверки все что связано с роутингом закомментировано
+// тк сейчас роутинг не подключен
+//import { useNavigate } from 'react-router-dom';
+//import { AppRoute } from '../../consts';
+import { StEndGame, StEndGameWrapper, StEndGameTitle, StEndGameButtons, StEndGameButton } from './style';
 
 const endGame = () => {
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
 
   const navigateToMain = () => {
-    navigate(AppRoute.MAIN)
+    //navigate(AppRoute.MAIN)
   }
 
   const navigateToGame = () => {
-    navigate(AppRoute.GAME)
+    //navigate(AppRoute.GAME)
   }
 
   return (
-    <section>
-      <div>
-        <h3>Игра завершена</h3>
-        <button onClick={navigateToMain}>Вернуться в главное меню</button>
-        <button onClick={navigateToGame}>Сыграть снова</button>
-      </div>
-    </section>
+    <StEndGame>
+      <StEndGameWrapper>
+        <StEndGameTitle>Игра завершена</StEndGameTitle>
+        <StEndGameButtons>
+          <StEndGameButton onClick={navigateToMain}>Главное меню</StEndGameButton>
+          <StEndGameButton onClick={navigateToGame}>Сыграть снова</StEndGameButton>
+        </StEndGameButtons>
+      </StEndGameWrapper>
+    </StEndGame>
   )
 }
 
