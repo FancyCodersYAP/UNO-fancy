@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import { GamePage } from './pages/gamePage/GamePage'
+
 import './App.css'
 
 function App() {
@@ -12,7 +14,8 @@ function App() {
 
     fetchServerData()
   }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+
+  return <GamePage />
 }
 
 export default App
