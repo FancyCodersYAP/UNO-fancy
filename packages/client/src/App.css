@@ -1,0 +1,60 @@
+* {
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+}
+
+body {
+    width: 100%;
+	height: 100%;
+
+	font-size: 100%;
+	font-size: 14px;
+	line-height: 1;
+	text-size-adjust: 100%;
+}
+
+button {
+	cursor: pointer;
+}
+
+button::-moz-focus-inner {
+	padding: 0;
+
+	border: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bgd {
+    background-color: #fcfcee;
+}
+
+.btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.btn-uno {
+    display: none;
+    width: 70px;
+    height: 50px;
+    position: absolute;
+    margin: auto;
+    right: 300px;
+    z-index: 2;
+    color: white;
+    font-weight: 600;
+	font-style: normal;
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    border-radius: 5px;
+}
+.btn-uno_active {
+    display: block;
+}
