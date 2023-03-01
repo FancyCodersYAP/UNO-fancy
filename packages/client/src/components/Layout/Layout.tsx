@@ -11,7 +11,7 @@ const GameScreenStyle: CSSProperties = {};
 
 const StContent = styled.div`
   display: flex;
-  align-tems: center;
+  align-items: center;
   gap: 200px;
   justify-content: center;
   height: 100%;
