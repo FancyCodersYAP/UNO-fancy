@@ -6,7 +6,9 @@ const MainScreenStyle: CSSProperties = {
   backgroundImage: 'url(src/assets/img/background.png)',
   backgroundSize: 'cover',
   height: '100vh',
-  overflow: 'auto'
+  overflow: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
 };
 
 const GameScreenStyle: CSSProperties = {};
@@ -19,6 +21,7 @@ const StContent = styled.div`
   height: 100%;
   flex-wrap: wrap;
   padding: 20px;
+  flex: 1;
 `;
 
 const Layout: FC<{ children: React.ReactNode; isGameScreen?: boolean }> = ({
