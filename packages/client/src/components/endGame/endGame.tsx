@@ -4,7 +4,7 @@
 //import { AppRoute } from '../../consts';
 import { StEndGame, StEndGameWrapper, StEndGameTitle, StEndGameButtons, StEndGameButton } from './style';
 
-const endGame = () => {
+const EndGame = () => {
   //const navigate = useNavigate()
 
   const navigateToMain = () => {
@@ -28,4 +28,4 @@ const endGame = () => {
   )
 }
 
-export default endGame;
+export default EndGame;
