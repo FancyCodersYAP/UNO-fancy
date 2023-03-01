@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { AuthorizationStatus, AppRoute } from '../../consts'
 
 type PrivateRouteProps = {
-  children: any
+  children: any;
 }
 
 type Props = FC<PrivateRouteProps>
