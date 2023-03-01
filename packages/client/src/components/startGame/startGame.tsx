@@ -1,33 +1,44 @@
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+// Для проверки все что связано с роутингом закомментировано
+// тк сейчас роутинг не подключен
+//import { useNavigate } from 'react-router-dom';
+//import { AppRoute } from '../../consts';
+import { StStartGame, StStartGameWrapper, StStartGameTitle, StStartGameImgs, StStartGameImgWrapper, StStartGameImg, StStartGameText, StStartGameButtons, StStartGameLink, StStartGameButton } from './style';
 
-const endGame = () => {
-  const navigate = useNavigate()
+const StartGame = () => {
+  //const navigate = useNavigate()
 
   const navigateToGame = () => {
-    navigate(AppRoute.GAME)
+    //navigate(AppRoute.GAME)
   }
 
   return (
-    <section>
-      <div>
-        <h3>Правила игры:</h3>
-        <div>
-          <div>
-            <img src="" alt="" width="90px" height="90px" />
-          </div>
-          <div>
-            <img src="" alt="" width="90px" height="90px" />
-          </div>
-          <div>
-            <img src="" alt="" width="90px" height="90px" />
-          </div>
-        </div>
-        <a href="https://inteltoys.ru/articles/cat7/article655.html">Подробнее о правилах</a>
-        <button onClick={navigateToGame}>Начать</button>
-      </div>
-    </section>
+    <StStartGame>
+      <StStartGameWrapper>
+        <StStartGameTitle>Правила игры:</StStartGameTitle>
+        <StStartGameImgs>
+          <StStartGameImgWrapper>
+            <StStartGameImg src="src/assets/img/start-game-1.jpg" alt="Карточка правил" width="160px" height="160px" />
+            <StStartGameText>Избавляйтесь от карт одного цвета в первую очередь</StStartGameText>
+          </StStartGameImgWrapper>
+
+          <StStartGameImgWrapper>
+            <StStartGameImg src="src/assets/img/start-game-2.jpg" alt="Карточка правил" width="160px" height="160px" />
+            <StStartGameText>Следите за ходами противника</StStartGameText>
+          </StStartGameImgWrapper>
+
+          <StStartGameImgWrapper>
+            <StStartGameImg src="src/assets/img/start-game-3.jpg" alt="Карточка правил" width="160px" height="160px" />
+            <StStartGameText>Используйте карты действий в более подходящий момент</StStartGameText>
+          </StStartGameImgWrapper>
+        </StStartGameImgs>
+
+        <StStartGameButtons>
+          <StStartGameLink href="https://inteltoys.ru/articles/cat7/article655.html" target="_blank">Подробнее о правилах</StStartGameLink>
+          <StStartGameButton onClick={navigateToGame}>Начать</StStartGameButton>
+        </StStartGameButtons>
+      </StStartGameWrapper>
+    </StStartGame>
   )
 }
 
-export default endGame;
+export default StartGame;
