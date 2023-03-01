@@ -1,6 +1,9 @@
 export const variables = {
-  backgroundFormColor: '#e8c40a',
+  backgroundForm: '#d6a13b',
   borderRadius: '20px',
-  primaryButtonColor: '#6b6b6a',
-  buttonColor:'#23B7CB'
+  buttonColor: '#23B7CB',
+  backgroundPrimaryButton: '#23B7CB',
+  colorPrimaryButton: 'white',
+  backgroundDefaultButton: '#d6a13b',
+  colorDefaultButton: '#495057',
 };
