@@ -5,6 +5,8 @@ import styled from 'styled-components';
 const MainScreenStyle: CSSProperties = {
   backgroundImage: 'url(src/assets/img/background.png)',
   backgroundSize: 'cover',
+  height: '100vh',
+  overflow: 'auto'
 };
 
 const GameScreenStyle: CSSProperties = {};
