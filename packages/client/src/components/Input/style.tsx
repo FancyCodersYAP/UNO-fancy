@@ -4,14 +4,14 @@ export const StInputContainer = styled.div`
   height: 50px;
   position: relative;
   width: 100%;
-  margin-top: 40px;
+  margin-bottom: 50px;
 `;
 export const StInput = styled.input`
-  background-color: white;
-  border-radius: 12px;
+  background-color: #D9D9D9;
+  border-radius: 20px;
   box-sizing: border-box;
   border: 0;
-  color: #808097;
+  color: #803737;
   font-size: 18px;
   height: 100%;
   outline: 0;
@@ -21,7 +21,7 @@ export const StInput = styled.input`
   &:not(:placeholder-shown) ~ label,
   :focus ~ label {
     transform: translateY(-15px) translateX(10px) scale(0.75);
-    color: #808097;
+    color: #80373775;
   }
 
   &:focus ~ label {
@@ -36,7 +36,7 @@ export const StError = styled.div`
 `;
 
 export const StLabel = styled.label`
-  color: #b3b3b3;
+  color: #80373775;
   left: 20px;
   line-height: 14px;
   pointer-events: none;

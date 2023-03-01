@@ -3,15 +3,15 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { StForm, StFormSubtitle, StFormTitle } from './style';
 import Input from 'components/Input';
 import { FormConfigType } from 'types';
-import { LoginFormParams } from 'pages/Login/Login';
+import { LoginFormParams } from 'pages/LoginPage/LoginPage';
 
-interface FormProps {
+type FormProps = {
   title?: string;
   subtitle?: string;
   fields: FormConfigType[];
   footer: React.ReactNode;
   handleFormSubmit: (data: FieldValues | LoginFormParams) => Promise<any>;
-}
+};
 
 const Form: FC<FormProps> = props => {
   const { title, subtitle, handleFormSubmit, footer, fields } = props;
@@ -23,8 +23,13 @@ const Form: FC<FormProps> = props => {
 
   return (
     <StForm onSubmit={handleSubmit(handleFormSubmit)}>
-      {title && <StFormTitle>{title}</StFormTitle>}
-      {subtitle && <StFormSubtitle>{subtitle}</StFormSubtitle>}
+      {title && (
+        <StFormTitle>
+          {title}
+          {subtitle && <StFormSubtitle>{subtitle}</StFormSubtitle>}
+        </StFormTitle>
+      )}
+
       {fields.map(item => {
         return (
           <Input
