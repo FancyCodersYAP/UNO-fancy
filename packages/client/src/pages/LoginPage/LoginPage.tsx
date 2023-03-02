@@ -6,6 +6,7 @@ import { ValidationType } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
+import { Link } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { AppRoute } from '../../consts';
 
@@ -33,6 +34,7 @@ const LoginPage: FC = () => {
     console.log(data);
   };
 
+  //TODO после мерджа задачи с роутером "Нет аккаунта?" заменить на Link
   const footer = (
     <StFormFooter>
       <Button text="Войти" type="submit" primary block />
