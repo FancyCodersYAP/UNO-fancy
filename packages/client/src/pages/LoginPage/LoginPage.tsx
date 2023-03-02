@@ -39,7 +39,7 @@ const LoginPage: FC = () => {
     <StFormFooter>
       <Button text="Войти" type="submit" primary block />
       <a style={linkStyle}>Нет аккаунта?</a>
-      {/*<Link to='/login' style={linkStyle}>Нет аккаунта?</Link>*/}
+      <Link to='/registration' style={linkStyle}>Нет аккаунта?</Link>
       <Button text="Яндекс ID" block />
     </StFormFooter>
   );

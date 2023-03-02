@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from './consts';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import './App.css'
+import LoginPage from './pages/LoginPage'
 
 function App() {
   useEffect(() => {
@@ -25,7 +26,7 @@ function App() {
         />
         <Route
           path={AppRoute.LOGIN}
-          //element={<LoginPage />} Страница авторизации
+          element={<LoginPage />} //Страница авторизации
         />
         <Route
           path={AppRoute.REGISTRATION}
