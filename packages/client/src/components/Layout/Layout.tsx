@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 
