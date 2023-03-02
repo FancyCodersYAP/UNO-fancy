@@ -5,8 +5,8 @@ import { variables } from 'styles/variables';
 export const StButton = styled.button`
   background: ${(props: ButtonProps) =>
     props?.primary
-      ? variables.backgroundPrimaryButton
-      : 'linear-gradient(180deg, #D6A13B 0%, rgba(255, 255, 255, 0) 100%)'};
+      ? variables.backgroundColorPrimaryButton
+      : variables.backgroundColorDefaultButton};
   color: ${(props: ButtonProps) =>
     props?.primary
       ? variables.colorPrimaryButton
@@ -19,24 +19,19 @@ export const StButton = styled.button`
   font-size: 20px;
   padding: 10px;
   width: ${(props: ButtonProps) => (props?.block ? '100%' : 'auto')};
+  display: flex;
 `;
 
 type ButtonProps = {
-  text: string;
+  text?: string;
   primary?: boolean;
   block?: boolean;
   onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
+  type?: 'submit' | 'reset';
 };
 
-const Button: FC<ButtonProps> = props => {
-  const { text, type = 'button' } = props;
-
-  return (
-    <StButton type={type} {...props}>
-      {text}
-    </StButton>
-  );
+const Button: FC<ButtonProps> = ({ text, ...rest }) => {
+  return <StButton {...rest}>{text}</StButton>;
 };
 
 export default Button;

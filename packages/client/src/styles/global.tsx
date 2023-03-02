@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { CSSProperties } from 'react';
 import { createGlobalStyle } from 'styled-components';
+import { variables } from './variables';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -30,4 +31,7 @@ export const StSection = styled.div`
   align-items: center;
 `;
 
-export const linkStyle: CSSProperties = { color: 'white', textAlign: 'center' };
+export const linkStyle: CSSProperties = {
+  color: variables.textLightColor,
+  textAlign: 'center',
+};

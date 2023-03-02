@@ -3,11 +3,12 @@ import { FieldValues } from 'react-hook-form';
 import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType } from 'utils/constants';
-import { StFooter } from 'components/Form/style';
+import { StFormFooter } from 'components/Form/style';
 import { linkStyle } from 'styles/global';
 import Button from 'components/Button';
 import { Link } from 'react-router-dom';
 import Layout from 'components/Layout';
+import { variables } from 'styles/variables';
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
@@ -19,7 +20,7 @@ const LoginPage: FC = () => {
     {
       name: 'first_name',
       label: 'Логин',
-      pattern: ValidationType.Login,
+      pattern: ValidationType.Name,
       required: true,
     },
     {
@@ -35,12 +36,12 @@ const LoginPage: FC = () => {
 
   //TODO после мерджа задачи с роутером "Нет аккаунта?" заменить на Link
   const footer = (
-    <StFooter>
+    <StFormFooter>
       <Button text="Войти" type="submit" primary block />
       <a style={linkStyle}>Нет аккаунта?</a>
       {/*<Link to='/login' style={linkStyle}>Нет аккаунта?</Link>*/}
       <Button text="Яндекс ID" block />
-    </StFooter>
+    </StFormFooter>
   );
 
   return (
@@ -51,7 +52,7 @@ const LoginPage: FC = () => {
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <div style={{ width: 400, color: 'white' }}>
+      <div style={{ width: 400, color: variables.textLightColor }}>
         Lörem ipsum nepisa belingar mikrootrohet vifet. Desk tridade faviliga
         har obeling disyning. Trase nyrad saspelingar. Pidat robotfälla. Igisk
         gusm laligen nyruktiga. Or plaktigt. Mosk etnofas, mara sudins vodat.
