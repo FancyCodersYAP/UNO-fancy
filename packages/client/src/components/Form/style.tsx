@@ -20,9 +20,9 @@ export const StFormSubtitle = styled.div`
 `;
 
 export const StForm = styled.form`
-  width: 350px;
+  width: 400px;
   background-color: ${variables.backgroundColorForm};
-  padding: 40px;
+  padding: 40px 60px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
   box-sizing: border-box;

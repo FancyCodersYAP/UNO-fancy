@@ -13,13 +13,14 @@ export const StButton = styled.button`
       : variables.colorDefaultButton};
   border: 2px solid #acb5bd;
   border-radius: 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
   font-weight: 700;
   text-align: center;
   font-size: 20px;
   padding: 10px;
   width: ${(props: ButtonProps) => (props?.block ? '100%' : 'auto')};
   display: flex;
+  justify-content: center;
 `;
 
 type ButtonProps = {
