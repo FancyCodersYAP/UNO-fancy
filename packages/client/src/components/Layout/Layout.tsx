@@ -2,7 +2,7 @@ import React, { CSSProperties, FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 
-const MainScreenStyle: CSSProperties = {
+const mainScreenStyle: CSSProperties = {
   backgroundImage: 'url(src/assets/img/background.png)',
   backgroundSize: 'cover',
   height: '100vh',
@@ -11,7 +11,7 @@ const MainScreenStyle: CSSProperties = {
   flexDirection: 'column',
 };
 
-const GameScreenStyle: CSSProperties = {};
+const gameScreenStyle: CSSProperties = {};
 
 const StContent = styled.div`
   display: flex;
@@ -24,12 +24,11 @@ const StContent = styled.div`
   flex: 1;
 `;
 
-const Layout: FC<{ children: React.ReactNode; isGameScreen?: boolean }> = ({
-  children,
-  isGameScreen,
-}) => {
+type LayoutProps = { isGameScreen?: boolean };
+
+const Layout: FC<LayoutProps> = ({ children, isGameScreen }) => {
   return (
-    <div style={isGameScreen ? GameScreenStyle : MainScreenStyle}>
+    <div style={isGameScreen ? gameScreenStyle : mainScreenStyle}>
       <Header />
       <StContent>{children}</StContent>
     </div>

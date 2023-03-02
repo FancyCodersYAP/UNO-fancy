@@ -13,9 +13,15 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   pattern?: ValidationType;
 }
 
-const Input: FC<InputProps> = props => {
-  const { name, label, register, required, error, errorMessage, pattern } =
-    props;
+const Input: FC<InputProps> = ({
+  name,
+  label,
+  register,
+  required,
+  error,
+  errorMessage,
+  pattern,
+}) => {
   const options = {
     ...(required && { required: 'Поле не может быть пустым' }),
     ...(pattern && { pattern: ValidationPattern[pattern] }),

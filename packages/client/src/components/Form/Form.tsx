@@ -13,8 +13,13 @@ type FormProps = {
   handleFormSubmit: (data: FieldValues | LoginFormParams) => Promise<any>;
 };
 
-const Form: FC<FormProps> = props => {
-  const { title, subtitle, handleFormSubmit, footer, fields } = props;
+const Form: FC<FormProps> = ({
+  title,
+  subtitle,
+  handleFormSubmit,
+  footer,
+  fields,
+}) => {
   const {
     register,
     formState: { errors },
@@ -30,20 +35,18 @@ const Form: FC<FormProps> = props => {
         </StFormTitle>
       )}
 
-      {fields.map(item => {
-        return (
-          <Input
-            key={`input-${item.name}`}
-            register={register}
-            error={Boolean(errors[item.name]?.message)}
-            errorMessage={errors[item.name]?.message?.toString()}
-            pattern={item.pattern}
-            name={item.name}
-            required={item.required}
-            label={item.label}
-          />
-        );
-      })}
+      {fields.map(({ name, pattern, required, label }) => (
+        <Input
+          key={`input-${name}`}
+          register={register}
+          error={!!errors[name]?.message}
+          errorMessage={errors[name]?.message?.toString()}
+          pattern={pattern}
+          name={name}
+          required={required}
+          label={label}
+        />
+      ))}
       {footer}
     </StForm>
   );

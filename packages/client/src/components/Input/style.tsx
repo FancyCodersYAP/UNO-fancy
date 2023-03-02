@@ -1,4 +1,5 @@
-import styled from 'styled-components';;
+import styled from 'styled-components';
+import { variables } from 'styles/variables';
 
 export const StInputContainer = styled.div`
   height: 50px;
@@ -7,7 +8,7 @@ export const StInputContainer = styled.div`
   margin-bottom: 50px;
 `;
 export const StInput = styled.input`
-  background-color: #D9D9D9;
+  background-color: ${variables.inputBackgroundColor};
   border-radius: 20px;
   box-sizing: border-box;
   border: 0;
@@ -21,22 +22,23 @@ export const StInput = styled.input`
   &:not(:placeholder-shown) ~ label,
   :focus ~ label {
     transform: translateY(-15px) translateX(10px) scale(0.75);
-    color: #80373775;
+    color: ${variables.placeholderColor};
   }
 
   &:focus ~ label {
-    color: #dc2f55;
+    color: ${variables.inputActiveLableColor};
   }
 `;
 
 export const StError = styled.div`
-  color: white;
+  color: ${variables.textLightColor};
   padding: 5px;
   font-size: 12px;
+  line-height: 1.2;
 `;
 
 export const StLabel = styled.label`
-  color: #80373775;
+  color: ${variables.placeholderColor};
   left: 20px;
   line-height: 14px;
   pointer-events: none;
