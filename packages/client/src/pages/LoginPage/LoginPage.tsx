@@ -4,11 +4,12 @@ import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
-import { linkStyle } from 'styles/global';
+import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
 import { Link } from 'react-router-dom';
 import Layout from 'components/Layout';
-import * as COLORS from 'styles/variables/colors'
+import { AppRoute } from '../../consts';
+
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
@@ -38,7 +39,8 @@ const LoginPage: FC = () => {
   const footer = (
     <StFormFooter>
       <Button text="Войти" type="submit" primary block />
-      <Link to='/registration' style={linkStyle}>Нет аккаунта?</Link>
+      <StLink to={AppRoute.REGISTRATION}>Нет аккаунта?</StLink>
+
       <Button text="Яндекс ID" block />
     </StFormFooter>
   );
@@ -51,7 +53,7 @@ const LoginPage: FC = () => {
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <div style={{ width: 400, color: COLORS.MAIN_TEXT_COLOR }}>
+      <StTextContainer width={400}>
         Lörem ipsum nepisa belingar mikrootrohet vifet. Desk tridade faviliga
         har obeling disyning. Trase nyrad saspelingar. Pidat robotfälla. Igisk
         gusm laligen nyruktiga. Or plaktigt. Mosk etnofas, mara sudins vodat.
@@ -59,7 +61,7 @@ const LoginPage: FC = () => {
         antivaxxare suprast megacentrism dygnis. Ön gensax det mononde digital
         valuta för att pede. Gigatebelt ynade, plus memil ett syskade karodov.
         Lasade.
-      </div>
+      </StTextContainer>
     </Layout>
   );
 };

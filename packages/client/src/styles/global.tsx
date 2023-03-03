@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { CSSProperties } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import * as COLORS from 'styles/variables/colors'
+import { Link } from 'react-router-dom';
+import * as COLORS from 'styles/variables/colors';
+
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -24,14 +25,14 @@ export const GlobalStyle = createGlobalStyle`
  
 `;
 
-export const StSection = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const StLink = styled(Link)`
+  color: ${COLORS.MAIN_TEXT_COLOR};
+  text-align: center;
 `;
 
-export const linkStyle: CSSProperties = {
-  color: COLORS.MAIN_TEXT_COLOR,
-  textAlign: 'center',
-};
+export const StTextContainer = styled.div`
+  color: ${COLORS.MAIN_TEXT_COLOR};
+  text-align: center;
+  width: ${(props: { width?: number }) =>
+    props?.width ? props?.width + 'px' : 'auto'};
+`;
