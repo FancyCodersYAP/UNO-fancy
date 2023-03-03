@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { variables } from 'styles/variables';
 import styled from 'styled-components';
+import * as COLORS from 'styles/variables/colors';
 
 const StLogo = styled.img`
   height: 100%;
@@ -23,7 +23,7 @@ const StHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: ${variables.textLightColor};
+  color: ${COLORS.MAIN_TEXT_COLOR};
   padding: 20px;
 `;
 

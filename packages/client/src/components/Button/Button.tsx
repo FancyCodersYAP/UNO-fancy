@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { variables } from 'styles/variables';
+import * as COLORS from 'styles/variables/colors'
 
 export const StButton = styled.button`
   background: ${(props: ButtonProps) =>
     props?.primary
-      ? variables.backgroundColorPrimaryButton
-      : variables.backgroundColorDefaultButton};
+      ? COLORS.PRIMARY_ELEMENT_COLOR
+      : COLORS.PRIMARY_PREVIEW_COLOR};
   color: ${(props: ButtonProps) =>
     props?.primary
-      ? variables.colorPrimaryButton
-      : variables.colorDefaultButton};
+      ? COLORS.MAIN_TEXT_COLOR
+      : COLORS.SECONDARY_ELEMENT_COLOR};
   border: 2px solid #acb5bd;
   border-radius: 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
   font-weight: 700;
   text-align: center;
   font-size: 20px;

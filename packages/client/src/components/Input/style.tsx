@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { variables } from 'styles/variables';
+import * as COLORS from 'styles/variables/colors'
 
 export const StInputContainer = styled.div`
   height: 50px;
@@ -8,7 +8,7 @@ export const StInputContainer = styled.div`
   margin-bottom: 50px;
 `;
 export const StInput = styled.input`
-  background-color: ${variables.inputBackgroundColor};
+  background-color: ${COLORS.GREY_1};
   border-radius: 20px;
   box-sizing: border-box;
   border: 0;
@@ -22,23 +22,23 @@ export const StInput = styled.input`
   &:not(:placeholder-shown) ~ label,
   :focus ~ label {
     transform: translateY(-15px) translateX(10px) scale(0.75);
-    color: ${variables.placeholderColor};
+    color: ${COLORS.ALTERNATE_TEXT_COLOR};
   }
 
   &:focus ~ label {
-    color: ${variables.inputActiveLableColor};
+    color: ${COLORS.RED};
   }
 `;
 
 export const StError = styled.div`
-  color: ${variables.textLightColor};
+  color: ${COLORS.MAIN_TEXT_COLOR};
   padding: 5px;
   font-size: 12px;
   line-height: 1.2;
 `;
 
 export const StLabel = styled.label`
-  color: ${variables.placeholderColor};
+  color: ${COLORS.ALTERNATE_TEXT_COLOR};
   left: 20px;
   line-height: 14px;
   pointer-events: none;

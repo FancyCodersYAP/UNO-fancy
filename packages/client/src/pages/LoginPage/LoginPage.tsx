@@ -7,6 +7,7 @@ import { StFormFooter } from 'components/Form/style';
 import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
 import Layout from 'components/Layout';
+import { AppRoute } from '../../consts';
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
@@ -32,11 +33,10 @@ const LoginPage: FC = () => {
     console.log(data);
   };
 
-  //TODO после мерджа задачи с роутером добавить "Нет аккаунта?"
   const footer = (
     <StFormFooter>
       <Button text="Войти" type="submit" primary block />
-      {/*<StLink to='/login' >Нет аккаунта?</StLink>*/}
+      <StLink to={AppRoute.REGISTRATION}>Нет аккаунта?</StLink>
       <Button text="Яндекс ID" block />
     </StFormFooter>
   );
