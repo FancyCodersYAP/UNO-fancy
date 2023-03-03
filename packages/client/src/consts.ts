@@ -8,3 +8,8 @@ export const AppRoute = {
   FORUM: `/forum`,
   NOT_FOUND_PAGE: `*`,
 }
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+}
