@@ -1,59 +1,54 @@
-import { Card } from './Card';
-import { CANVAS_HEIGHT, margin, xArray, BASE_HEIGHT_CARD } from '../utils/constants';
-import { CardType } from '../types';
+import {
+  xHorizontalArray,
+  yBottomArray,
+  fronCardsCoords,
+  xCenter,
+  CANVAS_HEIGHT,
+  margin,
+  BASE_HEIGHT_CARD
+} from '../utils/constants';
+import { Entity } from './Entity';
 
-export class FrontCards {
-  handle: Card[] = [];
-  y = 0;
-
-  cards: CardType[];
-  context: CanvasRenderingContext2D;
-
-  constructor(cards: CardType[], context: CanvasRenderingContext2D) {
-    this.cards = cards;
-    this.context = context;
-  }
-
-  init() {
-    this.y = CANVAS_HEIGHT - BASE_HEIGHT_CARD - margin;
-
-    for (let i = 0; i < xArray.length; i++) {
-        const x = xArray[i];
-        this.handle[i] = new Card(x, this.y, this.cards[i], this.context);
-    }
-  }
-
-  draw() {
-    for (let i = 0; i < this.handle.length; i++) {
-        this.handle[i].draw();
-    }
+export class FrontCards extends Entity {
+  constructor(context: CanvasRenderingContext2D) {
+    super(context);
+    
+    this.xArr = xHorizontalArray;
+    this.yArr = yBottomArray;
+    this.bubbleCoords = [xCenter - 50, CANVAS_HEIGHT - margin - BASE_HEIGHT_CARD - 20 - 5];
   }
 
   clear() {
-    this.context.clearRect(10, 450, 1000, 750);
+    this.context.clearRect(
+      fronCardsCoords[0],
+      fronCardsCoords[1],
+      fronCardsCoords[2],
+      fronCardsCoords[3]
+    );
   }
 
-  removeCard(card: CardType) {
-    const removedCard = this.handle.find(c => c.id === card.id);
-    this.handle = this.handle.filter(c => c.id !== card.id);
-    // this.moveCard(removedCard!);
-    this.clear();
-    console.log(this.handle);
-    
-    for (let i = 0; i < this.handle.length; i++) {
-      const x = xArray[i];
-      this.handle[i].draw(x , this.y);
-    }
-  }
+  // drawSvg() {
+  //   const data = '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="150">' +
+  //   '<foreignObject width="100%" height="100%">' +
+  //   '<div xmlns="http://www.w3.org/1999/xhtml" style="background-color: green; font-size:40px; width: 100%; height: 100%">' +
+  //     '<span style="color:white">' +
+  //     '1</span>' +
+  //   '</div>' +
+  //   '</foreignObject>' +
+  //   '</svg>';
 
-  addCard(card: CardType) {
-    const x = xArray[this.handle.length];
+  //   const DOMURL = window.URL || window.webkitURL || window;
 
-    const newCard = new Card(x, this.y, card, this.context)
-    this.handle.push(newCard);
-  }
+  //   const img = new Image();
+  //   const svg = new Blob([data], {type: 'image/svg+xml'});
+  //   const url = DOMURL.createObjectURL(svg);
+  //   const ctx = this.context;
 
-  moveCard(card: Card) {
-    card.move();
-  }
+  //   img.onload = function() {
+  //     ctx.drawImage(img, 0, 0);
+  //     DOMURL.revokeObjectURL(url);
+  //   }
+
+  //   img.src = url;
+  // }
 }

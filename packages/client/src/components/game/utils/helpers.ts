@@ -1,4 +1,4 @@
-import { CardType } from "../types";
+import { CardType } from '../types';
 
 export function shuffle(array: CardType[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -7,4 +7,10 @@ export function shuffle(array: CardType[]) {
   }
 
   return array;
+}
+
+export function sleep(fn: () => void) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(fn()), 1500);
+  });
 }
