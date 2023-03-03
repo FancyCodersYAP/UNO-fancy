@@ -1,34 +1,37 @@
-import { Card } from "../entities/Card";
-import { CardType, PlayerType } from "../types";
-import { Game } from "./game";
+import { PlayerType } from '../types';
+import { Game } from './game';
 
 class Controller {
-  game: Game | null = null;
+  game!: Game;
 
   initGame(context: CanvasRenderingContext2D) {
     this.game = new Game(context);
     this.game.init();
   }
 
-  startGame(player: PlayerType) {
-    this.game!.addPlayer(player);
-    this.game!.addBot();
+  startGame(playersNum: number, playerData: PlayerType) {
+    this.game.setPlayersNum(playersNum);
 
-    this.game!.start();
+    this.game.addPlayer(playerData);
+
+    for (let i = 0; i < playersNum - 1; i++) {
+      this.game.addBot();
+    }
+
+    this.game.start();
   }
 
   move(clickPos: Record<string, number>) {
-    this.game!.playerMove(clickPos);
+    this.game.checkPosiibilityOfAction(clickPos);
   }
 
-  onStart(callback: (playerId: number, players: PlayerType[], tablePack: Card[], openCard: Card, curPlayer: number) => void) {
-    this.game!.on('start', callback);
-    return () => this.game!.off('start', callback);
+  unoClick() {
+    this.game.unoCkick();
   }
 
-  onGame(callback: (activePlayer: number, nextPlayer: number, openCard: CardType, tablePack: CardType[], playerId: number, card: CardType) => void) {
-    this.game!.on('game', callback);
-    return () => this.game!.off('game', callback);
+  onFinish(callback: () => void) {
+    this.game.on('finish', callback);
+    return () => this.game.off('finish', callback);
   }
 }
 

@@ -1,56 +1,21 @@
-import { Card } from './Card';
-import { margin, xArray } from '../utils/constants';
-import { CardType } from '../types';
+import { xHorizontalArray, yTopArray, topCardsCoors, xCenter, BASE_HEIGHT_CARD, margin } from '../utils/constants';
+import { Entity } from './Entity';
 
-export class TopCards {
-  handle: Card[] = [];
-  y = margin;
+export class TopCards extends Entity {
+  constructor(context: CanvasRenderingContext2D) {
+    super(context);
 
-  cards: CardType[];
-  context: CanvasRenderingContext2D;
-
-  constructor(cards: CardType[], context: CanvasRenderingContext2D) {
-      this.cards = cards;
-      this.context = context;
-  }
-
-  init() {
-      for (let i = 0; i < xArray.length; i++) {
-          const x = xArray[i];
-          this.handle[i] = new Card(x, this.y, this.cards[i], this.context);
-      }
-  }
-
-  draw() {
-      for (let i = 0; i < this.handle.length; i++) {
-          this.handle[i].draw();
-      }
+    this.xArr = xHorizontalArray;
+    this.yArr = yTopArray;
+    this.bubbleCoords = [xCenter - 50, BASE_HEIGHT_CARD + margin + 5];
   }
 
   clear() {
-    this.context.clearRect(10, 10, 1000, 150);
-  }
-
-  removeCard(card: CardType) {
-    const removedCard = this.handle.find(c => c.id === card.id);
-    this.handle = this.handle.filter(c => c.id !== card.id);
-    // this.moveCard(removedCard!);
-    this.clear();
-    
-    for (let i = 0; i < this.handle.length; i++) {
-      const x = xArray[i];
-      this.handle[i].draw(x , this.y);
-    }
-  }
-
-  addCard(card: CardType) {
-    const x = xArray[this.handle.length];
-
-    const newCard = new Card(x, this.y, card, this.context)
-    this.handle.push(newCard);
-  }
-
-  moveCard(card: Card) {
-    card.move();
+    this.context.clearRect(
+      topCardsCoors[0],
+      topCardsCoors[1],
+      topCardsCoors[2],
+      topCardsCoors[3]
+    );
   }
 }
