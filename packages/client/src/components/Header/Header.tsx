@@ -13,7 +13,7 @@ const Logo: FC<{ size?: number }> = ({ size = 60 }) => {
       style={{
         height: size,
       }}>
-      <StLogo src="src/assets/img/logo.png" />
+      <img style={logoStyle} src="src/assets/img/logo.png" />
     </div>
   );
 };
