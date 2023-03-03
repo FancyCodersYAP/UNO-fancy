@@ -20,6 +20,7 @@ export const StButton = styled.button`
   padding: 10px;
   width: ${(props: ButtonProps) => (props?.block ? '100%' : 'auto')};
   display: flex;
+  justify-content: center;
 `;
 
 type ButtonProps = {

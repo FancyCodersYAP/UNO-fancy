@@ -1,17 +1,17 @@
-import React, { CSSProperties, FC } from 'react';
+import React, { FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 
-const mainScreenStyle: CSSProperties = {
-  backgroundImage: 'url(src/assets/img/background.png)',
-  backgroundSize: 'cover',
-  height: '100vh',
-  overflow: 'auto',
-  display: 'flex',
-  flexDirection: 'column',
-};
+const StGameScreen = styled.div``;
 
-const gameScreenStyle: CSSProperties = {};
+const StMainScreen = styled.div`
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  overflow: auto;
+  background-image: url('src/assets/img/background.png');
+  background-size: cover;
+`;
 
 const StContent = styled.div`
   display: flex;
@@ -24,14 +24,22 @@ const StContent = styled.div`
   flex: 1;
 `;
 
-type LayoutProps = { isGameScreen?: boolean };
+type LayoutProps = { children: React.ReactNode; isGameScreen?: boolean };
 
 const Layout: FC<LayoutProps> = ({ children, isGameScreen }) => {
+  if (isGameScreen) {
+    return (
+      <StGameScreen>
+        <Header />
+        <StContent>{children}</StContent>
+      </StGameScreen>
+    );
+  }
   return (
-    <div style={isGameScreen ? gameScreenStyle : mainScreenStyle}>
+    <StMainScreen>
       <Header />
       <StContent>{children}</StContent>
-    </div>
+    </StMainScreen>
   );
 };
 
