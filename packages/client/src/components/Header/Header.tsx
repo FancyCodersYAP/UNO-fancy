@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import * as COLORS from 'styles/variables/colors';
 
+
 const StLogo = styled.img`
   height: 100%;
   transform: rotate(340deg);
@@ -26,6 +27,7 @@ const StHeader = styled.div`
   color: ${COLORS.MAIN_TEXT_COLOR};
   padding: 20px;
 `;
+
 
 const Header: FC = () => {
   return (

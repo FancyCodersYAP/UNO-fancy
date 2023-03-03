@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import { Link } from 'react-router-dom';
 import * as COLORS from 'styles/variables/colors';
 
+
 export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;

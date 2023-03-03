@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { AppRoute } from '../../consts';
 
+
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
   password?: string;
@@ -39,6 +40,7 @@ const LoginPage: FC = () => {
     <StFormFooter>
       <Button text="Войти" type="submit" primary block />
       <StLink to={AppRoute.REGISTRATION}>Нет аккаунта?</StLink>
+
       <Button text="Яндекс ID" block />
     </StFormFooter>
   );
