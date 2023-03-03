@@ -4,11 +4,9 @@ import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
-import { linkStyle } from 'styles/global';
+import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
-import { Link } from 'react-router-dom';
 import Layout from 'components/Layout';
-import { variables } from 'styles/variables';
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
@@ -34,12 +32,11 @@ const LoginPage: FC = () => {
     console.log(data);
   };
 
-  //TODO после мерджа задачи с роутером "Нет аккаунта?" заменить на Link
+  //TODO после мерджа задачи с роутером добавить "Нет аккаунта?"
   const footer = (
     <StFormFooter>
       <Button text="Войти" type="submit" primary block />
-      <a style={linkStyle}>Нет аккаунта?</a>
-      {/*<Link to='/login' style={linkStyle}>Нет аккаунта?</Link>*/}
+      {/*<StLink to='/login' >Нет аккаунта?</StLink>*/}
       <Button text="Яндекс ID" block />
     </StFormFooter>
   );
@@ -52,7 +49,7 @@ const LoginPage: FC = () => {
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <div style={{ width: 400, color: variables.textLightColor }}>
+      <StTextContainer width={400}>
         Lörem ipsum nepisa belingar mikrootrohet vifet. Desk tridade faviliga
         har obeling disyning. Trase nyrad saspelingar. Pidat robotfälla. Igisk
         gusm laligen nyruktiga. Or plaktigt. Mosk etnofas, mara sudins vodat.
@@ -60,7 +57,7 @@ const LoginPage: FC = () => {
         antivaxxare suprast megacentrism dygnis. Ön gensax det mononde digital
         valuta för att pede. Gigatebelt ynade, plus memil ett syskade karodov.
         Lasade.
-      </div>
+      </StTextContainer>
     </Layout>
   );
 };
