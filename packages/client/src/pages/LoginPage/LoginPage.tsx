@@ -8,7 +8,7 @@ import { linkStyle } from 'styles/global';
 import Button from 'components/Button';
 import { Link } from 'react-router-dom';
 import Layout from 'components/Layout';
-import { variables } from 'styles/variables';
+import * as COLORS from 'styles/variables/colors'
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
@@ -51,7 +51,7 @@ const LoginPage: FC = () => {
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <div style={{ width: 400, color: variables.textLightColor }}>
+      <div style={{ width: 400, color: COLORS.MAIN_TEXT_COLOR }}>
         Lörem ipsum nepisa belingar mikrootrohet vifet. Desk tridade faviliga
         har obeling disyning. Trase nyrad saspelingar. Pidat robotfälla. Igisk
         gusm laligen nyruktiga. Or plaktigt. Mosk etnofas, mara sudins vodat.

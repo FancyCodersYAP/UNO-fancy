@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { CSSProperties } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { variables } from './variables';
+import * as COLORS from 'styles/variables/colors'
 
 export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: Open-Sans, Helvetica, Sans-Serif;
+    font-family: Open-Sans, Helvetica, Sans-Serif,serif;
   }
   * {
       box-sizing: border-box;
@@ -32,6 +32,6 @@ export const StSection = styled.div`
 `;
 
 export const linkStyle: CSSProperties = {
-  color: variables.textLightColor,
+  color: COLORS.MAIN_TEXT_COLOR,
   textAlign: 'center',
 };

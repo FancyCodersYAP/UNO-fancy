@@ -1,5 +1,5 @@
 import React, { CSSProperties, FC } from 'react';
-import { variables } from 'styles/variables';
+import * as COLORS from 'styles/variables/colors'
 
 const logoStyle: CSSProperties = {
   height: '100%',
@@ -22,7 +22,7 @@ const headerStyle: CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  color: variables.textLightColor,
+  color: COLORS.MAIN_TEXT_COLOR,
   padding: 20,
 };
 
