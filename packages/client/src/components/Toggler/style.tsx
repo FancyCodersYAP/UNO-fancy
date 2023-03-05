@@ -54,7 +54,6 @@ export const StToggleControl = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  box-sizing: border-box;
   width: 3.25em;
   height: 1.75em;
   border: 1px solid ${COLORS.GREY_3};
@@ -64,7 +63,6 @@ export const StToggleControl = styled.div`
 `;
 
 export const StToggleIcon = styled.div`
-  box-sizing: border-box;
   position: relative;
   border-radius: 1em;
   width: 1.5em;

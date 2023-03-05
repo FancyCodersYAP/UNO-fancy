@@ -31,16 +31,15 @@ const StHeader = styled.div`
 type HeaderProp = {
   themeChange: () => void;
 };
-const Header: FC<HeaderProp> = props => {
-  const { themeChange } = props;
-  return (
-    <StHeader>
-      <Logo />
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        Меню <Toggler onChange={themeChange} {...props} />
-      </div>
-    </StHeader>
-  );
-};
+const Header: FC<HeaderProp> = (
+  { themeChange, ...rest } //todo поменять div на StMenu
+) => (
+  <StHeader>
+    <Logo />
+    <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+      Меню <Toggler onChange={themeChange} {...rest} />
+    </div>
+  </StHeader>
+);
 
 export default Header;

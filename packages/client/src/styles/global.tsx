@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as COLORS from 'styles/variables/colors-theme-light';
 
 export const GlobalStyle = createGlobalStyle`
   body {
