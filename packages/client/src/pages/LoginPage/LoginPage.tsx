@@ -16,6 +16,7 @@ export interface LoginFormParams extends FieldValues {
 
 type LoginPageProps = {
   themeChange: () => void;
+  themeTogglerState: boolean;
 };
 const LoginPage: FC<LoginPageProps> = props => {
   const loginConfig: FormConfigType[] = [

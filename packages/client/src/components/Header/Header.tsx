@@ -37,7 +37,7 @@ const Header: FC<HeaderProp> = props => {
     <StHeader>
       <Logo />
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        Меню <Toggler onChange={themeChange} />
+        Меню <Toggler onChange={themeChange} {...props} />
       </div>
     </StHeader>
   );

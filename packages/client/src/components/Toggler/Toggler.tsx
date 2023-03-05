@@ -10,12 +10,18 @@ import {
 
 type TogglerProp = {
   onChange: () => void;
+  themeTogglerState?: boolean;
 };
 
-const Toggler: FC<TogglerProp> = ({ onChange }) => {
+const Toggler: FC<TogglerProp> = ({ onChange, themeTogglerState }) => {
   return (
     <StToggleLabel className="toggle toggle_main-page">
-      <StToggle onChange={onChange} type="checkbox" className="toggle__input" />
+      <StToggle
+        onChange={onChange}
+        type="checkbox"
+        className="toggle__input"
+        checked={themeTogglerState}
+      />
       <StToggleThemeIcon className="toggle__theme-icon toggle__theme-icon_sun">
         <use href="src/assets/icons/icons_sprite.svg#theme-toggle-sun"></use>
       </StToggleThemeIcon>
