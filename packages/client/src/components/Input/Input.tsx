@@ -21,16 +21,14 @@ const Input: FC<InputProps> = ({
   error,
   errorMessage,
   pattern,
-  ...props
 }) => {
   const options = {
     ...(required && { required: 'Поле не может быть пустым' }),
     ...(pattern && { pattern: ValidationPattern[pattern] }),
-    ...props,
   };
   return (
     <StInputContainer>
-      <StInput {...props} {...register(name, options)} placeholder=" " />
+      <StInput {...register(name, options)} placeholder=" " />
       <StLabel>{label}</StLabel>
       {error && <StError>{errorMessage}</StError>}
     </StInputContainer>
