@@ -108,7 +108,6 @@ export class Entity {
   }
 
   showBubble(text: string) {
-    console.log(window.innerHeight);
     const div = document.createElement('div');
     div.style.position = 'absolute';
     div.style.width = '80px';

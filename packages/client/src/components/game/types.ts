@@ -1,7 +1,8 @@
 export type CardType = {
   id?: number;
-  digit?: string;
+  sign?: string;
   color?: string;
+  action?: string;
 };
 
 export type PlayerType = {
