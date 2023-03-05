@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from './consts';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import './App.css';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   useEffect(() => {
@@ -23,10 +24,7 @@ function App() {
           path={AppRoute.MAIN}
           //element={<MainPage />} Главаная страница
         />
-        <Route
-          path={AppRoute.LOGIN}
-          //element={<LoginPage />} Страница авторизации
-        />
+        <Route path={AppRoute.LOGIN} element={<LoginPage />} />
         <Route
           path={AppRoute.REGISTRATION}
           // element={<RegistrationPage/>} Страница регистрации
@@ -46,9 +44,7 @@ function App() {
         <Route
           path={AppRoute.GAME}
           element={
-            <PrivateRoute>
-              {/* <GamePage/> Страница игры */}
-            </PrivateRoute>
+            <PrivateRoute>{/* <GamePage/> Страница игры */}</PrivateRoute>
           }
         />
         <Route
@@ -61,7 +57,7 @@ function App() {
         />
       </Routes>
     </div>
-  )
+  );
 }
 
 export default App;
