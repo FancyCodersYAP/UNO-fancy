@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 
-const StGameScreen = styled.div``;
-
 const StMainScreen = styled.div`
   display: flex;
   height: 100vh;
@@ -25,19 +23,10 @@ const StContent = styled.div`
 `;
 
 type LayoutProps = {
-  isGameScreen?: boolean;
   children: React.ReactNode;
 };
 
-const Layout: FC<LayoutProps> = ({ children, isGameScreen }) => {
-  if (isGameScreen) {
-    return (
-      <StGameScreen>
-        <Header />
-        <StContent>{children}</StContent>
-      </StGameScreen>
-    );
-  }
+const MainLayout: FC<LayoutProps> = ({ children }) => {
   return (
     <StMainScreen>
       <Header />
@@ -46,4 +35,4 @@ const Layout: FC<LayoutProps> = ({ children, isGameScreen }) => {
   );
 };
 
-export default Layout;
+export default MainLayout;
