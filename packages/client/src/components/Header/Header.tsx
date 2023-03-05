@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import * as COLORS from 'styles/variables/colors';
+import * as COLORS from 'styles/variables/colors-theme-light';
+import Toggler from '../Toggler';
 
 const StLogo = styled.img`
   height: 100%;
@@ -27,11 +28,17 @@ const StHeader = styled.div`
   padding: 20px;
 `;
 
-const Header: FC = () => {
+type HeaderProp = {
+  themeChange: () => void;
+};
+const Header: FC<HeaderProp> = props => {
+  const { themeChange } = props;
   return (
     <StHeader>
       <Logo />
-      <div>Меню</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        Меню <Toggler onChange={themeChange} />
+      </div>
     </StHeader>
   );
 };

@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import * as COLORS from 'styles/variables/colors'
-
+import { COLORS } from '../../styles/variables/types';
 export const StButton = styled.button`
   background: ${(props: ButtonProps) =>
     props?.primary
-      ? COLORS.PRIMARY_ELEMENT_COLOR
-      : COLORS.PRIMARY_PREVIEW_COLOR};
+      ? props.theme?.PRIMARY_ELEMENT_COLOR
+      : props.theme?.PRIMARY_PREVIEW_COLOR};
   color: ${(props: ButtonProps) =>
     props?.primary
-      ? COLORS.MAIN_TEXT_COLOR
-      : COLORS.SECONDARY_ELEMENT_COLOR};
+      ? props.theme?.MAIN_TEXT_COLOR
+      : props.theme?.SECONDARY_ELEMENT_COLOR};
   border: 2px solid #acb5bd;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
@@ -29,6 +28,7 @@ type ButtonProps = {
   block?: boolean;
   onClick?: () => void;
   type?: 'submit' | 'reset';
+  theme?: COLORS;
 };
 
 const Button: FC<ButtonProps> = ({ text, ...rest }) => {

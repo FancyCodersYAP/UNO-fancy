@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import * as COLORS from 'styles/variables/colors'
+import * as COLORS from 'styles/variables/colors-theme-light';
 
 export const StFormTitle = styled.div`
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.MAIN_TEXT_COLOR};
   font-size: 26px;
   font-weight: 600;
   text-align: center;
@@ -11,7 +11,7 @@ export const StFormTitle = styled.div`
 `;
 
 export const StFormSubtitle = styled.div`
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.MAIN_TEXT_COLOR};
   font-size: 18px;
   font-weight: 600;
   text-align: center;
@@ -21,7 +21,7 @@ export const StFormSubtitle = styled.div`
 
 export const StForm = styled.form`
   width: 400px;
-  background-color: ${COLORS.PRIMARY_PREVIEW_COLOR};
+  background-color: ${props => props?.theme.PRIMARY_PREVIEW_COLOR};
   padding: 40px 60px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
