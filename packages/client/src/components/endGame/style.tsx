@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { MAIN_TEXT_COLOR } from 'styles/variables/colors';
+import * as COLORS from 'styles/variables/colors';
 
 export const StEndGame = styled.section`
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${COLORS.BLACK_OPACITY_05};
   width: 100vw;
   height: 100vh;
   position: relative;
 `;
 
 export const StEndGameWrapper = styled.div`
-  background-color: #d6a13b;
+  background-color: ${COLORS.BACKGROUND_LAYOUT_COLOR};
   border-radius: 20px;
   position: absolute;
   top: 50%;
@@ -20,7 +20,7 @@ export const StEndGameWrapper = styled.div`
 `;
 
 export const StEndGameTitle = styled.h3`
-  color: ${MAIN_TEXT_COLOR};
+  color: ${COLORS.MAIN_TEXT_COLOR};
   font-size: 26px;
   font-weight: 600;
   text-align: center;

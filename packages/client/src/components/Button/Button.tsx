@@ -22,6 +22,13 @@ export const StButton = styled.button`
   display: flex;
   justify-content: center;
   cursor: pointer;
+
+  &:hover {
+    background: ${(props: ButtonProps) =>
+    props?.primary
+      ? COLORS.DARK_BLUE
+      : COLORS.PRIMARY_PREVIEW_COLOR};
+  }
 `;
 
 type ButtonProps = {
