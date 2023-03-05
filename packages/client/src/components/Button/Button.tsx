@@ -21,6 +21,14 @@ export const StButton = styled.button`
   width: ${(props: ButtonProps) => (props?.block ? '100%' : 'auto')};
   display: flex;
   justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background: ${(props: ButtonProps) =>
+    props?.primary
+      ? COLORS.DARK_BLUE
+      : COLORS.PRIMARY_PREVIEW_COLOR};
+  }
 `;
 
 type ButtonProps = {
