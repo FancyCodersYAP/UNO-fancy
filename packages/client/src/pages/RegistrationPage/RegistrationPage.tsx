@@ -6,19 +6,42 @@ import { ValidationType, AppRoute } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
-import { MainLayout } from 'components/Layout';
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
   password?: string;
 }
 
-const LoginPage: FC = () => {
+const RegistrationPage: FC = () => {
   const loginConfig: FormConfigType[] = [
     {
       name: 'login',
       label: 'Логин',
       pattern: ValidationType.Login,
+      required: true,
+    },
+    {
+      name: 'first_name',
+      label: 'Имя',
+      pattern: ValidationType.Name,
+      required: true,
+    },
+    {
+      name: 'second_name',
+      label: 'Фамилия',
+      pattern: ValidationType.Name,
+      required: true,
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      pattern: ValidationType.Email,
+      required: true,
+    },
+    {
+      name: 'phone',
+      label: 'Телефон',
+      pattern: ValidationType.Phone,
       required: true,
     },
     {
@@ -34,16 +57,15 @@ const LoginPage: FC = () => {
 
   const footer = (
     <StFormFooter>
-      <Button text="Войти" type="submit" primary block />
-      <StLink to={AppRoute.REGISTRATION}>Нет аккаунта?</StLink>
-      <Button text="Яндекс ID" block />
+      <Button text="Зарегистрироваться" type="submit" primary block />
+      <StLink to={AppRoute.LOGIN}>Есть аккаунт?</StLink>
     </StFormFooter>
   );
 
   return (
     <>
       <Form
-        title="Вход"
+        title="Регистрация"
         fields={loginConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
@@ -60,4 +82,4 @@ const LoginPage: FC = () => {
     </>
   );
 };
-export default LoginPage;
+export default RegistrationPage;
