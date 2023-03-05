@@ -38,7 +38,7 @@ function App() {
 
   const [selectedTheme, setSelectedTheme] = useState(themeDefault);
 
-  const HandleThemeChange = () => {
+  const handleThemeChange = () => {
     const theme = themeArr.filter(elem => elem !== selectedTheme)[0];
     setSelectedTheme(theme);
     localStgMethodsObj.addValue(theme.name);
@@ -56,7 +56,7 @@ function App() {
             path={AppRoute.LOGIN}
             element={
               <LoginPage
-                themeChange={HandleThemeChange}
+                themeChange={handleThemeChange}
                 themeTogglerState={themeTogglerState} //TODO после выноса Layout в App переделать проброс пропсов до Toggler
               />
             }
