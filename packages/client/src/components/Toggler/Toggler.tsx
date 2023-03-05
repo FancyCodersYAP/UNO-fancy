@@ -12,7 +12,7 @@ type TogglerProp = {
   onChange: () => void;
   themeTogglerState?: boolean;
 };
-
+//TODO добавить функционал проверки пропсов для переиспользования элемента в других местах
 const Toggler: FC<TogglerProp> = ({ onChange, themeTogglerState }) => {
   return (
     <StToggleLabel className="toggle toggle_main-page">

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as COLORS from '../../styles/variables/colors-const';
 
 export const StToggleLabel = styled.label`
   display: inline-flex;
@@ -15,29 +16,31 @@ export const StToggle = styled.input`
 
   :checked {
     & ~ .toggle__state .toggle__control {
-      background: #4263ebff;
-      border: 1px solid #4263ebff;
+      background-color: ${COLORS.BLUE_COLOR};
+      border: 1px solid ${COLORS.BLUE_COLOR};
       align-items: center;
     }
 
     & ~ .toggle__state .toggle__icon {
-      background: #ffff;
+      background: ${COLORS.WHITE_COLOR};
       left: 1.625em;
     }
 
     & ~ .toggle__theme-icon_moon {
-      color: #ffff;
+      color: ${COLORS.WHITE_COLOR};
     }
 
     & ~ .toggle__theme-icon_sun {
-      color: #bdacaf;
+      color: ${COLORS.GREY_2};
     }
   }
+
   :focus ~ .toggle__state .toggle__title {
     text-decoration: underline;
   }
+
   & ~ .toggle__theme-icon_sun {
-    color: #f9f9f9;
+    color: ${COLORS.WHITE_COLOR};
   }
 `;
 
@@ -54,7 +57,7 @@ export const StToggleControl = styled.div`
   box-sizing: border-box;
   width: 3.25em;
   height: 1.75em;
-  border: 1px solid #acb5bdff;
+  border: 1px solid ${COLORS.GREY_3};
   border-radius: 1em;
   cursor: pointer;
   transition: background-color 0.5s ease;
@@ -68,21 +71,22 @@ export const StToggleIcon = styled.div`
   height: 1.5em;
   left: 0;
   transform: scale(0.9);
-  background: #acb5bdff;
+  background: ${COLORS.GREY_3};
   transition: left 0.5s ease, background-color 0.5s ease;
 `;
 
 export const StToggleTitle = styled.div`
+  // пока не используется
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 1em;
   line-height: 1.5em;
-  color: #818c98ff;
+  color: ${COLORS.GREY_3};
 `;
 
 export const StToggleThemeIcon = styled.svg`
   width: 1.5em;
   height: 1.5em;
-  color: #bdacaf;
+  color: ${COLORS.GREY_2};
 `;
