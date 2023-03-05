@@ -6,6 +6,8 @@ export const ALTERNATE_TEXT_COLOR = 'rgba(216,214,214,0.71)';
 export const RED = '#dc2f55';
 export const GREY_1 = '#515151';
 
+export const name = 'dark';
+
 export const DARKEN =
   '{\n' +
   '  background-color: rgba(50,50,50,.5);\n' +

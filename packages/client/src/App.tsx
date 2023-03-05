@@ -8,6 +8,15 @@ import * as light from 'styles/variables/colors-theme-light';
 import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
 
+const localStgMethodsObj = {
+  getValue(): string | null {
+    return localStorage.getItem('theme');
+  },
+  addValue(value: string): void {
+    localStorage.setItem('theme', value);
+  },
+};
+
 function App() {
   useEffect(() => {
     const fetchServerData = async () => {
@@ -19,13 +28,22 @@ function App() {
 
     fetchServerData();
   }, []);
+
   const themeArr = [light, dark];
-  const [selectedTheme, setSelectedTheme] = useState(light);
+
+  const localTheme = localStgMethodsObj.getValue();
+  const themeDefault =
+    (localTheme && themeArr.find(theme => theme.name === localTheme)) || light;
+  const themeTogglerState = themeDefault.name === 'dark';
+
+  const [selectedTheme, setSelectedTheme] = useState(themeDefault);
+
   const HandleThemeChange = () => {
     const theme = themeArr.filter(elem => elem !== selectedTheme)[0];
     setSelectedTheme(theme);
-    console.log('theme changer toggle');
+    localStgMethodsObj.addValue(theme.name);
   };
+
   return (
     <ThemeProvider theme={selectedTheme}>
       <div className="App">
@@ -36,7 +54,12 @@ function App() {
           />
           <Route
             path={AppRoute.LOGIN}
-            element={<LoginPage themeChange={HandleThemeChange} />}
+            element={
+              <LoginPage
+                themeChange={HandleThemeChange}
+                themeTogglerState={themeTogglerState} //TODO после выноса Layout в App переделать проброс пропсов до Toggler
+              />
+            }
           />
           <Route
             path={AppRoute.REGISTRATION}
