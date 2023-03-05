@@ -1,16 +1,17 @@
 import styled from 'styled-components';
-import { variables } from 'styles/variables';
+import * as COLORS from 'styles/variables/colors';
+import { StButton } from 'components/Button/Button';
 
 export const StStartGame = styled.section`
-  background-color: ${variables.backgroundPopupColor};
+  background-color: ${COLORS.BLACK_OPACITY_05};
   width: 100vw;
   height: 100vh;
   position: relative;
 `;
 
 export const StStartGameWrapper = styled.div`
-  background-color: #d6a13b;
-  border-radius: ${variables.borderRadius};
+  background-color: ${COLORS.BACKGROUND_LAYOUT_COLOR};
+  border-radius: 20px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -20,7 +21,7 @@ export const StStartGameWrapper = styled.div`
 `;
 
 export const StStartGameTitle = styled.h3`
-  color: white;
+  color: ${COLORS.MAIN_TEXT_COLOR};
   font-size: 26px;
   font-weight: 600;
   text-align: center;
@@ -50,9 +51,8 @@ export const StStartGameImg = styled.img`
 export const StStartGameText = styled.span`
   font-size: 16px;
   text-align: center;
-  color: white;
+  color: ${COLORS.MAIN_TEXT_COLOR};
 `;
-
 
 export const StStartGameButtons = styled.div`
   display: flex;
@@ -61,21 +61,14 @@ export const StStartGameButtons = styled.div`
 
 export const StStartGameLink = styled.a`
   text-decoration: none;
-  color: white;
+  color: ${COLORS.MAIN_TEXT_COLOR};
   text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    opacity: 0.6;
+  }
 `;
 
-
-export const StStartGameButton = styled.button`
-  background-color: #00c0d2;
-  border-radius: 12px;
-  border: 0;
-  color: #eee;
-  cursor: pointer;
-  font-size: 18px;
-  height: 50px;
-  text-align: center;
+export const StStartGameButton = styled(StButton)`
   min-width: 150px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 4px 4px 4px rgba(130, 128, 128, 0.25);
 `;
-

@@ -1,14 +1,12 @@
-// Для проверки все что связано с роутингом закомментировано
-// тк сейчас роутинг не подключен
-//import { useNavigate } from 'react-router-dom';
-//import { AppRoute } from '../../consts';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../consts';
 import { StStartGame, StStartGameWrapper, StStartGameTitle, StStartGameImgs, StStartGameImgWrapper, StStartGameImg, StStartGameText, StStartGameButtons, StStartGameLink, StStartGameButton } from './style';
 
 const StartGame = () => {
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const navigateToGame = () => {
-    //navigate(AppRoute.GAME)
+    navigate(AppRoute.GAME)
   }
 
   return (
@@ -34,7 +32,7 @@ const StartGame = () => {
 
         <StStartGameButtons>
           <StStartGameLink href="https://inteltoys.ru/articles/cat7/article655.html" target="_blank">Подробнее о правилах</StStartGameLink>
-          <StStartGameButton onClick={navigateToGame}>Начать</StStartGameButton>
+          <StStartGameButton onClick={navigateToGame} primary>Начать</StStartGameButton>
         </StStartGameButtons>
       </StStartGameWrapper>
     </StStartGame>
