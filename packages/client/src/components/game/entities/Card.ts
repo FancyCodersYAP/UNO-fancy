@@ -12,7 +12,8 @@ export class Card {
   yPoint: number;
   id?: number;
   color?: string;
-  digit?: string;
+  sign?: string;
+  action?: string;
   context: CanvasRenderingContext2D;
 
   constructor(
@@ -29,7 +30,8 @@ export class Card {
     this.context = context;
     this.id = cardData.id;
     this.color = cardData.color;
-    this.digit = cardData.digit;
+    this.sign = cardData.sign;
+    this.action = cardData.action;
   }
 
   public draw(xStart?: number, yStart?: number) {
@@ -61,8 +63,8 @@ export class Card {
     this.context.beginPath();
     this.context.fillStyle = 'white';
     this.context.font = '40px serif';
-    if (this.digit !== undefined) {
-      this.context.fillText(this.digit, x + 10, y + 50);
+    if (this.sign !== undefined) {
+      this.context.fillText(this.sign, x + 10, y + 50);
     }
   }
 
