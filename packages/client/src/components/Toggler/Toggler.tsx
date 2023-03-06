@@ -20,7 +20,7 @@ const Toggler: FC = () => {
         onChange={appContext.handleThemeChange}
         type="checkbox"
         className="toggle__input"
-        checked={appContex.themeTogglerState}
+        checked={appContext.themeTogglerState}
       />
       <StToggleThemeIcon className="toggle__theme-icon toggle__theme-icon_sun">
         <use href="src/assets/icons/icons_sprite.svg#theme-toggle-sun"></use>
