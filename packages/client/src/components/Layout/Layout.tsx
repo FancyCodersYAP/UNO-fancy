@@ -28,7 +28,6 @@ const StContent = styled.div`
 type LayoutProps = {
   isGameScreen?: boolean;
   children: React.ReactNode;
-  themeChange: () => void;
 };
 
 const Layout: FC<LayoutProps> = ({ children, isGameScreen, ...rest }) => {

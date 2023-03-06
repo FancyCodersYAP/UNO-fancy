@@ -16,22 +16,22 @@ export const StToggle = styled.input`
 
   :checked {
     & ~ .toggle__state .toggle__control {
-      background-color: ${COLORS.BLUE_COLOR};
-      border: 1px solid ${COLORS.BLUE_COLOR};
+      background-color: ${COLORS.COLOR_ELEMENT_MAIN};
+      border: 1px solid ${COLORS.COLOR_ELEMENT_MAIN};
       align-items: center;
     }
 
     & ~ .toggle__state .toggle__icon {
-      background: ${COLORS.WHITE_COLOR};
+      background: ${COLORS.COLOR_ELEMENT_CONTRAST};
       left: 1.625em;
     }
 
     & ~ .toggle__theme-icon_moon {
-      color: ${COLORS.WHITE_COLOR};
+      color: ${COLORS.COLOR_ELEMENT_CONTRAST};
     }
 
     & ~ .toggle__theme-icon_sun {
-      color: ${COLORS.GREY_2};
+      color: ${COLORS.COLOR_ICON_REGULAR};
     }
   }
 
@@ -40,7 +40,7 @@ export const StToggle = styled.input`
   }
 
   & ~ .toggle__theme-icon_sun {
-    color: ${COLORS.WHITE_COLOR};
+    color: ${COLORS.COLOR_ELEMENT_CONTRAST};
   }
 `;
 
@@ -56,7 +56,7 @@ export const StToggleControl = styled.div`
   justify-content: flex-start;
   width: 3.25em;
   height: 1.75em;
-  border: 1px solid ${COLORS.GREY_3};
+  border: 1px solid ${COLORS.COLOR_ELEMENT_ALTERNATE};
   border-radius: 1em;
   cursor: pointer;
   transition: background-color 0.5s ease;
@@ -69,7 +69,7 @@ export const StToggleIcon = styled.div`
   height: 1.5em;
   left: 0;
   transform: scale(0.9);
-  background: ${COLORS.GREY_3};
+  background: ${COLORS.COLOR_ELEMENT_ALTERNATE};
   transition: left 0.5s ease, background-color 0.5s ease;
 `;
 
@@ -80,11 +80,11 @@ export const StToggleTitle = styled.div`
   font-weight: 400;
   font-size: 1em;
   line-height: 1.5em;
-  color: ${COLORS.GREY_3};
+  color: ${COLORS.COLOR_ELEMENT_ALTERNATE};
 `;
 
 export const StToggleThemeIcon = styled.svg`
   width: 1.5em;
   height: 1.5em;
-  color: ${COLORS.GREY_2};
+  color: ${COLORS.COLOR_ICON_REGULAR};
 `;

@@ -7,20 +7,23 @@ import {
   StToggleState,
   StToggleThemeIcon,
 } from './style';
+import AppContext from '../ContextProvider';
 
-type TogglerProp = {
-  onChange: () => void;
-  themeTogglerState?: boolean;
-};
 //TODO добавить функционал проверки пропсов для переиспользования элемента в других местах
-const Toggler: FC<TogglerProp> = ({ onChange, themeTogglerState }) => (
+const Toggler: FC = () => (
   <StToggleLabel className="toggle toggle_main-page">
-    <StToggle
-      onChange={onChange}
-      type="checkbox"
-      className="toggle__input"
-      checked={themeTogglerState}
-    />
+    <AppContext.Consumer>
+      {appData => (
+        <>
+          <StToggle
+            onChange={appData.handleThemeChange}
+            type="checkbox"
+            className="toggle__input"
+            checked={appData.themeTogglerState}
+          />
+        </>
+      )}
+    </AppContext.Consumer>
     <StToggleThemeIcon className="toggle__theme-icon toggle__theme-icon_sun">
       <use href="src/assets/icons/icons_sprite.svg#theme-toggle-sun"></use>
     </StToggleThemeIcon>

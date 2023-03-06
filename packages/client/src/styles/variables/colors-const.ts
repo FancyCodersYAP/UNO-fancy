@@ -1,8 +1,8 @@
 //тля цветов которые не будут меняться по теме
-export const WHITE_COLOR = '#fff';
+export const COLOR_ELEMENT_CONTRAST = '#fff';
 
-export const BLUE_COLOR = '#0E7A89FF';
+export const COLOR_ELEMENT_MAIN = '#0E7A89FF';
 
-export const GREY_2 = '#c6cedb';
+export const COLOR_ICON_REGULAR = '#c6cedb';
 
-export const GREY_3 = '#d7dbdb';
+export const COLOR_ELEMENT_ALTERNATE = '#d7dbdb';

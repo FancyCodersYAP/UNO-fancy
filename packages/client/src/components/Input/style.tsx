@@ -7,7 +7,7 @@ export const StInputContainer = styled.div`
   margin-bottom: 50px;
 `;
 export const StInput = styled.input`
-  background-color: ${props => props?.theme.GREY_1};
+  background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
   border-radius: 20px;
   box-sizing: border-box;
   border: 0;
@@ -21,23 +21,23 @@ export const StInput = styled.input`
   &:not(:placeholder-shown) ~ label,
   :focus ~ label {
     transform: translateY(-15px) translateX(10px) scale(0.75);
-    color: ${props => props?.theme.ALTERNATE_TEXT_COLOR};
+    color: ${props => props?.theme.COLOR_TEXT_ALTERNATE};
   }
 
   &:focus ~ label {
-    color: ${props => props?.theme.RED};
+    color: ${props => props?.theme.COLOR_ELEMENT_WARN};
   }
 `;
 
 export const StError = styled.div`
-  color: ${props => props?.theme.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_MAIN};
   padding: 5px;
   font-size: 12px;
   line-height: 1.2;
 `;
 
 export const StLabel = styled.label`
-  color: ${props => props?.theme.ALTERNATE_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_ALTERNATE};
   left: 20px;
   line-height: 14px;
   pointer-events: none;

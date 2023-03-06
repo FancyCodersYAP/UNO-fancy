@@ -24,12 +24,12 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const StLink = styled(Link)`
-  color: ${props => props?.theme.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_MAIN};
   text-align: center;
 `;
 
 export const StTextContainer = styled.div`
-  color: ${props => props?.theme.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_MAIN};
   text-align: center;
   width: ${(props: { width?: number }) =>
     props?.width ? props?.width + 'px' : 'auto'};
