@@ -1,10 +1,11 @@
 export type TColors = {
-  PRIMARY_PREVIEW_COLOR: string;
-  PRIMARY_ELEMENT_COLOR: string;
-  MAIN_TEXT_COLOR: string;
-  SECONDARY_ELEMENT_COLOR: string;
-  ALTERNATE_TEXT_COLOR: string;
+  COLOR_PREVIEW_PRIMARY: string;
+  COLOR_ELEMENT_PRIMARY: string;
+  COLOR_TEXT_MAIN: string;
+  COLOR_ELEMENT_SECONDARY: string;
+  COLOR_TEXT_ALTERNATE: string;
   RED: string;
-  GREY_1: string;
-  DARKEN: string;
+  COLOR_BACKGROUND_SECONDARY: string;
+  DARKEN?: string;
+  name: string;
 };

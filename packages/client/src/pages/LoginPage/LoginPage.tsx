@@ -14,11 +14,7 @@ export interface LoginFormParams extends FieldValues {
   password?: string;
 }
 
-type LoginPageProps = {
-  themeChange: () => void;
-  themeTogglerState: boolean;
-};
-const LoginPage: FC<LoginPageProps> = props => {
+const LoginPage: FC = props => {
   const loginConfig: FormConfigType[] = [
     {
       name: 'first_name',
@@ -46,7 +42,7 @@ const LoginPage: FC<LoginPageProps> = props => {
   );
 
   return (
-    <Layout {...props}>
+    <Layout>
       <Form
         title="Вход"
         fields={loginConfig}

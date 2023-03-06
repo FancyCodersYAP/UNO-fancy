@@ -1,9 +1,9 @@
-export const PRIMARY_PREVIEW_COLOR = '#d6a13b';
-export const PRIMARY_ELEMENT_COLOR = '#23B7CB';
-export const MAIN_TEXT_COLOR = '#FFF';
-export const SECONDARY_ELEMENT_COLOR = '#495057';
-export const ALTERNATE_TEXT_COLOR = '#803737B6';
-export const RED = '#dc2f55';
-export const GREY_1 = '#D9D9D9';
+export const COLOR_PREVIEW_PRIMARY = '#d6a13b';
+export const COLOR_ELEMENT_PRIMARY = '#23B7CB';
+export const COLOR_TEXT_MAIN = '#FFF';
+export const COLOR_ELEMENT_SECONDARY = '#495057';
+export const COLOR_TEXT_ALTERNATE = '#803737B6';
+export const COLOR_ELEMENT_WARN = '#dc2f55';
+export const COLOR_BACKGROUND_SECONDARY = '#D9D9D9';
 
 export const name = 'light';
