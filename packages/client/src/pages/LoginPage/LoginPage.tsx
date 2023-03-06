@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { FieldValues } from 'react-hook-form';
 import Form from 'components/Form';
 import { FormConfigType } from 'types';
@@ -6,7 +6,6 @@ import { ValidationType, AppRoute } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
-import { MainLayout } from 'components/Layout';
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;

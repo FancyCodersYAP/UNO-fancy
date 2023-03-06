@@ -16,12 +16,12 @@ export default defineConfig({
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),
-      pages: './src/pages',
-      utils: './src/utils',
-      api: './src/api',
-      types: './src/types',
-      styles: './src/styles',
-      img: './src/assets/img',
+      pages: path.resolve(__dirname, './src/pages'),
+      utils: path.resolve(__dirname, './src/utils'),
+      api: path.resolve(__dirname, './src/api'),
+      types: path.resolve(__dirname, './src/types'),
+      styles: path.resolve(__dirname, './src/styles'),
+      img: path.resolve(__dirname, './src/img'),
     },
   },
 });
