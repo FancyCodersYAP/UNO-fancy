@@ -7,8 +7,8 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-const GameLayout: FC<LayoutProps> = ({ children }) => {
-  return <StGameScreen>{children}</StGameScreen>;
-};
+const GameLayout: FC<LayoutProps> = ({ children }) => (
+  <StGameScreen>{children}</StGameScreen>
+);
 
 export default GameLayout;

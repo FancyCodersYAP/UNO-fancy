@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 
@@ -26,13 +26,11 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-const MainLayout: FC<LayoutProps> = ({ children }) => {
-  return (
-    <StMainScreen>
-      <Header />
-      <StContent>{children}</StContent>
-    </StMainScreen>
-  );
-};
+const MainLayout: FC<LayoutProps> = ({ children }) => (
+  <StMainScreen>
+    <Header />
+    <StContent>{children}</StContent>
+  </StMainScreen>
+);
 
 export default MainLayout;
