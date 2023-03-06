@@ -53,8 +53,8 @@ function App() {
     <ThemeProvider theme={selectedTheme}>
       <AppContext.Provider
         value={{
-          themeTogglerState: themeTogglerState,
-          handleThemeChange: handleThemeChange,
+          themeTogglerState,
+          handleThemeChange,
         }}>
         <div className="App">
           <Routes>
