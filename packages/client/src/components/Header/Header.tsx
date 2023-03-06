@@ -24,20 +24,15 @@ const StHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${COLORS.COLOR_TEXT_MAIN};
   padding: 20px;
 `;
-
-type HeaderProp = {
-  themeChange: () => void;
-};
-const Header: FC<HeaderProp> = (
-  { themeChange, ...rest } //todo поменять div на StMenu
-) => (
+//todo в Header поменять div на StMenu
+const Header: FC = () => (
   <StHeader>
     <Logo />
     <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-      Меню <Toggler onChange={themeChange} {...rest} />
+      Меню <Toggler />
     </div>
   </StHeader>
 );
