@@ -12,7 +12,6 @@ import AppContext from '../ContextProvider';
 //TODO добавить функционал проверки пропсов для переиспользования элемента в других местах
 const Toggler: FC = () => {
   const appContext = useContext(AppContext);
-  console.log('appContext', appContext);
 
   return (
     <StToggleLabel className="toggle toggle_main-page">
