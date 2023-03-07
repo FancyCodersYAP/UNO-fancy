@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link } from 'react-router-dom';
-import * as COLORS from 'styles/variables/colors';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -25,12 +24,12 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const StLink = styled(Link)`
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-align: center;
 `;
 
 export const StTextContainer = styled.div`
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-align: center;
   width: ${(props: { width?: number }) =>
     props?.width ? props?.width + 'px' : 'auto'};
