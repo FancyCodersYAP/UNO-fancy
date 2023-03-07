@@ -1,18 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
-import { StEndGame, StEndGameWrapper, StEndGameTitle, StEndGameButtons } from './style';
+import {
+  StEndGame,
+  StEndGameWrapper,
+  StEndGameTitle,
+  StEndGameButtons,
+} from './style';
 
 const EndGame = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const navigateToMain = () => {
-    navigate(AppRoute.MAIN)
-  }
+    navigate(AppRoute.MAIN);
+  };
 
   const navigateToGame = () => {
-    navigate(AppRoute.GAME)
-  }
+    navigate(AppRoute.GAME);
+  };
 
   return (
     <StEndGame>
@@ -24,7 +29,7 @@ const EndGame = () => {
         </StEndGameButtons>
       </StEndGameWrapper>
     </StEndGame>
-  )
-}
+  );
+};
 
 export default EndGame;
