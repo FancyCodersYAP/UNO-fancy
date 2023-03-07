@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import { FC } from 'react';
 import {
   StToggle,
   StToggleControl,
@@ -7,19 +7,19 @@ import {
   StToggleState,
   StToggleThemeIcon,
 } from './style';
-import AppContext from '../ContextProvider';
+import { useThemeContext } from 'contexts/ThemeContext';
 
 //TODO добавить функционал проверки пропсов для переиспользования элемента в других местах
 const Toggler: FC = () => {
-  const appContext = useContext(AppContext);
+  const { handleThemeChange, themeTogglerState } = useThemeContext();
 
   return (
     <StToggleLabel className="toggle toggle_main-page">
       <StToggle
-        onChange={appContext.handleThemeChange}
+        onChange={handleThemeChange}
         type="checkbox"
         className="toggle__input"
-        checked={appContext.themeTogglerState}
+        checked={themeTogglerState}
       />
       <StToggleThemeIcon className="toggle__theme-icon toggle__theme-icon_sun">
         <use href="src/assets/icons/icons_sprite.svg#theme-toggle-sun"></use>
