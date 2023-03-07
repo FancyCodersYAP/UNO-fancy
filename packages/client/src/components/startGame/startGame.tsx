@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { AppRoute } from 'utils/constants';
 import { StStartGame, StStartGameWrapper, StStartGameTitle, StStartGameImgs, StStartGameImgWrapper, StStartGameImg, StStartGameText, StStartGameButtons, StStartGameLink, StStartGameButton } from './style';
 
 const StartGame = () => {

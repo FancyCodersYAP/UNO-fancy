@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as COLORS from 'styles/variables/colors';
+import * as COLORS from '../../styles/variables/colors-const';
 import { StButton } from 'components/Button/Button';
 
 export const StStartGame = styled.section`
@@ -10,7 +10,7 @@ export const StStartGame = styled.section`
 `;
 
 export const StStartGameWrapper = styled.div`
-  background-color: ${COLORS.BACKGROUND_LAYOUT_COLOR};
+  background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
   border-radius: 20px;
   position: absolute;
   top: 50%;
@@ -21,7 +21,7 @@ export const StStartGameWrapper = styled.div`
 `;
 
 export const StStartGameTitle = styled.h3`
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   font-size: 26px;
   font-weight: 600;
   text-align: center;
@@ -51,7 +51,7 @@ export const StStartGameImg = styled.img`
 export const StStartGameText = styled.span`
   font-size: 16px;
   text-align: center;
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
 `;
 
 export const StStartGameButtons = styled.div`
@@ -61,7 +61,7 @@ export const StStartGameButtons = styled.div`
 
 export const StStartGameLink = styled.a`
   text-decoration: none;
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
 
   &:hover {
