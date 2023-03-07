@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import * as COLORS from '../../styles/variables/colors-const';
 
 export const StEndGame = styled.section`
-  background-color: ${COLORS.BLACK_OPACITY_05};
+  background-color: ${COLORS.BACKGROUND_ELEMENT_OPACITY};
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -30,5 +30,5 @@ export const StEndGameTitle = styled.h3`
 
 export const StEndGameButtons = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
