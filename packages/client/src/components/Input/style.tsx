@@ -21,7 +21,7 @@ export const StInput = styled.input`
   &:not(:placeholder-shown) ~ label,
   :focus ~ label {
     transform: translateY(-15px) translateX(10px) scale(0.75);
-    color: ${props => props?.theme.COLOR_TEXT_ALTERNATE};
+    color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
   }
 
   &:focus ~ label {
@@ -30,14 +30,14 @@ export const StInput = styled.input`
 `;
 
 export const StError = styled.div`
-  color: ${props => props?.theme.COLOR_TEXT_MAIN};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   padding: 5px;
   font-size: 12px;
   line-height: 1.2;
 `;
 
 export const StLabel = styled.label`
-  color: ${props => props?.theme.COLOR_TEXT_ALTERNATE};
+  color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
   left: 20px;
   line-height: 14px;
   pointer-events: none;

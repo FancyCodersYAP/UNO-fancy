@@ -24,7 +24,7 @@ const StHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: ${COLORS.COLOR_TEXT_MAIN};
+  color: ${COLORS.COLOR_TEXT_PRIMARY};
   padding: 20px;
 `;
 //todo в Header поменять div на StMenu
