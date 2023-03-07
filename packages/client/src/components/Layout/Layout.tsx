@@ -11,6 +11,7 @@ const StMainScreen = styled.div`
   overflow: auto;
   background-image: url('src/assets/img/background.png');
   background-size: cover;
+  ${props => props?.theme.DARKEN}
 `;
 
 const StContent = styled.div`
@@ -29,18 +30,18 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-const Layout: FC<LayoutProps> = ({ children, isGameScreen }) => {
+const Layout: FC<LayoutProps> = ({ children, isGameScreen, ...rest }) => {
   if (isGameScreen) {
     return (
       <StGameScreen>
-        <Header />
+        <Header {...rest} />
         <StContent>{children}</StContent>
       </StGameScreen>
     );
   }
   return (
     <StMainScreen>
-      <Header />
+      <Header {...rest} />
       <StContent>{children}</StContent>
     </StMainScreen>
   );

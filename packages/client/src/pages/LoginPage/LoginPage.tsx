@@ -14,7 +14,7 @@ export interface LoginFormParams extends FieldValues {
   password?: string;
 }
 
-const LoginPage: FC = () => {
+const LoginPage: FC = props => {
   const loginConfig: FormConfigType[] = [
     {
       name: 'first_name',
