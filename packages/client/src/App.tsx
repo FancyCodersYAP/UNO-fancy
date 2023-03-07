@@ -9,7 +9,6 @@ import * as light from 'styles/variables/colors-theme-light';
 import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'components/ContextProvider';
-import StartGame from 'components/startGame/startGame';
 
 const localStgMethodsObj = {
   getValue(): string | null {
@@ -63,7 +62,6 @@ function App() {
             <Routes>
               <Route
                 path={AppRoute.MAIN}
-                element={<StartGame />} 
                 //element={<MainPage />} Главаная страница
               />
               <Route path={AppRoute.LOGIN} element={<LoginPage />} />
