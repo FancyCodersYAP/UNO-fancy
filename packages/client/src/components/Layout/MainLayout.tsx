@@ -9,6 +9,7 @@ const StMainScreen = styled.div`
   overflow: auto;
   background-image: url('src/assets/img/background.png');
   background-size: cover;
+  ${props => props?.theme.DARKEN}
 `;
 
 const StContent = styled.div`
