@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { BACKGROUND_LAYOUT_COLOR, MAIN_TEXT_COLOR, PRIMARY_PREVIEW_COLOR } from 'styles/variables/colors';
+import * as COLORS from 'styles/variables/colors';
 
 export const StSettings = styled.section`
-  background-color: ${BACKGROUND_LAYOUT_COLOR};
+  background-color: ${COLORS.BLACK_OPACITY_05};
   width: 100vw;
   height: 100vh;
   position: relative;
 `;
 
 export const StSettingsWrapper = styled.div`
-  background-color: ${PRIMARY_PREVIEW_COLOR};
+  background-color: ${COLORS.BACKGROUND_LAYOUT_COLOR};
   border-radius: 20px;
   position: absolute;
   top: 50%;
@@ -20,7 +20,7 @@ export const StSettingsWrapper = styled.div`
 `;
 
 export const StSettingsTitle = styled.h3`
-  color: ${MAIN_TEXT_COLOR};
+  color: ${COLORS.MAIN_TEXT_COLOR};
   font-size: 26px;
   font-weight: 600;
   text-align: center;
@@ -66,7 +66,7 @@ export const StSettingsText = styled.span`
   font-size: 16px;
   text-align: center;
   text-decoration: underline;
-  color: ${MAIN_TEXT_COLOR};
+  color: ${COLORS.MAIN_TEXT_COLOR};
 
   &:hover {
     opacity: 0.6;
