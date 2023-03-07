@@ -3,9 +3,12 @@ import * as COLORS from '../../styles/variables/colors-const';
 
 export const StStartGame = styled.section`
   background-color: ${COLORS.BACKGROUND_ELEMENT_OPACITY};
-  width: 100vw;
-  height: 100vh;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   position: fixed;
+  z-index: 1;
 `;
 
 export const StStartGameWrapper = styled.div`
