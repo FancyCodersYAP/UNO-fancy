@@ -28,7 +28,7 @@ export const StLink = styled(Link)`
   text-align: center;
 `;
 
-export const StTextContainer = styled.div`
+export const StTextContainer = styled.p`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-align: center;
   width: ${(props: { width?: number }) =>

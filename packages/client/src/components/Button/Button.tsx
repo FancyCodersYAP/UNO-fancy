@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { TColors } from '../../styles/variables/types';
+import { TColors } from 'styles/variables/types';
 
 export const StButton = styled.button`
   background: ${(props: ButtonProps) =>
@@ -22,6 +22,7 @@ export const StButton = styled.button`
   width: ${(props: ButtonProps) => (props?.block ? '100%' : 'auto')};
   display: flex;
   justify-content: center;
+  cursor: pointer;
 `;
 
 type ButtonProps = {
