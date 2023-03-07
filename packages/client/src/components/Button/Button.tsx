@@ -18,7 +18,7 @@ export const StButton = styled.button`
   font-weight: 700;
   text-align: center;
   font-size: 20px;
-  padding: 10px;
+  padding: 10px 20px;
   width: ${(props: ButtonProps) => (props?.block ? '100%' : 'auto')};
   display: flex;
   justify-content: center;
