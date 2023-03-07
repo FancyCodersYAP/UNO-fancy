@@ -5,7 +5,7 @@ export const StStartGame = styled.section`
   background-color: ${COLORS.BACKGROUND_ELEMENT_OPACITY};
   width: 100vw;
   height: 100vh;
-  position: relative;
+  position: fixed;
 `;
 
 export const StStartGameWrapper = styled.div`
