@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
 import { StEndGame, StEndGameWrapper, StEndGameTitle, StEndGameButtons } from './style';
 
