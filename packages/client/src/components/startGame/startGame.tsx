@@ -1,16 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button/Button';
-import { StLink, StTextContainer } from 'styles/global';
-import {
-  StStartGame,
-  StStartGameWrapper,
-  StStartGameTitle,
-  StStartGameImgs,
-  StStartGameImgWrapper,
-  StStartGameImg,
-  StStartGameNavWrapper,
-} from './style';
+import { StLink } from 'styles/global';
+import Card from 'components/Card/Card';
+import { StStartGameImgs, StStartGameNavWrapper } from './style';
+
+const cards = [
+  {
+    src: 'src/assets/img/start-game-1.jpg',
+    alt: 'Карточка правил',
+    text: 'Избавляйтесь от карт одного цвета в первую очередь',
+  },
+  {
+    src: 'src/assets/img/start-game-2.jpg',
+    alt: 'Карточка правил',
+    text: 'Следите за ходами противника',
+  },
+  {
+    src: 'src/assets/img/start-game-3.jpg',
+    alt: 'Карточка правил',
+    text: 'Используйте карты действий в более подходящий момент',
+  },
+];
 
 const StartGame = () => {
   const navigate = useNavigate();
@@ -22,33 +33,14 @@ const StartGame = () => {
   return (
     <>
       <StStartGameImgs>
-        <StStartGameImgWrapper>
-          <StStartGameImg
-            src="src/assets/img/start-game-1.jpg"
-            alt="Карточка правил"
+        {cards.map((card, id) => (
+          <Card
+            key={`card-${id}`}
+            src={card.src}
+            alt={card.alt}
+            text={card.text}
           />
-          <StTextContainer>
-            Избавляйтесь от карт одного цвета в первую очередь
-          </StTextContainer>
-        </StStartGameImgWrapper>
-
-        <StStartGameImgWrapper>
-          <StStartGameImg
-            src="src/assets/img/start-game-2.jpg"
-            alt="Карточка правил"
-          />
-          <StTextContainer>Следите за ходами противника</StTextContainer>
-        </StStartGameImgWrapper>
-
-        <StStartGameImgWrapper>
-          <StStartGameImg
-            src="src/assets/img/start-game-3.jpg"
-            alt="Карточка правил"
-          />
-          <StTextContainer>
-            Используйте карты действий в более подходящий момент
-          </StTextContainer>
-        </StStartGameImgWrapper>
+        ))}
       </StStartGameImgs>
 
       <StStartGameNavWrapper>
