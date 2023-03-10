@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button/Button';
-import { StLink } from 'styles/global';
+import { StLink, StFlexSpaceBetween } from 'styles/global';
 import Card from 'components/Card/Card';
-import { StStartGameImgs, StStartGameNavWrapper } from './style';
 
 const cards = [
   {
@@ -32,7 +31,7 @@ const StartGame = () => {
 
   return (
     <>
-      <StStartGameImgs>
+      <StFlexSpaceBetween>
         {cards.map((card, id) => (
           <Card
             key={`card-${id}`}
@@ -41,16 +40,16 @@ const StartGame = () => {
             text={card.text}
           />
         ))}
-      </StStartGameImgs>
+      </StFlexSpaceBetween>
 
-      <StStartGameNavWrapper>
+      <StFlexSpaceBetween>
         <StLink
           to="https://inteltoys.ru/articles/cat7/article655.html"
           target="_blank">
           Подробнее о правилах
         </StLink>
         <Button onClick={navigateToGame} text="Начать" primary />
-      </StStartGameNavWrapper>
+      </StFlexSpaceBetween>
     </>
   );
 };
