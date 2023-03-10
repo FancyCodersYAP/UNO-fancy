@@ -5,6 +5,7 @@ import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 import { MainLayout, GameLayout } from 'components/Layout';
 import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
+import ProfilePage from 'pages/ProfilePage';
 import * as light from 'styles/variables/colors-theme-light';
 import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
@@ -74,7 +75,7 @@ function App() {
                 path={AppRoute.PROFILE}
                 element={
                   <PrivateRoute>
-                    {/* <ProfilePage /> Страница профиля */}
+                    <ProfilePage />
                   </PrivateRoute>
                 }
               />

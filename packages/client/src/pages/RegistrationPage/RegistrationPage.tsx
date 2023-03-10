@@ -12,45 +12,46 @@ export interface LoginFormParams extends FieldValues {
   password?: string;
 }
 
+const loginConfig: FormConfigType[] = [
+  {
+    name: 'login',
+    label: 'Логин',
+    pattern: ValidationType.Login,
+    required: true,
+  },
+  {
+    name: 'first_name',
+    label: 'Имя',
+    pattern: ValidationType.Name,
+    required: true,
+  },
+  {
+    name: 'second_name',
+    label: 'Фамилия',
+    pattern: ValidationType.Name,
+    required: true,
+  },
+  {
+    name: 'email',
+    label: 'Email',
+    pattern: ValidationType.Email,
+    required: true,
+  },
+  {
+    name: 'phone',
+    label: 'Телефон',
+    pattern: ValidationType.Phone,
+    required: true,
+  },
+  {
+    name: 'password',
+    label: 'Пароль',
+    pattern: ValidationType.Password,
+    required: true,
+  },
+];
+
 const RegistrationPage: FC = () => {
-  const loginConfig: FormConfigType[] = [
-    {
-      name: 'login',
-      label: 'Логин',
-      pattern: ValidationType.Login,
-      required: true,
-    },
-    {
-      name: 'first_name',
-      label: 'Имя',
-      pattern: ValidationType.Name,
-      required: true,
-    },
-    {
-      name: 'second_name',
-      label: 'Фамилия',
-      pattern: ValidationType.Name,
-      required: true,
-    },
-    {
-      name: 'email',
-      label: 'Email',
-      pattern: ValidationType.Email,
-      required: true,
-    },
-    {
-      name: 'phone',
-      label: 'Телефон',
-      pattern: ValidationType.Phone,
-      required: true,
-    },
-    {
-      name: 'password',
-      label: 'Пароль',
-      pattern: ValidationType.Password,
-      required: true,
-    },
-  ];
   const handleLogin = async (data: LoginFormParams): Promise<any> => {
     console.log(data);
   };

@@ -13,4 +13,8 @@ export interface PlayerType {
   avatar: string;
   score: number;
   time: string;
+};
+
+export interface AvatarType {
+  image: string;
 }

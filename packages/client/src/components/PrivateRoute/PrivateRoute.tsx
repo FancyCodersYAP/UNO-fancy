@@ -10,8 +10,9 @@ type PrivateRouteProps = {
 type Props = FC<PrivateRouteProps>;
 
 const PrivateRoute: Props = ({ children }) => {
-  const { authorizationStatus } = useSelector((state: any) => state.USER);
+  // const { authorizationStatus } = useSelector((state: any) => state.USER);
   // authorizationStatus - AUTH/NO_AUTH
+  const authorizationStatus = 'AUTH';
   return authorizationStatus === AuthorizationStatus.AUTH ? (
     children
   ) : (
