@@ -34,3 +34,11 @@ export const StTextContainer = styled.p`
   width: ${(props: { width?: number }) =>
     props?.width ? props?.width + 'px' : 'auto'};
 `;
+
+export const StFlex = styled.div`
+  display: flex;
+`;
+
+export const StFlexSpaceBetween = styled(StFlex)`
+  justify-content: space-between;
+`;
