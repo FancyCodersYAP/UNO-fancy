@@ -10,16 +10,22 @@ interface ModalType {
 }
 
 const Modal = (props: ModalType) => {
+  const { isOpen, title, toggle, children } = props;
+
+  const stopPropagationEvent = (evt: React.SyntheticEvent) => {
+    evt.stopPropagation();
+  };
+
   return (
     <>
-      {props.isOpen && (
+      {isOpen && (
         <StModal>
           <StModalWrapper>
-            <StModalTitle>{props.title}</StModalTitle>
-            <StButtonCloseModal onClick={props.toggle} primary>
+            <StModalTitle>{title}</StModalTitle>
+            <StButtonCloseModal onClick={toggle} primary>
               X
             </StButtonCloseModal>
-            <div onClick={e => e.stopPropagation()}>{props.children}</div>
+            <div onClick={stopPropagationEvent}>{children}</div>
           </StModalWrapper>
         </StModal>
       )}
