@@ -1,12 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
-import {
-  StEndGame,
-  StEndGameWrapper,
-  StEndGameTitle,
-  StEndGameButtons,
-} from './style';
+import { StFlexSpaceBetween } from 'styles/global';
 
 const EndGame = () => {
   const navigate = useNavigate();
@@ -20,15 +15,10 @@ const EndGame = () => {
   };
 
   return (
-    <StEndGame>
-      <StEndGameWrapper>
-        <StEndGameTitle>Игра завершена</StEndGameTitle>
-        <StEndGameButtons>
-          <Button onClick={navigateToMain} text="Главное меню" primary />
-          <Button onClick={navigateToGame} text="Сыграть снова" primary />
-        </StEndGameButtons>
-      </StEndGameWrapper>
-    </StEndGame>
+    <StFlexSpaceBetween columnGap={20}>
+      <Button onClick={navigateToMain} text="Главное меню" primary />
+      <Button onClick={navigateToGame} text="Сыграть снова" primary />
+    </StFlexSpaceBetween>
   );
 };
 
