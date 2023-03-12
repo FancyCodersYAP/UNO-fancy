@@ -31,4 +31,5 @@ export const StFormFooter = styled.div`
   display: flex;
   gap: 20px;
   flex-direction: column;
+  text-align: center;
 `;

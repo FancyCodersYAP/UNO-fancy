@@ -25,7 +25,11 @@ export const GlobalStyle = createGlobalStyle`
 
 export const StLink = styled(Link)`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
-  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  &&:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const StTextContainer = styled.p`
@@ -36,9 +40,18 @@ export const StTextContainer = styled.p`
 `;
 
 export const StFlex = styled.div`
+  gap: ${(props: { gap?: number }) => (props?.gap ? props?.gap + 'px' : 0)};
   display: flex;
 `;
 
 export const StFlexSpaceBetween = styled(StFlex)`
   justify-content: space-between;
+`;
+
+export const StFlexColumnDirection = styled(StFlex)`
+  flex-direction: column;
+`;
+
+export const StFlexAlighItemCenter = styled(StFlex)`
+  align-items: center;
 `;

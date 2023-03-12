@@ -6,6 +6,7 @@ export type TColors = {
   COLOR_TEXT_SECONDARY: string;
   COLOR_ELEMENT_WARN: string;
   COLOR_BACKGROUND_SECONDARY: string;
+  COLOR_ELEMENT_ALTERNATE: string;
   DARKEN?: string;
   name: string;
 };
