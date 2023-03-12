@@ -1,40 +1,51 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import * as COLORS from 'styles/variables/colors-theme-light';
-import Toggler from '../Toggler';
-
-const StLogo = styled.img`
-  height: 100%;
-  transform: rotate(340deg);
-`;
-
-const Logo: FC<{ size?: number }> = ({ size = 60 }) => {
-  return (
-    <div
-      style={{
-        height: size,
-      }}>
-      <StLogo src="src/assets/img/logo.png" />
-    </div>
-  );
-};
+import Toggler from 'components/Toggler';
+import Logo from 'components/Logo';
+import { StFlexAlighItemCenter, StLink } from 'styles/global';
+import { AppRoute } from 'utils/constants';
 
 const StHeader = styled.div`
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: ${COLORS.COLOR_TEXT_PRIMARY};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   padding: 20px;
+  white-space: nowrap;
 `;
+
 //todo в Header поменять div на StMenu
-const Header: FC = () => (
-  <StHeader>
-    <Logo />
-    <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-      Меню <Toggler />
-    </div>
-  </StHeader>
-);
+const Header: FC = () => {
+  const menu: { title: string; link: string }[] = [
+    {
+      title: 'Игра',
+      link: AppRoute.GAME,
+    },
+    {
+      title: 'Рейтинг игроков',
+      link: AppRoute.LEADERBOARD,
+    },
+    {
+      title: 'Форум',
+      link: AppRoute.FORUM,
+    },
+    {
+      title: 'Профиль',
+      link: AppRoute.PROFILE,
+    },
+  ];
+  return (
+    <StHeader>
+      <Logo isColor />
+      <StFlexAlighItemCenter gap={20}>
+        {menu.map(item => (
+          <StLink to={item.link}>{item.title}</StLink>
+        ))}
+        <Toggler />
+      </StFlexAlighItemCenter>
+    </StHeader>
+  );
+};
 
 export default Header;
