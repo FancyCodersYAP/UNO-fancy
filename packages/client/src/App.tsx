@@ -9,6 +9,9 @@ import * as light from 'styles/variables/colors-theme-light';
 import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'components/ContextProvider';
+import Modal from 'components/Modal/Modal';
+import EndGame from 'components/EndGame/EndGame';
+import useModal from 'utils/useModal';
 
 const localStgMethodsObj = {
   getValue(): string | null {
@@ -50,6 +53,8 @@ function App() {
     localStgMethodsObj.addValue(theme.name);
   };
 
+  const { isOpen, toggle } = useModal();
+
   return (
     <ThemeProvider theme={selectedTheme}>
       <AppContext.Provider
@@ -62,6 +67,15 @@ function App() {
             <Routes>
               <Route
                 path={AppRoute.MAIN}
+                element={
+                  <Modal
+                    title="Игра завершена"
+                    isOpen={isOpen}
+                    toggle={toggle}
+                    isPossibleToClose>
+                    <EndGame />
+                  </Modal>
+                }
                 //element={<MainPage />} Главаная страница
               />
               <Route path={AppRoute.LOGIN} element={<LoginPage />} />
