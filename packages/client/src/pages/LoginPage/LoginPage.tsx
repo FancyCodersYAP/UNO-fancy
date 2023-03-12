@@ -12,7 +12,7 @@ export interface LoginFormParams extends FieldValues {
   password?: string;
 }
 
-const LoginPage: FC = props => {
+const LoginPage: FC = () => {
   const loginConfig: FormConfigType[] = [
     {
       name: 'login',
@@ -33,9 +33,9 @@ const LoginPage: FC = props => {
 
   const footer = (
     <StFormFooter>
-      <Button text="Войти" type="submit" primary block />
+      <Button text="Войти" type="submit" block />
       <StLink to={AppRoute.REGISTRATION}>Нет аккаунта?</StLink>
-      <Button text="Яндекс ID" block />
+      <Button text="Яндекс ID" disignType="secondary" block />
     </StFormFooter>
   );
 

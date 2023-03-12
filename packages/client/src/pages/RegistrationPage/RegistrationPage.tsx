@@ -57,7 +57,7 @@ const RegistrationPage: FC = () => {
 
   const footer = (
     <StFormFooter>
-      <Button text="Зарегистрироваться" type="submit" primary block />
+      <Button text="Зарегистрироваться" type="submit" block />
       <StLink to={AppRoute.LOGIN}>Есть аккаунт?</StLink>
     </StFormFooter>
   );
