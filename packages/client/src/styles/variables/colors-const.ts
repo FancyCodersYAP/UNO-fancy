@@ -9,4 +9,4 @@ export const COLOR_ELEMENT_ALTERNATE = '#d7dbdb';
 
 export const BACKGROUND_ELEMENT_OPACITY = 'rgba(0, 0, 0, 0.5)';
 
-export const COLOR_TABLE_BACKGROUND_PRIMARY = 'rgba(255, 255, 255, 0.8)';
+export const BACKGROUND_COLOR_TABLE_PRIMARY = 'rgba(255, 255, 255, 0.8)';

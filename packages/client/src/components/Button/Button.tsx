@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+
 import { TColors } from 'styles/variables/types';
+import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 export const StButton = styled.button`
   background: ${(props: ButtonProps) =>
@@ -12,7 +14,7 @@ export const StButton = styled.button`
       ? props.theme?.COLOR_TEXT_PRIMARY
       : props.theme?.COLOR_ELEMENT_SECONDARY};
   border: 2px solid #acb5bd; //todo может без бордера оставить? навдо подумать!
-  border-radius: 20px;
+  border-radius: ${BORDER_RADIUS_SIZE};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25),
     inset 4px 4px 4px rgba(130, 128, 128, 0.25); //добавил по макету в фигме для экспереимента
   font-weight: 700;

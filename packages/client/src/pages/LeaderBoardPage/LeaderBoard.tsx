@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import orderBy from 'lodash/orderBy';
 
-import { isArrayHasItems } from 'utils';
+import { isArrayAndHasItems } from 'utils';
 import { PlayerType } from 'types';
 
 import { StBoard, StTitle, StTable, StHead, StBody, StPlaceholder } from './style';
@@ -15,7 +15,7 @@ const LeaderBoard: FC = () => {
   return (
     <StBoard>
       {
-        isArrayHasItems(sortedPlayers)
+        isArrayAndHasItems(sortedPlayers)
           ? (
             <>
               <StTitle>Рейтинг игроков</StTitle>

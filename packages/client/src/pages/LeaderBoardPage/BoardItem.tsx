@@ -8,7 +8,7 @@ const BoardItem: React.FC<BoardItemProps> = ({ place, name, avatar, score, time 
     <>
         <div>{ place }</div>
         <StPlayer>
-            <StAvatar image={avatar} label={place === 1 && medalIcon} />
+            <StAvatar image={avatar} label={place === 1 ? medalIcon : undefined} />
             { name }
         </StPlayer>
         <div>{ time }</div>
