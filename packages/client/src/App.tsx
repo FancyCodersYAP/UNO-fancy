@@ -9,6 +9,8 @@ import * as light from 'styles/variables/colors-theme-light';
 import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'components/ContextProvider';
+import Modal from './components/Modal/Modal';
+import StartGame from './components/StartGame/StartGame';
 
 const localStgMethodsObj = {
   getValue(): string | null {
@@ -58,6 +60,9 @@ function App() {
           handleThemeChange,
         }}>
         <div className="App">
+          <Modal isOpen={true} toggle={() => console.log('toogle')}>
+            <StartGame />
+          </Modal>
           <MainLayout>
             <Routes>
               <Route
