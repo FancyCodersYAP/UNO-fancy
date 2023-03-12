@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import * as COLORS from 'styles/variables/colors-const';
+import { BACKGROUND_COLOR_TABLE_PRIMARY } from 'styles/variables/colors-const';
+import { DEPTH_CONTAINER, GRID_TABLE_CONTAINER, BORDER_WIDTH_TABLE, BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 import { AvatarProps } from './types';
 
@@ -9,7 +10,7 @@ export const StBoard = styled.div`
   max-height: 90%;
   border-radius: 50px;
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: ${DEPTH_CONTAINER};
   padding: 40px 64px;
   margin-bottom: auto;
   overflow: overlay;
@@ -30,12 +31,12 @@ export const StTitle = styled.h1`
 
 export const StTable = styled.div`
   display: grid;
-  gap: 2px;
+  gap: ${BORDER_WIDTH_TABLE};
 
-  background-color: ${COLORS.COLOR_TABLE_BACKGROUND_PRIMARY};
+  background-color: ${BACKGROUND_COLOR_TABLE_PRIMARY};
 
-  border: 2px solid rgba(91, 91, 91, 0.5);
-  border-radius: 20px;
+  border: ${BORDER_WIDTH_TABLE} solid rgba(91, 91, 91, 0.5);
+  border-radius: ${BORDER_RADIUS_SIZE};
   overflow: hidden;
 
   color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
@@ -48,13 +49,11 @@ export const StPlayer = styled.div`
 `;
 
 export const StHead = styled.div`
-  display: grid;
-  grid-template-columns: 50px 1fr 200px 200px;
-  gap: 2px;
+  ${GRID_TABLE_CONTAINER};
   grid-template-rows: 60px;
 
   & > div {
-    background-color: ${props => props?.theme.COLOR_TABLE_BACKGROUND_PRIMARY};
+    background-color: ${props => props?.theme.BACKGROUND_COLOR_TABLE_PRIMARY};
     text-transform: uppercase;
     color: ${props => props?.theme.COLOR_TABLE_TEXT_PRIMARY};
     height: 100%;
@@ -63,9 +62,7 @@ export const StHead = styled.div`
 `;
 
 export const StBody = styled.div`
-  display: grid;
-  grid-template-columns: 50px 1fr 200px 200px;
-  gap: 2px;
+  ${GRID_TABLE_CONTAINER};
   grid-auto-rows: minmax(60px, auto);
 
   & > div {
@@ -73,7 +70,7 @@ export const StBody = styled.div`
     justify-content: center;
     align-items: center;
 
-    background-color: ${props => props?.theme.COLOR_TABLE_BACKGROUND_SECONDARY};
+    background-color: ${props => props?.theme.BACKGROUND_COLOR_TABLE_SECONDARY};
     color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
   }
 
@@ -83,26 +80,26 @@ export const StBody = styled.div`
   }
 `;
 
-export const StAvatar = styled.div`
-  position: relative;
-  min-width: 50px;
-  min-height: 50px;
-  background: ${({ image }: AvatarProps) => `url(${image}) center no-repeat`};
-  background-size: cover;
-  border-radius: 50%;
+export const StAvatar = styled.div<AvatarProps>(({ image, label }) => ({
+  position: 'relative',
+  minWidth: '50px',
+  minHeight: '50px',
+  background: `url(${image}) center no-repeat`,
+  backgroundSize: 'cover',
+  borderRadius: '50%',
 
-  &::before {
-    display: ${({ label }) => label ? 'block' : 'none'};
-    content: '';
-    position: absolute;
-    left: 28px;
-    top: 23px;
-    width: 30px;
-    height: 30px;
-    background: ${({ label }: AvatarProps) => `url(${label}) center no-repeat`};
-    background-size: contain;
+  '&::before': {
+    display: label ? 'block' : 'none',
+    content: '""',
+    position: 'absolute',
+    left: '28px',
+    top: '23px',
+    width: '30px',
+    height: '30px',
+    background: `url(${label}) center no-repeat`,
+    backgroundSize: 'contain',
   }
-`;
+}));
 
 export const StPlaceholder = styled.div`
   display: flex;
