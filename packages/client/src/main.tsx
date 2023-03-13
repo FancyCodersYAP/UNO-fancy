@@ -8,6 +8,7 @@ import rootReducer from './store/rootReducer';
 import App from './App';
 
 import './index.css';
+import { startServiceWorker } from 'utils/startSW';
 
 const store = configureStore({
   reducer: rootReducer,
@@ -21,3 +22,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </Provider>
 );
+
+startServiceWorker();
