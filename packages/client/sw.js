@@ -2,9 +2,13 @@ const CACHE_NAME = 'uno-v1';
 
 const URLS = [
   '/',
-  '/index.html',
-  '/offline.html'
-]
+  '/index.html'
+];
+
+const responseBody = `<h3>Проверьте подключение к интернету и повторите попытку</h3>`;
+const offlineResponse = new Response(responseBody, {
+  headers: {'Content-Type': 'text/html; charset=utf-8'}
+});
 
 /* Выполняется всякий раз, когда новый код SW загружается в браузер */
 self.addEventListener('install', event => {
@@ -42,7 +46,7 @@ self.addEventListener('fetch', event => {
 });
 
 async function networkFirst(request) {
-  const cache = await caches.open(CACHE_NAME)
+  const cache = await caches.open(CACHE_NAME);
   try {
     const response = await fetch(request);
     /* Если мы получили данные сервера, то нужно их занести в кэш */
@@ -52,6 +56,6 @@ async function networkFirst(request) {
     /* Если мы не можем получить данные с сервера, проверяем в кэше */
     const cached = await caches.match(request);
     /* Но если нет сети и нет данных в кэше, то показываем страницу "оффлайн" */
-    return cached ?? await caches.match('/offline.html');
+    return cached ?? offlineResponse;
   }
 }
