@@ -41,4 +41,6 @@ export const StFlex = styled.div`
 
 export const StFlexSpaceBetween = styled(StFlex)`
   justify-content: space-between;
+  column-gap: ${(props: { columnGap?: number }) =>
+    props?.columnGap ? props?.columnGap + 'px' : 'normal'};
 `;
