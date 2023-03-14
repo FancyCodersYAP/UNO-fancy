@@ -6,7 +6,7 @@ export enum Theme {
   LIGHT = 'light',
   DARK = 'dark',
 }
-// export const THEMES: Record<string, any> = { light, dark };
+
 export const THEMES: Record<Theme, ThemeType> = {
   [Theme.LIGHT]: light,
   [Theme.DARK]: dark,
