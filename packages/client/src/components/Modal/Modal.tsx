@@ -22,7 +22,9 @@ const Modal = (props: ModalType) => {
         <StModal>
           <StModalWrapper>
             <StModalTitle>{title}</StModalTitle>
-            <StButtonCloseModal onClick={toggle}>X</StButtonCloseModal>
+            <StButtonCloseModal onClick={toggle}>
+              <img src="src/assets/icons/close.svg" />
+            </StButtonCloseModal>
             <div onClick={stopPropagationEvent}>{children}</div>
           </StModalWrapper>
         </StModal>
