@@ -34,7 +34,6 @@ export const StLink = styled(Link)`
 
 export const StTextContainer = styled.p`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
-  text-align: center;
   width: ${(props: { width?: number }) =>
     props?.width ? props?.width + 'px' : 'auto'};
 `;

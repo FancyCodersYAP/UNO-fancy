@@ -6,5 +6,6 @@ export const COLOR_TEXT_SECONDARY = '#803737B6';
 export const COLOR_ELEMENT_WARN = '#dc2f55';
 export const COLOR_BACKGROUND_SECONDARY = '#D9D9D9';
 export const COLOR_ELEMENT_ALTERNATE = '#B323CB';
+export const COLOR_TEXT_ACTIVE = '#803737';
 
 export const name = 'light';

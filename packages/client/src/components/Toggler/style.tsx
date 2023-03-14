@@ -7,6 +7,7 @@ export const StToggleLabel = styled.label`
   width: 100%;
   gap: 15px;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 export const StToggle = styled.input`

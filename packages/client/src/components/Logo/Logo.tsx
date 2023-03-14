@@ -5,7 +5,6 @@ import { AppRoute } from 'utils/constants';
 
 type LogoProps = {
   size?: number;
-  isColor?: boolean;
 };
 
 const StLogo = styled.div`
@@ -17,10 +16,7 @@ const StLogo = styled.div`
   cursor: pointer;
 `;
 
-const Logo: FC<LogoProps> = ({ size = 60, isColor }) => {
-  const imgSrc = isColor
-    ? 'src/assets/img/colorLogo.png'
-    : 'src/assets/img/logo.png';
+const Logo: FC<LogoProps> = ({ size = 60 }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(AppRoute.MAIN);
@@ -28,7 +24,7 @@ const Logo: FC<LogoProps> = ({ size = 60, isColor }) => {
 
   return (
     <StLogo size={size} onClick={handleClick}>
-      <img src={imgSrc} alt="logo" />
+      <img src="src/assets/img/colorLogo.png" alt="logo" />
     </StLogo>
   );
 };

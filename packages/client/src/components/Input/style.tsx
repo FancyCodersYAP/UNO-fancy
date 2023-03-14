@@ -11,7 +11,7 @@ export const StInput = styled.input`
   border-radius: 20px;
   box-sizing: border-box;
   border: 0;
-  color: #803737; //TODO поменять под тему
+  color: ${props => props?.theme.COLOR_TEXT_ACTIVE};
   font-size: 18px;
   height: 100%;
   outline: 0;
