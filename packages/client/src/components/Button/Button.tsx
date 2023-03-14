@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { TColors } from 'styles/variables/types';
+import { ThemeType } from 'styles/variables/types';
 
 export const StButton = styled.button`
   background: ${(props: ButtonProps) =>
@@ -31,7 +31,7 @@ type ButtonProps = {
   block?: boolean;
   onClick?: () => void;
   type?: 'submit' | 'reset';
-  theme?: TColors;
+  theme?: ThemeType;
 };
 
 const Button: FC<ButtonProps> = ({ text, ...rest }) => (

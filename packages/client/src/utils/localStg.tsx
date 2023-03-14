@@ -1,12 +1,12 @@
 export const localStgMethodsObj = {
-  getValue(): string | null {
+  getValue(key: string): string | null {
     try {
-      return localStorage.getItem('theme');
+      return localStorage.getItem(key);
     } catch {
       return null;
     }
   },
-  addValue(value: string): void {
-    localStorage.setItem('theme', value);
+  addValue(key: string, value: string): void {
+    localStorage.setItem(key, value);
   },
 };
