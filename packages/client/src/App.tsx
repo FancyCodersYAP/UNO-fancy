@@ -9,6 +9,7 @@ import * as light from 'styles/variables/colors-theme-light';
 import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
 import AppContext from 'components/ContextProvider';
+import LeaderBoardPage from 'pages/LeaderBoardPage';
 
 const localStgMethodsObj = {
   getValue(): string | null {
@@ -79,7 +80,7 @@ function App() {
               />
               <Route
                 path={AppRoute.LEADERBOARD}
-                // element={<LeaderboardPage/>} Страница с таблицкй очков
+                element={<LeaderBoardPage/>}
               />
               <Route
                 path={AppRoute.FORUM}
