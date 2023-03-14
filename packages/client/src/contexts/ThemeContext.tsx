@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
-import * as light from 'styles/variables/colors-theme-light';
-import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
 import { localStgMethodsObj } from 'utils/localStg';
+import { THEMES } from 'styles/variables/colors-const';
 
 interface IThemeContext {
   isChecked: boolean;
@@ -14,7 +13,6 @@ const defaultState = {
 };
 
 const localTheme = localStgMethodsObj.getValue();
-const themes: Record<string, any> = { light, dark };
 
 const ThemeContext = React.createContext<IThemeContext>(defaultState);
 
@@ -36,7 +34,7 @@ export const ThemeContextProvider: React.FC<{
 
   return (
     <ThemeContext.Provider value={providerValue}>
-      <ThemeProvider theme={themes[`${currentTheme}`]}>
+      <ThemeProvider theme={THEMES[`${currentTheme}`]}>
         {children}
       </ThemeProvider>
     </ThemeContext.Provider>
