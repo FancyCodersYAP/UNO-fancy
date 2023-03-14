@@ -1,42 +1,42 @@
 import React, { useContext, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { localStgMethodsObj } from 'utils/localStg';
-import { THEMES } from 'styles/variables/colors-const';
+import { Theme, THEMES } from 'styles/variables/colors-const';
 
 interface IThemeContext {
-  isChecked: boolean;
+  isDarkTheme: boolean;
   handleThemeChange?: () => void;
 }
 
 const defaultState = {
-  isChecked: false,
+  isDarkTheme: false,
 };
 
-const localTheme = localStgMethodsObj.getValue();
+const localTheme = localStgMethodsObj.getValue('theme') as Theme;
 
 const ThemeContext = React.createContext<IThemeContext>(defaultState);
 
 export const ThemeContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState(localTheme || 'light');
+  const [currentTheme, setCurrentTheme] = useState<Theme>(
+    localTheme || Theme.LIGHT
+  );
 
   const handleThemeChange = () => {
-    const theme = currentTheme === 'dark' ? 'light' : 'dark';
+    const theme = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
     setCurrentTheme(theme);
-    localStgMethodsObj.addValue(theme);
+    localStgMethodsObj.addValue('theme', theme);
   };
 
   const providerValue = {
-    isChecked: currentTheme === 'dark',
+    isDarkTheme: currentTheme === Theme.DARK,
     handleThemeChange,
   };
 
   return (
     <ThemeContext.Provider value={providerValue}>
-      <ThemeProvider theme={THEMES[`${currentTheme}`]}>
-        {children}
-      </ThemeProvider>
+      <ThemeProvider theme={THEMES[currentTheme]}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );
 };
