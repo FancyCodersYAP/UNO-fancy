@@ -11,7 +11,7 @@ import { useThemeContext } from 'contexts/ThemeContext';
 
 //TODO добавить функционал проверки пропсов для переиспользования элемента в других местах
 const Toggler: FC = () => {
-  const { handleThemeChange, themeTogglerState } = useThemeContext();
+  const { handleThemeChange, isChecked } = useThemeContext();
 
   return (
     <StToggleLabel className="toggle toggle_main-page">
@@ -19,7 +19,7 @@ const Toggler: FC = () => {
         onChange={handleThemeChange}
         type="checkbox"
         className="toggle__input"
-        checked={themeTogglerState}
+        checked={isChecked}
       />
       <StToggleThemeIcon className="toggle__theme-icon toggle__theme-icon_sun">
         <use href="src/assets/icons/icons_sprite.svg#theme-toggle-sun"></use>
