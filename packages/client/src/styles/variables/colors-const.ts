@@ -1,3 +1,17 @@
+import * as light from './colors-theme-light';
+import * as dark from './colors-theme-dark';
+import { ThemeType } from './types';
+
+export enum Theme {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
+
+export const THEMES: Record<Theme, ThemeType> = {
+  [Theme.LIGHT]: light,
+  [Theme.DARK]: dark,
+};
+
 //для цветов которые не будут меняться по теме
 export const COLOR_ELEMENT_CONTRAST = '#fff';
 

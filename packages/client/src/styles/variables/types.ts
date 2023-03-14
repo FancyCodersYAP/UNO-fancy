@@ -1,4 +1,4 @@
-export type TColors = {
+export type ThemeType = {
   COLOR_PREVIEW_PRIMARY: string;
   COLOR_ELEMENT_PRIMARY: string;
   COLOR_TEXT_PRIMARY: string;
