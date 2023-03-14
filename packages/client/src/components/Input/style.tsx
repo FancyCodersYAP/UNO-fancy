@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
+
 export const StInputContainer = styled.div`
   height: 50px;
   position: relative;
@@ -8,7 +10,7 @@ export const StInputContainer = styled.div`
 `;
 export const StInput = styled.input`
   background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
-  border-radius: 20px;
+  border-radius: ${BORDER_RADIUS_SIZE};
   box-sizing: border-box;
   border: 0;
   color: #803737; //TODO поменять под тему
