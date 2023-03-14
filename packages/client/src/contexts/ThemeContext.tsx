@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import * as light from 'styles/variables/colors-theme-light';
 import * as dark from 'styles/variables/colors-theme-dark';
 import { ThemeProvider } from 'styled-components';
-import { localStgMethodsObj } from 'utils/global';
+import { localStgMethodsObj } from 'utils/localStg';
 
 interface IThemeContext {
   isChecked: boolean;
@@ -13,13 +13,14 @@ const defaultState = {
   isChecked: false,
 };
 
+const localTheme = localStgMethodsObj.getValue();
+const themes: Record<string, any> = { light, dark };
+
 const ThemeContext = React.createContext<IThemeContext>(defaultState);
 
 export const ThemeContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const localTheme = localStgMethodsObj.getValue();
-  const themes: Record<string, any> = { light, dark };
   const [currentTheme, setCurrentTheme] = useState(localTheme || 'light');
 
   const handleThemeChange = () => {
