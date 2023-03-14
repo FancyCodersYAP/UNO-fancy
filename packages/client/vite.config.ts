@@ -12,7 +12,20 @@ export default defineConfig({
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
-  plugins: [react()],
+  plugins: [react({
+    babel: {
+      plugins: [
+        [
+          'babel-plugin-styled-components',
+          {
+            ssr: false,
+            displayName: true,
+            fileName: false
+          },
+        ],
+      ],
+    },
+  })],
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),
@@ -22,6 +35,7 @@ export default defineConfig({
       types: path.resolve(__dirname, './src/types'),
       styles: path.resolve(__dirname, './src/styles'),
       img: path.resolve(__dirname, './src/img'),
+      assets: path.resolve(__dirname, './src/assets'),
     },
   },
 });
