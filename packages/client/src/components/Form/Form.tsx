@@ -4,13 +4,16 @@ import { StForm, StFormSubtitle, StFormTitle } from './style';
 import Input from 'components/Input';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
+import { RegFormParams } from '../../pages/RegistrationPage/RegistrationPage';
 
 type FormProps = {
   title?: string;
   subtitle?: string;
   fields: FormConfigType[];
   footer: React.ReactNode;
-  handleFormSubmit: (data: FieldValues | LoginFormParams) => Promise<any>;
+  handleFormSubmit: (
+    data: FieldValues | LoginFormParams | RegFormParams
+  ) => void;
 };
 
 const Form: FC<FormProps> = ({
