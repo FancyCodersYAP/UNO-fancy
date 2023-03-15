@@ -27,7 +27,7 @@ const localStgMethodsObj = {
 function App() {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`;
+      const url = `http://localhost:${__APP_ENV__.SERVER_PORT}`;
       const response = await fetch(url);
       const data = await response.json();
       console.log(data);
@@ -80,7 +80,7 @@ function App() {
               />
               <Route
                 path={AppRoute.LEADERBOARD}
-                element={<LeaderBoardPage/>}
+                element={<LeaderBoardPage />}
               />
               <Route
                 path={AppRoute.FORUM}
