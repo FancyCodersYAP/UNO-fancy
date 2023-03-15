@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as COLORS from '../../styles/variables/colors-const';
+import * as COLORS from 'styles/variables/colors-const';
 
 export const StToggleLabel = styled.label`
   display: inline-flex;
