@@ -70,7 +70,7 @@ const LoginPage: FC = () => {
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      {/*<Button onClick={handleLogout} text="Logout" />*/}
+      {/*<Button onClick={handleLogout} text="Logout"/>*/}
       {/*тестовая кнопка для разлогина*/}
 
       <StTextContainer width={400}>
