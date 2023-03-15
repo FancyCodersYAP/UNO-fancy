@@ -42,6 +42,7 @@ export default defineConfig(({ command, mode }) => {
         types: path.resolve(__dirname, './src/types'),
         styles: path.resolve(__dirname, './src/styles'),
         img: path.resolve(__dirname, './src/img'),
+        contexts: path.resolve(__dirname, './src/contexts'),
         assets: path.resolve(__dirname, './src/assets'),
       },
     },

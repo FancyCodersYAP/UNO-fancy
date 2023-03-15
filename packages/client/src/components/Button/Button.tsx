@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-
-import { TColors } from 'styles/variables/types';
+import { ThemeType } from 'styles/variables/types';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 export const StButton = styled.button`
@@ -43,7 +42,7 @@ type ButtonProps = {
   block?: boolean;
   onClick?: () => void;
   type?: 'submit' | 'reset';
-  theme?: TColors;
+  theme?: ThemeType;
 };
 
 const Button: FC<ButtonProps> = ({ text, ...rest }) => (
