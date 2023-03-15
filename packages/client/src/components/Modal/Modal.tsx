@@ -19,10 +19,10 @@ const Modal = (props: ModalType) => {
 
   const checkPossibleToClose = () => {
     if (isPossibleToClose) {
-      return;
-    } else {
       return toggle();
     }
+
+    return;
   };
 
   return (
@@ -31,7 +31,7 @@ const Modal = (props: ModalType) => {
         <StModal onClick={checkPossibleToClose}>
           <StModalWrapper onClick={stopPropagationEvent}>
             <StModalTitle>{title}</StModalTitle>
-            {!isPossibleToClose && (
+            {isPossibleToClose && (
               <StButtonCloseModal onClick={toggle} primary>
                 X
               </StButtonCloseModal>
