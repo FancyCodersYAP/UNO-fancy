@@ -6,7 +6,7 @@ import { ValidationType, AppRoute } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
-import { fetchAuth, fetchLogin, fetchLogout } from '../../store/auth/actions';
+import { fetchLogin, fetchLogout } from '../../store/auth/actions';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { authState } from '../../hooks/authState';
@@ -37,7 +37,6 @@ const LoginPage: FC = () => {
 
   const [authError, user] = authState();
   useEffect(() => {
-    dispatch(fetchAuth()); //если авторизован то будет кидать обратно на главную, закоментировал пока для проверки
     if (user) {
       navigate('/');
     }
