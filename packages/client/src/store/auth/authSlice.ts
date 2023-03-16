@@ -24,7 +24,11 @@ const initialState: UserState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    errorClear(state) {
+      setTimeout(() => (state.error = ''), 3000);
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<IUser>) => {
