@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
@@ -8,12 +7,10 @@ import RegistrationPage from 'pages/RegistrationPage';
 import { ThemeContextProvider } from 'contexts/ThemeContext';
 import Modal from 'components/Modal/Modal';
 import Settings from 'components/Settings/Settings';
+import useModal from 'utils/useModal';
 
 function App() {
-  const [isOpen, setisOpen] = useState(true);
-  const toggle = () => {
-    setisOpen(!isOpen);
-  };
+  const { isOpen, toggle } = useModal();
 
   return (
     <ThemeContextProvider>

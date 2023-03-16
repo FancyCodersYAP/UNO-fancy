@@ -36,6 +36,10 @@ export const StButtonCloseModal = styled(StButton)`
   border-radius: 0;
 `;
 
+export const StButtonCenter = styled(StButton)`
+  margin: 0 auto;
+`;
+
 type ButtonProps = {
   text?: string;
   primary?: boolean;
