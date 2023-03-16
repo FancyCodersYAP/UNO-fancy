@@ -1,24 +1,25 @@
-import { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { AppRoute } from 'utils/constants'
-import PrivateRoute from 'components/PrivateRoute/PrivateRoute'
-import { MainLayout, GameLayout } from 'components/Layout'
-import LoginPage from 'pages/LoginPage'
-import RegistrationPage from 'pages/RegistrationPage'
-import { ThemeContextProvider } from 'contexts/ThemeContext'
-import LeaderBoardPage from './pages/LeaderBoardPage'
+import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { AppRoute } from 'utils/constants';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+import { MainLayout, GameLayout } from 'components/Layout';
+import LoginPage from 'pages/LoginPage';
+import RegistrationPage from 'pages/RegistrationPage';
+import { ThemeContextProvider } from 'contexts/ThemeContext';
+import LeaderBoardPage from './pages/LeaderBoardPage';
+import AuthRoute from './components/AuthRoute/AuthRote';
 
 function App() {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${__APP_ENV__.SERVER_PORT}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+      const url = `http://localhost:${__APP_ENV__.SERVER_PORT}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    };
 
-    fetchServerData()
-  }, [])
+    fetchServerData();
+  }, []);
 
   return (
     <ThemeContextProvider>
@@ -28,8 +29,22 @@ function App() {
             path={AppRoute.MAIN}
             //element={<MainPage />} Главаная страница
           />
-          <Route path={AppRoute.LOGIN} element={<LoginPage />} />
-          <Route path={AppRoute.REGISTRATION} element={<RegistrationPage />} />
+          <Route
+            path={AppRoute.LOGIN}
+            element={
+              <AuthRoute>
+                <LoginPage />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path={AppRoute.REGISTRATION}
+            element={
+              <AuthRoute>
+                <RegistrationPage />
+              </AuthRoute>
+            }
+          />
           <Route
             path={AppRoute.PROFILE}
             element={
@@ -63,7 +78,7 @@ function App() {
         </Routes>
       </GameLayout>
     </ThemeContextProvider>
-  )
+  );
 }
 
-export default App
+export default App;

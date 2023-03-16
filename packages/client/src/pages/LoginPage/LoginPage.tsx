@@ -37,7 +37,7 @@ const LoginPage: FC = () => {
 
   const [authError, user] = authState();
   useEffect(() => {
-    // dispatch(fetchAuth()); //если авторизован то будет кидать обратно на главную, закоментировал пока для проверки
+    dispatch(fetchAuth()); //если авторизован то будет кидать обратно на главную, закоментировал пока для проверки
     if (user) {
       navigate('/');
     }
