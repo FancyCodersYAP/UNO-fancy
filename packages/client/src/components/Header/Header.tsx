@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import * as COLORS from 'styles/variables/colors';
+import * as COLORS from 'styles/variables/colors-theme-light';
+import Toggler from '../Toggler';
 
 const StLogo = styled.img`
   height: 100%;
@@ -23,17 +24,17 @@ const StHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${COLORS.COLOR_TEXT_PRIMARY};
   padding: 20px;
 `;
-
-const Header: FC = () => {
-  return (
-    <StHeader>
-      <Logo />
-      <div>Меню</div>
-    </StHeader>
-  );
-};
+//todo в Header поменять div на StMenu
+const Header: FC = () => (
+  <StHeader>
+    <Logo />
+    <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+      Меню <Toggler />
+    </div>
+  </StHeader>
+);
 
 export default Header;
