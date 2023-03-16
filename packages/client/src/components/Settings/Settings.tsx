@@ -1,14 +1,12 @@
-import Button from 'components/Button';
 import { StFlexSpaceBetween } from 'styles/global';
-import SettingsCard from 'components/SettingsCard/SettingsCard';
+import SettingsRadio from 'components/SettingsRadio/SettingsRadio';
+import { StButtonCenter } from 'components/Button/Button';
 
-const settingsCards = [
+const settingsInputsValue = [
   {
-    name: 'users',
     value: 2,
   },
   {
-    name: 'users',
     value: 4,
   },
 ];
@@ -19,7 +17,7 @@ const Settings = () => {
 
     const usersInputs = document.querySelectorAll(
       'input[name="users"]'
-    ) as unknown as Array<any>;
+    ) as NodeListOf<HTMLInputElement>;
     let usersCount;
     usersInputs.forEach(input => {
       if (input.checked) {
@@ -32,17 +30,15 @@ const Settings = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <StFlexSpaceBetween>
-        {settingsCards.map((card, id) => (
-          <SettingsCard
-            key={`settings-card-${id}`}
-            name={card.name}
-            value={card.value}
-          />
+      <StFlexSpaceBetween columnGap={60} marginBottom={50}>
+        {settingsInputsValue.map((input, id) => (
+          <SettingsRadio key={`settings-card-${id}`} value={input.value} />
         ))}
       </StFlexSpaceBetween>
 
-      <Button text="Старт" type="submit" primary block />
+      <StButtonCenter type="submit" primary>
+        Старт
+      </StButtonCenter>
     </form>
   );
 };
