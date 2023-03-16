@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import * as COLORS from 'styles/variables/colors'
+
+import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 export const StInputContainer = styled.div`
   height: 50px;
@@ -8,11 +9,11 @@ export const StInputContainer = styled.div`
   margin-bottom: 50px;
 `;
 export const StInput = styled.input`
-  background-color: ${COLORS.GREY_1};
-  border-radius: 20px;
+  background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
+  border-radius: ${BORDER_RADIUS_SIZE};
   box-sizing: border-box;
   border: 0;
-  color: #803737;
+  color: #803737; //TODO поменять под тему
   font-size: 18px;
   height: 100%;
   outline: 0;
@@ -22,23 +23,23 @@ export const StInput = styled.input`
   &:not(:placeholder-shown) ~ label,
   :focus ~ label {
     transform: translateY(-15px) translateX(10px) scale(0.75);
-    color: ${COLORS.ALTERNATE_TEXT_COLOR};
+    color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
   }
 
   &:focus ~ label {
-    color: ${COLORS.RED};
+    color: ${props => props?.theme.COLOR_ELEMENT_WARN};
   }
 `;
 
 export const StError = styled.div`
-  color: ${COLORS.MAIN_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   padding: 5px;
   font-size: 12px;
   line-height: 1.2;
 `;
 
 export const StLabel = styled.label`
-  color: ${COLORS.ALTERNATE_TEXT_COLOR};
+  color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
   left: 20px;
   line-height: 14px;
   pointer-events: none;
