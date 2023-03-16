@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { FieldValues } from 'react-hook-form';
 import Form from 'components/Form';
 import { FormConfigType } from 'types';
-import { ValidationType, AppRoute, DESCRIPTION } from 'utils/constants';
+import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
@@ -47,7 +47,7 @@ const LoginPage: FC = () => {
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <StTextContainer width={400}>{DESCRIPTION}</StTextContainer>
+      <StTextContainer width={400}>{GAME_DESCRIPTION}</StTextContainer>
     </>
   );
 };
