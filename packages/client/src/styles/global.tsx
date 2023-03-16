@@ -35,11 +35,11 @@ export const StLink = styled(Link)`
 export const StTextContainer = styled.p`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   width: ${(props: { width?: number }) =>
-    props?.width ? props?.width + 'px' : 'auto'};
+    props.width ? `${props.width}px` : 'auto'};
 `;
 
 export const StFlex = styled.div`
-  gap: ${(props: { gap?: number }) => (props?.gap ? props?.gap + 'px' : 0)};
+  gap: ${(props: { gap?: number }) => (props.gap ? `${props.gap}px` : 0)};
   display: flex;
 `;
 

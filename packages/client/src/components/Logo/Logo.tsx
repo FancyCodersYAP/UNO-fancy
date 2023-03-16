@@ -8,7 +8,7 @@ type LogoProps = {
 };
 
 const StLogo = styled.div`
-  height: ${(props: LogoProps) => props?.size}px;
+  height: ${(props: LogoProps) => `${props.size}px`};
   opacity: 0.5;
   && img {
     height: 100%;
