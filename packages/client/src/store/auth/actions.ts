@@ -81,8 +81,10 @@ export const fetchRegistration = createAsyncThunk(
       });
 
       return dispatch(fetchAuth());
-    } catch (e) {
-      return rejectWithValue('Не удалось зарегестрироваться');
+    } catch (error) {
+      return rejectWithValue(
+        errorMessage(error, 'Не удалось зарегестрироваться')
+      );
     }
   }
 );
