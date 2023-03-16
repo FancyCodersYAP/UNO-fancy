@@ -8,7 +8,7 @@ import { StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
 import { useAppDispatch } from '../../hooks/redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchAuth, fetchRegistration } from '../../store/auth/actions';
+import { fetchRegistration } from '../../store/auth/actions';
 import { authState } from '../../hooks/authState';
 
 export interface RegFormParams extends FieldValues {
@@ -65,7 +65,6 @@ const RegistrationPage: FC = () => {
   const [authError, user] = authState();
 
   useEffect(() => {
-    dispatch(fetchAuth()); //если авторизован то будет кидать обратно на главную
     if (user) {
       navigate('/');
     }

@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route
             path={AppRoute.MAIN}
-            //element={<MainPage />} Главаная страница
+            element={<h1>Главная</h1>} //Главаная страница
           />
           <Route
             path={AppRoute.LOGIN}
