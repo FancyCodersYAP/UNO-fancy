@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -24,6 +24,15 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const StLink = styled(Link)`
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  text-decoration: none;
+  cursor: pointer;
+  &&:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const StNavLink = styled(NavLink)`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;

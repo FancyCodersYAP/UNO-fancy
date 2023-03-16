@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { StFlex, StLink } from 'styles/global';
+import { StFlex, StNavLink } from 'styles/global';
 import { AppRoute } from 'utils/constants';
 
 const StNavMenu = styled(StFlex)`
@@ -31,9 +31,9 @@ const NavMenu: FC = () => {
   return (
     <StNavMenu>
       {menu.map((item, index) => (
-        <StLink key={`menu-item-${index}`} to={item.link}>
+        <StNavLink key={`menu-item-${index}`} to={item.link}>
           {item.title}
-        </StLink>
+        </StNavLink>
       ))}
     </StNavMenu>
   );
