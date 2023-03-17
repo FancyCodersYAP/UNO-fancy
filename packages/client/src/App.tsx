@@ -21,46 +21,38 @@ function App() {
 
   return (
     <ThemeContextProvider>
-      <MainLayout>
-        <Routes>
+      <Routes>
+        <Route element={<MainLayout />}>
           <Route
             path={AppRoute.MAIN}
-            //element={<MainPage />} Главаная страница
+            //element={<MainPage />}
           />
           <Route path={AppRoute.LOGIN} element={<LoginPage />} />
           <Route path={AppRoute.REGISTRATION} element={<RegistrationPage />} />
           <Route
             path={AppRoute.PROFILE}
-            element={
-              <PrivateRoute>
-                {/* <ProfilePage /> Страница профиля */}
-              </PrivateRoute>
-            }
+            element={<PrivateRoute>{/* <ProfilePage /> */}</PrivateRoute>}
           />
           <Route
             path={AppRoute.LEADERBOARD}
-            // element={<LeaderboardPage/>} Страница с таблицкй очков
+            // element={<LeaderboardPage/>}
           />
           <Route
             path={AppRoute.FORUM}
-            // element={<ForumPage/>} Страница форума
+            // element={<ForumPage/>}
           />
           <Route
             path={AppRoute.NOT_FOUND_PAGE}
-            // element={<ErrorPage />} Страница 404
+            // element={<ErrorPage />}
           />
-        </Routes>
-      </MainLayout>
-      <GameLayout>
-        <Routes>
+        </Route>
+        <Route element={<GameLayout />}>
           <Route
             path={AppRoute.GAME}
-            element={
-              <PrivateRoute>{/* <GamePage/> Страница игры */}</PrivateRoute>
-            }
+            // element={<GamePage />}
           />
-        </Routes>
-      </GameLayout>
+        </Route>
+      </Routes>
     </ThemeContextProvider>
   );
 }
