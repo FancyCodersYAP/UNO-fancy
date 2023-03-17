@@ -22,7 +22,7 @@ const cards = [
   },
 ];
 
-const StartGame = () => {
+const Rules = () => {
   const navigate = useNavigate();
 
   const navigateToGame = () => {
@@ -54,4 +54,4 @@ const StartGame = () => {
   );
 };
 
-export default StartGame;
+export default Rules;
