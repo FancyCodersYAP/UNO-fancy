@@ -5,6 +5,8 @@ import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 import { MainLayout, GameLayout } from 'components/Layout';
 import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
+import MainPage from 'pages/MainPage';
+
 import { ThemeContextProvider } from 'contexts/ThemeContext';
 
 function App() {
@@ -23,10 +25,7 @@ function App() {
     <ThemeContextProvider>
       <MainLayout>
         <Routes>
-          <Route
-            path={AppRoute.MAIN}
-            //element={<MainPage />} Главаная страница
-          />
+          <Route path={AppRoute.MAIN} element={<MainPage />} />
           <Route path={AppRoute.LOGIN} element={<LoginPage />} />
           <Route path={AppRoute.REGISTRATION} element={<RegistrationPage />} />
           <Route
