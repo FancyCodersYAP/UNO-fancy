@@ -23,6 +23,11 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+type CarouselBoxProps = {
+  width?: number;
+  height?: number;
+};
+
 export const StLink = styled(Link)`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-align: center;
@@ -41,4 +46,25 @@ export const StFlex = styled.div`
 
 export const StFlexSpaceBetween = styled(StFlex)`
   justify-content: space-between;
+`;
+
+export const StCarousel = styled.div`
+  width: ${(props: { width?: number }) =>
+    props?.width ? props?.width + 'px' : 'auto'};
+  overflow: hidden;
+`;
+
+export const StCarouselBoxContainer = styled.div`
+  display: flex;
+`;
+
+export const StCarouselBox = styled.div<CarouselBoxProps>`
+  box-sizing: border-box;
+  width: ${props => (props?.width ? props?.width + 'px' : 'auto')};
+  height: ${props => (props?.height ? props?.height + 'px' : 'auto')};
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
