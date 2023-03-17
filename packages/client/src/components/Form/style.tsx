@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DEPTH_CONTAINER } from 'styles/variables/styleConstants';
 
 export const StFormTitle = styled.div`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
@@ -22,7 +23,7 @@ export const StForm = styled.form`
   width: 400px;
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
   padding: 40px 60px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: ${DEPTH_CONTAINER};
   border-radius: 50px;
   box-sizing: border-box;
 `;

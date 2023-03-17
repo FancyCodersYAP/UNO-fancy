@@ -7,10 +7,13 @@ export const COLOR_ELEMENT_WARN = '#dc2f55';
 export const COLOR_BACKGROUND_SECONDARY = '#515151';
 export const COLOR_ELEMENT_ALTERNATE = '#6e167e';
 export const COLOR_TEXT_ACTIVE = '#ecececb5';
+export const BACKGROUND_COLOR_TABLE_PRIMARY = '#155d7e';
+export const BACKGROUND_COLOR_TABLE_SECONDARY = '#515151';
+export const COLOR_TABLE_TEXT_PRIMARY = '#ffffff';
 
 export const name = 'dark';
 
-export const DARKEN = `{
-      background-color: rgba(50,50,50,.5);
-      background-blend-mode: multiply;
-    }`;
+export const DARKEN = `
+  background-color: rgba(50,50,50,.5);
+  background-blend-mode: multiply;
+`;

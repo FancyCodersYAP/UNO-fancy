@@ -8,19 +8,19 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif,serif;
   }
+
   * {
       box-sizing: border-box;
   }
   
   #root,
   body,
-  .App{
+  .App {
     margin: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
   }
- 
 `;
 
 export const StLink = styled(Link)`

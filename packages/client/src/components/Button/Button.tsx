@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TColors } from 'styles/variables/types';
+import { ThemeType } from 'styles/variables/types';
 import { StButton } from './style';
 
 export type ButtonProps = {
@@ -7,7 +7,7 @@ export type ButtonProps = {
   block?: boolean;
   onClick?: () => void;
   type?: 'submit' | 'reset';
-  theme?: TColors;
+  theme?: ThemeType;
   disignType?: 'primary' | 'secondary' | 'alternate';
   size?: 'small' | 'middle' | 'large';
 };
