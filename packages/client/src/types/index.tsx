@@ -6,3 +6,11 @@ export interface FormConfigType {
   pattern: ValidationType;
   required: boolean;
 }
+
+export interface PlayerType {
+  id: string;
+  name: string;
+  avatar: string;
+  score: number;
+  time: string;
+}
