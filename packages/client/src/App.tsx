@@ -6,6 +6,9 @@ import { MainLayout, GameLayout } from 'components/Layout';
 import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import { ThemeContextProvider } from 'contexts/ThemeContext';
+import Modal from 'components/Modal/Modal';
+import Rules from 'components/Rules/Rules';
+import useModal from 'utils/useModal';
 
 function App() {
   useEffect(() => {
@@ -19,12 +22,23 @@ function App() {
     fetchServerData();
   }, []);
 
+  const { isOpen, toggle } = useModal();
+
   return (
     <ThemeContextProvider>
       <MainLayout>
         <Routes>
           <Route
             path={AppRoute.MAIN}
+            element={
+              <Modal
+                title="Правила игры"
+                isOpen={isOpen}
+                toggle={toggle}
+                isPossibleToClose>
+                <Rules />
+              </Modal>
+            }
             //element={<MainPage />} Главаная страница
           />
           <Route path={AppRoute.LOGIN} element={<LoginPage />} />
