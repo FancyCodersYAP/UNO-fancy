@@ -12,6 +12,10 @@ const StNavMenu = styled(StFlex)`
 const NavMenu: FC = () => {
   const menu: { title: string; link: AppRoute }[] = [
     {
+      title: 'Главная страница',
+      link: AppRoute.MAIN,
+    },
+    {
       title: 'Игра',
       link: AppRoute.GAME,
     },

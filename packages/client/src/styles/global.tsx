@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   #root,
+  html,
   body,
   .App {
     margin: 0;
@@ -33,11 +34,23 @@ export const StLink = styled(Link)`
 `;
 
 export const StNavLink = styled(NavLink)`
+  position: relative;
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
-  &&:hover {
-    text-decoration: underline;
+  &:after {
+    transform: scaleX(0);
+    display: block;
+    content: '';
+    height: 5px;
+    width: 100%;
+    top: 100%;
+    background: white;
+    margin-top: 8px;
+    transition: transform 250ms ease-in-out;
+  }
+  &&.active:after {
+    transform: scaleX(1);
   }
 `;
 
@@ -52,6 +65,14 @@ export const StFlex = styled.div`
   display: flex;
 `;
 
+export const StContainer = styled(StFlex)`
+  max-width: 1300px;
+  min-width: 900px;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+`;
+
 export const StFlexSpaceBetween = styled(StFlex)`
   justify-content: space-between;
 `;
@@ -60,6 +81,6 @@ export const StFlexColumnDirection = styled(StFlex)`
   flex-direction: column;
 `;
 
-export const StFlexAlighItemCenter = styled(StFlex)`
+export const StFlexAlignItemCenter = styled(StFlex)`
   align-items: center;
 `;

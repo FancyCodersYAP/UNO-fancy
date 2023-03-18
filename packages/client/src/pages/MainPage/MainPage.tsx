@@ -5,12 +5,14 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 
-const StImageBox = styled.div`
-  height: 350px;
-  opacity: 0.5;
-  && img {
-    height: 100%;
-  }
+const StMainLogo = styled.div`
+  height: 450px;
+  width: 800px;
+  opacity: 0.8;
+  background: url('src/assets/img/logo.png');
+  background-size: cover;
+  mix-blend-mode: multiply; //darken color-burn
+  margin-top: -100px;
 `;
 
 const MainPage: FC = () => {
@@ -21,11 +23,9 @@ const MainPage: FC = () => {
   return (
     <>
       <StFlexColumnDirection gap={40}>
-        <StImageBox>
-          <img src="src/assets/img/logo.png" alt="logo" />
-        </StImageBox>
+        <StMainLogo />
         <Button text="Начать игру" size="large" onClick={handlePlay} />
-        <Button text="Правила" disignType="alternate" />
+        <Button css={{ marginTop: 20 }} text="Правила" disignType="alternate" />
       </StFlexColumnDirection>
     </>
   );

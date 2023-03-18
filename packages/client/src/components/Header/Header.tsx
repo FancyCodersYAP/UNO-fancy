@@ -2,26 +2,26 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import Toggler from 'components/Toggler';
 import Logo from 'components/Logo';
-import { StFlexAlighItemCenter } from 'styles/global';
-import { AppRoute } from 'utils/constants';
+import { StContainer, StFlexAlignItemCenter } from 'styles/global';
 import NavMenu from '../NavMenu';
 
-const StHeader = styled.div`
-  height: 80px;
+const StHeader = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   padding: 20px;
 `;
 
 const Header: FC = () => (
   <StHeader>
-    <Logo />
-    <StFlexAlighItemCenter gap={20}>
-      <NavMenu />
-      <Toggler />
-    </StFlexAlighItemCenter>
+    <StContainer>
+      <Logo />
+      <StFlexAlignItemCenter gap={20}>
+        <NavMenu />
+        <Toggler />
+      </StFlexAlignItemCenter>
+    </StContainer>
   </StHeader>
 );
 

@@ -4,7 +4,7 @@ import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
-import { StLink, StTextContainer } from 'styles/global';
+import { StContainer, StLink, StTextContainer } from 'styles/global';
 import Button from 'components/Button';
 
 export interface LoginFormParams extends FieldValues {
@@ -63,15 +63,23 @@ const RegistrationPage: FC = () => {
   );
 
   return (
-    <>
+    <StContainer css={{ alignItems: 'center' }}>
       <Form
         title="Регистрация"
         fields={loginConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <StTextContainer width={400}>{GAME_DESCRIPTION}</StTextContainer>
-    </>
+      <StTextContainer
+        css={{
+          fontSize: '1.35rem',
+          maxWidth: 500,
+          lineHeight: '1.7rem',
+          marginLeft: 10,
+        }}>
+        {GAME_DESCRIPTION}
+      </StTextContainer>
+    </StContainer>
   );
 };
 export default RegistrationPage;
