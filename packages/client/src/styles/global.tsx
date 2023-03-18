@@ -50,7 +50,8 @@ export const StNavLink = styled(NavLink)`
     margin-top: 8px;
     transition: transform 250ms ease-in-out;
   }
-  &&.active:after {
+  &&.active:after,
+  &&:hover:after {
     transform: scaleX(1);
   }
 `;
