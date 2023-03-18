@@ -27,7 +27,7 @@ export const StButton = styled.button`
     }
   }};
   border: ${(props: ButtonProps) => {
-    return props?.disignType === 'secondary' ? `2px solid #acb5bd` : `none`;
+    return props?.disignType === 'secondary' ? `1px solid #acb5bd` : `none`;
   }};
   border-radius: 1em;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25),
@@ -59,7 +59,7 @@ export const StButton = styled.button`
       case 'small':
         return '5px 10px';
       case 'middle':
-        return '10px 25px';
+        return '12px 25px';
       case 'large':
         return '20px 70px';
     }
