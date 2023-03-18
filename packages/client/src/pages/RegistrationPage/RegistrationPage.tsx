@@ -66,7 +66,7 @@ const RegistrationPage: FC = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(AppRoute.MAIN);
     }
   }, [user]);
 

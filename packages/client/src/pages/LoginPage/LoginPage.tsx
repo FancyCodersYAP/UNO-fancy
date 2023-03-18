@@ -38,7 +38,7 @@ const LoginPage: FC = () => {
   const [authError, user] = authState();
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(AppRoute.MAIN);
     }
   }, [user]);
 
