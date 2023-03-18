@@ -39,10 +39,11 @@ export const StNavLink = styled(NavLink)`
   text-decoration: none;
   cursor: pointer;
   &:after {
+    position: absolute;
     transform: scaleX(0);
     display: block;
     content: '';
-    height: 5px;
+    height: 4px;
     width: 100%;
     top: 100%;
     background: white;
@@ -67,7 +68,7 @@ export const StFlex = styled.div`
 
 export const StContainer = styled(StFlex)`
   max-width: 1300px;
-  min-width: 900px;
+  min-width: 920px;
   justify-content: space-between;
   width: 100%;
   height: 100%;

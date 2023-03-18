@@ -6,7 +6,7 @@ import { AppRoute } from 'utils/constants';
 const StNavMenu = styled(StFlex)`
   font-size: 20px;
   white-space: nowrap;
-  gap: 20px;
+  gap: 30px;
 `;
 
 const NavMenu: FC = () => {
