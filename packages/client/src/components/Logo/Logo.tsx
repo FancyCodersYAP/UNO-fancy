@@ -8,24 +8,22 @@ type LogoProps = {
 };
 
 const StLogo = styled.div`
+  width: 130px; // по идее тогда надо и здесь через пропсы делать
   height: ${(props: LogoProps) => `${props.size}px`};
-  opacity: 0.5;
-  && img {
-    height: 100%;
-  }
+  opacity: 0.7;
+  background: url('src/assets/img/colorLogo.png');
+  background-size: cover;
+  mix-blend-mode: color-dodge; //darken color-burn
+
   cursor: pointer;
 `;
 
-const Logo: FC<LogoProps> = ({ size = 60 }) => {
+const Logo: FC<LogoProps> = ({ size = 90 }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(AppRoute.MAIN);
   };
 
-  return (
-    <StLogo size={size} onClick={handleClick}>
-      <img src="src/assets/img/colorLogo.png" alt="logo" />
-    </StLogo>
-  );
+  return <StLogo size={size} onClick={handleClick} />;
 };
 export default Logo;

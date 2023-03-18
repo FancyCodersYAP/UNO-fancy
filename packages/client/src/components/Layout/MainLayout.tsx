@@ -2,14 +2,18 @@ import { FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
+import { StContainer } from '../../styles/global';
 
 const StMainScreen = styled.div`
   display: flex;
-  height: 100vh;
+  align-items: center;
+  height: 100%;
   flex-direction: column;
   overflow: auto;
   background-image: url('src/assets/img/background.png');
   background-size: cover;
+  background-position: center, center;
+  margin: 0 15px;
   ${props => props?.theme.DARKEN}
 `;
 
@@ -18,7 +22,6 @@ const StContent = styled.div`
   align-items: center;
   gap: 200px;
   justify-content: center;
-  height: 100%;
   flex-wrap: wrap;
   padding: 20px;
   flex: 1;
@@ -30,8 +33,10 @@ type LayoutProps = {
 
 const MainLayout: FC<LayoutProps> = ({ children }) => (
   <StMainScreen>
-    <Header />
-    <StContent>{children ?? <Outlet />}</StContent>
+    <StContainer css={{ flexDirection: 'column', justifyContent: 'center' }}>
+      <Header />
+      <StContent>{children ?? <Outlet />}</StContent>
+    </StContainer>
   </StMainScreen>
 );
 
