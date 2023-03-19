@@ -20,9 +20,7 @@ const StMainScreen = styled.div`
 const StContent = styled.div`
   display: flex;
   align-items: center;
-  gap: 200px;
   justify-content: center;
-  flex-wrap: wrap;
   padding: 20px;
   flex: 1;
 `;
@@ -33,7 +31,7 @@ type LayoutProps = {
 
 const MainLayout: FC<LayoutProps> = ({ children }) => (
   <StMainScreen>
-    <StContainer css={{ flexDirection: 'column', justifyContent: 'center' }}>
+    <StContainer css={{ flexDirection: 'column' }}>
       <Header />
       <StContent>{children ?? <Outlet />}</StContent>
     </StContainer>
