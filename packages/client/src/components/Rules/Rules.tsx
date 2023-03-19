@@ -48,7 +48,7 @@ const Rules = () => {
           target="_blank">
           Подробнее о правилах
         </StLink>
-        <Button onClick={navigateToGame} text="Начать" primary />
+        <Button onClick={navigateToGame} text="Начать" />
       </StFlexSpaceBetween>
     </>
   );

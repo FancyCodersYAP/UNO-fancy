@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -29,6 +29,7 @@ type FlexProps = {
   columnGap?: number;
   padding?: number;
   marginBottom?: number;
+  rowGap?: number;
 };
 
 type TextContainerProps = {
@@ -41,7 +42,20 @@ type TextContainerProps = {
 
 export const StLink = styled(Link)`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
-  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  &&:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const StNavLink = styled(NavLink)`
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  text-decoration: none;
+  cursor: pointer;
+  &&:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const StTextContainer = styled.p<TextContainerProps>`
@@ -65,6 +79,7 @@ export const StFlex = styled.div<FlexProps>`
   border-radius: ${props =>
     props?.borderRadius ? props?.borderRadius + 'px' : 0};
   column-gap: ${props => (props?.columnGap ? props?.columnGap + 'px' : 0)};
+  row-gap: ${props => (props?.rowGap ? props?.rowGap + 'px' : 0)};
   padding: ${props => (props?.padding ? props?.padding + 'px' : 0)};
   margin-bottom: ${props =>
     props?.marginBottom ? props?.marginBottom + 'px' : 0};
@@ -76,4 +91,12 @@ export const StFlexSpaceBetween = styled(StFlex)`
 
 export const StFlexSpaceAround = styled(StFlex)`
   justify-content: space-around;
+`;
+
+export const StFlexColumnDirection = styled(StFlex)`
+  flex-direction: column;
+`;
+
+export const StFlexAlighItemCenter = styled(StFlex)`
+  align-items: center;
 `;

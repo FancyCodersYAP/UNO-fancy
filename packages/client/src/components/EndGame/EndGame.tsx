@@ -63,8 +63,16 @@ const EndGame = (props: EndGameType) => {
         </div>
       </StFlexSpaceBetween>
       <StFlexSpaceAround>
-        <Button onClick={navigateToMain} text="Главное меню" primary />
-        <Button onClick={navigateToGame} text="Сыграть снова" primary />
+        <Button
+          onClick={navigateToMain}
+          text="Главное меню"
+          disignType="primary"
+        />
+        <Button
+          onClick={navigateToGame}
+          text="Сыграть снова"
+          disignType="alternate"
+        />
       </StFlexSpaceAround>
     </>
   );
