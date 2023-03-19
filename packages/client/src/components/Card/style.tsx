@@ -10,4 +10,5 @@ export const StCardImg = styled.img`
   width: 160px;
   height: 160px;
   margin-bottom: 10px;
+  border-radius: 20px;
 `;

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { StModal, StModalWrapper, StModalTitle } from './style';
-import { StButtonCloseModal } from 'components/Button/Button';
+import { StButtonCloseModal } from 'components/Button/style';
 
 interface ModalType {
   children?: ReactNode;
@@ -32,8 +32,8 @@ const Modal = (props: ModalType) => {
           <StModalWrapper onClick={stopPropagationEvent}>
             <StModalTitle>{title}</StModalTitle>
             {isPossibleToClose && (
-              <StButtonCloseModal onClick={toggle} primary>
-                X
+              <StButtonCloseModal onClick={toggle}>
+                <img src="src/assets/icons/close.svg" />
               </StButtonCloseModal>
             )}
             {children}
