@@ -22,32 +22,19 @@ export class TableCards {
   ) {
     this.context = context;
 
-    this.closedPack = new Card(
-      closedPackCoords[0],
-      closedPackCoords[1],
-      { color: this.cardBackColor },
-      this.context
-    );
-    this.openCard = new Card(
-      openPackCoords[0],
-      openPackCoords[1],
-      openCard,
-      this.context
-    );
+    this.closedPack = new Card({ color: this.cardBackColor }, this.context);
+    this.openCard = new Card(openCard, this.context);
     this.tablePack = tablePack;
   }
 
   draw(openCard?: CardType) {
-    if (openCard)
-      this.openCard = new Card(
-        openPackCoords[0],
-        openPackCoords[1],
-        openCard,
-        this.context
-      );
+    if (openCard) {
+      this.openCard = new Card(openCard, this.context);
+    }
 
-    if (this.closedPack) this.closedPack.draw();
-    if (this.openCard) this.openCard.draw();
+    if (this.closedPack)
+      this.closedPack.draw(closedPackCoords[0], closedPackCoords[1]);
+    if (this.openCard) this.openCard.draw(openPackCoords[0], openPackCoords[1]);
   }
 
   clear() {

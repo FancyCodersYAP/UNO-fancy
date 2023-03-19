@@ -8,8 +8,8 @@ export const colorsRussianName: Record<string, string> = {
   '#009F66': 'Зелёный',
   '#008DD4': 'Синий',
   '#F7CC00': 'Жёлтый',
-  '#EA4000': 'Красный'
-}
+  '#EA4000': 'Красный',
+};
 
 export const allCards = [
   {
@@ -111,13 +111,13 @@ export const allCards = [
     id: 20,
     sign: '∅',
     color: '#009F66',
-    action: 'skip'
+    action: 'skip',
   },
   {
     id: 21,
     sign: '∅',
     color: '#009F66',
-    action: 'skip'
+    action: 'skip',
   },
   // {
   //   id: 22,
@@ -135,13 +135,13 @@ export const allCards = [
     id: 24,
     sign: '+2',
     color: '#009F66',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 25,
     sign: '+2',
     color: '#009F66',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 26,
@@ -242,13 +242,13 @@ export const allCards = [
     id: 45,
     sign: '∅',
     color: '#008DD4',
-    action: 'skip'
+    action: 'skip',
   },
   {
     id: 46,
     sign: '∅',
     color: '#008DD4',
-    action: 'skip'
+    action: 'skip',
   },
   // {
   //   id: 47,
@@ -266,13 +266,13 @@ export const allCards = [
     id: 49,
     sign: '+2',
     color: '#008DD4',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 50,
     sign: '+2',
     color: '#008DD4',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 51,
@@ -373,13 +373,13 @@ export const allCards = [
     id: 70,
     sign: '∅',
     color: '#F7CC00',
-    action: 'skip'
+    action: 'skip',
   },
   {
     id: 71,
     sign: '∅',
     color: '#F7CC00',
-    action: 'skip'
+    action: 'skip',
   },
   // {
   //   id: 72,
@@ -397,13 +397,13 @@ export const allCards = [
     id: 74,
     sign: '+2',
     color: '#F7CC00',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 75,
     sign: '+2',
     color: '#F7CC00',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 76,
@@ -504,13 +504,13 @@ export const allCards = [
     id: 95,
     sign: '∅',
     color: '#EA4000',
-    action: 'skip'
+    action: 'skip',
   },
   {
     id: 96,
     sign: '∅',
     color: '#EA4000',
-    action: 'skip'
+    action: 'skip',
   },
   // {
   //   id: 97,
@@ -528,60 +528,60 @@ export const allCards = [
     id: 99,
     sign: '+2',
     color: '#EA4000',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 100,
     sign: '+2',
     color: '#EA4000',
-    action: 'draw two'
+    action: 'draw two',
   },
   {
     id: 101,
     sign: '⊕',
     color: '#1F1D1E',
-    action: 'wild'
+    action: 'wild',
   },
   {
     id: 102,
     sign: '⊕',
     color: '#1F1D1E',
-    action: 'wild'
+    action: 'wild',
   },
   {
     id: 103,
     sign: '⊕',
     color: '#1F1D1E',
-    action: 'wild'
+    action: 'wild',
   },
   {
     id: 104,
     sign: '⊕',
     color: '#1F1D1E',
-    action: 'wild'
+    action: 'wild',
   },
   {
     id: 105,
     sign: '+4',
     color: '#1F1D1E',
-    action: 'wild draw four'
+    action: 'wild draw four',
   },
   {
     id: 106,
     sign: '+4',
     color: '#1F1D1E',
-    action: 'wild draw four'
+    action: 'wild draw four',
   },
   {
     id: 107,
     sign: '+4',
     color: '#1F1D1E',
-    action: 'wild draw four'
+    action: 'wild draw four',
   },
   {
     id: 108,
     sign: '+4',
     color: '#1F1D1E',
-    action: 'wild draw four'
+    action: 'wild draw four',
   },
 ];

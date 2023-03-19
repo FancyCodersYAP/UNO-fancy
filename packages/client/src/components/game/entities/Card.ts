@@ -8,25 +8,19 @@ import { CardType } from '../types';
 export class Card {
   width: number;
   height: number;
-  xPoint: number;
-  yPoint: number;
   id?: number;
   color?: string;
   sign?: string;
   action?: string;
   context: CanvasRenderingContext2D;
 
-  constructor(
-    xPoint: number,
-    yPoint: number,
-    cardData: CardType,
-    context: CanvasRenderingContext2D
-  ) {
+  xPoint = 0;
+  yPoint = 0;
+
+  constructor(cardData: CardType, context: CanvasRenderingContext2D) {
     this.width = BASE_WIDTH_CARD;
     this.height = BASE_HEIGHT_CARD;
 
-    this.xPoint = xPoint;
-    this.yPoint = yPoint;
     this.context = context;
     this.id = cardData.id;
     this.color = cardData.color;
@@ -45,24 +39,24 @@ export class Card {
     const x = this.xPoint;
     const y = this.yPoint;
 
-    // const image = new Image();
-    // image.src = 'http://kittyfraise.hautetfort.com/media/01/02/777825822.jpg';
-    // image.onload = () => this.context.drawImage(image, x, y);
-
     this.context.beginPath();
     this.context.roundRect(x, y, this.width, this.height, [6]);
+    this.context.fillStyle = 'white';
+    this.context.fill();
+    this.context.closePath();
+
+    this.context.beginPath();
+    this.context.roundRect(x + 1, y + 1, this.width - 2, this.height - 2, [6]);
     if (this.color) {
       this.context.fillStyle = this.color;
     }
     this.context.fill();
-    this.context.lineWidth = 1;
-    this.context.strokeStyle = 'white';
-    this.context.strokeRect(x + 1, y + 1, this.width - 2, this.height - 2);
     this.context.closePath();
 
     this.context.beginPath();
     this.context.fillStyle = 'white';
     this.context.font = '40px serif';
+    this.context.textAlign = 'left';
     if (this.sign !== undefined) {
       this.context.fillText(this.sign, x + 10, y + 50);
     }
