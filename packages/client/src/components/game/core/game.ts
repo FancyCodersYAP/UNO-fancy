@@ -1,7 +1,12 @@
 import { EventBus } from '../utils/EventBus';
 import { CardType, PlayerType } from '../types';
 import { shuffle, sleep } from '../utils/helpers';
-import { allCards, cardColors, colorsRussianName, namesForBots } from '../utils/data';
+import {
+  allCards,
+  cardColors,
+  colorsRussianName,
+  namesForBots,
+} from '../utils/data';
 import {
   Card,
   FrontCards,
@@ -15,7 +20,7 @@ import {
   closedPackCoords,
   BASE_WIDTH_CARD,
   BASE_HEIGHT_CARD,
-  NUM_CARDS_IN_HAND,
+  START_NUM_CARDS_IN_HAND,
 } from '../utils/constants';
 
 export class Game extends EventBus {
@@ -69,8 +74,8 @@ export class Game extends EventBus {
 
     /* Из стартовой колоды берём 7 * n (кол-во игроков) карт для раздачи игрокам */
     const cardsForDistribution = initialPack.splice(
-      initialPack.length - 1 - NUM_CARDS_IN_HAND * this.players.length,
-      NUM_CARDS_IN_HAND * this.players.length
+      initialPack.length - 1 - START_NUM_CARDS_IN_HAND * this.players.length,
+      START_NUM_CARDS_IN_HAND * this.players.length
     );
 
     /* Из стартовой колоды берём одну карту для открытия */
@@ -161,8 +166,6 @@ export class Game extends EventBus {
 
   /* Действие хода */
   playerMove(clickPos?: Record<string, number>) {
-    /* Пока колода не возобновляется */
-    if (this.tablePack.length === 0) console.log('Колода закончилась');
     /* Если есть координаты, ходит игрок */
     if (clickPos) {
       console.log('Ход игрока');
@@ -295,7 +298,7 @@ export class Game extends EventBus {
         clickUno = true;
 
         player.showBubble('UNO');
-      }
+      };
       /* Подписка на событие клика по кнопке UNO */
       this.on('click uno', cb);
 
@@ -314,36 +317,34 @@ export class Game extends EventBus {
     if (movedCard.action === 'draw two') {
       /* Следующий игрок берёт две карты и пропускает ход */
       this.moveLine();
-      this.takeCard(true);
-      this.takeCard(true);
+      this.takeCard(true, 2);
     }
 
     if (movedCard.action === 'wild') {
       /* Игрок выбирает новый цвет */
-      const currentColor: string = cardColors[Math.floor(Math.random() * cardColors.length)];
+      const currentColor: string =
+        cardColors[Math.floor(Math.random() * cardColors.length)];
       this.openCard = {
-        color: currentColor
-      }
+        color: currentColor,
+      };
       const player = this.identifyEntity();
       player.showBubble(colorsRussianName[currentColor]);
     }
 
     if (movedCard.action === 'wild draw four') {
       /* Игрок выбирает новый цвет, а следующий игрок берёт 4 карты */
-      const currentColor: string = cardColors[Math.floor(Math.random() * cardColors.length)];
+      const currentColor: string =
+        cardColors[Math.floor(Math.random() * cardColors.length)];
       this.openCard = {
-        color: currentColor
-      }
+        color: currentColor,
+      };
       const player = this.identifyEntity();
       player.showBubble(colorsRussianName[currentColor]);
       this.moveLine();
-      this.takeCard(true);
-      this.takeCard(true);
-      this.takeCard(true);
-      this.takeCard(true);
+      this.takeCard(true, 4);
     }
 
-    if(movedCard.action === 'skip') {
+    if (movedCard.action === 'skip') {
       /* Следующий игрок пропускает ход */
       this.moveLine(true);
     } else {
@@ -360,13 +361,26 @@ export class Game extends EventBus {
   }
 
   /* Взятие карты на руку */
-  takeCard(skip: boolean) {
-    const card = this.tablePack.splice(this.tablePack.length - 1 - 1, 1)[0];
+  takeCard(skip: boolean, countCards?: number) {
+    countCards = countCards ? countCards : 1;
 
-    this.players[this.currentPlayer].cards.push(card);
+    /* Пока колода не возобновляется */
+    if (this.tablePack.length - countCards <= 0) {
+      console.log('Закончились карты в колоде', this.tablePack);
+      return;
+    }
+
+    const cards = this.tablePack.splice(
+      this.tablePack.length - 1 - countCards,
+      countCards
+    );
+
+    for (let i = 0; i < cards.length; i++) {
+      this.players[this.currentPlayer].cards.push(cards[i]);
+    }
 
     const player = this.identifyEntity();
-    player.addCard(card);
+    player.addCards(cards);
 
     /* Если игрок после взятия карты должен пропустить ход, завершаем функцию */
     if (skip) {
@@ -375,7 +389,7 @@ export class Game extends EventBus {
 
     /* Если полученную карту можно выложить на стол, то игрок должен это сделать */
     /* Данная проверка только для хода бота, так как игрок должен самостоятельно кликнуть по карте */
-    if (this.checkCard(card)) {
+    if (cards.length === 1 && this.checkCard(cards[0])) {
       if (this.checkBot()) {
         const movedCard = player.getHand().at(-1);
 
@@ -449,7 +463,8 @@ export class Game extends EventBus {
 
   /* Сверка карты с руки с открытой картой на столе */
   checkCard(cardFromHand: CardType) {
-    if (!this.openCard.sign && cardFromHand.color === this.openCard.color) return true;
+    if (!this.openCard.sign && cardFromHand.color === this.openCard.color)
+      return true;
     if (cardFromHand.color === this.openCard.color) return true;
     if (cardFromHand.sign === this.openCard.sign) return true;
     if (cardFromHand.action === 'wild') return true;

@@ -34,7 +34,7 @@ export function GamePage() {
 
   // Модальные окна в div добавлены временно
   return (
-    <div id = "game-page" className="bgd container">
+    <div id="game-page" className="bgd container">
       <div
         id="tempModal"
         style={{

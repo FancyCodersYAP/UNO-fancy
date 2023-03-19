@@ -1,12 +1,26 @@
 import { Card } from './Card';
-import { NUM_CARDS_IN_HAND, CANVAS_WIDTH, CANVAS_HEIGHT } from '../utils/constants';
+import {
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  BASE_WIDTH_CARD,
+  BASE_HEIGHT_CARD,
+  NAME_DATA,
+  FLAG_DATA,
+  BUBBLE_DATA,
+} from '../utils/constants';
 import { CardType } from '../types';
 
 export class Entity {
-  private hand: Card[] = [];
-  xArr: number[] = [];
-  yArr: number[] = [];
-  bubbleCoords: number[] = [];
+  protected hand: Card[] = [];
+  protected direction: 'vertical' | 'horizontal' = 'horizontal';
+  xStart = 0;
+  yStart = 0;
+  xUnified = 0;
+  yUnified = 0;
+  visiblePartOfCard = 30;
+
+  /* Координаты имени. Нужны для расчета координатов флага */
+  nameCoords: number[] = [];
 
   flag = false;
 
@@ -16,35 +30,39 @@ export class Entity {
     this.context = context;
   }
 
+  /* Вызываем при первой выкладке на "стол" */
   init(cards: CardType[], name?: string) {
-    for (let i = 0; i < NUM_CARDS_IN_HAND; i++) {
-      this.hand[i] = new Card(
-        this.xArr[i],
-        this.yArr[i],
-        cards[i],
-        this.context
-      );
-    }
-    this.draw();
     this.drawName(name);
+
+    /* Рассчёт начальной координаты для отрисовки "руки" */
+    this.calcFirstCardCoords(cards.length);
+    /* Установка размера видимой части карты */
+    this.setVisiblePartOfCard(cards.length);
+
+    /* Отрисовка всех карт */
+    let x = this.direction === 'horizontal' ? this.xStart : this.xUnified;
+    let y = this.direction === 'vertical' ? this.yStart : this.yUnified;
+
+    for (let i = 0; i < cards.length; i++) {
+      this.hand[i] = new Card(cards[i], this.context);
+
+      this.hand[i].draw(x, y);
+      if (this.direction === 'horizontal') {
+        x += this.visiblePartOfCard;
+      } else {
+        y += this.visiblePartOfCard;
+      }
+    }
   }
 
+  /* Отрисовка сразу всей руки. Найти, где используется */
   draw() {
     for (let i = 0; i < this.hand.length; i++) {
       this.hand[i].draw();
     }
   }
 
-  drawName(name?: string) {
-    if (name === undefined) {
-      name = 'Игрок';
-    }
-
-    this.context.font = '20px serif';
-    this.context.fillStyle = 'white';
-    this.context.fillText(`${name}`, this.xArr[0] + 20, this.yArr[0] - 5);
-  }
-
+  /* Метод стирает всю "руку". Переопределяется в сущностях */
   clear() {
     this.context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   }
@@ -56,18 +74,89 @@ export class Entity {
     // this.moveCard(removedCard!);
     this.clear();
 
+    /* Рассчёт начальной координаты для отрисовки "руки" */
+    /* Можно не передавать аргумент, потому что по умолчанию берётся количество карт на "руке" */
+    this.calcFirstCardCoords();
+    /* Установка размера видимой части карты */
+    this.setVisiblePartOfCard(this.hand.length);
+
+    /* Отрисовка карт на руке */
+    let x = this.direction === 'horizontal' ? this.xStart : this.xUnified;
+    let y = this.direction === 'vertical' ? this.yStart : this.yUnified;
+
     for (let i = 0; i < this.hand.length; i++) {
-      this.hand[i].draw(this.xArr[i], this.yArr[i]);
+      this.hand[i].draw(x, y);
+
+      if (this.direction === 'horizontal') {
+        x += this.visiblePartOfCard;
+      } else {
+        y += this.visiblePartOfCard;
+      }
     }
   }
 
-  addCard(card: CardType) {
-    const x = this.xArr[this.hand.length];
-    const y = this.yArr[this.hand.length];
+  /* Переделала добавление карт, чтобы добавлять в массив this.hand сразу все карты (если их больше одной) */
+  /* и перерисовывать всю руку только один раз, а добавляемые карты рисовать по одной */
+  addCards(cards: CardType[]) {
+    /* Рассчёт начальной координаты для отрисовки "руки" */
+    this.calcFirstCardCoords(this.hand.length + cards.length);
+    /* Установка размера видимой части карты */
+    this.setVisiblePartOfCard(this.hand.length + cards.length);
+    /* Очистка "руки" */
+    this.clear();
 
-    const newCard = new Card(x, y, card, this.context);
-    this.hand.push(newCard);
-    newCard.draw();
+    /* Двигаем "руку" */
+    let x = this.direction === 'horizontal' ? this.xStart : this.xUnified;
+    let y = this.direction === 'vertical' ? this.yStart : this.yUnified;
+
+    for (let i = 0; i < this.hand.length; i++) {
+      this.hand[i].draw(x, y);
+
+      if (this.direction === 'horizontal') {
+        x += this.visiblePartOfCard;
+      } else {
+        y += this.visiblePartOfCard;
+      }
+    }
+
+    /* Отрисовка добавляемых карт */
+    for (let i = 0; i < cards.length; i++) {
+      const newCard = new Card(cards[i], this.context);
+      this.hand.push(newCard);
+      newCard.draw(x, y);
+
+      if (this.direction === 'horizontal') {
+        x += this.visiblePartOfCard;
+      } else {
+        y += this.visiblePartOfCard;
+      }
+    }
+  }
+
+  /* Меняем размер показываемой части карты */
+  /* Чтобы, когда карт окажется много на "руке", сужать "руку" */
+  setVisiblePartOfCard(cardsNum: number) {
+    if (this.direction === 'horizontal') {
+      if (cardsNum < 5) {
+        this.visiblePartOfCard = (BASE_WIDTH_CARD / 4) * 3;
+      }
+      if (cardsNum >= 5 && cardsNum < 10) {
+        this.visiblePartOfCard = BASE_WIDTH_CARD / 2;
+      }
+      if (cardsNum >= 10) {
+        this.visiblePartOfCard = BASE_WIDTH_CARD / 3;
+      }
+    } else {
+      if (cardsNum < 5) {
+        this.visiblePartOfCard = BASE_HEIGHT_CARD / 2;
+      }
+      if (cardsNum >= 5 && cardsNum < 10) {
+        this.visiblePartOfCard = BASE_HEIGHT_CARD / 3;
+      }
+      if (cardsNum >= 10) {
+        this.visiblePartOfCard = BASE_HEIGHT_CARD / 4;
+      }
+    }
   }
 
   moveCard(card: Card) {
@@ -78,51 +167,137 @@ export class Entity {
     return this.hand;
   }
 
-  drawFlag() {
-    this.context.arc(this.xArr[0] + 5, this.yArr[0] - 11, 7, 0, 2 * Math.PI);
-    this.context.lineWidth = 2;
-    this.context.strokeStyle = 'white';
-    this.context.fillStyle = 'red';
-    this.context.fill();
+  drawName(name?: string) {
+    if (name === undefined) {
+      name = 'Игрок';
+    }
+
+    this.context.beginPath();
+    this.context.save();
+    if (this.direction === 'vertical') {
+      this.context.translate(0, CANVAS_HEIGHT);
+      this.context.rotate((-90 * Math.PI) / 180);
+    }
+    this.context.font = `${NAME_DATA.SIZE}px ${NAME_DATA.FONTFAMILY}`;
+    this.context.fillStyle = NAME_DATA.COLOR;
+    const nameWidth = this.context.measureText(name).width;
+    const nameHeight =
+      this.context.measureText(name).actualBoundingBoxAscent +
+      this.context.measureText(name).actualBoundingBoxDescent;
+    const coords = this.calcNameCoords(nameWidth, nameHeight);
+    this.context.fillText(`${name.toUpperCase()}`, coords[0], coords[1]);
+    this.context.restore();
+    this.context.closePath();
   }
 
-  clearFlag() {
+  private drawFlag() {
+    const flagCoords = this.calcFlagCoords();
+    this.context.beginPath();
+    this.context.arc(
+      flagCoords[0],
+      flagCoords[1],
+      FLAG_DATA.RADIUS,
+      0,
+      2 * Math.PI
+    );
+    this.context.fillStyle = FLAG_DATA.BORDER_COLOR;
+    this.context.fill();
+    this.context.closePath();
+
+    this.context.beginPath();
+    this.context.arc(
+      flagCoords[0],
+      flagCoords[1],
+      FLAG_DATA.RADIUS - FLAG_DATA.BORDER_WIDTH,
+      0,
+      2 * Math.PI
+    );
+    this.context.fillStyle = FLAG_DATA.BACKGROUND;
+    this.context.fill();
+    this.context.closePath();
+  }
+
+  private clearFlag() {
+    const flagCoords = this.calcFlagCoords();
+    /* Слева и справа добавляю ещё по одному BORDER_WIDTH, т.к.остаются следы от border */
     this.context.clearRect(
-      this.xArr[0] + 5 - 9,
-      this.yArr[0] - 11 - 9,
-      14 + 4,
-      14 + 4
+      flagCoords[0] - FLAG_DATA.RADIUS - FLAG_DATA.BORDER_WIDTH * 2,
+      flagCoords[1] - FLAG_DATA.RADIUS - FLAG_DATA.BORDER_WIDTH * 2,
+      FLAG_DATA.RADIUS * 2 +
+        FLAG_DATA.BORDER_WIDTH * 2 +
+        FLAG_DATA.BORDER_WIDTH * 2,
+      FLAG_DATA.RADIUS * 2 +
+        FLAG_DATA.BORDER_WIDTH * 2 +
+        FLAG_DATA.BORDER_WIDTH * 2
     );
   }
 
-  activateFlag() {
+  public activateFlag() {
     this.flag = true;
 
     this.drawFlag();
   }
 
-  removeFlag() {
+  public removeFlag() {
     this.flag = false;
 
     this.clearFlag();
   }
 
   showBubble(text: string) {
-    const div = document.createElement('div');
-    div.style.position = 'absolute';
-    div.style.width = '80px';
-    div.style.height = '20px';
-    div.style.left = `${this.bubbleCoords[0]}px`;
-    div.style.top = `${this.bubbleCoords[1]}px`;
-    div.style.borderRadius = '20px';
-    div.style.textAlign = 'center';
-    div.style.fontSize = '18px';
-    div.style.lineHeight = '20px';
-    div.style.background = 'white';
-    div.innerHTML = `${text}`;
-    document.getElementById('game-page')?.appendChild(div);
+    const bubbleCoords = this.calcBubbleCoords();
+    const bubbleWidth = BUBBLE_DATA.WIDTH;
+    const bubbleHeight = BUBBLE_DATA.HEIGHT;
+
+    this.context.beginPath();
+    this.context.fillStyle = BUBBLE_DATA.BACKGROUND;
+    this.context.roundRect(
+      bubbleCoords[0],
+      bubbleCoords[1],
+      bubbleWidth,
+      bubbleHeight,
+      [6]
+    );
+    this.context.fill();
+    this.context.closePath();
+
+    this.context.beginPath();
+    this.context.fillStyle = BUBBLE_DATA.TEXT_COLOR;
+    this.context.font = `${BUBBLE_DATA.TEXT_SIZE}px ${BUBBLE_DATA.TEXT_FONTFAMILY}`;
+    this.context.textAlign = 'center';
+
+    const textHeight =
+      this.context.measureText(text).actualBoundingBoxAscent +
+      this.context.measureText(text).actualBoundingBoxDescent;
+    const xText = bubbleCoords[0] + bubbleWidth / 2;
+    const yText = bubbleCoords[1] + bubbleHeight / 2 + textHeight / 2;
+
+    this.context.fillText(text, xText, yText);
+    this.context.closePath();
     setTimeout(() => {
-      div.remove();
+      this.context.clearRect(bubbleCoords[0], bubbleCoords[1], 80, 20);
     }, 1500);
+  }
+
+  /* х для горизонтальных и у для вертикальных "рук" меняются в зависимости от кол-ва карт на руке */
+  /* Поэтому каждый раз переррисовывается вся "рука" */
+  calcFirstCardCoords(numCards?: number) {
+    /* Рассчёт внутри каждой сущности */
+  }
+
+  /* Метод рассчитывает координаты для имени. Переопределяется в сущностях */
+  calcNameCoords(width: number, height: number): number[] {
+    /* Рассчёт внутри каждой сущности */
+    return [];
+  }
+
+  calcFlagCoords(): number[] {
+    /* Рассчёт внутри каждой сущности */
+    return [];
+  }
+
+  calcBubbleCoords(): number[] {
+    /* Рассчёт внутри каждой сущности */
+    return [];
   }
 }
