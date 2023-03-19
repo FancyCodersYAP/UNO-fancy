@@ -4,7 +4,7 @@ import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
-import { StContainer, StLink, StTextContainer } from 'styles/global';
+import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
 
 export interface LoginFormParams extends FieldValues {
@@ -47,15 +47,9 @@ const LoginPage: FC = () => {
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <StTextContainer
-        css={{
-          fontSize: '1.35rem',
-          maxWidth: 500,
-          lineHeight: '1.7rem',
-          marginLeft: 10,
-        }}>
+      <StTextGamePreviewContainer>
         {GAME_DESCRIPTION}
-      </StTextContainer>
+      </StTextGamePreviewContainer>
     </StContainer>
   );
 };

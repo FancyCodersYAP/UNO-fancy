@@ -6,13 +6,13 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: Open-Sans, Helvetica, Sans-Serif,serif;
+    font-family: Open-Sans, Helvetica, Sans-Serif, serif;
   }
 
   * {
-      box-sizing: border-box;
+    box-sizing: border-box;
   }
-  
+
   #root,
   html,
   body,
@@ -28,6 +28,7 @@ export const StLink = styled(Link)`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
+
   &&:hover {
     text-decoration: underline;
   }
@@ -38,6 +39,7 @@ export const StNavLink = styled(NavLink)`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
+
   &:after {
     position: absolute;
     transform: scaleX(0);
@@ -50,6 +52,7 @@ export const StNavLink = styled(NavLink)`
     margin-top: 8px;
     transition: transform 250ms ease-in-out;
   }
+
   &&.active:after,
   &&:hover:after {
     transform: scaleX(1);
@@ -60,6 +63,13 @@ export const StTextContainer = styled.p`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   width: ${(props: { width?: number }) =>
     props.width ? `${props.width}px` : 'auto'};
+`;
+
+export const StTextGamePreviewContainer = styled(StTextContainer)`
+  font-size: 1.35rem;
+  max-width: 500px;
+  line-height: 1.7rem;
+  margin-left: 10px;
 `;
 
 export const StFlex = styled.div`
