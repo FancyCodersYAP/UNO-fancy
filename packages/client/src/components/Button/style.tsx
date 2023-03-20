@@ -7,7 +7,7 @@ export const StButton = styled.button`
       case 'primary':
         return props.theme?.COLOR_ELEMENT_PRIMARY;
       case 'secondary':
-        return `linear-gradient(1800deg, ${props.theme?.COLOR_PREVIEW_PRIMARY} 0%, rgba(255, 255, 255, 0.2) 100%);`;
+        return `linear-gradient(180deg, ${props.theme?.COLOR_PREVIEW_PRIMARY} 0%, rgba(255, 255, 255, 0.3) 50%, ${props.theme?.COLOR_PREVIEW_PRIMARY} 100%);`;
       case 'alternate':
         return props.theme?.COLOR_ELEMENT_ALTERNATE;
       default:

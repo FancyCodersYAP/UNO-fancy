@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import { StContainer } from '../../styles/global';
+import { StContainer } from 'styles/global';
 
 const StMainScreen = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const StMainScreen = styled.div`
   background-image: url('src/assets/img/background.png');
   background-size: cover;
   background-position: center, center;
-  margin: 0 15px;
+  padding: 15px 15px;
   ${props => props?.theme.DARKEN}
 `;
 
@@ -21,7 +21,6 @@ const StContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
   flex: 1;
 `;
 

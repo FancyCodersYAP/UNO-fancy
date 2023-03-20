@@ -6,13 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 
 const StMainLogo = styled.div`
-  height: 450px;
-  width: 800px;
+  padding: 210px 400px;
   opacity: 0.8;
   background: url('src/assets/img/logo.png');
   background-size: cover;
   mix-blend-mode: multiply; //darken color-burn
-  margin-top: -100px;
 `;
 
 const MainPage: FC = () => {
