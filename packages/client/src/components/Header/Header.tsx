@@ -10,7 +10,6 @@ const StHeader = styled.header`
   align-items: center;
   justify-content: center;
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
-  padding: 20px;
 `;
 
 const Header: FC = () => (
