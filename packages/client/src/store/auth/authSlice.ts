@@ -19,14 +19,12 @@ const initialState: UserState = {
   error: '',
 };
 
-// const dispatch = useDispatch();
-
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    errorClear(state) {
-      setTimeout(() => (state.error = ''), 3000);
+    errorReset(state) {
+      state.error = '';
     },
   },
   extraReducers: builder => {
@@ -70,5 +68,7 @@ export const authSlice = createSlice({
       );
   },
 });
+
+export const { errorReset } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -5,6 +5,9 @@ import Input from 'components/Input';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
 import { RegFormParams } from '../../pages/RegistrationPage/RegistrationPage';
+import { useAppDispatch } from '../../hooks/redux';
+import { errorReset } from '../../store/auth/authSlice';
+import { authState } from '../../hooks/authState';
 
 type FormProps = {
   title?: string;
@@ -29,8 +32,15 @@ const Form: FC<FormProps> = ({
     handleSubmit,
   } = useForm<FieldValues | LoginFormParams>({ mode: 'onBlur' });
 
+  const dispatch = useAppDispatch();
+  const [error] = authState();
+
+  const errorCancel = () => {
+    if (error) dispatch(errorReset());
+  };
+
   return (
-    <StForm onSubmit={handleSubmit(handleFormSubmit)}>
+    <StForm onSubmit={handleSubmit(handleFormSubmit)} onClick={errorCancel}>
       {title && (
         <StFormTitle>
           {title}
