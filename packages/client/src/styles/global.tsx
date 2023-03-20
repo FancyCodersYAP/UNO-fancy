@@ -30,6 +30,9 @@ type FlexProps = {
   padding?: number;
   marginBottom?: number;
   rowGap?: number;
+  justifyContent?: string;
+  alignItems?: string;
+  flexDirection?: string;
 };
 
 type TextContainerProps = {
@@ -81,24 +84,13 @@ export const StFlex = styled.div<FlexProps>`
   padding: ${props => (props.padding ? `${props.padding}px` : 0)};
   margin-bottom: ${props =>
     props.marginBottom ? `${props.marginBottom}px` : 0};
+  justify-content: ${props =>
+    props.justifyContent ? props.justifyContent : 'start'};
+  align-items: ${props => (props.alignItems ? props.alignItems : 'start')};
+  flex-direction: ${props =>
+    props.flexDirection ? props.flexDirection : 'row'};
 `;
 
-export const StFlexSpaceBetween = styled(StFlex)`
-  justify-content: space-between;
-`;
-
-export const StFlexSpaceBetweenBg = styled(StFlexSpaceBetween)`
+export const StFlexBg = styled(StFlex)`
   background-color: ${props => props.theme.COLOR_PREVIEW_SECONDARY};
-`;
-
-export const StFlexSpaceAround = styled(StFlex)`
-  justify-content: space-around;
-`;
-
-export const StFlexColumnDirection = styled(StFlex)`
-  flex-direction: column;
-`;
-
-export const StFlexAlighItemCenter = styled(StFlex)`
-  align-items: center;
 `;
