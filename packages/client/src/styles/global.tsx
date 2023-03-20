@@ -91,6 +91,7 @@ export const StFlexSpaceBetween = styled(StFlex)`
 
 export const StFlexColumnDirection = styled(StFlex)`
   flex-direction: column;
+  margin-bottom: 100px;
 `;
 
 export const StFlexAlignItemCenter = styled(StFlex)`
