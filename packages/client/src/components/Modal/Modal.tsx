@@ -6,12 +6,13 @@ interface ModalType {
   children?: ReactNode;
   title?: string;
   isOpen: boolean;
-  toggle: () => void;
+  handleCloseModal: () => void;
   isPossibleToClose?: boolean;
 }
 
 const Modal = (props: ModalType) => {
-  const { isOpen, title, toggle, children, isPossibleToClose } = props;
+  const { isOpen, title, handleCloseModal, children, isPossibleToClose } =
+    props;
 
   const stopPropagationEvent = (evt: React.SyntheticEvent) => {
     evt.stopPropagation();
@@ -19,7 +20,7 @@ const Modal = (props: ModalType) => {
 
   const checkPossibleToClose = () => {
     if (isPossibleToClose) {
-      return toggle();
+      return handleCloseModal();
     }
 
     return;
@@ -32,7 +33,7 @@ const Modal = (props: ModalType) => {
           <StModalWrapper onClick={stopPropagationEvent}>
             <StModalTitle>{title}</StModalTitle>
             {isPossibleToClose && (
-              <StButtonCloseModal onClick={toggle}>
+              <StButtonCloseModal onClick={handleCloseModal}>
                 <img src="src/assets/icons/close.svg" />
               </StButtonCloseModal>
             )}
