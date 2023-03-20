@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
-import { StFlexSpaceAround } from 'styles/global';
 import medalIcon from 'assets/icons/medal.svg';
-import { StTextContainerWithShadow, StFlexSpaceBetween } from 'styles/global';
-import { COLOR_PREVIEW_SECONDARY } from 'styles/variables/colors-theme-light';
+import {
+  StTextContainerWithShadow,
+  StFlexSpaceAround,
+  StFlexSpaceBetweenBg,
+} from 'styles/global';
 
 interface EndGameType {
   time: string;
@@ -28,8 +30,7 @@ const EndGame = (props: EndGameType) => {
 
   return (
     <>
-      <StFlexSpaceBetween
-        backgroundColor={COLOR_PREVIEW_SECONDARY}
+      <StFlexSpaceBetweenBg
         borderRadius={20}
         columnGap={60}
         padding={25}
@@ -61,7 +62,7 @@ const EndGame = (props: EndGameType) => {
             результат: {result}-е место
           </StTextContainerWithShadow>
         </div>
-      </StFlexSpaceBetween>
+      </StFlexSpaceBetweenBg>
       <StFlexSpaceAround>
         <Button
           onClick={navigateToMain}

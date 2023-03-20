@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
-import Button from 'components/Button/Button';
+import Button from 'components/Button';
 import { StLink, StFlexSpaceBetween } from 'styles/global';
-import Card from 'components/Card/Card';
+import Card from 'components/Card';
 
 const cards = [
   {

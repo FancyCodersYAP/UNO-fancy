@@ -41,7 +41,7 @@ type TextContainerProps = {
 };
 
 export const StLink = styled(Link)`
-  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
   &&:hover {
@@ -50,7 +50,7 @@ export const StLink = styled(Link)`
 `;
 
 export const StNavLink = styled(NavLink)`
-  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
   &&:hover {
@@ -59,13 +59,13 @@ export const StNavLink = styled(NavLink)`
 `;
 
 export const StTextContainer = styled.p<TextContainerProps>`
-  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
-  text-align: ${props => (props?.textAlign ? props?.textAlign : 'start')};
-  width: ${props => (props?.width ? props?.width + 'px' : 'auto')};
-  font-weight: ${props => (props?.fontWeight ? props?.fontWeight : 'normal')};
-  font-size: ${props => (props?.fontSize ? props?.fontSize + 'px' : 'medium')};
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
+  text-align: ${props => (props.textAlign ? props.textAlign : 'start')};
+  width: ${props => (props.width ? `${props.width}px` : 'auto')};
+  font-weight: ${props => (props.fontWeight ? props.fontWeight : 'normal')};
+  font-size: ${props => (props.fontSize ? `${props.fontSize}px` : 'medium')};
   line-height: ${props =>
-    props?.lineHeight ? props?.lineHeight + 'px' : 'normal'};
+    props.lineHeight ? `${props.lineHeight}px` : 'normal'};
 `;
 
 export const StTextContainerWithShadow = styled(StTextContainer)`
@@ -74,19 +74,21 @@ export const StTextContainerWithShadow = styled(StTextContainer)`
 
 export const StFlex = styled.div<FlexProps>`
   display: flex;
-  background-color: ${props =>
-    props?.backgroundColor ? props?.backgroundColor : 'initial'};
   border-radius: ${props =>
-    props?.borderRadius ? props?.borderRadius + 'px' : 0};
-  column-gap: ${props => (props?.columnGap ? props?.columnGap + 'px' : 0)};
-  row-gap: ${props => (props?.rowGap ? props?.rowGap + 'px' : 0)};
-  padding: ${props => (props?.padding ? props?.padding + 'px' : 0)};
+    props.borderRadius ? `${props.borderRadius}px` : 0};
+  column-gap: ${props => (props.columnGap ? `${props.columnGap}px` : 0)};
+  row-gap: ${props => (props.rowGap ? `${props.rowGap}px` : 0)};
+  padding: ${props => (props.padding ? `${props.padding}px` : 0)};
   margin-bottom: ${props =>
-    props?.marginBottom ? props?.marginBottom + 'px' : 0};
+    props.marginBottom ? `${props.marginBottom}px` : 0};
 `;
 
 export const StFlexSpaceBetween = styled(StFlex)`
   justify-content: space-between;
+`;
+
+export const StFlexSpaceBetweenBg = styled(StFlexSpaceBetween)`
+  background-color: ${props => props.theme.COLOR_PREVIEW_SECONDARY};
 `;
 
 export const StFlexSpaceAround = styled(StFlex)`
