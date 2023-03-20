@@ -248,6 +248,7 @@ export class Game extends EventBus {
       }
 
       /* Если подходящей карты нет, бот берёт карту из колоды */
+      console.log('Бот должен взять карту из колоды');
       this.takeCard(false);
 
       return;
@@ -267,6 +268,7 @@ export class Game extends EventBus {
     });
 
     /* Удаляем карту с руки и перерисовываем руку */
+    console.log('Игрок', player, 'Карта', movedCard);
     player.removeCard(movedCard);
 
     /* Заменяем откурытую карту на столе */
@@ -287,30 +289,29 @@ export class Game extends EventBus {
       /* Боты кликать не забывают, поэтому сразу bubble */
       if (this.players[this.currentPlayer].isBot === true) {
         player.showBubble('UNO');
-        this.moveLine();
+        console.log('У бота осталась одна карта', player);
+      } else {
+        /* Проверяем, что "живой" игркок сделал клик */
+        let clickUno = false;
 
-        return;
+        const cb = () => {
+          clickUno = true;
+
+          player.showBubble('UNO');
+        };
+        /* Подписка на событие клика по кнопке UNO */
+        this.on('click uno', cb);
+
+        /* Если за 1,5 сек клика не было, игроку выдаются 2 карты на руку и ход переходит к следующему игроку */
+        await sleep(() => {
+          if (!clickUno) {
+            this.takeCard(true, 2);
+            // this.takeCard(true);
+
+            this.off('click uno', cb);
+          }
+        });
       }
-
-      let clickUno = false;
-
-      const cb = () => {
-        clickUno = true;
-
-        player.showBubble('UNO');
-      };
-      /* Подписка на событие клика по кнопке UNO */
-      this.on('click uno', cb);
-
-      /* Если за 1,5 сек клика не было, игроку выдаются 2 карты на руку и ход переходит к следующему игроку */
-      await sleep(() => {
-        if (!clickUno) {
-          this.takeCard(true);
-          this.takeCard(true);
-
-          this.off('click uno', cb);
-        }
-      });
     }
 
     /* Проверяем, была ли выложена спец.карта. Если да, выполняем действие карты */
