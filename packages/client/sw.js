@@ -52,7 +52,7 @@ async function networkFirst(request) {
     /* Если мы получили данные сервера, то нужно их занести в кэш */
     await cache.put(request, response.clone());
     return response;
-  } catch (e) {
+  } catch {
     /* Если мы не можем получить данные с сервера, проверяем в кэше */
     const cached = await caches.match(request);
     /* Но если нет сети и нет данных в кэше, то показываем страницу "оффлайн" */
