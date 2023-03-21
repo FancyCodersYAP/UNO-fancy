@@ -22,8 +22,6 @@ export const StButtonStatusBar = styled(StButton)`
   border-radius: 0;
   fill: ${COLORS.COLOR_ELEMENT_CONTRAST};
   padding: 0;
-  margin-right: ${(props: ButtonStatusBarProps) =>
-    props?.marginRight ? '10px' : 0};
   svg {
     transition: all 0.3s ease-in-out;
   }
@@ -31,6 +29,10 @@ export const StButtonStatusBar = styled(StButton)`
     fill: ${COLORS.COLOR_ELEMENT_MAIN};
   }
 `;
+
+export const StyledButtonStatusBar = styled(StButtonStatusBar)`
+  margin-right: '10px';
+`
 
 export const StStatusBarTime = styled.div`
   font-size: 16px;
@@ -41,7 +43,3 @@ export const StStatusBarTime = styled.div`
   padding: 5px;
   color: ${COLORS.COLOR_ELEMENT_CONTRAST};
 `;
-
-type ButtonStatusBarProps = {
-  marginRight?: boolean;
-};

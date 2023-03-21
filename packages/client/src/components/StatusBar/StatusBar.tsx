@@ -3,6 +3,7 @@ import {
   StButtonStatusBar,
   StStatusBarButtons,
   StStatusBarTime,
+  StyledButtonStatusBar,
 } from './style';
 import { useState } from 'react';
 import {
@@ -59,13 +60,13 @@ const StatusBar = () => {
   return (
     <StStatusBar>
       <StStatusBarButtons>
-        <StButtonStatusBar onClick={toggleGame} marginRight>
+        <StyledButtonStatusBar onClick={toggleGame}>
           {/* Только для теста. Удалить 62-65 */}
           <TemporarySvg />
-        </StButtonStatusBar>
-        <StButtonStatusBar onClick={toggleFullScreen} marginRight>
+        </StyledButtonStatusBar>
+        <StyledButtonStatusBar onClick={toggleFullScreen}>
           {fullScreen ? <FullScreenExitSvg /> : <FullScreenSvg />}
-        </StButtonStatusBar>
+        </StyledButtonStatusBar>
         {isGame && (
           <StButtonStatusBar onClick={exitGameClick}>
             <CloseSvg />
