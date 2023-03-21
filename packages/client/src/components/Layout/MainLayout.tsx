@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
+import { Outlet } from 'react-router-dom';
 
 const StMainScreen = styled.div`
   display: flex;
@@ -24,13 +25,13 @@ const StContent = styled.div`
 `;
 
 type LayoutProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const MainLayout: FC<LayoutProps> = ({ children }) => (
   <StMainScreen>
     <Header />
-    <StContent>{children}</StContent>
+    <StContent>{children ?? <Outlet />}</StContent>
   </StMainScreen>
 );
 
