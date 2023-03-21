@@ -9,10 +9,10 @@ interface SettingsRadioType {
 const SettingsRadio = (props: SettingsRadioType) => {
   const { value } = props;
 
-  const arr = [...Array(value)];
+  const arrayOfImgs = [...Array(value)];
 
   return (
-    <div>
+    <>
       <StCustomRadioInput
         type="radio"
         id={`user-${value}`}
@@ -22,7 +22,7 @@ const SettingsRadio = (props: SettingsRadioType) => {
       />
       <StLabel htmlFor={`user-${value}`}>
         <StSettingsRadioImgs>
-          {arr.map((img, id) => (
+          {arrayOfImgs.map((img, id) => (
             <StSettingsRadioImg
               key={`player-img-${id}`}
               src={SmileIcon}
@@ -33,7 +33,7 @@ const SettingsRadio = (props: SettingsRadioType) => {
 
         <StTextContainer textAlign="center">{value} игрока</StTextContainer>
       </StLabel>
-    </div>
+    </>
   );
 };
 

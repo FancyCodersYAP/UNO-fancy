@@ -12,8 +12,8 @@ export const StModal = styled.section`
 `;
 
 export const StModalWrapper = styled.div`
-  background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
-  border-radius: 20px;
+  background-color: ${props => props.theme.COLOR_PREVIEW_PRIMARY};
+  border-radius: 50px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -22,7 +22,7 @@ export const StModalWrapper = styled.div`
 `;
 
 export const StModalTitle = styled.h3`
-  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   font-size: 26px;
   font-weight: 600;
   text-align: center;

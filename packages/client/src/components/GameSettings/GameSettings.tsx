@@ -1,6 +1,6 @@
-import { StFlexSpaceBetween } from 'styles/global';
+import { StFlex } from 'styles/global';
 import SettingsRadio from 'components/SettingsRadio/SettingsRadio';
-import { StButtonCenter } from 'components/Button/Button';
+import Button from 'components/Button';
 
 const settingsInputsValue = [
   {
@@ -11,7 +11,7 @@ const settingsInputsValue = [
   },
 ];
 
-const Settings = () => {
+const GameSettings = () => {
   const onSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
 
@@ -30,17 +30,15 @@ const Settings = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <StFlexSpaceBetween columnGap={60} marginBottom={50}>
+      <StFlex justifyContent="space-between" columnGap={60} marginBottom={50}>
         {settingsInputsValue.map((input, id) => (
           <SettingsRadio key={`settings-card-${id}`} value={input.value} />
         ))}
-      </StFlexSpaceBetween>
+      </StFlex>
 
-      <StButtonCenter type="submit" primary>
-        Старт
-      </StButtonCenter>
+      <Button text="Старт" type="submit" disignType="alternate" />
     </form>
   );
 };
 
-export default Settings;
+export default GameSettings;
