@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
+import { Outlet } from 'react-router-dom';
 import { fetchAuth } from '../../store/auth/actions';
 import { useAppDispatch } from '../../hooks/redux';
 import { authState } from '../../hooks/authState';
@@ -27,7 +28,7 @@ const StContent = styled.div`
 `;
 
 type LayoutProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const MainLayout: FC<LayoutProps> = ({ children }) => {
@@ -43,7 +44,7 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
   return (
     <StMainScreen>
       <Header />
-      <StContent>{children}</StContent>
+      <StContent>{children ?? <Outlet />}</StContent>
     </StMainScreen>
   );
 };
