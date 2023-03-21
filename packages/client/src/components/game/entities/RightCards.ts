@@ -39,12 +39,12 @@ export class RightCards extends Entity {
     );
   }
 
-  calcNameCoords(width: number) {
+  calcNameCoords(width: number, height: number) {
     /* Запоминаем ширину текста. При расчёте y для флага нужно добавить ширину текста */
     this.nameWidth = width;
     /* Т.к. имя перевёрнуто, x теперь по вертикали, y - по горизонтали */
-    const y = this.xUnified - DISTANCE_BETWEEN_NAME_AND_HAND;
-    const x = yCanvasCenter - width / 2;
+    const y = this.xUnified - DISTANCE_BETWEEN_NAME_AND_HAND - height / 2;
+    const x = yCanvasCenter;
     this.nameCoords = [y, x];
 
     /* Записываем координаты имени в привычной системе координат */
@@ -66,7 +66,7 @@ export class RightCards extends Entity {
     const x =
       this.xUnified - BUBBLE_DATA.WIDTH - DISTANCE_BETWEEN_NAME_AND_HAND;
     const y =
-      this.nameCoords[1] - DISTANCE_BETWEEN_FLAG_AND_NAME - this.nameWidth;
+      this.nameCoords[1] - DISTANCE_BETWEEN_FLAG_AND_NAME - this.nameWidth * 2;
 
     return [x, y];
   }

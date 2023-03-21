@@ -174,17 +174,24 @@ export class Entity {
 
     this.context.beginPath();
     this.context.save();
+
+    /* Для "рук" слева и справа переворачиваем имя */
     if (this.direction === 'vertical') {
       this.context.translate(0, CANVAS_HEIGHT);
       this.context.rotate((-90 * Math.PI) / 180);
     }
+
     this.context.font = `${NAME_DATA.SIZE}px ${NAME_DATA.FONTFAMILY}`;
     this.context.fillStyle = NAME_DATA.COLOR;
+
     const nameWidth = this.context.measureText(name).width;
     const nameHeight =
       this.context.measureText(name).actualBoundingBoxAscent +
       this.context.measureText(name).actualBoundingBoxDescent;
     const coords = this.calcNameCoords(nameWidth, nameHeight);
+
+    this.context.textAlign = 'center';
+    this.context.textBaseline = 'middle';
     this.context.fillText(`${name.toUpperCase()}`, coords[0], coords[1]);
     this.context.restore();
     this.context.closePath();
@@ -265,17 +272,20 @@ export class Entity {
     this.context.fillStyle = BUBBLE_DATA.TEXT_COLOR;
     this.context.font = `${BUBBLE_DATA.TEXT_SIZE}px ${BUBBLE_DATA.TEXT_FONTFAMILY}`;
     this.context.textAlign = 'center';
+    this.context.textBaseline = 'middle';
 
-    const textHeight =
-      this.context.measureText(text).actualBoundingBoxAscent +
-      this.context.measureText(text).actualBoundingBoxDescent;
     const xText = bubbleCoords[0] + bubbleWidth / 2;
-    const yText = bubbleCoords[1] + bubbleHeight / 2 + textHeight / 2;
+    const yText = bubbleCoords[1] + bubbleHeight / 2;
 
     this.context.fillText(text, xText, yText);
     this.context.closePath();
     setTimeout(() => {
-      this.context.clearRect(bubbleCoords[0], bubbleCoords[1], 80, 20);
+      this.context.clearRect(
+        bubbleCoords[0] - 1,
+        bubbleCoords[1] - 1,
+        bubbleWidth + 2,
+        bubbleHeight + 2
+      );
     }, 1500);
   }
 

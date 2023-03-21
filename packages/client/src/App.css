@@ -44,13 +44,10 @@ button::-moz-focus-inner {
   right: 300px;
   z-index: 2;
   color: white;
+  font-family: 'Serif';
   font-weight: 600;
   font-style: normal;
-  background: linear-gradient(
-    0deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
-  );
+  background: #3a5d70;
   border-radius: 5px;
 }
 .btn-uno_active {

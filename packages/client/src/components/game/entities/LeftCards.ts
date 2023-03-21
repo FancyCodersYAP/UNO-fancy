@@ -42,8 +42,11 @@ export class LeftCards extends Entity {
     this.nameWidth = width;
     /* Т.к. имя перевёрнуто, x теперь по вертикали, y - по горизонтали */
     const y =
-      this.xUnified + BASE_WIDTH_CARD + DISTANCE_BETWEEN_NAME_AND_HAND + height;
-    const x = yCanvasCenter - width / 2;
+      this.xUnified +
+      BASE_WIDTH_CARD +
+      DISTANCE_BETWEEN_NAME_AND_HAND +
+      height / 2;
+    const x = yCanvasCenter;
     this.nameCoords = [y, x];
 
     /* Записываем координаты имени в привычной системе координат */
@@ -68,7 +71,7 @@ export class LeftCards extends Entity {
   calcBubbleCoords() {
     const x = this.xUnified + BASE_WIDTH_CARD + DISTANCE_BETWEEN_NAME_AND_HAND;
     const y =
-      this.nameCoords[1] - DISTANCE_BETWEEN_FLAG_AND_NAME - this.nameWidth;
+      this.nameCoords[1] - DISTANCE_BETWEEN_FLAG_AND_NAME - this.nameWidth * 2;
 
     return [x, y];
   }
