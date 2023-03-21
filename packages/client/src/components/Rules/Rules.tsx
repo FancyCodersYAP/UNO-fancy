@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
-import Button from 'components/Button/Button';
-import { StLink, StFlexSpaceBetween } from 'styles/global';
-import Card from 'components/Card/Card';
+import Button from 'components/Button';
+import { StLink, StFlex } from 'styles/global';
+import Card from 'components/Card';
 
 const cards = [
   {
@@ -22,7 +22,7 @@ const cards = [
   },
 ];
 
-const StartGame = () => {
+const Rules = () => {
   const navigate = useNavigate();
 
   const navigateToGame = () => {
@@ -31,7 +31,7 @@ const StartGame = () => {
 
   return (
     <>
-      <StFlexSpaceBetween>
+      <StFlex justifyContent="space-between">
         {cards.map((card, id) => (
           <Card
             key={`card-${id}`}
@@ -40,18 +40,18 @@ const StartGame = () => {
             text={card.text}
           />
         ))}
-      </StFlexSpaceBetween>
+      </StFlex>
 
-      <StFlexSpaceBetween>
+      <StFlex justifyContent="space-between">
         <StLink
           to="https://inteltoys.ru/articles/cat7/article655.html"
           target="_blank">
           Подробнее о правилах
         </StLink>
-        <Button onClick={navigateToGame} text="Начать" primary />
-      </StFlexSpaceBetween>
+        <Button onClick={navigateToGame} text="Начать" />
+      </StFlex>
     </>
   );
 };
 
-export default StartGame;
+export default Rules;

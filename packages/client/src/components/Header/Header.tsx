@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import Toggler from 'components/Toggler';
 import Logo from 'components/Logo';
-import { StFlexAlighItemCenter } from 'styles/global';
+import { StFlex } from 'styles/global';
 import { AppRoute } from 'utils/constants';
 import NavMenu from '../NavMenu';
 
@@ -18,10 +18,10 @@ const StHeader = styled.div`
 const Header: FC = () => (
   <StHeader>
     <Logo />
-    <StFlexAlighItemCenter gap={20}>
+    <StFlex alignItems="center" columnGap={20}>
       <NavMenu />
       <Toggler />
-    </StFlexAlighItemCenter>
+    </StFlex>
   </StHeader>
 );
 
