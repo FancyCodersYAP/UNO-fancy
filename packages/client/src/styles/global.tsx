@@ -32,11 +32,11 @@ type FlexProps = {
   rowGap?: number;
   justifyContent?: string;
   alignItems?: string;
-  flexDirection?: string;
+  flexDirection?: 'column' | 'row';
 };
 
 type TextContainerProps = {
-  textAlign?: string;
+  textAlign?: 'start' | 'end' | 'center';
   width?: number;
   fontWeight?: number;
   fontSize?: number;
@@ -61,35 +61,47 @@ export const StNavLink = styled(NavLink)`
   }
 `;
 
-export const StTextContainer = styled.p<TextContainerProps>`
-  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
-  text-align: ${props => (props.textAlign ? props.textAlign : 'start')};
-  width: ${props => (props.width ? `${props.width}px` : 'auto')};
-  font-weight: ${props => (props.fontWeight ? props.fontWeight : 'normal')};
-  font-size: ${props => (props.fontSize ? `${props.fontSize}px` : 'medium')};
-  line-height: ${props =>
-    props.lineHeight ? `${props.lineHeight}px` : 'normal'};
-`;
+export const StTextContainer = styled.p<TextContainerProps>(props => {
+  const { theme, textAlign, width, fontWeight, fontSize, lineHeight } = props;
+
+  return {
+    color: theme.COLOR_TEXT_PRIMARY,
+    textAlign: textAlign || 'left',
+    width: width ? `${width}px` : 'auto',
+    fontWeight: fontWeight || 'normal',
+    fontSize: fontSize ? `${fontSize}px` : 'medium',
+    lineHeight: lineHeight ? `${lineHeight}px` : 'normal',
+  };
+});
 
 export const StTextContainerWithShadow = styled(StTextContainer)`
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-export const StFlex = styled.div<FlexProps>`
-  display: flex;
-  border-radius: ${props =>
-    props.borderRadius ? `${props.borderRadius}px` : 0};
-  column-gap: ${props => (props.columnGap ? `${props.columnGap}px` : 0)};
-  row-gap: ${props => (props.rowGap ? `${props.rowGap}px` : 0)};
-  padding: ${props => (props.padding ? `${props.padding}px` : 0)};
-  margin-bottom: ${props =>
-    props.marginBottom ? `${props.marginBottom}px` : 0};
-  justify-content: ${props =>
-    props.justifyContent ? props.justifyContent : 'start'};
-  align-items: ${props => (props.alignItems ? props.alignItems : 'start')};
-  flex-direction: ${props =>
-    props.flexDirection ? props.flexDirection : 'row'};
-`;
+export const StFlex = styled.div<FlexProps>(props => {
+  const {
+    borderRadius,
+    columnGap,
+    rowGap,
+    padding,
+    marginBottom,
+    justifyContent,
+    alignItems,
+    flexDirection,
+  } = props;
+
+  return {
+    display: 'flex',
+    borderRadius: borderRadius ? `${borderRadius}px` : 0,
+    columnGap: columnGap ? `${columnGap}px` : 0,
+    rowGap: rowGap ? `${rowGap}px` : 0,
+    padding: padding ? `${padding}px` : 0,
+    marginBottom: marginBottom ? `${marginBottom}px` : 0,
+    justifyContent: justifyContent || 'start',
+    alignItems: alignItems || 'start',
+    flexDirection: flexDirection || 'row',
+  } as FlexProps;
+});
 
 export const StFlexBg = styled(StFlex)`
   background-color: ${props => props.theme.COLOR_PREVIEW_SECONDARY};
