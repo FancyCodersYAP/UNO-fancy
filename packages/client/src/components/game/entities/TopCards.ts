@@ -38,12 +38,12 @@ export class TopCards extends Entity {
   }
 
   calcNameCoords(width: number, height: number) {
-    const x = xCanvasCenter - width / 2;
+    const x = xCanvasCenter;
     const y =
       this.yUnified +
       BASE_HEIGHT_CARD +
       DISTANCE_BETWEEN_NAME_AND_HAND +
-      height;
+      height / 2;
     this.nameCoords = [x, y];
     this.nameWidth = width;
 
@@ -52,12 +52,16 @@ export class TopCards extends Entity {
 
   calcFlagCoords() {
     const x =
-      this.nameCoords[0] - DISTANCE_BETWEEN_FLAG_AND_NAME - FLAG_DATA.RADIUS;
+      this.nameCoords[0] -
+      this.nameWidth -
+      DISTANCE_BETWEEN_FLAG_AND_NAME -
+      FLAG_DATA.RADIUS;
     const y =
       this.yUnified +
       BASE_HEIGHT_CARD +
       DISTANCE_BETWEEN_NAME_AND_HAND +
-      FLAG_DATA.RADIUS;
+      FLAG_DATA.RADIUS -
+      FLAG_DATA.BORDER_WIDTH;
 
     return [x, y];
   }
