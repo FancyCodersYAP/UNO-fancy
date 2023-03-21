@@ -1,4 +1,5 @@
 export const COLOR_PREVIEW_PRIMARY = '#8e5f2d';
+export const COLOR_PREVIEW_SECONDARY = '#765921';
 export const COLOR_ELEMENT_PRIMARY = '#155d7e';
 export const COLOR_TEXT_PRIMARY = '#cbcaca';
 export const COLOR_ELEMENT_SECONDARY = '#9ba9b8';
