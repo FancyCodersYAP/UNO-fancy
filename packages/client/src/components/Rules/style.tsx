@@ -47,7 +47,6 @@ export const StRulesTextContainer = styled.div`
   }
 
   a {
-    text-decoration: none;
-    color: ${props => props?.theme.COLOR_ELEMENT_SECONDARY};
+    color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   }
 `;
