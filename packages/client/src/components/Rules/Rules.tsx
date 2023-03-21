@@ -1,5 +1,5 @@
 import Button from 'components/Button/Button';
-import { StFlexSpaceBetween } from 'styles/global';
+import { StFlex } from 'styles/global';
 import Card from 'components/Card/Card';
 import useCarousel from 'utils/useCarousel';
 import {
@@ -36,7 +36,7 @@ const Rules = () => {
     <StCarousel width={540}>
       <StCarouselBoxContainer ref={ref}>
         <StCarouselBox width={540} height={400}>
-          <StFlexSpaceBetween>
+          <StFlex justifyContent="space-between">
             {cards.map((card, id) => (
               <Card
                 key={`card-${id}`}
@@ -45,9 +45,9 @@ const Rules = () => {
                 text={card.text}
               />
             ))}
-          </StFlexSpaceBetween>
+          </StFlex>
 
-          <Button onClick={next} text="Подробнее" primary />
+          <Button onClick={next} text="Подробнее" disignType="alternate" />
         </StCarouselBox>
 
         <StCarouselBox width={540} height={400}>
@@ -267,7 +267,7 @@ const Rules = () => {
             <p>- карты игрока</p>
           </StRulesTextContainer>
 
-          <Button onClick={prev} text="Назад" primary />
+          <Button onClick={prev} text="Назад" disignType="alternate" />
         </StCarouselBox>
       </StCarouselBoxContainer>
     </StCarousel>

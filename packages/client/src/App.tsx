@@ -5,10 +5,10 @@ import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 import { MainLayout, GameLayout } from 'components/Layout';
 import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
+import MainPage from 'pages/MainPage';
+
 import { ThemeContextProvider } from 'contexts/ThemeContext';
-import Modal from 'components/Modal/Modal';
-import Rules from 'components/Rules/Rules';
-import useModal from 'utils/useModal';
+import LeaderBoard from './pages/LeaderBoardPage';
 
 function App() {
   useEffect(() => {
@@ -22,59 +22,34 @@ function App() {
     fetchServerData();
   }, []);
 
-  const { isOpen, toggle } = useModal();
-
   return (
     <ThemeContextProvider>
-      <MainLayout>
-        <Routes>
-          <Route
-            path={AppRoute.MAIN}
-            element={
-              <Modal
-                title="Правила игры"
-                isOpen={isOpen}
-                toggle={toggle}
-                isPossibleToClose>
-                <Rules />
-              </Modal>
-            }
-            //element={<MainPage />} Главаная страница
-          />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path={AppRoute.MAIN} element={<MainPage />} />
           <Route path={AppRoute.LOGIN} element={<LoginPage />} />
           <Route path={AppRoute.REGISTRATION} element={<RegistrationPage />} />
           <Route
             path={AppRoute.PROFILE}
-            element={
-              <PrivateRoute>
-                {/* <ProfilePage /> Страница профиля */}
-              </PrivateRoute>
-            }
+            element={<PrivateRoute>{/* <ProfilePage /> */}</PrivateRoute>}
           />
-          <Route
-            path={AppRoute.LEADERBOARD}
-            // element={<LeaderboardPage/>} Страница с таблицкй очков
-          />
+          <Route path={AppRoute.LEADERBOARD} element={<LeaderBoard />} />
           <Route
             path={AppRoute.FORUM}
-            // element={<ForumPage/>} Страница форума
+            // element={<ForumPage/>}
           />
           <Route
             path={AppRoute.NOT_FOUND_PAGE}
-            // element={<ErrorPage />} Страница 404
+            // element={<ErrorPage />}
           />
-        </Routes>
-      </MainLayout>
-      <GameLayout>
-        <Routes>
+        </Route>
+        <Route element={<GameLayout />}>
           <Route
             path={AppRoute.GAME}
-            element={
-              <PrivateRoute>{/* <GamePage/> Страница игры */}</PrivateRoute>
-            }
+            // element={<GamePage />}
           />
-        </Routes>
-      </GameLayout>
+        </Route>
+      </Routes>
     </ThemeContextProvider>
   );
 }
