@@ -33,7 +33,7 @@ type LayoutProps = {
 
 const MainLayout: FC<LayoutProps> = ({ children }) => {
   const dispatch = useAppDispatch();
-  const [, , isLoading] = authState();
+  const { isLoading } = authState();
 
   useEffect(() => {
     dispatch(fetchAuth());

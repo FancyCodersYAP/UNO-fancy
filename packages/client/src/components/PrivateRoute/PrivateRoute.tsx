@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks/redux';
 import { AppRoute } from 'utils/constants';
 
 type PrivateRouteProps = {
-  children: any;
+  children: React.ReactElement;
 };
 
 type Props = FC<PrivateRouteProps>;

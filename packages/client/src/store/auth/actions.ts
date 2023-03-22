@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiErrorCheck } from '../../utils/apiCheckError';
 import { LoginFormParams } from '../../pages/LoginPage/LoginPage';
 import { RegFormParams } from '../../pages/RegistrationPage/RegistrationPage';
+import { API_ENDPOINT } from '../constatns';
 
 export interface IUser {
   id: number;
@@ -15,7 +16,12 @@ export interface IUser {
   avatar: string;
 }
 
-const AUTH_ENDPOINT = `${__APP_ENV__.API_ENDPOINT}/auth`;
+const AUTH_ENDPOINT = `${API_ENDPOINT}/auth`;
+
+axios.interceptors.request.use(function (config) {
+  config.withCredentials = true;
+  return config;
+});
 
 export const errorMessage = (error: AxiosError | unknown, message: string) => {
   const authCheck = axios.isAxiosError(error) && apiErrorCheck(error.response);
@@ -26,9 +32,7 @@ export const fetchAuth = createAsyncThunk(
   'user/fetchAuth',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get<IUser>(`${AUTH_ENDPOINT}/user`, {
-        withCredentials: true,
-      });
+      const response = await axios.get<IUser>(`${AUTH_ENDPOINT}/user`);
 
       return response.data;
     } catch (error) {
@@ -45,13 +49,9 @@ export const fetchLogin = createAsyncThunk(
     try {
       await axios.post<string>( //пока механика использования в приложении не выработана оставил присвоение
         `${AUTH_ENDPOINT}/signin`,
-        data,
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
+        data
       );
-      return await dispatch(fetchAuth());
+      return dispatch(fetchAuth());
     } catch (error) {
       return rejectWithValue(errorMessage(error, 'Не удалось авторизоваться'));
     }
@@ -61,9 +61,7 @@ export const fetchLogout = createAsyncThunk(
   'user/fetchLogout',
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.post<string>(`${AUTH_ENDPOINT}/logout`, _, {
-        withCredentials: true,
-      });
+      const response = await axios.post<string>(`${AUTH_ENDPOINT}/logout`);
       dispatch(fetchAuth());
       return response.data;
     } catch (error) {
@@ -76,9 +74,7 @@ export const fetchRegistration = createAsyncThunk(
   'user/fetchRegistration',
   async (data: RegFormParams, { rejectWithValue, dispatch }) => {
     try {
-      await axios.post<string>(`${AUTH_ENDPOINT}/signup`, data, {
-        withCredentials: true,
-      });
+      await axios.post<string>(`${AUTH_ENDPOINT}/signup`, data);
 
       return dispatch(fetchAuth());
     } catch (error) {

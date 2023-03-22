@@ -7,7 +7,7 @@ import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import MainPage from 'pages/MainPage';
 import { ThemeContextProvider } from 'contexts/ThemeContext';
-import AuthRoute from './components/AuthRoute/AuthRote';
+import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
 
 function App() {

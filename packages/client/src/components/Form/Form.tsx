@@ -4,7 +4,7 @@ import { StForm, StFormSubtitle, StFormTitle } from './style';
 import Input from 'components/Input';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
-import { RegFormParams } from '../../pages/RegistrationPage/RegistrationPage';
+import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
 import { useAppDispatch } from '../../hooks/redux';
 import { errorReset } from '../../store/auth/authSlice';
 import { authState } from '../../hooks/authState';
@@ -33,10 +33,10 @@ const Form: FC<FormProps> = ({
   } = useForm<FieldValues | LoginFormParams>({ mode: 'onBlur' });
 
   const dispatch = useAppDispatch();
-  const [error] = authState();
+  const { authError } = authState();
 
   const errorCancel = () => {
-    if (error) dispatch(errorReset());
+    if (authError) dispatch(errorReset());
   };
 
   return (
