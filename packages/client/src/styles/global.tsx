@@ -122,8 +122,8 @@ export const StFlex = styled.div<FlexProps>(props => {
     rowGap: rowGap ? `${rowGap}px` : 0,
     padding: padding ? `${padding}px` : 0,
     marginBottom: marginBottom ? `${marginBottom}px` : 0,
-    justifyContent: justifyContent || 'start',
-    alignItems: alignItems || 'start',
+    justifyContent: justifyContent || 'unset',
+    alignItems: alignItems || 'unset',
     flexDirection: flexDirection || 'row',
   } as FlexProps;
 });
