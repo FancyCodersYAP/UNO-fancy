@@ -1,7 +1,10 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
+import { fetchAuth } from '../../store/auth/actions';
+import { useAppDispatch } from '../../hooks/redux';
+import { authState } from '../../hooks/authState';
 import { StContainer } from 'styles/global';
 
 const StMainScreen = styled.div`
@@ -29,13 +32,24 @@ type LayoutProps = {
   children?: React.ReactNode;
 };
 
-const MainLayout: FC<LayoutProps> = ({ children }) => (
-  <StMainScreen>
-    <StContainer flexDirection="column" alignItems="stretch">
-      <Header />
-      <StContent>{children ?? <Outlet />}</StContent>
-    </StContainer>
-  </StMainScreen>
-);
+const MainLayout: FC<LayoutProps> = ({ children }) => {
+  const dispatch = useAppDispatch();
+  const { isLoading } = authState();
+
+  useEffect(() => {
+    dispatch(fetchAuth());
+  }, []);
+
+  if (isLoading) return <></>; //можно вставить какой-то лоадер
+
+  return (
+    <StMainScreen>
+      <StContainer flexDirection="column" alignItems="stretch">
+        <Header />
+        <StContent>{children ?? <Outlet />}</StContent>
+      </StContainer>
+    </StMainScreen>
+  );
+};
 
 export default MainLayout;
