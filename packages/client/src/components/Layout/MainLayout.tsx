@@ -30,7 +30,7 @@ type LayoutProps = {
 
 const MainLayout: FC<LayoutProps> = ({ children }) => (
   <StMainScreen>
-    <StContainer css={{ flexDirection: 'column' }}>
+    <StContainer flexDirection="column" alignItems="stretch">
       <Header />
       <StContent>{children ?? <Outlet />}</StContent>
     </StContainer>
