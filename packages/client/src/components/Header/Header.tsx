@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import Toggler from 'components/Toggler';
 import Logo from 'components/Logo';
-import { StContainer, StFlexAlignItemCenter } from 'styles/global';
+import { StContainer, StFlex } from 'styles/global';
 import NavMenu from '../NavMenu';
 
 const StHeader = styled.header`
@@ -16,10 +16,10 @@ const Header: FC = () => (
   <StHeader>
     <StContainer>
       <Logo />
-      <StFlexAlignItemCenter gap={20}>
+      <StFlex alignItems="center" columnGap={20}>
         <NavMenu />
         <Toggler />
-      </StFlexAlignItemCenter>
+      </StFlex>
     </StContainer>
   </StHeader>
 );

@@ -40,7 +40,7 @@ const LoginPage: FC = () => {
   );
 
   return (
-    <StContainer css={{ alignItems: 'center' }}>
+    <StContainer alignItems="center">
       <Form
         title="Вход"
         fields={loginConfig}

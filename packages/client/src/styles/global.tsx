@@ -10,9 +10,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    box-sizing: border-box;
+      box-sizing: border-box;
   }
-
+  
   #root,
   html,
   body,
@@ -24,17 +24,37 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+type FlexProps = {
+  backgroundColor?: string;
+  borderRadius?: number;
+  columnGap?: number;
+  padding?: number;
+  marginBottom?: number;
+  rowGap?: number;
+  justifyContent?: string;
+  alignItems?: string;
+  flexDirection?: 'column' | 'row';
+};
+
+type TextContainerProps = {
+  textAlign?: 'start' | 'end' | 'center';
+  width?: number;
+  fontWeight?: number;
+  fontSize?: number;
+  lineHeight?: number;
+};
+
 export const StLink = styled(Link)`
-  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
-
   &&:hover {
     text-decoration: underline;
   }
 `;
 
 export const StNavLink = styled(NavLink)`
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   position: relative;
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
@@ -59,11 +79,18 @@ export const StNavLink = styled(NavLink)`
   }
 `;
 
-export const StTextContainer = styled.p`
-  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
-  width: ${(props: { width?: number }) =>
-    props.width ? `${props.width}px` : 'auto'};
-`;
+export const StTextContainer = styled.p<TextContainerProps>(props => {
+  const { theme, textAlign, width, fontWeight, fontSize, lineHeight } = props;
+
+  return {
+    color: theme.COLOR_TEXT_PRIMARY,
+    textAlign: textAlign || 'left',
+    width: width ? `${width}px` : 'auto',
+    fontWeight: fontWeight || 'normal',
+    fontSize: fontSize ? `${fontSize}px` : 'medium',
+    lineHeight: lineHeight ? `${lineHeight}px` : 'normal',
+  };
+});
 
 export const StTextGamePreviewContainer = styled(StTextContainer)`
   font-size: 1.35rem;
@@ -72,9 +99,37 @@ export const StTextGamePreviewContainer = styled(StTextContainer)`
   margin-left: 10px;
 `;
 
-export const StFlex = styled.div`
-  gap: ${(props: { gap?: number }) => (props.gap ? `${props.gap}px` : 0)};
-  display: flex;
+export const StTextContainerWithShadow = styled(StTextContainer)`
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+export const StFlex = styled.div<FlexProps>(props => {
+  const {
+    borderRadius,
+    columnGap,
+    rowGap,
+    padding,
+    marginBottom,
+    justifyContent,
+    alignItems,
+    flexDirection,
+  } = props;
+
+  return {
+    display: 'flex',
+    borderRadius: borderRadius ? `${borderRadius}px` : 0,
+    columnGap: columnGap ? `${columnGap}px` : 0,
+    rowGap: rowGap ? `${rowGap}px` : 0,
+    padding: padding ? `${padding}px` : 0,
+    marginBottom: marginBottom ? `${marginBottom}px` : 0,
+    justifyContent: justifyContent || 'start',
+    alignItems: alignItems || 'start',
+    flexDirection: flexDirection || 'row',
+  } as FlexProps;
+});
+
+export const StFlexBg = styled(StFlex)`
+  background-color: ${props => props.theme.COLOR_PREVIEW_SECONDARY};
 `;
 
 export const StContainer = styled(StFlex)`
@@ -83,17 +138,4 @@ export const StContainer = styled(StFlex)`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-`;
-
-export const StFlexSpaceBetween = styled(StFlex)`
-  justify-content: space-between;
-`;
-
-export const StFlexColumnDirection = styled(StFlex)`
-  flex-direction: column;
-  margin-bottom: 100px;
-`;
-
-export const StFlexAlignItemCenter = styled(StFlex)`
-  align-items: center;
 `;
