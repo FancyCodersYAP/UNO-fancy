@@ -30,7 +30,7 @@ export const StForm = styled.form`
 
 export const StFormFooter = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 15px;
   flex-direction: column;
   text-align: center;
 `;

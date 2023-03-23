@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
 import { BACKGROUND_COLOR_TABLE_PRIMARY } from 'styles/variables/colors-const';
-import { DEPTH_CONTAINER, GRID_TABLE_CONTAINER, BORDER_WIDTH_TABLE, BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
+import {
+  DEPTH_CONTAINER,
+  GRID_TABLE_CONTAINER,
+  BORDER_WIDTH_TABLE,
+  BORDER_RADIUS_SIZE,
+} from 'styles/variables/styleConstants';
 
 import { AvatarProps } from './types';
 
 export const StBoard = styled.div`
-  width: 65%;
+  width: 100%;
   max-height: 90%;
   border-radius: 50px;
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
@@ -98,7 +103,7 @@ export const StAvatar = styled.div<AvatarProps>(({ image, label }) => ({
     height: '30px',
     background: `url(${label}) center no-repeat`,
     backgroundSize: 'contain',
-  }
+  },
 }));
 
 export const StPlaceholder = styled.div`

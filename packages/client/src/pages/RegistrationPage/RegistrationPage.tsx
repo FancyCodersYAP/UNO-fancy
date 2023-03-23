@@ -4,13 +4,18 @@ import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
-import { StLink, StTextContainer } from 'styles/global';
+import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
+import { css } from 'styled-components';
 
 export interface LoginFormParams extends FieldValues {
   first_name?: string;
   password?: string;
 }
+
+export const gap25 = css`
+  gap: 25px;
+`;
 
 const RegistrationPage: FC = () => {
   const loginConfig: FormConfigType[] = [
@@ -56,22 +61,24 @@ const RegistrationPage: FC = () => {
   };
 
   const footer = (
-    <StFormFooter>
+    <StFormFooter css={gap25}>
       <Button text="Зарегистрироваться" type="submit" block />
       <StLink to={AppRoute.LOGIN}>Есть аккаунт?</StLink>
     </StFormFooter>
   );
 
   return (
-    <>
+    <StContainer alignItems="center">
       <Form
         title="Регистрация"
         fields={loginConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <StTextContainer width={400}>{GAME_DESCRIPTION}</StTextContainer>
-    </>
+      <StTextGamePreviewContainer>
+        {GAME_DESCRIPTION}
+      </StTextGamePreviewContainer>
+    </StContainer>
   );
 };
 export default RegistrationPage;
