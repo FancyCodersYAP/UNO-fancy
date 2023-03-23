@@ -4,7 +4,7 @@ import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
-import { StLink, StTextContainer } from 'styles/global';
+import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
 import { fetchLogin, fetchLogout } from '../../store/auth/actions';
 import { useNavigate } from 'react-router-dom';
@@ -62,17 +62,17 @@ const LoginPage: FC = () => {
   );
 
   return (
-    <>
+    <StContainer alignItems="center">
       <Form
         title="Вход"
         fields={loginConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      {/*<Button onClick={handleLogout} text="Logout"/>*/}
-      {/*тестовая кнопка для разлогина*/}
-      <StTextContainer width={400}>{GAME_DESCRIPTION}</StTextContainer>
-    </>
+      <StTextGamePreviewContainer>
+        {GAME_DESCRIPTION}
+      </StTextGamePreviewContainer>
+    </StContainer>
   );
 };
 export default LoginPage;

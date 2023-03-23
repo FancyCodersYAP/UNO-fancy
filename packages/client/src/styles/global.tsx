@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: Open-Sans, Helvetica, Sans-Serif,serif;
+    font-family: Open-Sans, Helvetica, Sans-Serif, serif;
   }
 
   * {
@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   #root,
+  html,
   body,
   .App {
     margin: 0;
@@ -54,10 +55,27 @@ export const StLink = styled(Link)`
 
 export const StNavLink = styled(NavLink)`
   color: ${props => props.theme.COLOR_TEXT_PRIMARY};
+  position: relative;
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
-  &&:hover {
-    text-decoration: underline;
+
+  &:after {
+    position: absolute;
+    transform: scaleX(0);
+    display: block;
+    content: '';
+    height: 4px;
+    width: 100%;
+    top: 100%;
+    background: white;
+    margin-top: 8px;
+    transition: transform 250ms ease-in-out;
+  }
+
+  &&.active:after,
+  &&:hover:after {
+    transform: scaleX(1);
   }
 `;
 
@@ -74,8 +92,15 @@ export const StTextContainer = styled.p<TextContainerProps>(props => {
   };
 });
 
+export const StTextGamePreviewContainer = styled(StTextContainer)`
+  font-size: 1.35rem;
+  max-width: 500px;
+  line-height: 1.7rem;
+  margin-left: 10px;
+`;
+
 export const StTextContainerWithShadow = styled(StTextContainer)`
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export const StFlex = styled.div<FlexProps>(props => {
@@ -97,12 +122,20 @@ export const StFlex = styled.div<FlexProps>(props => {
     rowGap: rowGap ? `${rowGap}px` : 0,
     padding: padding ? `${padding}px` : 0,
     marginBottom: marginBottom ? `${marginBottom}px` : 0,
-    justifyContent: justifyContent || 'start',
-    alignItems: alignItems || 'start',
+    justifyContent: justifyContent || 'unset',
+    alignItems: alignItems || 'unset',
     flexDirection: flexDirection || 'row',
   } as FlexProps;
 });
 
 export const StFlexBg = styled(StFlex)`
   background-color: ${props => props.theme.COLOR_PREVIEW_SECONDARY};
+`;
+
+export const StContainer = styled(StFlex)`
+  max-width: 1300px;
+  min-width: 920px;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 `;

@@ -5,26 +5,27 @@ import { Outlet } from 'react-router-dom';
 import { fetchAuth } from '../../store/auth/actions';
 import { useAppDispatch } from '../../hooks/redux';
 import { authState } from '../../hooks/authState';
+import { StContainer } from 'styles/global';
 
 const StMainScreen = styled.div`
   display: flex;
-  height: 100vh;
+  align-items: center;
+  height: 100%;
   flex-direction: column;
   overflow: auto;
   background-image: url('src/assets/img/background.png');
   background-size: cover;
+  background-position: center, center;
+  padding: 15px 15px;
   ${props => props?.theme.DARKEN}
 `;
 
 const StContent = styled.div`
   display: flex;
   align-items: center;
-  gap: 200px;
   justify-content: center;
-  height: 100%;
-  flex-wrap: wrap;
-  padding: 20px;
   flex: 1;
+  padding: 15px 0;
 `;
 
 type LayoutProps = {
@@ -43,8 +44,10 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <StMainScreen>
-      <Header />
-      <StContent>{children ?? <Outlet />}</StContent>
+      <StContainer flexDirection="column" alignItems="stretch">
+        <Header />
+        <StContent>{children ?? <Outlet />}</StContent>
+      </StContainer>
     </StMainScreen>
   );
 };
