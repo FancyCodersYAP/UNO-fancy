@@ -15,7 +15,7 @@ type FormProps = {
   fields: FormConfigType[];
   footer: React.ReactNode;
   handleFormSubmit: (
-    data: FieldValues | LoginFormParams | RegFormParams
+    data: FieldValues & LoginFormParams & RegFormParams
   ) => void;
 };
 
@@ -30,7 +30,9 @@ const Form: FC<FormProps> = ({
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FieldValues | LoginFormParams>({ mode: 'onBlur' });
+  } = useForm<FieldValues & LoginFormParams & RegFormParams>({
+    mode: 'onBlur',
+  });
 
   const dispatch = useAppDispatch();
   const { authError } = authState();

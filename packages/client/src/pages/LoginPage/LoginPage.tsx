@@ -12,7 +12,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { authState } from '../../hooks/authState';
 
 export interface LoginFormParams extends FieldValues {
-  first_name?: string;
+  first_name: string;
   password?: string;
 }
 

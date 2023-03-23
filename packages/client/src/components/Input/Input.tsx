@@ -2,10 +2,12 @@ import React, { FC, InputHTMLAttributes } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import { StError, StInput, StInputContainer, StLabel } from './style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
+import { LoginFormParams } from '../../pages/LoginPage/LoginPage';
+import { RegFormParams } from '../../pages/RegistrationPage/RegistrationPage';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<FieldValues & LoginFormParams & RegFormParams>;
   label?: string;
   error?: boolean;
   errorMessage?: string;
