@@ -22,6 +22,7 @@ const StContent = styled.div`
   align-items: center;
   justify-content: center;
   flex: 1;
+  padding: 15px 0;
 `;
 
 type LayoutProps = {

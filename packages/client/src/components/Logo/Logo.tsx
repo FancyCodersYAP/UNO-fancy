@@ -8,8 +8,7 @@ type LogoProps = {
 };
 
 const StLogo = styled.div`
-  width: 130px; // по идее тогда надо и здесь через пропсы делать
-  height: ${(props: LogoProps) => `${props.size}px`};
+  padding: 46px 65.5px; //проблемное место можно оставить так, но с масштабированием надо учитывать пропорции
   opacity: 0.7;
   background: url('src/assets/img/colorLogo.png');
   background-size: cover;
@@ -18,12 +17,12 @@ const StLogo = styled.div`
   cursor: pointer;
 `;
 
-const Logo: FC<LogoProps> = ({ size = 90 }) => {
+const Logo: FC<LogoProps> = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(AppRoute.MAIN);
   };
 
-  return <StLogo size={size} onClick={handleClick} />;
+  return <StLogo onClick={handleClick} />;
 };
 export default Logo;
