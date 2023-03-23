@@ -4,12 +4,13 @@ import Form from 'components/Form';
 import { FormConfigType } from 'types';
 import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
-import { StLink, StTextContainer } from 'styles/global';
+import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
 import { useAppDispatch } from '../../hooks/redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchRegistration } from '../../store/auth/actions';
 import { authState } from '../../hooks/authState';
+import { css } from 'styled-components';
 
 export interface RegFormParams extends FieldValues {
   first_name: string;
@@ -19,6 +20,10 @@ export interface RegFormParams extends FieldValues {
   password: string;
   phone: string;
 }
+
+export const gap25 = css`
+  gap: 25px;
+`;
 
 const RegistrationPage: FC = () => {
   const loginConfig: FormConfigType[] = [
@@ -75,7 +80,7 @@ const RegistrationPage: FC = () => {
   };
 
   const footer = (
-    <StFormFooter>
+    <StFormFooter css={gap25}>
       <Button text="Зарегистрироваться" type="submit" block />
       <StLink to={AppRoute.LOGIN}>Есть аккаунт?</StLink>
       <p style={{ color: 'red', margin: 0, padding: 0 }}>{authError}</p>
@@ -84,15 +89,17 @@ const RegistrationPage: FC = () => {
   );
 
   return (
-    <>
+    <StContainer alignItems="center">
       <Form
         title="Регистрация"
         fields={loginConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
       />
-      <StTextContainer width={400}>{GAME_DESCRIPTION}</StTextContainer>
-    </>
+      <StTextGamePreviewContainer>
+        {GAME_DESCRIPTION}
+      </StTextGamePreviewContainer>
+    </StContainer>
   );
 };
 export default RegistrationPage;
