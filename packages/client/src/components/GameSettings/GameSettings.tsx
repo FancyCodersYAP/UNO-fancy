@@ -1,6 +1,7 @@
 import { StFlex } from 'styles/global';
 import SettingsRadio from 'components/SettingsRadio/SettingsRadio';
 import Button from 'components/Button';
+import { css } from 'styled-components';
 
 const settingsInputsValue = [
   {
@@ -10,6 +11,12 @@ const settingsInputsValue = [
     value: 4,
   },
 ];
+
+const startButtonStyles = css`
+  padding: 20px 50px;
+  border-radius: 20px;
+  border: none;
+`;
 
 const GameSettings = () => {
   const onSubmit = (evt: React.SyntheticEvent) => {
@@ -30,13 +37,18 @@ const GameSettings = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <StFlex justifyContent="space-between" columnGap={60} marginBottom={50}>
+      <StFlex justifyContent="center" columnGap={60} marginBottom={50}>
         {settingsInputsValue.map((input, id) => (
           <SettingsRadio key={`settings-card-${id}`} value={input.value} />
         ))}
       </StFlex>
 
-      <Button text="Старт" type="submit" disignType="alternate" />
+      <Button
+        css={startButtonStyles}
+        text="Старт"
+        type="submit"
+        disignType="alternate"
+      />
     </form>
   );
 };

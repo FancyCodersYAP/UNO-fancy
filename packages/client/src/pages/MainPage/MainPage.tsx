@@ -4,6 +4,9 @@ import { StFlex } from 'styles/global';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
+import Modal from 'components/Modal/Modal';
+import GameSettings from 'components/GameSettings/GameSettings';
+import useModal from 'utils/useModal';
 
 const StImageBox = styled.div`
   height: 350px;
@@ -19,8 +22,16 @@ const MainPage: FC = () => {
     navigate(AppRoute.GAME);
   };
 
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+
   return (
     <>
+      <Modal
+        title="Выбор режима игры"
+        isOpen={isOpen}
+        handleCloseModal={handleCloseModal}>
+        <GameSettings />
+      </Modal>
       <StFlex flexDirection="column" rowGap={40}>
         <StImageBox>
           <img src="src/assets/img/logo.png" alt="logo" />
