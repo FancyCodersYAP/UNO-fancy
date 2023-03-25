@@ -1,16 +1,22 @@
 import React, { FC } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { StForm, StFormSubtitle, StFormTitle } from './style';
 import Input from 'components/Input';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
+import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
+import { useAppDispatch } from '../../hooks/redux';
+import { errorReset } from '../../store/auth/authSlice';
+import { authState } from '../../hooks/authState';
+
+export type DataType = LoginFormParams & RegFormParams;
 
 type FormProps = {
   title?: string;
   subtitle?: string;
   fields: FormConfigType[];
   footer: React.ReactNode;
-  handleFormSubmit: (data: FieldValues | LoginFormParams) => Promise<any>;
+  handleFormSubmit: (data: DataType) => void;
 };
 
 const Form: FC<FormProps> = ({
@@ -24,10 +30,19 @@ const Form: FC<FormProps> = ({
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FieldValues | LoginFormParams>({ mode: 'onBlur' });
+  } = useForm<DataType>({
+    mode: 'onBlur',
+  });
+
+  const dispatch = useAppDispatch();
+  const { authError } = authState();
+
+  const errorCancel = () => {
+    if (authError) dispatch(errorReset());
+  };
 
   return (
-    <StForm onSubmit={handleSubmit(handleFormSubmit)}>
+    <StForm onSubmit={handleSubmit(handleFormSubmit)} onClick={errorCancel}>
       {title && (
         <StFormTitle>
           {title}

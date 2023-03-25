@@ -22,8 +22,6 @@ const Modal = (props: ModalType) => {
     if (isPossibleToClose) {
       return handleCloseModal();
     }
-
-    return;
   };
 
   return (

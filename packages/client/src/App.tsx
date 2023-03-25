@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
-import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+import PrivateRoute from 'components/PrivateRoute';
 import { MainLayout, GameLayout } from 'components/Layout';
 import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import MainPage from 'pages/MainPage';
-
 import { ThemeContextProvider } from 'contexts/ThemeContext';
+import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
 
 function App() {
@@ -27,8 +27,22 @@ function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path={AppRoute.MAIN} element={<MainPage />} />
-          <Route path={AppRoute.LOGIN} element={<LoginPage />} />
-          <Route path={AppRoute.REGISTRATION} element={<RegistrationPage />} />
+          <Route
+            path={AppRoute.LOGIN}
+            element={
+              <AuthRoute>
+                <LoginPage />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path={AppRoute.REGISTRATION}
+            element={
+              <AuthRoute>
+                <RegistrationPage />
+              </AuthRoute>
+            }
+          />
           <Route
             path={AppRoute.PROFILE}
             element={<PrivateRoute>{/* <ProfilePage /> */}</PrivateRoute>}

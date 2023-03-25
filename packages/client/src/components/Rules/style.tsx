@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StRulesTextContainer = styled.div`
   overflow-y: auto;
-  height: 320px;
+  height: 308px;
   margin-bottom: 20px;
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   background: rgba(255, 255, 255, 0.16);
