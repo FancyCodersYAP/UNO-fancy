@@ -119,5 +119,16 @@
         <symbol id="accordion-marker" fill="none">
             <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
+
+        <symbol id="icon-arrow" width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <g clip-path="url(#clip0_239_2716)">
+                <path d="M28.2608 30.1767L19.855 21.7708L28.2608 13.365L25.6667 10.7708L14.6667 21.7708L25.6667 32.7708L28.2608 30.1767Z" fill="#FFFEFE"/>
+            </g>
+            <defs>
+                <clipPath id="clip0_239_2716">
+                    <rect width="44" height="44" fill="white" transform="matrix(-1 0 0 1 44 0)"/>
+                </clipPath>
+            </defs>
+        </symbol>
     </defs>
 </svg>

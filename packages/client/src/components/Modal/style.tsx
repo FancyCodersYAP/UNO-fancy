@@ -18,7 +18,8 @@ export const StModalWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 40px;
+  padding: 55px 65px;
+  width: 766px;
 `;
 
 export const StModalTitle = styled.h3`
