@@ -1,7 +1,8 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+import { FC, InputHTMLAttributes } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { StError, StInput, StInputContainer, StLabel } from './style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
+import { CSSProp } from 'styled-components';
 import { DataType } from '../Form/Form';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -12,6 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   required?: boolean;
   pattern?: ValidationType;
+  inputCss?: CSSProp;
 }
 
 const Input: FC<InputProps> = ({
@@ -22,14 +24,22 @@ const Input: FC<InputProps> = ({
   error,
   errorMessage,
   pattern,
+  inputCss,
+  ...rest
 }) => {
   const options = {
     ...(required && { required: 'Поле не может быть пустым' }),
     ...(pattern && { pattern: ValidationPattern[pattern] }),
   };
+
   return (
     <StInputContainer>
-      <StInput {...register(name, options)} placeholder=" " />
+      <StInput
+        {...register(name, options)}
+        placeholder=" "
+        css={inputCss}
+        {...rest}
+      />
       <StLabel>{label}</StLabel>
       {error && <StError>{errorMessage}</StError>}
     </StInputContainer>

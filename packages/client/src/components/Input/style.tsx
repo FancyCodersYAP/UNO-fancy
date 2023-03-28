@@ -6,8 +6,8 @@ export const StInputContainer = styled.div`
   height: 50px;
   position: relative;
   width: 100%;
-  margin-bottom: 43px;
 `;
+
 export const StInput = styled.input`
   background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
   border-radius: ${BORDER_RADIUS_SIZE};
