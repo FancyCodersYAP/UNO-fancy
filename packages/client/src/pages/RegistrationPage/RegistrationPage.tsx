@@ -1,8 +1,9 @@
 import { FC, useEffect } from 'react';
+import { css } from 'styled-components';
 import { FieldValues } from 'react-hook-form';
+
 import Form from 'components/Form';
-import { FormConfigType } from 'types';
-import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
+import { AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
@@ -10,7 +11,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchRegistration } from '../../store/auth/actions';
 import { authState } from '../../hooks/authState';
-import { css } from 'styled-components';
+import { registrationConfig } from '../configs';
 
 export interface RegFormParams extends FieldValues {
   first_name: string;
@@ -26,44 +27,6 @@ export const gap25 = css`
 `;
 
 const RegistrationPage: FC = () => {
-  const loginConfig: FormConfigType[] = [
-    {
-      name: 'login',
-      label: 'Логин',
-      pattern: ValidationType.Login,
-      required: true,
-    },
-    {
-      name: 'first_name',
-      label: 'Имя',
-      pattern: ValidationType.Name,
-      required: true,
-    },
-    {
-      name: 'second_name',
-      label: 'Фамилия',
-      pattern: ValidationType.Name,
-      required: true,
-    },
-    {
-      name: 'email',
-      label: 'Email',
-      pattern: ValidationType.Email,
-      required: true,
-    },
-    {
-      name: 'phone',
-      label: 'Телефон',
-      pattern: ValidationType.Phone,
-      required: true,
-    },
-    {
-      name: 'password',
-      label: 'Пароль',
-      pattern: ValidationType.Password,
-      required: true,
-    },
-  ];
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -92,7 +55,7 @@ const RegistrationPage: FC = () => {
     <StContainer alignItems="center">
       <Form
         title="Регистрация"
-        fields={loginConfig}
+        fields={registrationConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
       />

@@ -6,6 +6,8 @@ import { MainLayout, GameLayout } from 'components/Layout';
 import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import MainPage from 'pages/MainPage';
+import ProfilePage from 'pages/ProfilePage';
+
 import { ThemeContextProvider } from 'contexts/ThemeContext';
 import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
@@ -45,7 +47,11 @@ function App() {
           />
           <Route
             path={AppRoute.PROFILE}
-            element={<PrivateRoute>{/* <ProfilePage /> */}</PrivateRoute>}
+            element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>}
+          />
+          <Route
+            path={`${AppRoute.PROFILE}/:id`}
+            element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>}
           />
           <Route path={AppRoute.LEADERBOARD} element={<LeaderBoard />} />
           <Route
