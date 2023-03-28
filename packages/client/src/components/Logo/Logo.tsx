@@ -8,24 +8,21 @@ type LogoProps = {
 };
 
 const StLogo = styled.div`
-  height: ${(props: LogoProps) => `${props.size}px`};
-  opacity: 0.5;
-  && img {
-    height: 100%;
-  }
+  padding: 46px 65.5px; //проблемное место можно оставить так, но с масштабированием надо учитывать пропорции
+  opacity: 0.7;
+  background: url('src/assets/img/colorLogo.png');
+  background-size: cover;
+  mix-blend-mode: color-dodge; //darken color-burn
+
   cursor: pointer;
 `;
 
-const Logo: FC<LogoProps> = ({ size = 60 }) => {
+const Logo: FC<LogoProps> = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(AppRoute.MAIN);
   };
 
-  return (
-    <StLogo size={size} onClick={handleClick}>
-      <img src="src/assets/img/colorLogo.png" alt="logo" />
-    </StLogo>
-  );
+  return <StLogo onClick={handleClick} />;
 };
 export default Logo;

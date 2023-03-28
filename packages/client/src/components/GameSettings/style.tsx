@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
-export const StSettingsRadioImgs = styled.div`
+export const StGameSettingsButtonImgs = styled.div`
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(2, 1fr);
   padding: 22px;
@@ -11,7 +11,7 @@ export const StSettingsRadioImgs = styled.div`
   background-color: ${props => props?.theme.COLOR_ELEMENT_PRIMARY};
 `;
 
-export const StSettingsRadioImg = styled.img`
+export const StGameSettingsButtonImg = styled.img`
   width: 75px;
   height: 75px;
 

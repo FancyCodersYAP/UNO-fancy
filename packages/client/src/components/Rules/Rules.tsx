@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
-import Button from 'components/Button/Button';
+import Button from 'components/Button';
 import { StLink, StFlex } from 'styles/global';
-import Card from 'components/Card/Card';
+import Card from 'components/Card';
 
 const cards = [
   {
@@ -22,7 +22,7 @@ const cards = [
   },
 ];
 
-const StartGame = () => {
+const Rules = () => {
   const navigate = useNavigate();
 
   const navigateToGame = () => {
@@ -54,4 +54,4 @@ const StartGame = () => {
   );
 };
 
-export default StartGame;
+export default Rules;

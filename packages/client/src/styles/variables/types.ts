@@ -10,3 +10,23 @@ export type ThemeType = {
   DARKEN?: string;
   name: string;
 };
+
+export type FlexProps = {
+  backgroundColor?: string;
+  borderRadius?: number;
+  columnGap?: number;
+  padding?: number;
+  marginBottom?: number;
+  rowGap?: number;
+  justifyContent?: string;
+  alignItems?: string;
+  flexDirection?: 'column' | 'row';
+};
+
+export type TextContainerProps = {
+  textAlign?: 'start' | 'end' | 'center';
+  width?: number;
+  fontWeight?: number;
+  fontSize?: number;
+  lineHeight?: number;
+};

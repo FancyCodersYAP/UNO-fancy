@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
+import { FlexProps, TextContainerProps } from 'types';
 
 export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: Open-Sans, Helvetica, Sans-Serif,serif;
+    font-family: Open-Sans, Helvetica, Sans-Serif, serif;
   }
 
   * {
@@ -14,6 +15,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   #root,
+  html,
   body,
   .App {
     margin: 0;
@@ -23,28 +25,16 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-type FlexProps = {
-  backgroundColor?: string;
-  borderRadius?: number;
-  columnGap?: number;
-  padding?: number;
-  marginBottom?: number;
-  rowGap?: number;
-  justifyContent?: string;
-  alignItems?: string;
-  flexDirection?: string;
-};
-
-type TextContainerProps = {
-  textAlign?: string;
-  width?: number;
-  fontWeight?: number;
-  fontSize?: number;
-  lineHeight?: number;
-};
+export const StFormContainer = styled.div`
+  width: 400px;
+  background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
+  padding: 40px 60px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+`;
 
 export const StLink = styled(Link)`
-  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
   &&:hover {
@@ -53,49 +43,88 @@ export const StLink = styled(Link)`
 `;
 
 export const StNavLink = styled(NavLink)`
+  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
+  position: relative;
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
   cursor: pointer;
-  &&:hover {
-    text-decoration: underline;
+
+  &:after {
+    position: absolute;
+    transform: scaleX(0);
+    display: block;
+    content: '';
+    height: 4px;
+    width: 100%;
+    top: 100%;
+    background: white;
+    margin-top: 8px;
+    transition: transform 250ms ease-in-out;
+  }
+
+  &&.active:after,
+  &&:hover:after {
+    transform: scaleX(1);
   }
 `;
 
-export const StTextContainer = styled.p<TextContainerProps>`
-  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
-  text-align: ${props => (props.textAlign ? props.textAlign : 'start')};
-  width: ${props => (props.width ? `${props.width}px` : 'auto')};
-  font-weight: ${props => (props.fontWeight ? props.fontWeight : 'normal')};
-  font-size: ${props => (props.fontSize ? `${props.fontSize}px` : 'medium')};
-  line-height: ${props =>
-    props.lineHeight ? `${props.lineHeight}px` : 'normal'};
+export const StTextContainer = styled.p<TextContainerProps>(props => {
+  const { theme, textAlign, width, fontWeight, fontSize, lineHeight } = props;
+
+  return {
+    color: theme.COLOR_TEXT_PRIMARY,
+    textAlign: textAlign || 'left',
+    width: width ? `${width}px` : 'auto',
+    fontWeight: fontWeight || 'normal',
+    fontSize: fontSize ? `${fontSize}px` : 'medium',
+    lineHeight: lineHeight ? `${lineHeight}px` : 'normal',
+  };
+});
+
+export const StTextGamePreviewContainer = styled(StTextContainer)`
+  font-size: 1.35rem;
+  max-width: 500px;
+  line-height: 1.7rem;
+  margin-left: 10px;
 `;
 
 export const StTextContainerWithShadow = styled(StTextContainer)`
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-export const StFlex = styled.div<FlexProps>`
-  display: flex;
-  border-radius: ${props =>
-    props.borderRadius ? `${props.borderRadius}px` : 0};
-  column-gap: ${props => (props.columnGap ? `${props.columnGap}px` : 0)};
-  row-gap: ${props => (props.rowGap ? `${props.rowGap}px` : 0)};
-  padding: ${props => (props.padding ? `${props.padding}px` : 0)};
-  margin-bottom: ${props =>
-    props.marginBottom ? `${props.marginBottom}px` : 0};
-  justify-content: ${props =>
-    props.justifyContent ? props.justifyContent : 'start'};
-  align-items: ${props => (props.alignItems ? props.alignItems : 'start')};
-  flex-direction: ${props =>
-    props.flexDirection ? props.flexDirection : 'row'};
+export const StFlex = styled.div<FlexProps>(props => {
+  const {
+    borderRadius,
+    columnGap,
+    rowGap,
+    padding,
+    marginBottom,
+    justifyContent,
+    alignItems,
+    flexDirection,
+  } = props;
+
+  return {
+    display: 'flex',
+    borderRadius: borderRadius ? `${borderRadius}px` : 0,
+    columnGap: columnGap ? `${columnGap}px` : 0,
+    rowGap: rowGap ? `${rowGap}px` : 0,
+    padding: padding ? `${padding}px` : 0,
+    marginBottom: marginBottom ? `${marginBottom}px` : 0,
+    justifyContent: justifyContent || 'unset',
+    alignItems: alignItems || 'unset',
+    flexDirection: flexDirection || 'row',
+  };
+});
+
+export const StFlexBg = styled(StFlex)`
+  background-color: ${props => props.theme.COLOR_PREVIEW_SECONDARY};
 `;
 
-export const StCustomRadioInput = styled.input`
-  position: absolute;
-  opacity: 0;
-`;
-
-export const StLabel = styled.label`
-  cursor: pointer;
+export const StContainer = styled(StFlex)`
+  max-width: 1300px;
+  min-width: 920px;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 `;
