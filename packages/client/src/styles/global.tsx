@@ -25,6 +25,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+export const StFormContainer = styled.div`
+  width: 400px;
+  background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
+  padding: 40px 60px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+`;
+
 export const StLink = styled(Link)`
   color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   text-decoration: none;
