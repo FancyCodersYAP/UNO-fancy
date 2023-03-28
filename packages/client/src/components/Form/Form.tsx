@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import { FC, useMemo, ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
-import { StForm, StFormSubtitle, StFormTitle } from './style';
+import { StFieldList, StFormSubtitle, StFormTitle } from './style';
+import { CSSProp } from 'styled-components';
+import { StFormContainer } from 'styles/global';
+
 import Input from 'components/Input';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
@@ -12,11 +15,16 @@ import { authState } from '../../hooks/authState';
 export type DataType = LoginFormParams & RegFormParams;
 
 type FormProps = {
-  title?: string;
+  title?: string | ReactNode;
   subtitle?: string;
   fields: FormConfigType[];
-  footer: React.ReactNode;
+  footer: ReactNode;
   handleFormSubmit: (data: DataType) => void;
+  avatar?: ReactNode;
+  className?: string;
+  fieldListCss?: CSSProp;
+  inputCss?: CSSProp;
+  defaultValues?: Record<string, string>;
 };
 
 const Form: FC<FormProps> = ({
@@ -25,6 +33,11 @@ const Form: FC<FormProps> = ({
   handleFormSubmit,
   footer,
   fields,
+  avatar,
+  className,
+  fieldListCss,
+  inputCss,
+  defaultValues,
 }) => {
   const {
     register,
@@ -32,6 +45,7 @@ const Form: FC<FormProps> = ({
     handleSubmit,
   } = useForm<DataType>({
     mode: 'onBlur',
+    defaultValues: useMemo(() => defaultValues, [defaultValues]),
   });
 
   const dispatch = useAppDispatch();
@@ -42,28 +56,33 @@ const Form: FC<FormProps> = ({
   };
 
   return (
-    <StForm onSubmit={handleSubmit(handleFormSubmit)} onClick={errorCancel}>
+    <StFormContainer className={className}>
       {title && (
         <StFormTitle>
+          {avatar}
           {title}
           {subtitle && <StFormSubtitle>{subtitle}</StFormSubtitle>}
         </StFormTitle>
       )}
 
-      {fields.map(({ name, pattern, required, label }) => (
-        <Input
-          key={`input-${name}`}
-          register={register}
-          error={!!errors[name]?.message}
-          errorMessage={errors[name]?.message?.toString()}
-          pattern={pattern}
-          name={name}
-          required={required}
-          label={label}
-        />
-      ))}
-      {footer}
-    </StForm>
+      <form onSubmit={handleSubmit(handleFormSubmit)} onClick={errorCancel}>
+        <StFieldList css={fieldListCss}>
+          {fields.map(({ name, ...rest }) => (
+            <Input
+              key={`input-${name}`}
+              register={register}
+              error={!!errors[name]?.message}
+              errorMessage={errors[name]?.message?.toString()}
+              inputCss={inputCss}
+              name={name}
+              {...rest}
+            />
+          ))}
+        </StFieldList>
+        {footer}
+      </form>
+    </StFormContainer>
   );
 };
+
 export default Form;

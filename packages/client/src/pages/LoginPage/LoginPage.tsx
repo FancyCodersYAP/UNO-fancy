@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { FieldValues } from 'react-hook-form';
+
 import Form from 'components/Form';
-import { FormConfigType } from 'types';
-import { ValidationType, AppRoute, GAME_DESCRIPTION } from 'utils/constants';
+import { AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
@@ -11,27 +11,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { authState } from '../../hooks/authState';
 
+import { loginConfig } from '../configs';
+
 export interface LoginFormParams extends FieldValues {
   first_name: string;
   password?: string;
 }
 
 const LoginPage: FC = () => {
-  const loginConfig: FormConfigType[] = [
-    {
-      name: 'login',
-      label: 'Логин',
-      pattern: ValidationType.Login,
-      required: true,
-    },
-    {
-      name: 'password',
-      label: 'Пароль',
-      pattern: ValidationType.Password,
-      required: true,
-    },
-  ];
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -75,4 +62,5 @@ const LoginPage: FC = () => {
     </StContainer>
   );
 };
+
 export default LoginPage;

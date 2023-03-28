@@ -4,9 +4,6 @@ import { StFlex } from 'styles/global';
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
-import Modal from 'components/Modal';
-import Rules from 'components/Rules';
-import useModal from 'utils/useModal';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
@@ -26,17 +23,8 @@ const MainPage: FC = () => {
     navigate(AppRoute.GAME);
   };
 
-  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-
   return (
     <>
-      <Modal
-        title="Правила игры"
-        isOpen={isOpen}
-        handleCloseModal={handleCloseModal}
-        isPossibleToClose>
-        <Rules />
-      </Modal>
       <StFlex
         flexDirection="column"
         rowGap={40}

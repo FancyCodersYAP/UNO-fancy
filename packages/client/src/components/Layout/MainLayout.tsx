@@ -7,13 +7,15 @@ import { useAppDispatch } from '../../hooks/redux';
 import { authState } from '../../hooks/authState';
 import { StContainer } from 'styles/global';
 
+import bgImage from '../../assets/img/background.png';
+
 const StMainScreen = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
   flex-direction: column;
   overflow: auto;
-  background-image: url('src/assets/img/background.png');
+  background-image: url('${bgImage}');
   background-size: cover;
   background-position: center, center;
   padding: 15px 15px;
