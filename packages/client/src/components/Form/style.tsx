@@ -28,9 +28,19 @@ export const StForm = styled.form`
   box-sizing: border-box;
 `;
 
+export const StFieldList = styled.fieldset`
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  margin: 0;
+  gap: 43px;
+`;
+
 export const StFormFooter = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 15px;
   flex-direction: column;
   text-align: center;
+  margin-top: 43px;
 `;

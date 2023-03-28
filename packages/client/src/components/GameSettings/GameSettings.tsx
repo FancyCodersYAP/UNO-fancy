@@ -1,7 +1,5 @@
 import { StFlex } from 'styles/global';
-import SettingsRadio from 'components/SettingsRadio/SettingsRadio';
-import Button from 'components/Button';
-import { css } from 'styled-components';
+import GameSettingsButton from './GameSettingsButton';
 
 const settingsInputsValue = [
   {
@@ -12,44 +10,25 @@ const settingsInputsValue = [
   },
 ];
 
-const startButtonStyles = css`
-  padding: 20px 50px;
-  border-radius: 20px;
-  border: none;
-`;
+const chooseCountOfPlayers = (evt: { target: HTMLButtonElement }) => {
+  const buttonWithPlayers = evt.target.closest('button');
+  const usersCount = buttonWithPlayers?.dataset.players;
+  console.log('Количество игроков: ' + usersCount);
+};
 
 const GameSettings = () => {
-  const onSubmit = (evt: React.SyntheticEvent) => {
-    evt.preventDefault();
-
-    const usersInputs = document.querySelectorAll(
-      'input[name="users"]'
-    ) as NodeListOf<HTMLInputElement>;
-    let usersCount;
-    usersInputs.forEach(input => {
-      if (input.checked) {
-        usersCount = input.value;
-      }
-    });
-
-    console.log('Количество игроков: ' + usersCount);
-  };
-
   return (
-    <form onSubmit={onSubmit}>
-      <StFlex justifyContent="center" columnGap={60} marginBottom={50}>
+    <>
+      <StFlex justifyContent="center" columnGap={60} marginBottom={20}>
         {settingsInputsValue.map((input, id) => (
-          <SettingsRadio key={`settings-card-${id}`} value={input.value} />
+          <GameSettingsButton
+            key={`settings-card-${id}`}
+            onClick={chooseCountOfPlayers}
+            value={input.value}
+          />
         ))}
       </StFlex>
-
-      <Button
-        css={startButtonStyles}
-        text="Старт"
-        type="submit"
-        disignType="alternate"
-      />
-    </form>
+    </>
   );
 };
 
