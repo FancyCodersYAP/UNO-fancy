@@ -115,7 +115,7 @@ export const StFlex = styled.div<FlexProps>(props => {
     justifyContent: justifyContent || 'unset',
     alignItems: alignItems || 'unset',
     flexDirection: flexDirection || 'row',
-  } as FlexProps;
+  };
 });
 
 export const StFlexBg = styled(StFlex)`
