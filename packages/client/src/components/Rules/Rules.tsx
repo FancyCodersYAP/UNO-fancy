@@ -1,12 +1,11 @@
 import Button from 'components/Button/Button';
-import { StFlex } from 'styles/global';
 import Card from 'components/Card/Card';
 import useCarousel from 'utils/useCarousel';
 import RulesInfo from './RulesInfo';
 import { css } from 'styled-components';
 import {
+  StFlex,
   StCarousel,
-  StCarouselBoxContainer,
   StCarouselBox,
   width100Percent,
 } from 'styles/global';
@@ -65,7 +64,7 @@ const Rules = () => {
 
   return (
     <StCarousel width={636}>
-      <StCarouselBoxContainer ref={ref}>
+      <StFlex ref={ref}>
         <StCarouselBox width={636} height={400}>
           <StFlex css={width100Percent} justifyContent="space-between">
             {cards.map((card, id) => (
@@ -98,7 +97,7 @@ const Rules = () => {
             disignType="alternate"
           />
         </StCarouselBox>
-      </StCarouselBoxContainer>
+      </StFlex>
     </StCarousel>
   );
 };

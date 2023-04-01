@@ -82,9 +82,9 @@
 
 
 
-        <symbol id="icon-close-modal">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.4714 3.52861C12.7318 3.78896 12.7318 4.21107 12.4714 4.47141L4.47141 12.4714C4.21107 12.7318 3.78896 12.7318 3.52861 12.4714C3.26826 12.2111 3.26826 11.789 3.52861 11.5286L11.5286 3.52861C11.789 3.26826 12.2111 3.26826 12.4714 3.52861Z" fill="currentColor"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M3.52861 3.52861C3.78896 3.26826 4.21107 3.26826 4.47141 3.52861L12.4714 11.5286C12.7318 11.789 12.7318 12.2111 12.4714 12.4714C12.2111 12.7318 11.789 12.7318 11.5286 12.4714L3.52861 4.47141C3.26826 4.21107 3.26826 3.78896 3.52861 3.52861Z" fill="currentColor"/>
+        <symbol id="icon-close-modal" viewBox="0 0 36 36" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M28.0607 7.93934C28.6464 8.52513 28.6464 9.47487 28.0607 10.0607L10.0607 28.0607C9.47487 28.6464 8.52513 28.6464 7.93934 28.0607C7.35355 27.4749 7.35355 26.5251 7.93934 25.9393L25.9393 7.93934C26.5251 7.35355 27.4749 7.35355 28.0607 7.93934Z" fill="white"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.93934 7.93934C8.52513 7.35355 9.47487 7.35355 10.0607 7.93934L28.0607 25.9393C28.6464 26.5251 28.6464 27.4749 28.0607 28.0607C27.4749 28.6464 26.5251 28.6464 25.9393 28.0607L7.93934 10.0607C7.35355 9.47487 7.35355 8.52513 7.93934 7.93934Z" fill="#FEFFFF"/>
         </symbol>
         <symbol id="icon-close-burger">
             <path d="M18 6L6 18" stroke="#212429" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -119,8 +119,7 @@
         <symbol id="accordion-marker" fill="none">
             <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
-
-        <symbol id="icon-arrow" width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <symbol id="icon-arrow" viewBox="0 0 44 44" fill="none">
             <g clip-path="url(#clip0_239_2716)">
                 <path d="M28.2608 30.1767L19.855 21.7708L28.2608 13.365L25.6667 10.7708L14.6667 21.7708L25.6667 32.7708L28.2608 30.1767Z" fill="#FFFEFE"/>
             </g>

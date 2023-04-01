@@ -30,3 +30,14 @@ export type TextContainerProps = {
   fontSize?: number;
   lineHeight?: number;
 };
+
+export type ModalProps = {
+  width?: number;
+  horizontalPaddings?: number;
+  verticalPaddings?: number;
+};
+
+export type CarouselBoxProps = {
+  width?: number;
+  height?: number;
+};

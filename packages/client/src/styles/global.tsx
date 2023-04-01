@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
-import { FlexProps, CarouselBoxProps, TextContainerProps } from 'types';
+import {
+  FlexProps,
+  CarouselBoxProps,
+  TextContainerProps,
+} from './variables/types';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -134,10 +138,6 @@ export const StCarousel = styled.div`
   overflow: hidden;
 `;
 
-export const StCarouselBoxContainer = styled.div`
-  display: flex;
-`;
-
 export const StCarouselBox = styled.div<CarouselBoxProps>`
   box-sizing: border-box;
   width: ${props => `${props.width}px` || 'auto'};
@@ -151,4 +151,20 @@ export const StCarouselBox = styled.div<CarouselBoxProps>`
 
 export const width100Percent = css`
   width: 100%;
+`;
+
+export const customScrollbar = css`
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f5b945;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #a87f2f;
+    border-radius: 10px;
+  }
 `;

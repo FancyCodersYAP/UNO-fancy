@@ -1,25 +1,39 @@
 import { ReactNode } from 'react';
-import { StModal, StModalWrapper, StModalTitle } from './style';
+import {
+  StModal,
+  StModalWrapper,
+  StModalTitle,
+  StModalCloseIcon,
+} from './style';
 import { StButtonCloseModal } from 'components/Button/style';
 
 interface ModalType {
   children?: ReactNode;
   title?: string;
   isOpen: boolean;
-  handleCloseModal: () => void;
-  isPossibleToClose?: boolean;
+  handleCloseModal?: () => void;
+  width?: number;
+  verticalPaddings?: number;
+  horizontalPaddings?: number;
 }
 
 const Modal = (props: ModalType) => {
-  const { isOpen, title, handleCloseModal, children, isPossibleToClose } =
-    props;
+  const {
+    isOpen,
+    title,
+    handleCloseModal,
+    width,
+    verticalPaddings,
+    horizontalPaddings,
+    children,
+  } = props;
 
   const stopPropagationEvent = (evt: React.SyntheticEvent) => {
     evt.stopPropagation();
   };
 
   const checkPossibleToClose = () => {
-    if (isPossibleToClose) {
+    if (handleCloseModal) {
       return handleCloseModal();
     }
   };
@@ -28,11 +42,17 @@ const Modal = (props: ModalType) => {
     <>
       {isOpen && (
         <StModal onClick={checkPossibleToClose}>
-          <StModalWrapper onClick={stopPropagationEvent}>
-            <StModalTitle>{title}</StModalTitle>
-            {isPossibleToClose && (
+          <StModalWrapper
+            width={width}
+            verticalPaddings={verticalPaddings}
+            horizontalPaddings={horizontalPaddings}
+            onClick={stopPropagationEvent}>
+            {title && <StModalTitle>{title}</StModalTitle>}
+            {handleCloseModal && (
               <StButtonCloseModal onClick={handleCloseModal}>
-                <img src="src/assets/icons/close.svg" />
+                <StModalCloseIcon>
+                  <use href="src/assets/icons/icons_sprite.svg#icon-close-modal"></use>
+                </StModalCloseIcon>
               </StButtonCloseModal>
             )}
             {children}
