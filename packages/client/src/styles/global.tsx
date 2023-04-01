@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
-import { FlexProps, TextContainerProps } from 'types';
+import { FlexProps, TextContainerProps } from './variables/types';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -89,7 +89,7 @@ export const StTextGamePreviewContainer = styled(StTextContainer)`
 `;
 
 export const StTextContainerWithShadow = styled(StTextContainer)`
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export const StFlex = styled.div<FlexProps>(props => {
