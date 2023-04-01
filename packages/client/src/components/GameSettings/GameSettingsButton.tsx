@@ -1,7 +1,6 @@
-import { StGameSettingsButtonImg, StGameSettingsButtonImgs } from './style';
-import { StTextContainer } from 'styles/global';
-import SmileIcon from 'assets/icons/smiled.svg';
-import styled, { css } from 'styled-components';
+import { StGameSettingsButtonSvg } from './style';
+import { StTextContainer, StFlex } from 'styles/global';
+import styled from 'styled-components';
 import { StButton } from 'components/Button/style';
 
 interface GameSettingsButtonType {
@@ -9,14 +8,11 @@ interface GameSettingsButtonType {
   onClick?: (evt: { target: HTMLButtonElement }) => void;
 }
 
-const buttonStyle = css`
-  box-shadow: none;
-  background-color: initial;
-  display: block;
-  margin: 0;
+const StGameSettingsButton = styled(StButton)`
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+  padding: 22px;
 `;
-
-const ChooseCountOfPlayersButton = styled(StButton)``;
 
 const GameSettingsButton = (props: GameSettingsButtonType) => {
   const { value, onClick } = props;
@@ -24,24 +20,16 @@ const GameSettingsButton = (props: GameSettingsButtonType) => {
   const arrayOfImgs = [...Array(value)];
 
   return (
-    <>
-      <ChooseCountOfPlayersButton
-        css={buttonStyle}
-        data-players={value}
-        onClick={onClick}
-        disignType="primary">
-        <StGameSettingsButtonImgs>
-          {arrayOfImgs.map((img, id) => (
-            <StGameSettingsButtonImg
-              key={`player-img-${id + 1}`}
-              src={SmileIcon}
-              alt={`Игрок ${id + 1}`}
-            />
-          ))}
-        </StGameSettingsButtonImgs>
-        <StTextContainer textAlign="center">{value} игрока</StTextContainer>
-      </ChooseCountOfPlayersButton>
-    </>
+    <StFlex flexDirection="column">
+      <StGameSettingsButton onClick={onClick} data-players={value}>
+        {arrayOfImgs.map((_img, id) => (
+          <StGameSettingsButtonSvg key={`player-img-${id + 1}`}>
+            <use href="src/assets/icons/icons_sprite.svg#icon-smile"></use>
+          </StGameSettingsButtonSvg>
+        ))}
+      </StGameSettingsButton>
+      <StTextContainer textAlign="center">{value} игрока</StTextContainer>
+    </StFlex>
   );
 };
 

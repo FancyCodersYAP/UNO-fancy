@@ -1,6 +1,10 @@
 import { StFlex } from 'styles/global';
 import GameSettingsButton from './GameSettingsButton';
 
+interface GameSettingsType {
+  handleCloseModal: () => void;
+}
+
 const settingsInputsValue = [
   {
     value: 2,
@@ -10,13 +14,16 @@ const settingsInputsValue = [
   },
 ];
 
-const chooseCountOfPlayers = (evt: { target: HTMLButtonElement }) => {
-  const buttonWithPlayers = evt.target.closest('button');
-  const usersCount = buttonWithPlayers?.dataset.players;
-  console.log('Количество игроков: ' + usersCount);
-};
+const GameSettings = (props: GameSettingsType) => {
+  const { handleCloseModal } = props;
 
-const GameSettings = () => {
+  const chooseCountOfPlayers = (evt: { target: HTMLButtonElement }) => {
+    const buttonWithPlayers = evt.target.closest('button');
+    const usersCount = buttonWithPlayers?.dataset.players;
+    console.log('Количество игроков: ' + usersCount);
+    handleCloseModal();
+  };
+
   return (
     <>
       <StFlex justifyContent="center" columnGap={60} marginBottom={20}>
