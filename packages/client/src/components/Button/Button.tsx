@@ -5,7 +5,7 @@ import { StButton } from './style';
 export type ButtonProps = {
   text?: string;
   block?: boolean;
-  onClick?: (evt: React.SyntheticEvent) => void;
+  onClick?: () => void;
   type?: 'submit' | 'reset';
   theme?: ThemeType;
   disignType?: 'primary' | 'secondary' | 'alternate';

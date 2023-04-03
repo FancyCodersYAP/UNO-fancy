@@ -17,20 +17,13 @@ const settingsInputsValue = [
 const GameSettings = (props: GameSettingsType) => {
   const { handleCloseModal } = props;
 
-  const chooseCountOfPlayers = (evt: { target: HTMLButtonElement }) => {
-    const buttonWithPlayers = evt.target.closest('button');
-    const usersCount = buttonWithPlayers?.dataset.players;
-    console.log('Количество игроков: ' + usersCount);
-    handleCloseModal();
-  };
-
   return (
     <>
       <StFlex justifyContent="center" columnGap={60} marginBottom={20}>
         {settingsInputsValue.map((input, id) => (
           <GameSettingsButton
             key={`settings-card-${id}`}
-            onClick={chooseCountOfPlayers}
+            handleCloseModal={handleCloseModal}
             value={input.value}
           />
         ))}
