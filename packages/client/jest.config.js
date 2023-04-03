@@ -8,4 +8,13 @@ export default {
   globals: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
+  moduleNameMapper: {
+    '^components(.*)$': '<rootDir>/src/components$1',
+    '^api(.*)$': '<rootDir>/src/api$1',
+    '^pages(.*)$': '<rootDir>/src/pages$1',
+    '^utils(.*)$': '<rootDir>/src/utils$1',
+    '^types(.*)$': '<rootDir>/src/types$1',
+    '^styles(.*)$': '<rootDir>/src/styles$1',
+    '^contexts(.*)$': '<rootDir>/src/contexts$1',
+  },
 };
