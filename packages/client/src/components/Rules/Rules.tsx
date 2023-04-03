@@ -9,40 +9,30 @@ import {
   StCarouselBox,
   width100Percent,
 } from 'styles/global';
-
-const cards = [
-  {
-    src: 'src/assets/img/start-game-1.jpg',
-    alt: 'Карточка правил',
-    text: 'Избавляйтесь от\u00A0карт одного цвета в\u00A0первую очередь',
-  },
-  {
-    src: 'src/assets/img/start-game-2.jpg',
-    alt: 'Карточка правил',
-    text: 'Следите за\u00A0ходами противника',
-  },
-  {
-    src: 'src/assets/img/start-game-3.jpg',
-    alt: 'Карточка правил',
-    text: 'Используйте карты действий в\u00A0более подходящий момент',
-  },
-];
+import { cardsWithRules } from 'assets/data';
 
 const TOTAL_SLIDES = 2;
 
-const buttonsPaddingWithIcon = css`
-  padding-top: 7px;
-  padding-bottom: 7px;
+const padding15AliginItemsCenter = css`
+  padding: 15px;
+  padding-bottom: 15px;
   align-items: center;
 `;
 
-const buttonsPaddingWithIconReverse = css`
-  padding-top: 7px;
-  padding-bottom: 7px;
-  align-items: center;
+const moreButtonStyle = css`
+  ${padding15AliginItemsCenter}
+
+  svg {
+    margin-left: 15px;
+  }
+`;
+
+const backButtonStyle = css`
+  ${padding15AliginItemsCenter}
 
   svg {
     transform: rotate(180deg);
+    margin-right: 15px;
   }
 `;
 
@@ -51,14 +41,12 @@ const Rules = () => {
 
   const iconMoreButton = {
     url: 'src/assets/icons/icons_sprite.svg#icon-arrow',
-    width: 44,
-    height: 44,
+    width: 14,
+    height: 23,
   };
 
   const iconBackButton = {
-    url: 'src/assets/icons/icons_sprite.svg#icon-arrow',
-    width: 44,
-    height: 44,
+    ...iconMoreButton,
     isLeft: true,
   };
 
@@ -67,7 +55,7 @@ const Rules = () => {
       <StFlex ref={ref}>
         <StCarouselBox width={636} height={400}>
           <StFlex css={width100Percent} justifyContent="space-between">
-            {cards.map((card, id) => (
+            {cardsWithRules.map((card, id) => (
               <Card
                 key={`card-${id}`}
                 src={card.src}
@@ -80,7 +68,7 @@ const Rules = () => {
           <Button
             onClick={next}
             svg={iconMoreButton}
-            css={buttonsPaddingWithIconReverse}
+            css={moreButtonStyle}
             text="Подробнее"
             disignType="alternate"
           />
@@ -92,7 +80,7 @@ const Rules = () => {
           <Button
             onClick={prev}
             svg={iconBackButton}
-            css={buttonsPaddingWithIcon}
+            css={backButtonStyle}
             text="Назад"
             disignType="alternate"
           />

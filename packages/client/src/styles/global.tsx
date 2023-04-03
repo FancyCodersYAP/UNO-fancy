@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
+import { resetDefaultStyles } from './normalize';
 import {
   FlexProps,
   CarouselBoxProps,
@@ -8,9 +9,9 @@ import {
 } from './variables/types';
 
 export const GlobalStyle = createGlobalStyle`
+  ${resetDefaultStyles}
+
   body {
-    margin: 0;
-    padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif, serif;
   }
 
@@ -22,7 +23,6 @@ export const GlobalStyle = createGlobalStyle`
   html,
   body,
   .App {
-    margin: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
