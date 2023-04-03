@@ -14,12 +14,16 @@ import {
   StyledForm,
   inputCss,
 } from './style';
+import { useAppDispatch } from '../../hooks/redux';
+import { fetchPassChange } from '../../store/user/actions';
 
 const Password: FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const changePassword = async (data: DataType) => {
     console.log(data);
+    dispatch(fetchPassChange(data))
     navigate(AppRoute.PROFILE);
   };
 

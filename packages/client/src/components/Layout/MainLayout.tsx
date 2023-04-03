@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import { fetchAuth } from '../../store/auth/actions';
+import { fetchAuthUserGet } from '../../store/auth/actions';
 import { useAppDispatch } from '../../hooks/redux';
 import { authState } from '../../hooks/authState';
 import { StContainer } from 'styles/global';
@@ -39,7 +39,7 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
   const { isLoading } = authState();
 
   useEffect(() => {
-    dispatch(fetchAuth());
+    dispatch(fetchAuthUserGet());
   }, []);
 
   if (isLoading) return <></>; //можно вставить какой-то лоадер
