@@ -1,19 +1,13 @@
 import {
-  fetchAuth,
+  fetchAuthUserGet,
   fetchLogin,
   fetchLogout,
   fetchRegistration,
-  IUser,
 } from './actions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUser, AuthState } from '../types';
 
-interface UserState {
-  user: IUser | null;
-  isLoading: boolean;
-  error: string;
-}
-
-const initialState: UserState = {
+const initialState: AuthState = {
   user: null,
   isLoading: false,
   error: '',
@@ -26,18 +20,21 @@ export const authSlice = createSlice({
     errorReset(state) {
       state.error = '';
     },
+    userDataSet (state, action) {
+      state.user = action.payload;
+    }
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<IUser>) => {
+      .addCase(fetchAuthUserGet.fulfilled, (state, action: PayloadAction<IUser>) => {
         state.isLoading = false;
         state.error = '';
-        state.user = action.payload;
+        authSlice.caseReducers.userDataSet(state, action)
       })
-      .addCase(fetchAuth.pending, state => {
+      .addCase(fetchAuthUserGet.pending, state => {
         state.isLoading = true;
       })
-      .addCase(fetchAuth.rejected, (state, action: PayloadAction<any>) => {
+      .addCase(fetchAuthUserGet.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         if ('reason' in action.payload) {
           // state.error = 'Не удалось авторизоавться';
@@ -69,6 +66,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { errorReset } = authSlice.actions;
+export const { errorReset, userDataSet } = authSlice.actions;
 
 export default authSlice.reducer;
