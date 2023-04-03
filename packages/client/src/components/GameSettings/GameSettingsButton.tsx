@@ -15,9 +15,10 @@ const StGameSettingsButton = styled(StButton)`
   padding: 22px;
 `;
 
-const GameSettingsButton = (props: GameSettingsButtonType) => {
-  const { value, handleCloseModal } = props;
-
+const GameSettingsButton = ({
+  value,
+  handleCloseModal,
+}: GameSettingsButtonType) => {
   const arrayOfImgs = [...Array(value)];
 
   const handleClick = () => {
@@ -30,7 +31,7 @@ const GameSettingsButton = (props: GameSettingsButtonType) => {
       <StGameSettingsButton onClick={handleClick}>
         {arrayOfImgs.map((_img, id) => (
           <StGameSettingsButtonSvg key={`player-img-${id + 1}`}>
-            <use href="src/assets/icons/icons_sprite.svg#icon-smile"></use>
+            <use href="src/assets/icons/icons_sprite.svg#icon-smile" />
           </StGameSettingsButtonSvg>
         ))}
       </StGameSettingsButton>
