@@ -15,8 +15,10 @@ export default function useCarousel(totalSlides: number) {
   };
 
   useEffect(() => {
-    ref.current.style.transition = 'all 0.2s ease-in-out';
-    ref.current.style.transform = `translateX(-${current}00%)`;
+    if (ref.current) {
+      ref.current.style.transition = 'all 0.2s ease-in-out';
+      ref.current.style.transform = `translateX(-${current}00%)`;
+    }
   }, [current]);
 
   return {
