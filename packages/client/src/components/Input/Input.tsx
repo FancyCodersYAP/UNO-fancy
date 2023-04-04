@@ -38,9 +38,10 @@ const Input: FC<InputProps> = ({
         {...register(name, options)}
         placeholder=" "
         css={inputCss}
+        id={name}
         {...rest}
       />
-      <StLabel>{label}</StLabel>
+      <StLabel htmlFor={name}>{label}</StLabel>
       {error && <StError>{errorMessage}</StError>}
     </StInputContainer>
   );

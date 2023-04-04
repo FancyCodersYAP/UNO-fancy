@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { StModal, StModalWrapper, StModalTitle } from './style';
 import { StButtonCloseModal } from 'components/Button/style';
 
-interface ModalType {
+type ModalType = {
   children?: ReactNode;
   title?: string;
   isOpen: boolean;
@@ -10,7 +10,7 @@ interface ModalType {
   width?: number;
   verticalPaddings?: number;
   horizontalPaddings?: number;
-}
+};
 
 const Modal = (props: ModalType) => {
   const {
@@ -45,7 +45,7 @@ const Modal = (props: ModalType) => {
             {title && <StModalTitle>{title}</StModalTitle>}
             {handleCloseModal && (
               <StButtonCloseModal onClick={handleCloseModal}>
-                <img src="src/assets/icons/close.svg" />
+                <img src="src/assets/icons/close.svg" alt="close icon" />
               </StButtonCloseModal>
             )}
             {children}
