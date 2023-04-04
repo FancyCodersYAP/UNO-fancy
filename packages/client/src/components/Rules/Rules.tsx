@@ -4,23 +4,7 @@ import Button from 'components/Button';
 import { StLink, StFlex } from 'styles/global';
 import Card from 'components/Card';
 
-const cards = [
-  {
-    src: 'src/assets/img/start-game-1.jpg',
-    alt: 'Карточка правил',
-    text: 'Избавляйтесь от карт одного цвета в первую очередь',
-  },
-  {
-    src: 'src/assets/img/start-game-2.jpg',
-    alt: 'Карточка правил',
-    text: 'Следите за ходами противника',
-  },
-  {
-    src: 'src/assets/img/start-game-3.jpg',
-    alt: 'Карточка правил',
-    text: 'Используйте карты действий в более подходящий момент',
-  },
-];
+import { CARDS } from './constants';
 
 const Rules = () => {
   const navigate = useNavigate();
@@ -32,7 +16,7 @@ const Rules = () => {
   return (
     <>
       <StFlex justifyContent="space-between">
-        {cards.map((card, id) => (
+        {CARDS.map((card, id) => (
           <Card
             key={`card-${id}`}
             src={card.src}
