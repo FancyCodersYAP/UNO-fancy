@@ -33,11 +33,6 @@ const LoginPage: FC = () => {
     dispatch(fetchLogin(data));
   };
 
-  const handleLogout = (): void => {
-    //использовал для теста авторизации потом можно удалить когда будет страница профиля
-    dispatch(fetchLogout());
-  };
-
   const footer = (
     <StFormFooter>
       <Button text="Войти" type="submit" block />

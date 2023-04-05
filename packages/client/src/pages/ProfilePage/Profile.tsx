@@ -7,24 +7,20 @@ import { DataType } from 'components/Form/Form';
 
 import { profileConfig } from '../configs';
 
-import {
-  StUserName,
-  StSaveButton,
-  StyledForm,
-  inputCss
-} from './style';
+import { StUserName, StSaveButton, StyledForm, inputCss } from './style';
 import ProfileFooter from './ProfileFooter';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { fetchProfileChange } from '../../store/profile/actions';
 import ProfileAvatar from './ProfileAvatar';
+import { fetchLogout } from '../../store/auth/actions';
 
 const Profile: FC = () => {
   const [isEditMode, setEditMode] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const {user } = userState();
+  const { user } = userState();
 
   const avatar = <ProfileAvatar image={user!.avatar} />;
   const title = <StUserName>{user?.first_name}</StUserName>;
@@ -38,21 +34,20 @@ const Profile: FC = () => {
   };
 
   const updateData = async (data: DataType) => {
-    dispatch(fetchProfileChange(data))
-      .then((action) => {
-        if (!action.error) {
-          setEditMode(false);
-        }
-      })
+    dispatch(fetchProfileChange(data)).then(action => {
+      if (!action.error) {
+        setEditMode(false);
+      }
+    });
   };
 
   const logout = async () => {
-    console.log('LOGOUT');
+    dispatch(fetchLogout());
   };
 
   const fields = profileConfig.map(field => ({
     disabled: !isEditMode,
-    ...field
+    ...field,
   }));
 
   const defaultValues: Record<string, string> = fields.reduce(
@@ -61,7 +56,7 @@ const Profile: FC = () => {
   );
 
   const footer = isEditMode ? (
-    <StSaveButton text='Сохранить' type='submit' />
+    <StSaveButton text="Сохранить" type="submit" />
   ) : (
     <ProfileFooter
       handleChangeData={handleChangeData}
