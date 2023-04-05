@@ -18,7 +18,7 @@ export interface PlayerType {
 }
 
 export interface AvatarType {
-  image?: string;
+  image?: string | null;
 }
 
 export interface UserType {

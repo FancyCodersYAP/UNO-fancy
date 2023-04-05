@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 import { fetchAuthUserGet } from '../../store/auth/actions';
 import { useAppDispatch } from '../../hooks/redux';
-import { authState } from '../../hooks/authState';
+import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
 
 import bgImage from '../../assets/img/background.png';
@@ -36,13 +36,13 @@ type LayoutProps = {
 
 const MainLayout: FC<LayoutProps> = ({ children }) => {
   const dispatch = useAppDispatch();
-  const { isLoading } = authState();
+  const { isLoading, user } = userState();
 
   useEffect(() => {
     dispatch(fetchAuthUserGet());
   }, []);
 
-  if (isLoading) return <></>; //можно вставить какой-то лоадер
+  if (isLoading && !user) return <></>; //можно вставить какой-то лоадер
 
   return (
     <StMainScreen>

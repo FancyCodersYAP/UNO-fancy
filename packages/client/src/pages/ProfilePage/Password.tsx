@@ -6,29 +6,34 @@ import { DataType } from 'components/Form/Form';
 
 import { passwordConfig } from '../configs';
 
-import { USER } from './Profile';
 import {
   StSaveButton,
-  StAvatar,
   StUserName,
   StyledForm,
   inputCss,
 } from './style';
 import { useAppDispatch } from '../../hooks/redux';
-import { fetchPassChange } from '../../store/user/actions';
+import { fetchPassChange } from '../../store/profile/actions';
+import { userState } from '../../hooks/userState';
+import ProfileAvatar from './ProfileAvatar';
 
 const Password: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { user } = userState();
 
   const changePassword = async (data: DataType) => {
     console.log(data);
     dispatch(fetchPassChange(data))
-    navigate(AppRoute.PROFILE);
+      .then((action) => {
+        if (!action.error) {
+          navigate(AppRoute.PROFILE);
+        }
+      })
   };
 
-  const avatar = <StAvatar image={USER?.avatar} />;
-  const title = <StUserName>{USER?.first_name}</StUserName>;
+  const avatar = <ProfileAvatar image={user!.avatar} />;
+  const title = <StUserName>{user!.first_name}</StUserName>;
   const footer = <StSaveButton text="Сохранить" type="submit" />;
 
   return (

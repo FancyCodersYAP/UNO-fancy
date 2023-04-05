@@ -10,11 +10,8 @@ export interface IUser {
   status?: null;
 }
 
-export interface AuthState extends DefaultState{
+export interface UserState{
   user: IUser | null;
-}
-
-export interface DefaultState {
   isLoading: boolean;
   error: string;
 }

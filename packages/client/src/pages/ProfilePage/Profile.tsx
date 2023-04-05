@@ -8,7 +8,6 @@ import { DataType } from 'components/Form/Form';
 import { profileConfig } from '../configs';
 
 import {
-  StAvatar,
   StUserName,
   StSaveButton,
   StyledForm,
@@ -16,30 +15,18 @@ import {
 } from './style';
 import ProfileFooter from './ProfileFooter';
 import { useAppDispatch } from '../../hooks/redux';
-import { authState } from '../../hooks/authState';
-import { fetchRegistration } from '../../store/auth/actions';
-import { fetchProfileChange } from '../../store/user/actions';
-import { RegFormParams } from '../RegistrationPage/RegistrationPage';
-import { userDataSet } from '../../store/auth/authSlice';
-
-export const USER: UserType = {
-  avatar: 'https://i.pravatar.cc/300',
-  first_name: 'Ivan',
-  second_name: 'Ivanov',
-  login: 'MyFirestUser',
-  email: 'mail@mail.com',
-  phone: '+79269269696'
-};
+import { userState } from '../../hooks/userState';
+import { fetchProfileChange } from '../../store/profile/actions';
+import ProfileAvatar from './ProfileAvatar';
 
 const Profile: FC = () => {
   const [isEditMode, setEditMode] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { authError, user } = authState();
+  const {user } = userState();
 
-
-  const avatar = <StAvatar image={USER?.avatar} />;
+  const avatar = <ProfileAvatar image={user!.avatar} />;
   const title = <StUserName>{user?.first_name}</StUserName>;
 
   const handleChangeData = () => {
@@ -50,9 +37,13 @@ const Profile: FC = () => {
     navigate(`${AppRoute.PROFILE}/password`);
   };
 
-  const updateData = async (data: DataType): Promise<void> => {
-    await dispatch(fetchProfileChange(data));
-    setEditMode(false);
+  const updateData = async (data: DataType) => {
+    dispatch(fetchProfileChange(data))
+      .then((action) => {
+        if (!action.error) {
+          setEditMode(false);
+        }
+      })
   };
 
   const logout = async () => {

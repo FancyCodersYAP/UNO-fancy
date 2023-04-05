@@ -9,8 +9,8 @@ import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
 import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
 import { useAppDispatch } from '../../hooks/redux';
-import { errorReset } from '../../store/auth/authSlice';
-import { authState } from '../../hooks/authState';
+import { errorReset } from '../../store/user/userSlice';
+import { userState } from '../../hooks/userState';
 
 export type DataType = LoginFormParams & RegFormParams;
 
@@ -49,10 +49,10 @@ const Form: FC<FormProps> = ({
   });
 
   const dispatch = useAppDispatch();
-  const { authError } = authState();
+  const { userError } = userState();
 
   const errorCancel = () => {
-    if (authError) dispatch(errorReset());
+    if (userError) dispatch(errorReset());
   };
 
   return (
@@ -80,6 +80,8 @@ const Form: FC<FormProps> = ({
           ))}
         </StFieldList>
         {footer}
+        <p style={{ color: 'red', margin: 0, padding: 0 , position: 'absolute', left: '50%', transform: 'translate(-50%, 50%)', whiteSpace: 'nowrap'}}>{userError}</p>
+        {/*оставил для теста нужно поменять на компонент ошибки*/}
       </form>
     </StFormContainer>
   );
