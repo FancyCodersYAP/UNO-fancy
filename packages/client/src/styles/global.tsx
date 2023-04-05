@@ -27,7 +27,8 @@ export const GlobalStyle = createGlobalStyle`
 
 export const StFormContainer = styled.div`
   position: relative;
-  min-width: 400px;
+  width: 400px;
+  min-width: 350px;
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
   padding: 40px 60px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
