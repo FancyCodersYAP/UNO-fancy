@@ -1,6 +1,6 @@
 import { FC, useMemo, ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
-import { StFieldList, StFormSubtitle, StFormTitle } from './style';
+import { FormError, StFieldList, StFormSubtitle, StFormTitle } from './style';
 import { CSSProp } from 'styled-components';
 import { StFormContainer } from 'styles/global';
 
@@ -80,8 +80,7 @@ const Form: FC<FormProps> = ({
           ))}
         </StFieldList>
         {footer}
-        <p style={{ color: 'red', margin: 0, padding: 0 , position: 'absolute', left: '50%', transform: 'translate(-50%, 50%)', whiteSpace: 'nowrap'}}>{userError}</p>
-        {/*оставил для теста нужно поменять на компонент ошибки*/}
+        <FormError>{userError}</FormError>
       </form>
     </StFormContainer>
   );
