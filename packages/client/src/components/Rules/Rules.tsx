@@ -14,7 +14,7 @@ import { cardsWithRules } from 'assets/data';
 const TOTAL_SLIDES = 2;
 
 const padding15AliginItemsCenter = css`
-  padding: 15px;
+  padding-top: 15px;
   padding-bottom: 15px;
   align-items: center;
 `;
