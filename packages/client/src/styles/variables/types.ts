@@ -36,8 +36,3 @@ export type ModalProps = {
   horizontalPaddings?: number;
   verticalPaddings?: number;
 };
-
-export type CarouselBoxProps = {
-  width?: number;
-  height?: number;
-};

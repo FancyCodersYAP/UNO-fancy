@@ -2,11 +2,7 @@ import styled, { css } from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
 import { resetDefaultStyles } from './normalize';
-import {
-  FlexProps,
-  CarouselBoxProps,
-  TextContainerProps,
-} from './variables/types';
+import { FlexProps, TextContainerProps } from './variables/types';
 
 export const GlobalStyle = createGlobalStyle`
   ${resetDefaultStyles}
@@ -134,14 +130,11 @@ export const StContainer = styled(StFlex)`
 `;
 
 export const StCarousel = styled.div`
-  width: ${(props: { width: number }) => `${props.width}px` || 'auto'};
   overflow: hidden;
 `;
 
-export const StCarouselBox = styled.div<CarouselBoxProps>`
+export const StCarouselBox = styled.div`
   box-sizing: border-box;
-  width: ${props => `${props.width}px` || 'auto'};
-  height: ${props => `${props.height}px` || 'auto'};
   flex-shrink: 0;
   display: flex;
   justify-content: center;
