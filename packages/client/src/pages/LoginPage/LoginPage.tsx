@@ -42,7 +42,7 @@ const LoginPage: FC = () => {
   );
 
   return (
-    <StContainer alignItems="center">
+    <StContainer alignItems="center" padding="0 40">
       <Form
         title="Вход"
         fields={loginConfig}

@@ -15,7 +15,7 @@ export type FlexProps = {
   backgroundColor?: string;
   borderRadius?: number;
   columnGap?: number;
-  padding?: number;
+  padding?: number | string;
   marginBottom?: number;
   rowGap?: number;
   justifyContent?: string;

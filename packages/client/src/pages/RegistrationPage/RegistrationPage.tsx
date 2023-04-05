@@ -50,7 +50,7 @@ const RegistrationPage: FC = () => {
   );
 
   return (
-    <StContainer alignItems="center">
+    <StContainer alignItems="center" padding="0 40">
       <Form
         title="Регистрация"
         fields={registrationConfig}
