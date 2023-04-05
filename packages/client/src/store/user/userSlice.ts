@@ -1,58 +1,87 @@
 import {
-  fetchProfileChange,
-} from './actions';
+  fetchAuthUserGet,
+  fetchLogin,
+  fetchLogout,
+  fetchRegistration
+} from '../auth/actions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser, DefaultState } from '../types';
+import { IUser, UserState } from '../types';
+import apiErrorStateHandle from '../../utils/apiErrorStateHandle';
+import { fetchAvatarChange, fetchPassChange, fetchProfileChange } from '../profile/actions';
 
-const initialState: DefaultState = {
+const initialState: UserState = {
+  user: null,
   isLoading: false,
-  error: '',
+  error: ''
 };
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    errorReset(state) {
+      state.error = '';
+    }
+  },
   extraReducers: builder => {
     builder
-      // .addCase(fetchProfileChange.fulfilled, (state, action: PayloadAction<IUser>) => {
-      //   state.isLoading = false;
-      //   state.error = '';
-      //   console.log(action);
-      //   userDataSet(action)
-      // })
+      .addCase(fetchAuthUserGet.fulfilled, (state, action: PayloadAction<IUser>) => {
+        state.isLoading = false;
+        state.error = '';
+        state.user = action.payload;
+      })
+      .addCase(fetchAuthUserGet.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAuthUserGet.rejected, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        if ('reason' in action.payload) {
+          state.user = null;
+        } else state.error = action.payload;
+      })
+      .addCase(fetchProfileChange.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = '';
+        if (action.payload) state.user = action.payload;
+      })
       .addCase(fetchProfileChange.pending, state => {
         state.isLoading = true;
       })
       .addCase(fetchProfileChange.rejected, (state, action: PayloadAction<any>) => {
+        state.error = apiErrorStateHandle(action);
         state.isLoading = false;
-
       })
-      // .addCase(fetchLogin.rejected, (state, action: PayloadAction<any>) => {
-      //   state.error =
-      //     typeof action.payload === 'object' && 'reason' in action.payload
-      //       ? action.payload.reason
-      //       : action.payload;
-      // })
-      // .addCase(fetchLogout.rejected, (state, action: PayloadAction<any>) => {
-      //   console.log('action', action);
-      //   state.error =
-      //     typeof action.payload === 'object' && 'reason' in action.payload
-      //       ? action.payload.reason
-      //       : action.payload;
-      // })
-      // .addCase(
-      //   fetchRegistration.rejected,
-      //   (state, action: PayloadAction<any>) => {
-      //     state.error =
-      //       typeof action.payload === 'object' && 'reason' in action.payload
-      //         ? action.payload.reason
-      //         : action.payload;
-      //   }
-      // );
-  },
+      .addCase(fetchPassChange.rejected, (state, action: PayloadAction<any>) => {
+        state.error = apiErrorStateHandle(action);
+        state.isLoading = false;
+      })
+      .addCase(fetchAvatarChange.fulfilled, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.error = '';
+        state.user = action.payload;
+      })
+      .addCase(fetchAvatarChange.rejected, (state, action: PayloadAction<any>) => {
+        state.error = apiErrorStateHandle(action);
+        state.isLoading = false;
+      })
+      .addCase(fetchLogin.rejected, (state, action: PayloadAction<any>) => {
+        state.error = apiErrorStateHandle(action);
+        state.isLoading = false;
+      })
+      .addCase(fetchLogout.rejected, (state, action: PayloadAction<any>) => {
+        state.error = apiErrorStateHandle(action);
+        state.isLoading = false;
+      })
+      .addCase(
+        fetchRegistration.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = apiErrorStateHandle(action);
+          state.isLoading = false;
+        }
+      );
+  }
 });
 
-// export const { errorReset } = authSlice.actions;
+export const { errorReset } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -9,7 +9,7 @@ import Button from 'components/Button';
 import { fetchLogin, fetchLogout } from '../../store/auth/actions';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
-import { authState } from '../../hooks/authState';
+import { userState } from '../../hooks/userState';
 
 import { loginConfig } from '../configs';
 
@@ -22,7 +22,7 @@ const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { authError, user } = authState();
+  const { user } = userState();
   useEffect(() => {
     if (user) {
       navigate(AppRoute.MAIN);
@@ -43,8 +43,6 @@ const LoginPage: FC = () => {
       <Button text="Войти" type="submit" block />
       <StLink to={AppRoute.REGISTRATION}>Нет аккаунта?</StLink>
       <Button text="Яндекс ID" disignType="secondary" block />
-      <p style={{ color: 'red', margin: 0, padding: 0 }}>{authError}</p>
-      {/*оставил для теста нужно поменять на компонент ошибки*/}
     </StFormFooter>
   );
 
