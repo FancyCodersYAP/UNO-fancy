@@ -19,15 +19,6 @@ const padding15AliginItemsCenter = css`
   align-items: center;
 `;
 
-const width636px = css`
-  width: 636px;
-`;
-
-const width636pxHeight = css`
-  ${width636px}
-  height: 400px;
-`;
-
 const moreButtonStyle = css`
   ${padding15AliginItemsCenter}
 
@@ -60,9 +51,9 @@ const Rules = () => {
   };
 
   return (
-    <StCarousel css={width636px}>
+    <StCarousel>
       <StFlex ref={ref}>
-        <StCarouselBox css={width636pxHeight}>
+        <StCarouselBox>
           <StFlex css={width100Percent} justifyContent="space-between">
             {cardsWithRules.map((card, id) => (
               <Card
@@ -83,7 +74,7 @@ const Rules = () => {
           />
         </StCarouselBox>
 
-        <StCarouselBox css={width636pxHeight}>
+        <StCarouselBox>
           <RulesInfo />
 
           <Button

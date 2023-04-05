@@ -130,10 +130,13 @@ export const StContainer = styled(StFlex)`
 `;
 
 export const StCarousel = styled.div`
+  width: 636px;
   overflow: hidden;
 `;
 
 export const StCarouselBox = styled.div`
+  width: 636px;
+  height: 400px;
   box-sizing: border-box;
   flex-shrink: 0;
   display: flex;
