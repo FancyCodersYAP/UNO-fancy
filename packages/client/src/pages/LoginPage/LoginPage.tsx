@@ -6,7 +6,7 @@ import { AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
-import { fetchLogin, fetchLogout } from '../../store/auth/actions';
+import { fetchLogin } from '../../store/auth/actions';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
