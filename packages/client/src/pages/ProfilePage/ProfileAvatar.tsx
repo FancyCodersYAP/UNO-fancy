@@ -2,7 +2,6 @@ import { StAvatar } from './style';
 import styled from 'styled-components';
 import { fetchAvatarChange } from '../../store/profile/actions';
 import { useAppDispatch } from '../../hooks/redux';
-import { useEffect } from 'react';
 import { StFlex } from '../../styles/global';
 
 interface IAvatar {
@@ -16,9 +15,6 @@ const StImageInput = styled.input`
   clip: rect(0, 0, 0, 0);
 `;
 const ProfileAvatar = ({ image }: IAvatar) => {
-  useEffect(() => {
-  }, [image]);
-
   const dispatch = useAppDispatch();
 
   const onAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,9 +31,10 @@ const ProfileAvatar = ({ image }: IAvatar) => {
   };
   const avatar = image && API_RESOURCES + image;
 
-  return (<StFlex flexDirection='column' alignItems='center'>
+  return (
+    <StFlex flexDirection="column" alignItems="center">
       <label>
-        <StImageInput type='file' onChange={onAvatarChange} />
+        <StImageInput type="file" onChange={onAvatarChange} />
         <StAvatar image={avatar} />
       </label>
     </StFlex>
