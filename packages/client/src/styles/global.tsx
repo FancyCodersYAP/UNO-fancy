@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
-
-import { FlexProps, TextContainerProps } from 'styles/variables/types';
+import { FlexProps, TextContainerProps } from './variables/types';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -115,7 +114,7 @@ export const StFlex = styled.div<FlexProps>(props => {
     justifyContent: justifyContent || 'unset',
     alignItems: alignItems || 'unset',
     flexDirection: flexDirection || 'row',
-  } as FlexProps;
+  };
 });
 
 export const StFlexBg = styled(StFlex)`
