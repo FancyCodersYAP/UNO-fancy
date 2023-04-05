@@ -119,5 +119,8 @@
         <symbol id="accordion-marker" fill="none">
             <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
+        <symbol id="icon-plus" fill="none">
+            <path d="M4.90696 13.0146V0.443536H8.08523V13.0146H4.90696ZM0.210582 8.31818V5.13991H12.7816V8.31818H0.210582Z" fill="white"/>
+        </symbol>
     </defs>
 </svg>
