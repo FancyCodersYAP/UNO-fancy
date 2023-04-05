@@ -33,7 +33,7 @@ const Profile: FC = () => {
     navigate(`${AppRoute.PROFILE}/password`);
   };
 
-  const updateData = async (data: DataType) => {
+  const updateData = (data: DataType) => {
     dispatch(fetchProfileChange(data)).then(action => {
       if (!action.error) {
         setEditMode(false);

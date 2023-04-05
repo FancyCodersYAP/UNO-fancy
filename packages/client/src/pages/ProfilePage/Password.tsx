@@ -6,12 +6,7 @@ import { DataType } from 'components/Form/Form';
 
 import { passwordConfig } from '../configs';
 
-import {
-  StSaveButton,
-  StUserName,
-  StyledForm,
-  inputCss,
-} from './style';
+import { StSaveButton, StUserName, StyledForm, inputCss } from './style';
 import { useAppDispatch } from '../../hooks/redux';
 import { fetchPassChange } from '../../store/profile/actions';
 import { userState } from '../../hooks/userState';
@@ -22,14 +17,13 @@ const Password: FC = () => {
   const dispatch = useAppDispatch();
   const { user } = userState();
 
-  const changePassword = async (data: DataType) => {
+  const changePassword = (data: DataType) => {
     console.log(data);
-    dispatch(fetchPassChange(data))
-      .then((action) => {
-        if (!action.error) {
-          navigate(AppRoute.PROFILE);
-        }
-      })
+    dispatch(fetchPassChange(data)).then(action => {
+      if (!action.error) {
+        navigate(AppRoute.PROFILE);
+      }
+    });
   };
 
   const avatar = <ProfileAvatar image={user!.avatar} />;
