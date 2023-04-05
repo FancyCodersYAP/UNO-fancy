@@ -19,6 +19,15 @@ const padding15AliginItemsCenter = css`
   align-items: center;
 `;
 
+const width636px = css`
+  width: 636px;
+`;
+
+const width636pxHeight = css`
+  ${width636px}
+  height: 400px;
+`;
+
 const moreButtonStyle = css`
   ${padding15AliginItemsCenter}
 
@@ -37,7 +46,7 @@ const backButtonStyle = css`
 `;
 
 const Rules = () => {
-  const { ref, next, prev } = useCarousel(TOTAL_SLIDES);
+  const { ref, goNext, goPrev } = useCarousel(TOTAL_SLIDES);
 
   const iconMoreButton = {
     url: 'src/assets/icons/icons_sprite.svg#icon-arrow',
@@ -51,9 +60,9 @@ const Rules = () => {
   };
 
   return (
-    <StCarousel width={636}>
+    <StCarousel css={width636px}>
       <StFlex ref={ref}>
-        <StCarouselBox width={636} height={400}>
+        <StCarouselBox css={width636pxHeight}>
           <StFlex css={width100Percent} justifyContent="space-between">
             {cardsWithRules.map((card, id) => (
               <Card
@@ -66,7 +75,7 @@ const Rules = () => {
           </StFlex>
 
           <Button
-            onClick={next}
+            onClick={goNext}
             svg={iconMoreButton}
             css={moreButtonStyle}
             text="Подробнее"
@@ -74,11 +83,11 @@ const Rules = () => {
           />
         </StCarouselBox>
 
-        <StCarouselBox width={636} height={400}>
+        <StCarouselBox css={width636pxHeight}>
           <RulesInfo />
 
           <Button
-            onClick={prev}
+            onClick={goPrev}
             svg={iconBackButton}
             css={backButtonStyle}
             text="Назад"

@@ -4,14 +4,16 @@ export default function useCarousel(totalSlides: number) {
   const [current, setCurrent] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
-  const next = () => {
-    if (current >= totalSlides - 1) return;
-    else setCurrent(current + 1);
+  const goNext = () => {
+    if (current < totalSlides) {
+      setCurrent(current + 1);
+    }
   };
 
-  const prev = () => {
-    if (current === 0) return;
-    else setCurrent(current - 1);
+  const goPrev = () => {
+    if (current !== 0) {
+      setCurrent(current - 1);
+    }
   };
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export default function useCarousel(totalSlides: number) {
   return {
     current,
     ref,
-    next,
-    prev,
+    goNext,
+    goPrev,
   };
 }
