@@ -7,6 +7,7 @@ import { ButtonProps } from 'components/Button/Button';
 type GameSettingsButtonType = {
   value: number;
   handleCloseModal: () => void;
+  startGame: (playerNums: number) => void;
 } & ButtonProps;
 
 const StGameSettingsButton = styled(StButton)`
@@ -18,11 +19,12 @@ const StGameSettingsButton = styled(StButton)`
 const GameSettingsButton = ({
   value,
   handleCloseModal,
+  startGame,
 }: GameSettingsButtonType) => {
   const arrayOfImgs = [...Array(value)];
 
   const handleClick = () => {
-    console.log('Количество игроков: ' + value);
+    startGame(value);
     handleCloseModal();
   };
 
