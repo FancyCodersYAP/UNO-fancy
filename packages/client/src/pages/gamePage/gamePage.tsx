@@ -1,109 +1,69 @@
 import { useEffect, useState } from 'react';
-import { GameComponent } from '../../components/game/Game';
-import { PlayerType } from '../../components/game/types';
-import { controller } from '../../components/game/core/controller';
+import { GamePlayerType } from 'game/types';
+import { controller } from '../../game/Controller';
+import GameSettings from 'components/GameSettings';
+import useModal from 'utils/useModal';
+import Modal from 'components/Modal';
+import EndGame from 'components/EndGame';
+import styled from 'styled-components';
+import { StFlex } from 'styles/global';
+
+export const StGameFlex = styled(StFlex)`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
 
 export function GamePage() {
-  const [finished, setFinished] = useState(false);
+  const [gameStatus, changeGameStatus] = useState(true);
+
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   useEffect(() => {
+    controller.initGame();
     controller.onFinish(() => {
-      setFinished(true);
+      changeGameStatus(false);
+      handleOpenModal();
     });
   }, []);
 
-  const twoPlBtnClick = () => {
-    controller.startGame(2, { name: 'Carl' } as PlayerType);
-
-    const modal = document.getElementById('tempModal');
-    if (modal) modal.style.display = 'none';
-    document.querySelector('.btn-uno')?.classList.add('btn-uno_active');
+  const startGame = (playerNums: number) => {
+    controller.startGame(playerNums, { name: 'Carl' } as GamePlayerType);
   };
 
-  const fourPlBtnClick = () => {
-    controller.startGame(4, { name: 'Carl' } as PlayerType);
-
-    const modal = document.getElementById('tempModal');
-    if (modal) modal.style.display = 'none';
-    document.querySelector('.btn-uno')?.classList.add('btn-uno_active');
+  const reactivateGame = () => {
+    changeGameStatus(true);
   };
 
-  const handleUnoClick = () => {
-    controller.unoClick();
+  const data = {
+    time: '05:10',
+    countPlace: 4,
+    points: 100,
+    result: 1,
   };
 
-  // Модальные окна в div добавлены временно
   return (
-    <div id="game-page" className="bgd container">
-      <div
-        id="tempModal"
-        style={{
-          position: 'absolute',
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          width: '300px',
-          height: '300px',
-          backgroundColor: '#D6A13B',
-          borderRadius: '20px',
-        }}>
-        <button
-          onClick={twoPlBtnClick}
-          style={{
-            padding: '5px',
-            height: '30px',
-            width: '100px',
-            backgroundColor: '#23B7CB',
-            borderRadius: '5px',
-            textAlign: 'center',
-          }}>
-          Two players
-        </button>
-        <button
-          onClick={fourPlBtnClick}
-          style={{
-            padding: '5px',
-            height: '30px',
-            width: '100px',
-            backgroundColor: '#23B7CB',
-            borderRadius: '5px',
-          }}>
-          Four players
-        </button>
-      </div>
-      <GameComponent />
-      <button className="btn-uno" onClick={handleUnoClick}>
-        UNO
-      </button>
-      {finished && (
-        <div
-          style={{
-            position: 'absolute',
-            zIndex: '20',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            backgroundColor: '#5487a44d',
-          }}>
-          <div
-            style={{
-              zIndex: '20',
-              width: '300px',
-              height: '300px',
-              backgroundColor: '#D6A13B',
-              margin: 'auto',
-              color: '#FFFFFF',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '40px',
-              borderRadius: '20px',
-            }}>
-            Игра завершена
-          </div>
-        </div>
+    <StGameFlex id="game-page">
+      {gameStatus && (
+        <Modal title="Выбор режима игры" isOpen={isOpen}>
+          <GameSettings
+            handleCloseModal={handleCloseModal}
+            startGame={startGame}
+          />
+        </Modal>
       )}
-      {/* {finished && <EndGame />} */}
-    </div>
+      {!gameStatus && (
+        <Modal title="Игра завершена" isOpen={isOpen}>
+          <EndGame
+            time={data.time}
+            countPlace={data.countPlace}
+            points={data.points}
+            result={data.result}
+            reactivateGame={reactivateGame}
+          />
+        </Modal>
+      )}
+    </StGameFlex>
   );
 }
