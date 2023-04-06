@@ -1,12 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
+import { resetDefaultStyles } from './normalize';
 import { FlexProps, TextContainerProps } from './variables/types';
 
 export const GlobalStyle = createGlobalStyle`
+  ${resetDefaultStyles}
+
   body {
-    margin: 0;
-    padding: 0;
     font-family: Open-Sans, Helvetica, Sans-Serif, serif;
   }
 
@@ -18,7 +19,6 @@ export const GlobalStyle = createGlobalStyle`
   html,
   body,
   .App {
-    margin: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -127,4 +127,40 @@ export const StContainer = styled(StFlex)`
   justify-content: space-between;
   width: 100%;
   height: 100%;
+`;
+
+export const StCarousel = styled.div`
+  width: 636px;
+  overflow: hidden;
+`;
+
+export const StCarouselBox = styled.div`
+  width: 636px;
+  height: 400px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const width100Percent = css`
+  width: 100%;
+`;
+
+export const customScrollbar = css`
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f5b945;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #a87f2f;
+    border-radius: 10px;
+  }
 `;
