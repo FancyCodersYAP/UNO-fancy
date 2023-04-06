@@ -6,8 +6,8 @@ export const StInputContainer = styled.div`
   height: 50px;
   position: relative;
   width: 100%;
-  margin-bottom: 50px;
 `;
+
 export const StInput = styled.input`
   background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
   border-radius: ${BORDER_RADIUS_SIZE};
@@ -15,14 +15,15 @@ export const StInput = styled.input`
   border: 0;
   color: ${props => props?.theme.COLOR_TEXT_ACTIVE};
   font-size: 18px;
-  height: 100%;
+  line-height: 25px;
+  height: 3.1em;
   outline: 0;
-  padding: 4px 20px 0;
+  padding: 10px 20px 0;
   width: 100%;
 
   &:not(:placeholder-shown) ~ label,
   :focus ~ label {
-    transform: translateY(-15px) translateX(10px) scale(0.75);
+    transform: translateY(-15px) translateX(10px) scale(0.7);
     color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
   }
 

@@ -1,22 +1,18 @@
 import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { AuthorizationStatus, AppRoute } from 'utils/constants';
+import { useAppSelector } from '../../hooks/redux';
+import { AppRoute } from 'utils/constants';
 
 type PrivateRouteProps = {
-  children: any;
+  children: React.ReactElement;
 };
 
 type Props = FC<PrivateRouteProps>;
 
 const PrivateRoute: Props = ({ children }) => {
-  const { authorizationStatus } = useSelector((state: any) => state.USER);
-  // authorizationStatus - AUTH/NO_AUTH
-  return authorizationStatus === AuthorizationStatus.AUTH ? (
-    children
-  ) : (
-    <Navigate to={AppRoute.LOGIN} />
-  );
+  const { user } = useAppSelector(state => state.AUTH);
+
+  return user ? children : <Navigate to={AppRoute.LOGIN} />;
 };
 
 export default PrivateRoute;
