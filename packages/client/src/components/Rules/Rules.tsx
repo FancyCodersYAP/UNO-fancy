@@ -9,7 +9,7 @@ import {
   StCarouselBox,
   width100Percent,
 } from 'styles/global';
-import { cardsWithRules } from 'assets/data';
+import { cardsWithRules } from 'assets/data/cardsWithRules';
 
 const TOTAL_SLIDES = 2;
 
