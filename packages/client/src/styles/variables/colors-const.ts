@@ -25,4 +25,6 @@ export const BACKGROUND_ELEMENT_OPACITY = 'rgba(0, 0, 0, 0.5)';
 
 export const BACKGROUND_COLOR_TABLE_PRIMARY = 'rgba(255, 255, 255, 0.8)';
 
+export const BACKGROUND_COLOR_OPACITY_LIGHT = 'rgba(255, 255, 255, 0.16)';
+
 export const BORDER_COLOR_BUTTON = '#acb5bd';

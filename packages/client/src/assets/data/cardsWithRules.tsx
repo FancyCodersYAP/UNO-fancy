@@ -1,4 +1,10 @@
-export const cardsWithRules = [
+type cardsWithRulesType = {
+  src: string;
+  alt: string;
+  text: string;
+}[];
+
+export const cardsWithRules: cardsWithRulesType = [
   {
     src: 'src/assets/img/start-game-1.jpg',
     alt: 'Карточка правил',

@@ -1,30 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
 
 export default function useCarousel(totalSlides: number) {
-  const [current, setCurrent] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
   const goNext = () => {
-    if (current < totalSlides) {
-      setCurrent(current + 1);
+    if (currentSlide < totalSlides) {
+      setCurrentSlide(currentSlide + 1);
     }
   };
 
   const goPrev = () => {
-    if (current !== 0) {
-      setCurrent(current - 1);
+    if (currentSlide !== 0) {
+      setCurrentSlide(currentSlide - 1);
     }
   };
 
   useEffect(() => {
     if (ref.current) {
       ref.current.style.transition = 'all 0.2s ease-in-out';
-      ref.current.style.transform = `translateX(-${current}00%)`;
+      ref.current.style.transform = `translateX(-${currentSlide}00%)`;
     }
-  }, [current]);
+  }, [currentSlide]);
 
   return {
-    current,
     ref,
     goNext,
     goPrev,
