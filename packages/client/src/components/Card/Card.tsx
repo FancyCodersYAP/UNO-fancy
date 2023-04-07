@@ -13,7 +13,9 @@ const Card = (props: CardType) => {
   return (
     <StCard>
       <StCardImg src={src} alt={alt} />
-      <StTextContainer>{text}</StTextContainer>
+      <StTextContainer fontSize={17} lineHeight={24} textAlign="center">
+        {text}
+      </StTextContainer>
     </StCard>
   );
 };

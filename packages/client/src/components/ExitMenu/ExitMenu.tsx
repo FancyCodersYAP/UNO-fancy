@@ -7,9 +7,7 @@ interface ExitMenuType {
   handleCloseModal: () => void;
 }
 
-const ExitMenu = (props: ExitMenuType) => {
-  const { handleCloseModal } = props;
-
+const ExitMenu = ({ handleCloseModal }: ExitMenuType) => {
   const navigate = useNavigate();
 
   const navigateToMain = () => {
