@@ -1,6 +1,14 @@
-export const testForumData = [
+type TestForumDataType = {
+  id: number;
+  topic: string;
+  total_messages: number;
+  author: string;
+  last_message: string;
+};
+
+export const testForumData: TestForumDataType[] = [
   {
-    number: 1,
+    id: 1,
     topic:
       'Стратегии в UNO (Подробный гайд с очень большим количеством слов вот)',
     total_messages: 100,
@@ -9,77 +17,77 @@ export const testForumData = [
       'У меня получилось выиграть два раза подряд за время меньше У меня получилось выиграть два раза подряд за время меньше',
   },
   {
-    number: 2,
+    id: 2,
     topic: 'Варианты правил UNO',
     total_messages: 51,
     author: 'Эля',
     last_message: 'Я иногда забываю нажать на кнопку очень раздажает(',
   },
   {
-    number: 3,
+    id: 3,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 4,
+    id: 4,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 5,
+    id: 5,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 6,
+    id: 6,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 7,
+    id: 7,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 8,
+    id: 8,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло.',
   },
   {
-    number: 9,
+    id: 9,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 10,
+    id: 10,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 11,
+    id: 11,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
   {
-    number: 12,
+    id: 12,
     topic: 'Баги в игре',
     total_messages: 2,
     author: 'Элеонора',

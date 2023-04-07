@@ -87,7 +87,7 @@ export const StButtonCloseModal = styled(StButton)`
 export const StButtonNewTopic = styled(StButton)`
   width: 36px;
   height: 36px;
-  background-color: #23cbb7;
+  background-color: ${props => props.theme?.BACKGROUND_COLOR_BUTTOM};
   border: none;
   border-radius: 20px;
   display: flex;

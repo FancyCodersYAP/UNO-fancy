@@ -22,9 +22,6 @@ const Pagination = ({
 }: PaginationType) => {
   return (
     <StPagination>
-      <StPaginationCount>
-        {page}/{totalPages}
-      </StPaginationCount>
       <StPaginationButtons>
         <StPaginationButton onClick={prevPage}>&larr;</StPaginationButton>
         {[...Array(totalPages).keys()].map(el => (
@@ -37,6 +34,10 @@ const Pagination = ({
         ))}
         <StPaginationButton onClick={nextPage}>&rarr;</StPaginationButton>
       </StPaginationButtons>
+
+      <StPaginationCount>
+        {page}/{totalPages}
+      </StPaginationCount>
     </StPagination>
   );
 };
