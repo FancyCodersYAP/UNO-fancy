@@ -36,7 +36,7 @@ export class TableEntity extends Entity {
   renewClosePack() {
     if (this.closePack.length <= 4) {
       const upcard = this.openPack.pop();
-      const renewPack = shuffle(this.openPack);
+      const renewPack = shuffle(this.openPack) as CardType[];
       this.openPack.length = 0;
       this.openPack.push(upcard as CardType);
 
