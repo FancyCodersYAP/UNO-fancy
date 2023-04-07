@@ -17,6 +17,13 @@ export interface PlayerType {
   time: string;
 }
 
+export interface SvgIconProps {
+  url: string;
+  width: number;
+  height: number;
+  isLeft?: boolean;
+}
+
 export interface AvatarType {
   image?: string;
 }
