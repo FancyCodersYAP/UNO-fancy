@@ -1,9 +1,9 @@
 import { BASE_WIDTH_CARD, ANIMATION_TIME } from '../utils/constants';
 import { shuffle, drawCardBack, drawCardFront, moveCard } from '../utils';
 import { Entity } from './Entity';
-import { CardType } from '../types';
+import { CardType, EntityTypes } from '../types';
 
-export class TableEntity extends Entity {
+export class TableEntity extends Entity<EntityTypes> {
   closePack: CardType[] = [];
   openPack: CardType[] = [];
 
@@ -36,7 +36,7 @@ export class TableEntity extends Entity {
   renewClosePack() {
     if (this.closePack.length <= 4) {
       const upcard = this.openPack.pop();
-      const renewPack = shuffle(this.openPack) as CardType[];
+      const renewPack = shuffle(this.openPack);
       this.openPack.length = 0;
       this.openPack.push(upcard as CardType);
 

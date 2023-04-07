@@ -1,4 +1,4 @@
-export function shuffle(array: unknown[]) {
+export function shuffle<T extends unknown[]>(array: T): T {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -7,7 +7,7 @@ export function shuffle(array: unknown[]) {
   return array;
 }
 
-export function sleep(ms: number, fn: () => void) {
+export function sleep(ms: number, fn: () => void): Promise<unknown> {
   return new Promise(resolve => {
     setTimeout(() => resolve(fn()), ms);
   });

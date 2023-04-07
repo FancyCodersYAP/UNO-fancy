@@ -8,19 +8,19 @@ import {
   createUnoButton,
 } from '../utils';
 
-export class Entity {
+export class Entity<T extends EntityTypes> {
   layer!: HTMLDivElement;
   context!: CanvasRenderingContext2D;
   name!: HTMLParagraphElement;
   colorBox: HTMLDivElement | null = null;
 
-  entityName: EntityTypes;
+  entityName: T;
 
   player: GamePlayerType | null = null;
   width = 0;
   height = 0;
 
-  constructor(entityName: EntityTypes) {
+  constructor(entityName: T) {
     this.entityName = entityName;
   }
 
