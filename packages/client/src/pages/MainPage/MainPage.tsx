@@ -4,9 +4,9 @@ import { StFlex } from 'styles/global';
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
-import Modal from 'components/Modal/Modal';
+import Modal from 'components/Modal';
 import useModal from 'utils/useModal';
-import ExitMenu from 'components/ExitMenu/ExitMenu';
+import Rules from 'components/Rules';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
@@ -22,6 +22,7 @@ export const marginTop20 = css`
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
+
   const handlePlay = () => {
     navigate(AppRoute.GAME);
   };
@@ -30,13 +31,6 @@ const MainPage: FC = () => {
 
   return (
     <>
-      <Modal
-        width={430}
-        verticalPaddings={46}
-        horizontalPaddings={50}
-        isOpen={isOpen}>
-        <ExitMenu handleCloseModal={handleCloseModal} />
-      </Modal>
       <StFlex
         flexDirection="column"
         rowGap={40}
@@ -44,9 +38,25 @@ const MainPage: FC = () => {
         marginBottom={100}>
         <StMainLogo />
         <Button text="Начать игру" size="large" onClick={handlePlay} />
-        <Button css={marginTop20} text="Правила" disignType="alternate" />
+        <Button
+          onClick={handleOpenModal}
+          css={marginTop20}
+          text="Правила"
+          disignType="alternate"
+        />
       </StFlex>
+
+      {isOpen && (
+        <Modal
+          title="Правила игры"
+          handleCloseModal={handleCloseModal}
+          isCloseOutside={true}
+          isCrossButton={true}>
+          <Rules />
+        </Modal>
+      )}
     </>
   );
 };
+
 export default MainPage;

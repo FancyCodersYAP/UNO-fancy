@@ -1,25 +1,29 @@
 import { ReactNode } from 'react';
-import { StModal, StModalWrapper, StModalTitle } from './style';
+import {
+  StModal,
+  StModalWrapper,
+  StModalTitle,
+  StModalCloseIcon,
+} from './style';
 import { StButtonCloseModal } from 'components/Button/style';
+import { CSSProp } from 'styled-components';
 
 interface ModalType {
   children?: ReactNode;
   title?: string;
-  isOpen: boolean;
   handleCloseModal?: () => void;
-  width?: number;
-  verticalPaddings?: number;
-  horizontalPaddings?: number;
+  styles?: CSSProp;
+  isCloseOutside?: boolean;
+  isCrossButton?: boolean;
 }
 
 const Modal = (props: ModalType) => {
   const {
-    isOpen,
     title,
     handleCloseModal,
-    width,
-    verticalPaddings,
-    horizontalPaddings,
+    isCloseOutside,
+    isCrossButton,
+    styles,
     children,
   } = props;
 
@@ -27,32 +31,28 @@ const Modal = (props: ModalType) => {
     evt.stopPropagation();
   };
 
-  const checkPossibleToClose = () => {
-    if (handleCloseModal) {
-      return handleCloseModal();
+  const checkPossibleToCloseOutside = () => {
+    if (isCloseOutside) {
+      if (handleCloseModal) {
+        return handleCloseModal();
+      }
     }
   };
 
   return (
-    <>
-      {isOpen && (
-        <StModal onClick={checkPossibleToClose}>
-          <StModalWrapper
-            width={width}
-            verticalPaddings={verticalPaddings}
-            horizontalPaddings={horizontalPaddings}
-            onClick={stopPropagationEvent}>
-            {title && <StModalTitle>{title}</StModalTitle>}
-            {handleCloseModal && (
-              <StButtonCloseModal onClick={handleCloseModal}>
-                <img src="src/assets/icons/close.svg" />
-              </StButtonCloseModal>
-            )}
-            {children}
-          </StModalWrapper>
-        </StModal>
-      )}
-    </>
+    <StModal onClick={checkPossibleToCloseOutside}>
+      <StModalWrapper css={styles} onClick={stopPropagationEvent}>
+        {title && <StModalTitle>{title}</StModalTitle>}
+        {isCrossButton && (
+          <StButtonCloseModal onClick={handleCloseModal}>
+            <StModalCloseIcon>
+              <use href="src/assets/icons/icons_sprite.svg#icon-close-modal"></use>
+            </StModalCloseIcon>
+          </StButtonCloseModal>
+        )}
+        {children}
+      </StModalWrapper>
+    </StModal>
   );
 };
 
