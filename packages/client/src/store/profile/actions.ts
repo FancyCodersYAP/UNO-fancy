@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import API_ENDPOINT from '../constatns';
 import { IUser } from '../types';
@@ -11,12 +11,9 @@ export const fetchProfileChange = createAsyncThunk(
   'profile/fetchProfileChange',
   async (data: DataType, { rejectWithValue }) => {
     try {
-      const response = await axios.put<IUser>(`${USER_ENDPOINT}/profile`,
-        data
-      );
+      const response = await axios.put<IUser>(`${USER_ENDPOINT}/profile`, data);
       return response.data;
     } catch (error) {
-      console.log('error');
       return rejectWithValue(errorMessage(error, 'Не удалось изменить данные'));
     }
   }
@@ -41,12 +38,13 @@ export const fetchAvatarChange = createAsyncThunk(
   'profile/fetchAvatarChange',
   async (data: FormData, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.put<string>(`${USER_ENDPOINT}/profile/avatar`, data);
+      const response = await axios.put<string>(
+        `${USER_ENDPOINT}/profile/avatar`,
+        data
+      );
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        errorMessage(error, 'Не удалось поменять аватар')
-      );
+      return rejectWithValue(errorMessage(error, 'Не удалось поменять аватар'));
     }
   }
 );

@@ -2,17 +2,21 @@ import {
   fetchAuthUserGet,
   fetchLogin,
   fetchLogout,
-  fetchRegistration
+  fetchRegistration,
 } from '../auth/actions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser, UserState } from '../types';
 import apiErrorStateHandle from '../../utils/apiErrorStateHandle';
-import { fetchAvatarChange, fetchPassChange, fetchProfileChange } from '../profile/actions';
+import {
+  fetchAvatarChange,
+  fetchPassChange,
+  fetchProfileChange,
+} from '../profile/actions';
 
 const initialState: UserState = {
   user: null,
   isLoading: false,
-  error: ''
+  error: '',
 };
 
 const userSlice = createSlice({
@@ -21,24 +25,32 @@ const userSlice = createSlice({
   reducers: {
     errorReset(state) {
       state.error = '';
-    }
+    },
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchAuthUserGet.fulfilled, (state, action: PayloadAction<IUser>) => {
-        state.isLoading = false;
-        state.error = '';
-        state.user = action.payload;
-      })
+      .addCase(
+        fetchAuthUserGet.fulfilled,
+        (state, action: PayloadAction<IUser>) => {
+          state.isLoading = false;
+          state.error = '';
+          state.user = action.payload;
+        }
+      )
       .addCase(fetchAuthUserGet.pending, state => {
         state.isLoading = true;
       })
-      .addCase(fetchAuthUserGet.rejected, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-        if ('reason' in action.payload) {
-          state.user = null;
-        } else state.error = action.payload;
-      })
+      .addCase(
+        fetchAuthUserGet.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          if ('reason' in action.payload) {
+            state.user = null;
+          } else {
+            state.error = action.payload;
+          }
+        }
+      )
       .addCase(fetchProfileChange.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = '';
@@ -47,23 +59,35 @@ const userSlice = createSlice({
       .addCase(fetchProfileChange.pending, state => {
         state.isLoading = true;
       })
-      .addCase(fetchProfileChange.rejected, (state, action: PayloadAction<any>) => {
-        state.error = apiErrorStateHandle(action);
-        state.isLoading = false;
-      })
-      .addCase(fetchPassChange.rejected, (state, action: PayloadAction<any>) => {
-        state.error = apiErrorStateHandle(action);
-        state.isLoading = false;
-      })
-      .addCase(fetchAvatarChange.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-        state.error = '';
-        state.user = action.payload;
-      })
-      .addCase(fetchAvatarChange.rejected, (state, action: PayloadAction<any>) => {
-        state.error = apiErrorStateHandle(action);
-        state.isLoading = false;
-      })
+      .addCase(
+        fetchProfileChange.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = apiErrorStateHandle(action);
+          state.isLoading = false;
+        }
+      )
+      .addCase(
+        fetchPassChange.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = apiErrorStateHandle(action);
+          state.isLoading = false;
+        }
+      )
+      .addCase(
+        fetchAvatarChange.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = '';
+          state.user = action.payload;
+        }
+      )
+      .addCase(
+        fetchAvatarChange.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = apiErrorStateHandle(action);
+          state.isLoading = false;
+        }
+      )
       .addCase(fetchLogin.rejected, (state, action: PayloadAction<any>) => {
         state.error = apiErrorStateHandle(action);
         state.isLoading = false;
@@ -79,7 +103,7 @@ const userSlice = createSlice({
           state.isLoading = false;
         }
       );
-  }
+  },
 });
 
 export const { errorReset } = userSlice.actions;

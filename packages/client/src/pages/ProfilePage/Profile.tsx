@@ -35,9 +35,8 @@ const Profile: FC = () => {
 
   const updateData = (data: DataType) => {
     dispatch(fetchProfileChange(data)).then(action => {
-      if (!action.error) {
-        setEditMode(false);
-      }
+      if ('error' in action && action.error) return;
+      setEditMode(false);
     });
   };
 
