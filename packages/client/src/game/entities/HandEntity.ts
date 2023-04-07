@@ -9,7 +9,7 @@ import {
 import { calcStartCoords, calcVisiblePartOfCard, moveCard } from '../utils';
 import { ANIMATION_TIME } from '../utils/constants';
 
-export class HandEntity extends Entity {
+export class HandEntity extends Entity<HandEntityTypes> {
   cards: CardType[] = [];
 
   animation: Animation | null = null;
@@ -21,7 +21,7 @@ export class HandEntity extends Entity {
 
   addCards(cards: CardType[]) {
     const totalCards = this.cards.length + cards.length;
-    const handType = HandOrientationTypes[this.entityName as HandEntityTypes];
+    const handType = HandOrientationTypes[this.entityName];
     const layerSize = handType === 'horizontal' ? this.width : this.height;
 
     const visiblePart = calcVisiblePartOfCard(
@@ -39,7 +39,7 @@ export class HandEntity extends Entity {
       const { x, y } = calcStartCoords(
         totalCards,
         visiblePart,
-        this.entityName as HandEntityTypes,
+        this.entityName,
         layerSize
       );
       xCard = x;
@@ -56,7 +56,7 @@ export class HandEntity extends Entity {
       setTimeout(() => {
         moveCard(
           cards[i],
-          this.entityName as HandEntityTypes,
+          this.entityName,
           'fromTable',
           this.width,
           this.height
@@ -100,7 +100,7 @@ export class HandEntity extends Entity {
     const direction = this.player && this.player.isBot ? 'fromBot' : 'fromUser';
     moveCard(
       card,
-      this.entityName as HandEntityTypes,
+      this.entityName,
       direction,
       this.width,
       this.height
@@ -120,17 +120,17 @@ export class HandEntity extends Entity {
     if (visiblePart === undefined) {
       visiblePart = calcVisiblePartOfCard(
         totalCards,
-        this.entityName as HandEntityTypes
+        this.entityName
       );
     }
 
-    const handType = HandOrientationTypes[this.entityName as HandEntityTypes];
+    const handType = HandOrientationTypes[this.entityName];
     const layerSize = handType === 'horizontal' ? this.width : this.height;
 
     let { x, y } = calcStartCoords(
       totalCards,
       visiblePart,
-      this.entityName as HandEntityTypes,
+      this.entityName,
       layerSize
     );
 

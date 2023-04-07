@@ -18,13 +18,13 @@ export const createLayer = (entityName: EntityTypes, zIndex: number) => {
   switch (entityName) {
     case 'frontHand':
       layer.style.bottom = LAYER_STYLES.MARGIN;
-      layer.style.justifyContent = LAYER_STYLES.FLEX_DIRECTION;
-      layer.style.flexDirection = LAYER_STYLES.JUSTIFY_CONTENT;
+      layer.style.justifyContent = LAYER_STYLES.JUSTIFY_CONTENT;
+      layer.style.flexDirection = LAYER_STYLES.FLEX_DIRECTION;
       break;
     case 'topHand':
       layer.style.top = LAYER_STYLES.MARGIN;
-      layer.style.justifyContent = LAYER_STYLES.FLEX_DIRECTION;
-      layer.style.flexDirection = LAYER_STYLES.JUSTIFY_CONTENT;
+      layer.style.justifyContent = LAYER_STYLES.JUSTIFY_CONTENT;
+      layer.style.flexDirection = LAYER_STYLES.FLEX_DIRECTION;
       break;
     case 'rightHand':
       layer.style.right = LAYER_STYLES.MARGIN;
