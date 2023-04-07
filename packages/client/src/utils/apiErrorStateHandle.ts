@@ -1,9 +1,12 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
-const apiErrorStateHandle = (action: PayloadAction<any>): string =>
-  action.payload &&
-  typeof action.payload === 'object' &&
-  'reason' in action.payload
+interface IErrorReason {
+  reason: string;
+}
+const apiErrorStateHandle = (
+  action: PayloadAction<string | IErrorReason>
+): string =>
+  typeof action.payload === 'object' && 'reason' in action.payload
     ? action.payload.reason
     : action.payload;
 
