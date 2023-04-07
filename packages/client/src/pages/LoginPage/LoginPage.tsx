@@ -12,6 +12,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 
 import { loginConfig } from '../configs';
+import { fetchOauthServiceIdGet } from '../../store/oauth/actions';
 
 export interface LoginFormParams extends FieldValues {
   first_name: string;
@@ -33,11 +34,22 @@ const LoginPage: FC = () => {
     dispatch(fetchLogin(data));
   };
 
+  const handleOauth = (): void => {
+    console.log(2131321);
+    dispatch(fetchOauthServiceIdGet());
+  };
+
   const footer = (
     <StFormFooter>
       <Button text="Войти" type="submit" block />
       <StLink to={AppRoute.REGISTRATION}>Нет аккаунта?</StLink>
-      <Button text="Яндекс ID" disignType="secondary" block />
+      <Button
+        type="button"
+        onClick={handleOauth}
+        text="Яндекс ID"
+        disignType="secondary"
+        block
+      />
     </StFormFooter>
   );
 

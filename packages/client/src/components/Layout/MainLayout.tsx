@@ -8,6 +8,7 @@ import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
 
 import bgImage from '../../assets/img/background.png';
+import { fetchOauthCodePost, REDIRECT_URL } from '../../store/oauth/actions';
 
 const StMainScreen = styled.div`
   display: flex;
@@ -39,10 +40,17 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
   const { isLoading, user } = userState();
 
   useEffect(() => {
-    dispatch(fetchAuthUserGet());
+    const oauthCode = new URLSearchParams(window.location.search).get('code');
+    if (oauthCode) {
+      window.history.pushState({}, '', REDIRECT_URL);
+
+      dispatch(fetchOauthCodePost(oauthCode));
+    } else {
+      dispatch(fetchAuthUserGet());
+    }
   }, []);
 
-  if (isLoading && !user) return <></>; //можно вставить какой-то лоадер
+  if (isLoading && !user) return <></>;
 
   return (
     <StMainScreen>
