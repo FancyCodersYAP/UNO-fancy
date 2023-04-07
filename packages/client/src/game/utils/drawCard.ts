@@ -89,7 +89,7 @@ export const drawCardBack = (
   /* Текст */
   ctx.beginPath();
   ctx.fillStyle = GAME_STYLES.FONT_COLOR_MAIN;
-  ctx.font = `bold ${fontSize}px ${GAME_STYLES.FONTFAMILY_MAIN}`;
+  ctx.font = `bold ${fontSize}px ${GAME_STYLES.FONT_FAMILY_MAIN}`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('UNO', x + BASE_WIDTH_CARD / 2, y + BASE_HEIGHT_CARD / 2);
@@ -140,7 +140,7 @@ export const drawCardFront = (
 
   /* Sign по центру */
   ctx.beginPath();
-  ctx.font = `${bigFontSize}px ${GAME_STYLES.FONTFAMILY_MAIN}`;
+  ctx.font = `${bigFontSize}px ${GAME_STYLES.FONT_FAMILY_MAIN}`;
 
   /* Координаты */
   const xBigSign = x + BASE_WIDTH_CARD / 2;
@@ -150,7 +150,7 @@ export const drawCardFront = (
   ctx.closePath();
 
   /* Sign в левом верхнем углу */
-  ctx.font = `${smallFontSize}px ${GAME_STYLES.FONTFAMILY_MAIN}`;
+  ctx.font = `${smallFontSize}px ${GAME_STYLES.FONT_FAMILY_MAIN}`;
   ctx.beginPath();
 
   /* Размеры маленьких цифр */
@@ -185,5 +185,7 @@ export const clearCard = (card: CardType, ctx: CanvasRenderingContext2D) => {
   const x = card.x;
   const y = card.y;
 
-  if (x && y) ctx.clearRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD);
+  if (x && y) {
+    ctx.clearRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD);
+  }
 };

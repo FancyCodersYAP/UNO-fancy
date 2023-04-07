@@ -12,19 +12,19 @@ export const createLayer = (entityName: EntityTypes, zIndex: number) => {
 
   layer.style.position = LAYER_STYLES.POSITION;
   layer.style.display = LAYER_STYLES.DISPLAY;
-  layer.style.alignItems = LAYER_STYLES.ALIGNITEMS;
+  layer.style.alignItems = LAYER_STYLES.ALIGN_ITEMS;
   layer.style.zIndex = zIndex.toString();
 
   switch (entityName) {
     case 'frontHand':
       layer.style.bottom = LAYER_STYLES.MARGIN;
-      layer.style.justifyContent = LAYER_STYLES.JUSTIFYCONTENT;
-      layer.style.flexDirection = LAYER_STYLES.FLEXDIRECTION;
+      layer.style.justifyContent = LAYER_STYLES.FLEX_DIRECTION;
+      layer.style.flexDirection = LAYER_STYLES.JUSTIFY_CONTENT;
       break;
     case 'topHand':
       layer.style.top = LAYER_STYLES.MARGIN;
-      layer.style.justifyContent = LAYER_STYLES.JUSTIFYCONTENT;
-      layer.style.flexDirection = LAYER_STYLES.FLEXDIRECTION;
+      layer.style.justifyContent = LAYER_STYLES.FLEX_DIRECTION;
+      layer.style.flexDirection = LAYER_STYLES.JUSTIFY_CONTENT;
       break;
     case 'rightHand':
       layer.style.right = LAYER_STYLES.MARGIN;
@@ -90,9 +90,9 @@ export const createNameLayer = (entityName: HandEntityTypes, name: string) => {
   p.style.textAlign = 'center';
   p.style.color = NAME_STYLES.COLOR;
   p.style.fontSize = NAME_STYLES.SIZE;
-  p.style.fontFamily = NAME_STYLES.FONTFAMILY;
-  p.style.fontWeight = NAME_STYLES.FONTWEIGHT;
-  p.textContent = `${name.toLocaleUpperCase()}`;
+  p.style.fontFamily = NAME_STYLES.FONT_FAMILY;
+  p.style.fontWeight = NAME_STYLES.FONT_WEIGHT;
+  p.textContent = name.toLocaleUpperCase();
 
   switch (entityName) {
     case 'frontHand':
@@ -125,10 +125,10 @@ export const createUnoButton = () => {
   button.style.position = BUTTON_AND_BOX_STYLES.POSITION;
   button.style.margin = UNO_BUTTON_STYLES.MARGIN;
   button.style.right = UNO_BUTTON_STYLES.RIGHT;
-  button.style.backgroundColor = UNO_BUTTON_STYLES.BACKGROUNDCOLOR;
-  button.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDERRADIUS;
-  button.style.textAlign = UNO_BUTTON_STYLES.TEXTALIGN;
-  button.style.zIndex = BUTTON_AND_BOX_STYLES.ZINDEX;
+  button.style.backgroundColor = UNO_BUTTON_STYLES.BACKGROUND_COLOR;
+  button.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDER_RADIUS;
+  button.style.textAlign = UNO_BUTTON_STYLES.TEXT_ALIGN;
+  button.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
   button.style.color = UNO_BUTTON_STYLES.COLOR;
   button.style.border = UNO_BUTTON_STYLES.BORDER;
   button.textContent = 'UNO';
@@ -144,8 +144,8 @@ export const createColorBox = () => {
   div.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
   div.style.width = BUTTON_AND_BOX_STYLES.WIDTH;
   div.style.position = BUTTON_AND_BOX_STYLES.POSITION;
-  div.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDERRADIUS;
-  div.style.zIndex = BUTTON_AND_BOX_STYLES.ZINDEX;
+  div.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDER_RADIUS;
+  div.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
   div.style.left = '-80px';
 
   return div;
