@@ -1,28 +1,17 @@
 import { css } from 'styled-components';
 import { StButtonNewTopic } from 'components/Button/style';
 import ForumTopic from './ForumTopic';
-import { testForumData } from 'assets/data';
+import { testForumData } from 'assets/data/testForumData';
 import useModal from 'utils/useModal';
-import {
-  stBoardStyle,
-  StNewTopicIcon,
-  StTableWrapper,
-  StTable,
-  StTableTr,
-  StTableTh,
-  width58px,
-  width44Percent,
-  width163pxpx,
-  widthMaxContent,
-  width305px,
-} from './style';
+import { stBoardStyle, StNewTopicIcon } from './style';
+import { StTable, StHead, StBody } from './style';
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import usePagination from 'utils/usePagination';
 import Pagination from 'components/Pagination';
 
 const COUNT_PER_PAGE = 5;
 
-const marginButtom58px = css`
+const marginBottom58px = css`
   margin: 0 0 58px;
 `;
 
@@ -44,35 +33,7 @@ const ForumPage = () => {
 
   return (
     <StBoard css={stBoardStyle}>
-      <StTitle css={marginButtom58px}>Форум</StTitle>
-
-      <StTableWrapper>
-        <StTable>
-          <thead>
-            <StTableTr>
-              <StTableTh css={width58px}>
-                <StButtonNewTopic onClick={handleOpenModal}>
-                  <StNewTopicIcon>
-                    <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
-                  </StNewTopicIcon>
-                </StButtonNewTopic>
-              </StTableTh>
-              <StTableTh css={width44Percent}>тема</StTableTh>
-              <StTableTh css={width163pxpx}>всего сообщений</StTableTh>
-              <StTableTh css={widthMaxContent}>автор</StTableTh>
-              <StTableTh css={width305px}>последнее сообщение</StTableTh>
-            </StTableTr>
-          </thead>
-
-          <tbody>
-            {testForumData
-              .slice(firstContentIndex, lastContentIndex)
-              .map((topic, index) => (
-                <ForumTopic key={index + 1} {...topic} />
-              ))}
-          </tbody>
-        </StTable>
-      </StTableWrapper>
+      <StTitle css={marginBottom58px}>Форум</StTitle>
 
       {testForumData.length > COUNT_PER_PAGE && (
         <Pagination
@@ -83,6 +44,29 @@ const ForumPage = () => {
           setPage={setPage}
         />
       )}
+
+      <StTable>
+        <StHead>
+          <div>
+            <StButtonNewTopic onClick={handleOpenModal}>
+              <StNewTopicIcon>
+                <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
+              </StNewTopicIcon>
+            </StButtonNewTopic>
+          </div>
+          <div>тема</div>
+          <div>всего сообщений</div>
+          <div>автор</div>
+          <div>последнее сообщение</div>
+        </StHead>
+        <StBody>
+          {testForumData
+            .slice(firstContentIndex, lastContentIndex)
+            .map((topic, index) => (
+              <ForumTopic key={index + 1} {...topic} />
+            ))}
+        </StBody>
+      </StTable>
     </StBoard>
   );
 };
