@@ -10,8 +10,12 @@ export interface IUser {
   status?: null;
 }
 
-export interface UserState{
+export interface UserState {
   user: IUser | null;
   isLoading: boolean;
   error: string;
+}
+
+export interface IServiceId {
+  service_id: string;
 }

@@ -6,7 +6,7 @@ export type ButtonProps = {
   text?: string;
   block?: boolean;
   onClick?: () => void;
-  type?: 'submit' | 'reset';
+  type?: 'submit' | 'reset' | 'button';
   theme?: ThemeType;
   disignType?: 'primary' | 'secondary' | 'alternate';
   size?: 'small' | 'middle' | 'large';

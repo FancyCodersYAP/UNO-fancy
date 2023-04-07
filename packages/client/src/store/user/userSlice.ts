@@ -12,6 +12,7 @@ import {
   fetchPassChange,
   fetchProfileChange,
 } from '../profile/actions';
+import { fetchOauthCodePost, fetchOauthServiceIdGet } from '../oauth/actions';
 
 const initialState: UserState = {
   user: null,
@@ -98,6 +99,13 @@ const userSlice = createSlice({
       })
       .addCase(
         fetchRegistration.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = apiErrorStateHandle(action);
+          state.isLoading = false;
+        }
+      )
+      .addCase(
+        fetchOauthCodePost.rejected,
         (state, action: PayloadAction<any>) => {
           state.error = apiErrorStateHandle(action);
           state.isLoading = false;
