@@ -21,7 +21,6 @@ const ProfileAvatar = ({ image }: IAvatar) => {
     if (!event.target.files) {
       return;
     }
-    console.log(event.target.files);
     const file = event.target.files[0];
     if (file) {
       const formData = new FormData();

@@ -20,9 +20,8 @@ const Password: FC = () => {
   const changePassword = (data: DataType) => {
     console.log(data);
     dispatch(fetchPassChange(data)).then(action => {
-      if (!action.error) {
-        navigate(AppRoute.PROFILE);
-      }
+      if ('error' in action && action.error) return;
+      navigate(AppRoute.PROFILE);
     });
   };
 
