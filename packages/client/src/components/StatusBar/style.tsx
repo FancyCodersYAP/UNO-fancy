@@ -7,12 +7,12 @@ export const StStatusBar = styled.div`
   top: 0;
   right: 0;
   padding: 5px;
+  z-index: 2;
 `;
 
 export const StStatusBarButtons = styled.div`
   display: flex;
-  flex-direction: row;
-  float: right;
+  justify-content: flex-end;
 `;
 
 export const StButtonStatusBar = styled(StButton)`
@@ -22,17 +22,18 @@ export const StButtonStatusBar = styled(StButton)`
   border-radius: 0;
   fill: ${COLORS.COLOR_ELEMENT_CONTRAST};
   padding: 0;
+  margin: 0;
+  margin-right: 5px;
   svg {
     transition: all 0.3s ease-in-out;
   }
   &:hover svg {
     fill: ${COLORS.COLOR_ELEMENT_MAIN};
   }
+  &: last-child {
+    margin-right: 0;
+  }
 `;
-
-export const StyledButtonStatusBar = styled(StButtonStatusBar)`
-  margin-right: '10px';
-`
 
 export const StStatusBarTime = styled.div`
   font-size: 16px;

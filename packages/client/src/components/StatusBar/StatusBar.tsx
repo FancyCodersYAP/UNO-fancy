@@ -3,40 +3,16 @@ import {
   StButtonStatusBar,
   StStatusBarButtons,
   StStatusBarTime,
-  StyledButtonStatusBar,
 } from './style';
+import CloseSvg from 'assets/icons/close-status-bar.svg';
+import FullScreenSvg from 'assets/icons/fullscreen.svg';
+import FullScreenExitSvg from 'assets/icons/fullscreen-exit.svg';
 import { useState } from 'react';
-import {
-  CloseSvg,
-  FullScreenSvg,
-  FullScreenExitSvg,
-} from 'assets/icons/statusBarSVG';
-
-/* Только для теста. Удалить 15-34 */
-const TemporarySvg = (): JSX.Element => (
-  <svg
-    height="30px"
-    width="30px"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg">
-    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-    <g
-      id="SVGRepo_tracerCarrier"
-      strokeLinecap="round"
-      strokeLinejoin="round"></g>
-    <g id="SVGRepo_iconCarrier">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M18 4H6V20H8.06066L12 16.0607L15.9393 20H18V4ZM7.5 18.4393V5.5H16.5V18.4393L12 13.9393L7.5 18.4393Z"
-        fill="purple"></path>
-    </g>
-  </svg>
-);
+import { useAppSelector } from '../../hooks/redux';
 
 const StatusBar = () => {
   const [fullScreen, setFullScreen] = useState(false);
-  const [isGame, setGame] = useState(false);
+  const isGame = useAppSelector(state => state.GAME.isGame);
 
   const exitGameClick = () => {
     // TODO: при клике вызывать модальное окно
@@ -52,21 +28,12 @@ const StatusBar = () => {
     }
   };
 
-  /* Только для теста. Удалить 55-57 */
-  const toggleGame = () => {
-    isGame === false ? setGame(true) : setGame(false);
-  };
-
   return (
     <StStatusBar>
       <StStatusBarButtons>
-        <StyledButtonStatusBar onClick={toggleGame}>
-          {/* Только для теста. Удалить 62-65 */}
-          <TemporarySvg />
-        </StyledButtonStatusBar>
-        <StyledButtonStatusBar onClick={toggleFullScreen}>
+        <StButtonStatusBar onClick={toggleFullScreen}>
           {fullScreen ? <FullScreenExitSvg /> : <FullScreenSvg />}
-        </StyledButtonStatusBar>
+        </StButtonStatusBar>
         {isGame && (
           <StButtonStatusBar onClick={exitGameClick}>
             <CloseSvg />
