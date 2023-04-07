@@ -11,6 +11,7 @@ import ProfilePage from 'pages/ProfilePage';
 import { ThemeContextProvider } from 'contexts/ThemeContext';
 import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
+import { GamePage } from 'pages/GamePage/GamePage';
 
 function App() {
   useEffect(() => {
@@ -64,10 +65,7 @@ function App() {
           />
         </Route>
         <Route element={<GameLayout />}>
-          <Route
-            path={AppRoute.GAME}
-            // element={<GamePage />}
-          />
+          <Route path={AppRoute.GAME} element={<GamePage />} />
         </Route>
       </Routes>
     </ThemeContextProvider>

@@ -1,0 +1,17 @@
+<svg 
+    height="30px"
+    width="30px"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M12 10.9394L16.9697 5.96961L18.0304 7.03027L13.0606 12L18.0303 16.9697L16.9697 18.0304L12 13.0607L7.03045 18.0302L5.96979 16.9696L10.9393 12L5.96973 7.03042L7.03039 5.96976L12 10.9394Z"></path>
+    </g>
+  </svg>

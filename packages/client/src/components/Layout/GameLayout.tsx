@@ -15,7 +15,7 @@ type LayoutProps = {
 const GameLayout: FC<LayoutProps> = ({ children }) => (
   <StGameScreen>
     <StatusBar />
-    <>{children ?? <Outlet />}</>
+    {children ?? <Outlet />}
   </StGameScreen>
 );
 
