@@ -18,7 +18,6 @@ const Password: FC = () => {
   const { user } = userState();
 
   const changePassword = (data: DataType) => {
-    console.log(data);
     dispatch(fetchPassChange(data)).then(action => {
       if ('error' in action && action.error) return;
       navigate(AppRoute.PROFILE);
