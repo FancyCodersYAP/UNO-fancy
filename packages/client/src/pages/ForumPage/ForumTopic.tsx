@@ -1,7 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from 'utils/constants';
 import stringReduction from 'utils/stringReduction';
-import { StTableCell } from './style';
+import { StTableColumn, StTableCell } from './style';
 import { css } from 'styled-components';
 
 interface ForumTopicType {
@@ -10,6 +8,7 @@ interface ForumTopicType {
   total_messages: number;
   author: string;
   last_message: string;
+  onClick: (evt: React.SyntheticEvent<HTMLElement>) => void;
 }
 
 const MAX_TOPIC_LENGTH = 68;
@@ -28,7 +27,6 @@ const fontStyle = css`
 
 const cursourPointer = css`
   ${textAlignLeft}
-  cursor: pointer;
 `;
 
 const ForumTopic = ({
@@ -37,26 +35,19 @@ const ForumTopic = ({
   total_messages,
   author,
   last_message,
+  onClick,
 }: ForumTopicType) => {
   topic = stringReduction(topic, MAX_TOPIC_LENGTH);
   last_message = stringReduction(last_message, MAX_LAST_MESSAGE_LENGTH);
 
-  const navigate = useNavigate();
-  const navigateToTopic = () => {
-    console.log('Переход на тему: ' + id);
-    navigate(`${AppRoute.FORUM}/${id}`);
-  };
-
   return (
-    <>
+    <StTableColumn onClick={onClick} data-topic={id}>
       <StTableCell>{id}</StTableCell>
-      <StTableCell onClick={navigateToTopic} css={cursourPointer}>
-        {topic}
-      </StTableCell>
+      <StTableCell css={cursourPointer}>{topic}</StTableCell>
       <StTableCell>{total_messages}</StTableCell>
       <StTableCell>{author}</StTableCell>
       <StTableCell css={fontStyle}>{last_message}</StTableCell>
-    </>
+    </StTableColumn>
   );
 };
 
