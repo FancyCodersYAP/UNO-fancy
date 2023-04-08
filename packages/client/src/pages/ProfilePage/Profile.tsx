@@ -40,10 +40,6 @@ const Profile: FC = () => {
     });
   };
 
-  const logout = async () => {
-    dispatch(fetchLogout());
-  };
-
   const fields = profileConfig.map(field => ({
     disabled: !isEditMode,
     ...field,
@@ -68,7 +64,7 @@ const Profile: FC = () => {
       title={title}
       avatar={avatar}
       fields={fields}
-      handleFormSubmit={isEditMode ? updateData : logout}
+      handleFormSubmit={updateData}
       defaultValues={defaultValues}
       footer={footer}
       inputCss={inputCss}
