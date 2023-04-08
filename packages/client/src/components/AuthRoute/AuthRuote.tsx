@@ -10,7 +10,7 @@ type AuthRouteRouteProps = {
 type Props = FC<AuthRouteRouteProps>;
 
 const AuthRoute: Props = ({ children }) => {
-  const { user } = useAppSelector(state => state.AUTH);
+  const { user } = useAppSelector(state => state.USER);
 
   return !user ? children : <Navigate to={AppRoute.MAIN} />;
 };

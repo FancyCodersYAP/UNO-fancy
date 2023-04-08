@@ -44,3 +44,13 @@ export const StFormFooter = styled.div`
   text-align: center;
   margin-top: 43px;
 `;
+
+export const FormError = styled.p`
+  color: ${props => props.theme.COLOR_ELEMENT_WARN};
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  white-space: nowrap;
+`;

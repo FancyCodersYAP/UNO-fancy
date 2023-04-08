@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { StFlex, StNavLink } from 'styles/global';
 import { AppRoute } from 'utils/constants';
-import { authState } from '../../hooks/authState';
+import { userState } from '../../hooks/userState';
 
 const StNavMenu = styled(StFlex)`
   font-size: 20px;
@@ -11,7 +11,7 @@ const StNavMenu = styled(StFlex)`
 `;
 
 const NavMenu: FC = () => {
-  const { user } = authState();
+  const { user } = userState();
 
   const menu: { title: string; link: AppRoute; auth?: boolean }[] = [
     {
