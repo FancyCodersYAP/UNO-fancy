@@ -1,8 +1,6 @@
 import styled, {css} from 'styled-components';
 import { BACKGROUND_COLOR_TABLE_PRIMARY } from 'styles/variables/colors-const';
-import {
-  BORDER_RADIUS_SIZE,
-} from 'styles/variables/styleConstants';
+import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 export const stBoardStyle = css`
   max-height: none;
@@ -64,19 +62,22 @@ export const StTableCell = styled.div`
   border: 1px solid ${BACKGROUND_COLOR_TABLE_PRIMARY};
 `;
 
-export const StBody = styled.div`
+export const StBody = styled.div``;
+
+export const StTableColumn = styled.article`
   ${gridTemplateColumnsStyle}
   grid-auto-rows: minmax(68px, auto);
+  cursor: pointer;
 
   & ${StTableCell}:nth-child(5n) {
     border-right: none;
   }
 
-  & ${StTableCell}:nth-child(5n - 4) {
+  & ${StTableCell}:nth-child(1) {
     border-left: none;
   }
 
-  ${StTableCell} {
+  &:last-child ${StTableCell} {
     border-bottom: none;
   }
 `;
