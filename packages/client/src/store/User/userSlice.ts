@@ -6,7 +6,7 @@ import {
 } from './auth/actions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser, UserState } from '../types';
-import apiErrorStateHandle from '../../utils/apiErrorStateHandle';
+import apiErrorStateHandler from '../../utils/apiErrorStateHandler';
 import {
   fetchAvatarChange,
   fetchPassChange,
@@ -63,14 +63,14 @@ const userSlice = createSlice({
       .addCase(
         fetchProfileChange.rejected,
         (state, action: PayloadAction<any>) => {
-          state.error = apiErrorStateHandle(action);
+          state.error = apiErrorStateHandler(action);
           state.isLoading = false;
         }
       )
       .addCase(
         fetchPassChange.rejected,
         (state, action: PayloadAction<any>) => {
-          state.error = apiErrorStateHandle(action);
+          state.error = apiErrorStateHandler(action);
           state.isLoading = false;
         }
       )
@@ -85,29 +85,29 @@ const userSlice = createSlice({
       .addCase(
         fetchAvatarChange.rejected,
         (state, action: PayloadAction<any>) => {
-          state.error = apiErrorStateHandle(action);
+          state.error = apiErrorStateHandler(action);
           state.isLoading = false;
         }
       )
       .addCase(fetchLogin.rejected, (state, action: PayloadAction<any>) => {
-        state.error = apiErrorStateHandle(action);
+        state.error = apiErrorStateHandler(action);
         state.isLoading = false;
       })
       .addCase(fetchLogout.rejected, (state, action: PayloadAction<any>) => {
-        state.error = apiErrorStateHandle(action);
+        state.error = apiErrorStateHandler(action);
         state.isLoading = false;
       })
       .addCase(
         fetchRegistration.rejected,
         (state, action: PayloadAction<any>) => {
-          state.error = apiErrorStateHandle(action);
+          state.error = apiErrorStateHandler(action);
           state.isLoading = false;
         }
       )
       .addCase(
         fetchOauthServiceIdGet.rejected,
         (state, action: PayloadAction<any>) => {
-          state.error = apiErrorStateHandle(action);
+          state.error = apiErrorStateHandler(action);
           state.isLoading = false;
         }
       )
@@ -120,7 +120,7 @@ const userSlice = createSlice({
       .addCase(
         fetchOauthCodePost.rejected,
         (state, action: PayloadAction<any>) => {
-          state.error = apiErrorStateHandle(action);
+          state.error = apiErrorStateHandler(action);
           state.isLoading = false;
         }
       );
