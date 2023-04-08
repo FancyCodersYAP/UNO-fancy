@@ -7,6 +7,7 @@ import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
 import useModal from 'utils/useModal';
 import Rules from 'components/Rules';
+import Timer from 'components/Timer'; // Временно
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
@@ -31,6 +32,9 @@ const MainPage: FC = () => {
 
   return (
     <>
+      {/* Временно  */}
+      <Timer />
+
       <StFlex
         flexDirection="column"
         rowGap={40}
