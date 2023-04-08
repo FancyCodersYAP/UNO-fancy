@@ -9,7 +9,7 @@ import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
 import { useAppDispatch } from '../../hooks/redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchRegistration } from '../../store/auth/actions';
+import { fetchRegistration } from '../../store/User/auth/actions';
 import { userState } from '../../hooks/userState';
 import { registrationConfig } from '../configs';
 

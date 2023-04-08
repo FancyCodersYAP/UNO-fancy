@@ -8,7 +8,7 @@ import { passwordConfig } from '../configs';
 
 import { StSaveButton, StUserName, StyledForm, inputCss } from './style';
 import { useAppDispatch } from '../../hooks/redux';
-import { fetchPassChange } from '../../store/profile/actions';
+import { fetchPassChange } from '../../store/User/profile/actions';
 import { userState } from '../../hooks/userState';
 import ProfileAvatar from './ProfileAvatar';
 

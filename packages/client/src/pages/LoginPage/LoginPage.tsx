@@ -6,13 +6,13 @@ import { AppRoute, GAME_DESCRIPTION } from 'utils/constants';
 import { StFormFooter } from 'components/Form/style';
 import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
-import { fetchLogin } from '../../store/auth/actions';
+import { fetchLogin } from '../../store/User/auth/actions';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 
 import { loginConfig } from '../configs';
-import { fetchOauthServiceIdGet } from '../../store/oauth/actions';
+import { fetchOauthServiceIdGet } from '../../store/User/oauth/actions';
 
 export interface LoginFormParams extends FieldValues {
   first_name: string;

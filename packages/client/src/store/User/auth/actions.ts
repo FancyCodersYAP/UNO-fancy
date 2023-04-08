@@ -1,18 +1,18 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoginFormParams } from '../../pages/LoginPage/LoginPage';
-import { RegFormParams } from '../../pages/RegistrationPage/RegistrationPage';
-import {IUser} from '../types';
-import API_ENDPOINT from '../constatns';
-import { errorMessage } from '../../utils/apiErrorMessageCheck';
+import { LoginFormParams } from '../../../pages/LoginPage/LoginPage';
+import { RegFormParams } from '../../../pages/RegistrationPage/RegistrationPage';
+import { IUser } from '../../types';
+import { API_ENDPOINTS } from '../../constatns';
+import { errorMessage } from '../../../utils/apiErrorMessageCheck';
 
-const AUTH_ENDPOINT = `${API_ENDPOINT}/auth`;
+// const AUTH_ENDPOINT = `${API_MAIN_ENDPOINT}/auth`;
 
 export const fetchAuthUserGet = createAsyncThunk(
   'auth/fetchAuth',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get<IUser>(`${AUTH_ENDPOINT}/user`);
+      const response = await axios.get<IUser>(`${API_ENDPOINTS.auth}/user`);
 
       return response.data;
     } catch (error) {
@@ -28,7 +28,7 @@ export const fetchLogin = createAsyncThunk(
   async (data: LoginFormParams, { rejectWithValue, dispatch }) => {
     try {
       await axios.post<string>( //пока механика использования в приложении не выработана оставил присвоение
-        `${AUTH_ENDPOINT}/signin`,
+        `${API_ENDPOINTS.auth}/signin`,
         data
       );
       return dispatch(fetchAuthUserGet());
@@ -41,7 +41,7 @@ export const fetchLogout = createAsyncThunk(
   'auth/fetchLogout',
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.post<string>(`${AUTH_ENDPOINT}/logout`);
+      const response = await axios.post<string>(`${API_ENDPOINTS.auth}/logout`);
       dispatch(fetchAuthUserGet());
       return response.data;
     } catch (error) {
@@ -54,7 +54,7 @@ export const fetchRegistration = createAsyncThunk(
   'auth/fetchRegistration',
   async (data: RegFormParams, { rejectWithValue, dispatch }) => {
     try {
-      await axios.post<string>(`${AUTH_ENDPOINT}/signup`, data);
+      await axios.post<string>(`${API_ENDPOINTS.auth}/signup`, data);
 
       return dispatch(fetchAuthUserGet());
     } catch (error) {

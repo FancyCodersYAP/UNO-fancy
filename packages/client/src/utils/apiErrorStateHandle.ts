@@ -1,8 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { IErrorReason } from '../store/types';
 
-interface IErrorReason {
-  reason: string;
-}
 const apiErrorStateHandle = (
   action: PayloadAction<string | IErrorReason>
 ): string =>
