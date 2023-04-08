@@ -112,6 +112,12 @@ const userSlice = createSlice({
         }
       )
       .addCase(
+        fetchOauthCodePost.pending,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = true;
+        }
+      )
+      .addCase(
         fetchOauthCodePost.rejected,
         (state, action: PayloadAction<any>) => {
           state.error = apiErrorStateHandle(action);
