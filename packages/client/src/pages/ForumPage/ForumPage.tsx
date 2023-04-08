@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
-import useModal from 'utils/useModal';
-import usePagination from 'utils/usePagination';
+import useModal from 'hooks/useModal';
+import usePagination from 'hooks/usePagination';
 import ForumTopic from './ForumTopic';
 import Pagination from 'components/Pagination';
 import { testForumData } from 'assets/data/testForumData';
