@@ -17,7 +17,7 @@ export const StBoard = styled.div`
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
   box-shadow: ${DEPTH_CONTAINER};
   padding: 40px 64px;
-  margin-bottom: auto;
+  margin: 0 40px auto;
   overflow: overlay;
   min-height: 200px;
 
