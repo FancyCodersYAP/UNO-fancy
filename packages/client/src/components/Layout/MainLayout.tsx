@@ -50,7 +50,7 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
     }
   }, []);
 
-  if (isLoading && !user) return <></>;
+  if (isLoading && !user) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
 
   return (
     <StMainScreen>
