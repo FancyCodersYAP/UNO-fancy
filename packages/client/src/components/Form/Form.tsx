@@ -9,7 +9,7 @@ import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
 import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
 import { useAppDispatch } from '../../hooks/redux';
-import { errorReset } from '../../store/user/userSlice';
+import { errorReset } from '../../store/User/userSlice';
 import { userState } from '../../hooks/userState';
 
 export type DataType = LoginFormParams & RegFormParams;

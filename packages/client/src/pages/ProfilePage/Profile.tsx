@@ -11,9 +11,9 @@ import { StUserName, StSaveButton, StyledForm, inputCss } from './style';
 import ProfileFooter from './ProfileFooter';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
-import { fetchProfileChange } from '../../store/profile/actions';
+import { fetchProfileChange } from '../../store/User/profile/actions';
 import ProfileAvatar from './ProfileAvatar';
-import { fetchLogout } from '../../store/auth/actions';
+import { fetchLogout } from '../../store/User/auth/actions';
 
 const Profile: FC = () => {
   const [isEditMode, setEditMode] = useState(false);

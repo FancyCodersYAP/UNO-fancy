@@ -2,13 +2,14 @@ import { FC, useEffect } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import { fetchAuthUserGet } from '../../store/auth/actions';
+import { fetchAuthUserGet } from '../../store/User/auth/actions';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
 
 import bgImage from '../../assets/img/background.png';
-import { fetchOauthCodePost, REDIRECT_URL } from '../../store/oauth/actions';
+import { fetchOauthCodePost } from '../../store/User/oauth/actions';
+import { REDIRECT_URL } from '../../store/constatns';
 
 const StMainScreen = styled.div`
   display: flex;
@@ -41,6 +42,7 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     const oauthCode = new URLSearchParams(window.location.search).get('code');
+    console.log('oauthCode', oauthCode);
     if (oauthCode) {
       window.history.pushState({}, '', REDIRECT_URL);
 

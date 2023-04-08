@@ -19,3 +19,7 @@ export interface UserState {
 export interface IServiceId {
   service_id: string;
 }
+
+export interface IErrorReason {
+  reason: string;
+}

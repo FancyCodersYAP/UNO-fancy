@@ -3,7 +3,7 @@ import {
   fetchLogin,
   fetchLogout,
   fetchRegistration,
-} from '../auth/actions';
+} from './auth/actions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser, UserState } from '../types';
 import apiErrorStateHandle from '../../utils/apiErrorStateHandle';
@@ -11,8 +11,8 @@ import {
   fetchAvatarChange,
   fetchPassChange,
   fetchProfileChange,
-} from '../profile/actions';
-import { fetchOauthCodePost, fetchOauthServiceIdGet } from '../oauth/actions';
+} from './profile/actions';
+import { fetchOauthCodePost, fetchOauthServiceIdGet } from './oauth/actions';
 
 const initialState: UserState = {
   user: null,
