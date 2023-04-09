@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 import StatusBar from 'components/StatusBar/StatusBar';
 import { GameContext } from 'contexts/GameContext';
+import { BACKGROUND_COLOR_GAME_PRIMARY } from 'styles/variables/colors-const';
 
 const StGameScreen = styled.div`
   height: 100vh;
-  background: radial-gradient(#b0c9d7, #3a5d70);
+  background: ${BACKGROUND_COLOR_GAME_PRIMARY};
 `;
 
 type LayoutProps = {
