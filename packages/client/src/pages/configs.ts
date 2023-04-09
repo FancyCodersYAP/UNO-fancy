@@ -24,6 +24,13 @@ export const profileConfig: FormConfigType[] = [
     type: 'text',
   },
   {
+    name: 'display_name',
+    label: 'Имя в чате',
+    pattern: ValidationType.Name,
+    required: true,
+    type: 'text',
+  },
+  {
     name: 'email',
     label: 'Email',
     pattern: ValidationType.Email,

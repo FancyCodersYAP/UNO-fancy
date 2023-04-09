@@ -19,7 +19,7 @@ export const StAvatar = styled.div<AvatarType>`
   background: ${({ image }) =>
     `url(${image || defaultAvatar}) center no-repeat`};
   background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
-  background-size: ${({ image }) => (image ? 'contain' : 'auto')};
+  background-size: ${({ image }) => (image ? 'cover' : 'auto')};
 
   &::before {
     content: 'Поменять аватар';
