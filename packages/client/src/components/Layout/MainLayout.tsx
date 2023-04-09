@@ -2,12 +2,14 @@ import { FC, useEffect } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import { fetchAuth } from '../../store/auth/actions';
+import { fetchAuthUserGet } from '../../store/User/auth/actions';
 import { useAppDispatch } from '../../hooks/redux';
-import { authState } from '../../hooks/authState';
+import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
 
 import bgImage from '../../assets/img/background.png';
+import { fetchOauthCodePost } from '../../store/User/oauth/actions';
+import { REDIRECT_URL } from '../../store/constatns';
 
 const StMainScreen = styled.div`
   display: flex;
@@ -36,13 +38,21 @@ type LayoutProps = {
 
 const MainLayout: FC<LayoutProps> = ({ children }) => {
   const dispatch = useAppDispatch();
-  const { isLoading } = authState();
+  const { isLoading, user } = userState();
 
   useEffect(() => {
-    dispatch(fetchAuth());
+    const oauthCode = new URLSearchParams(window.location.search).get('code');
+    console.log('oauthCode', oauthCode);
+    if (oauthCode) {
+      window.history.pushState({}, '', REDIRECT_URL);
+
+      dispatch(fetchOauthCodePost(oauthCode));
+    } else {
+      dispatch(fetchAuthUserGet());
+    }
   }, []);
 
-  if (isLoading) return <></>; //можно вставить какой-то лоадер
+  if (isLoading && !user) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
 
   return (
     <StMainScreen>

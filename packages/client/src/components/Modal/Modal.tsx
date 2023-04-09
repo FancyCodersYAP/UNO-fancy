@@ -1,5 +1,10 @@
 import { ReactNode } from 'react';
-import { StModal, StModalWrapper, StModalTitle } from './style';
+import {
+  StModal,
+  StModalWrapper,
+  StModalTitle,
+  StModalCloseIcon,
+} from './style';
 import { StButtonCloseModal } from 'components/Button/style';
 
 interface ModalType {
@@ -41,7 +46,9 @@ const Modal = (props: ModalType) => {
         {title && <StModalTitle>{title}</StModalTitle>}
         {handleCloseModal && (
           <StButtonCloseModal onClick={handleCloseModal}>
-            <img src="src/assets/icons/close.svg" />
+            <StModalCloseIcon>
+              <use href="src/assets/icons/icons_sprite.svg#icon-close-modal"></use>
+            </StModalCloseIcon>
           </StButtonCloseModal>
         )}
         {children}

@@ -33,3 +33,8 @@ export const StModalTitle = styled.h3`
   text-align: center;
   margin: 0 0 50px;
 `;
+
+export const StModalCloseIcon = styled.svg`
+  width: 36px;
+  height: 36px;
+`;
