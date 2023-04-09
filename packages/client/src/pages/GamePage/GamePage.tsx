@@ -3,8 +3,7 @@ import useModal from 'utils/useModal';
 import Modal from 'components/Modal';
 import styled from 'styled-components';
 import { StFlex } from 'styles/global';
-import { useAppDispatch } from '../../hooks/redux';
-import { changeGameStatus } from '../../store/game/gameSlice';
+import { useGameContext } from 'contexts/GameContext';
 
 export const StGameFlex = styled(StFlex)`
   justify-content: center;
@@ -15,11 +14,12 @@ export const StGameFlex = styled(StFlex)`
 
 export function GamePage() {
   const { isOpen, handleCloseModal } = useModal();
-
-  const dispatch = useAppDispatch();
+  const { changeGameStatus } = useGameContext();
 
   const startGame = () => {
-    dispatch(changeGameStatus());
+    if (changeGameStatus) {
+      changeGameStatus();
+    }
   };
 
   return (

@@ -8,11 +8,11 @@ import CloseSvg from 'assets/icons/close-status-bar.svg';
 import FullScreenSvg from 'assets/icons/fullscreen.svg';
 import FullScreenExitSvg from 'assets/icons/fullscreen-exit.svg';
 import { useState } from 'react';
-import { useAppSelector } from '../../hooks/redux';
+import { useGameContext } from 'contexts/GameContext';
 
 const StatusBar = () => {
   const [fullScreen, setFullScreen] = useState(false);
-  const isGame = useAppSelector(state => state.GAME.isGame);
+  const { isGame } = useGameContext();
 
   const exitGameClick = () => {
     // TODO: при клике вызывать модальное окно
