@@ -11,7 +11,7 @@ const drawCardBlackAndWhiteLayers = (
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number
-) => {
+): void => {
   /* Нижний чёрный слой (для отрисовки тонкой чёрной границы) */
   ctx.beginPath();
   ctx.roundRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD, [CARD_BORDER_RADIUS]);
@@ -35,7 +35,7 @@ const drawEllipse = (
   sizes: number[],
   angle: number,
   bgd: string
-) => {
+): void => {
   ctx.fillStyle = bgd;
   ctx.beginPath();
   ctx.save(); // сохраняем стейт контекста
@@ -53,7 +53,7 @@ export const drawCardBack = (
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number
-) => {
+): void => {
   drawCardBlackAndWhiteLayers(ctx, x, y);
 
   const padding = CARD_BORDER;
@@ -103,7 +103,7 @@ export const drawCardFront = (
   y: number,
   color: string,
   sign: string
-) => {
+): void => {
   drawCardBlackAndWhiteLayers(ctx, x, y);
 
   /* Цветной фон */
@@ -181,7 +181,10 @@ export const drawCardFront = (
 };
 
 /* Удаление карты с канваса */
-export const clearCard = (card: CardType, ctx: CanvasRenderingContext2D) => {
+export const clearCard = (
+  card: CardType,
+  ctx: CanvasRenderingContext2D
+): void => {
   const x = card.x;
   const y = card.y;
 

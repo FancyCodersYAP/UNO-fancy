@@ -1,5 +1,6 @@
 import { Game } from './Game';
 import { GamePlayerType } from './types';
+import { PlayerClickPosition } from './types';
 
 class Controller {
   game!: Game;
@@ -12,24 +13,20 @@ class Controller {
     this.game.startGame(playersNum, playerData);
   }
 
-  move(clickPos: Record<string, number>) {
+  move(clickPos: PlayerClickPosition) {
     if (this.game.checkPosiibilityOfAction()) {
       this.game.playerDiscardCard(clickPos);
-    } else {
-      console.log('Ход другого игрока');
     }
   }
 
-  tableClick(clickPos: Record<string, number>) {
+  tableClick(clickPos: PlayerClickPosition) {
     if (this.game.checkPosiibilityOfAction()) {
       this.game.playerTakeCard(clickPos);
-    } else {
-      console.log('Ход другого игрока');
     }
   }
 
   unoClick() {
-    this.game.getUnoClick();
+    this.game.unoClick();
   }
 
   onFinish(callback: () => void) {

@@ -21,7 +21,7 @@ const animateCardMovement = (
   finishCoords: number[],
   card: CardType,
   cardView: AnimatedCardType
-) => {
+): void => {
   const startTime = performance.now();
   const animationTime = ANIMATION_TIME;
   let animateStep = 0;
@@ -57,7 +57,7 @@ export const moveCard = (
   direction: CardMovementDirection,
   layerWidth: number,
   layerHeight: number
-) => {
+): void => {
   const { width: animtaionCanvasWidth, height: animtaionCanvasHeight } =
     calcCanvasMaxSizes('animation');
   const { width: tableWidth, height: tableHeight } =

@@ -10,5 +10,6 @@ export const CARD_BORDER_RADIUS = 6;
 export const START_NUM_CARDS_IN_HAND = 7;
 
 export const margin = 20;
+export const startZindexForLayers = 10;
 
 export const ANIMATION_TIME = 500;

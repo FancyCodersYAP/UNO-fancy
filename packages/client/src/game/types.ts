@@ -1,11 +1,16 @@
+import { FourPlayerLayers } from './utils';
+import { cardColors, cardBackColor } from './utils';
+
 export type CardType = {
   id: number;
   sign: string;
-  color: string;
+  color: PaintedCardColor | typeof cardBackColor;
   action?: string;
   x?: number;
   y?: number;
 };
+
+export type PaintedCardColor = typeof cardColors[number];
 
 export type GamePlayerType = {
   playerId?: number;
@@ -13,18 +18,9 @@ export type GamePlayerType = {
   isBot?: boolean;
 };
 
-export enum HandOrientationTypes {
-  'frontHand' = 'horizontal',
-  'topHand' = 'horizontal',
-  'rightHand' = 'vertical',
-  'leftHand' = 'vertical',
-}
-
-export type HandEntityTypes =
-  | 'rightHand'
-  | 'leftHand'
-  | 'topHand'
-  | 'frontHand';
+export type HandEntityTypes = keyof typeof FourPlayerLayers;
 export type EntityTypes = 'table' | HandEntityTypes;
 export type AnimatedCardType = 'close' | 'open';
 export type CardMovementDirection = 'fromUser' | 'fromBot' | 'fromTable';
+
+export type PlayerClickPosition = Record<string, number>;

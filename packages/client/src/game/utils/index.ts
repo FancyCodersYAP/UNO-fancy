@@ -6,7 +6,7 @@ export {
   calcHandSize,
   calcStartCoords,
 } from './calculates';
-export { compareCards } from './compareCards';
+export { compareCardWithUpcard } from './compareCards';
 export {
   createLayer,
   createCanvas,

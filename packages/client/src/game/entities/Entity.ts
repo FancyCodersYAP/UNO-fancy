@@ -9,16 +9,16 @@ import {
 } from '../utils';
 
 export class Entity<T extends EntityTypes> {
-  layer!: HTMLDivElement;
-  context!: CanvasRenderingContext2D;
-  name!: HTMLParagraphElement;
-  colorBox: HTMLDivElement | null = null;
+  protected layer!: HTMLDivElement;
+  protected context!: CanvasRenderingContext2D;
+  protected name!: HTMLParagraphElement;
+  protected colorBox: HTMLDivElement | null = null;
 
-  entityName: T;
+  protected entityName: T;
 
-  player: GamePlayerType | null = null;
-  width = 0;
-  height = 0;
+  protected player: GamePlayerType | null = null;
+  protected width = 0;
+  protected height = 0;
 
   constructor(entityName: T) {
     this.entityName = entityName;
@@ -59,5 +59,9 @@ export class Entity<T extends EntityTypes> {
 
   clear() {
     this.context.clearRect(0, 0, this.width, this.height);
+  }
+
+  getLayer() {
+    return this.layer;
   }
 }

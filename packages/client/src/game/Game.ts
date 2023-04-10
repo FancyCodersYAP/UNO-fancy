@@ -4,7 +4,7 @@ import {
   FourPlayerLayers,
   TwoPlayerLayers,
   addPlayers,
-  compareCards,
+  compareCardWithUpcard,
   shuffle,
   sleep,
   clearGamePage,
@@ -14,20 +14,24 @@ import {
   BASE_WIDTH_CARD,
   ANIMATION_TIME,
   START_NUM_CARDS_IN_HAND,
+  startZindexForLayers,
 } from './utils/constants';
-import { CardType, GamePlayerType, HandEntityTypes } from './types';
-import { HandEntity } from './entities/HandEntity';
-import { TableEntity } from './entities/TableEntity';
+import {
+  CardType,
+  GamePlayerType,
+  HandEntityTypes,
+  PlayerClickPosition,
+} from './types';
+import { HandEntity, TableEntity } from './entities';
 import { EventBus } from './utils/EventBus';
 
 export class Game extends EventBus {
-  activePlayerId = -1;
-  players: GamePlayerType[] = [];
-  handEntities: Record<string, HandEntity> = {};
-  table!: TableEntity;
+  private activePlayerId = -1;
+  private players: GamePlayerType[] = [];
+  private handEntities: Record<string, HandEntity> = {};
+  private table!: TableEntity;
 
-  activeColor = '';
-  clockwiseMovement = true;
+  private clockwiseMovement = true;
 
   constructor() {
     super();
@@ -43,7 +47,7 @@ export class Game extends EventBus {
     this.table.start();
 
     /* Создаём "руки" игроков и раздаём карты */
-    let zIndex = 10;
+    let zIndex = startZindexForLayers;
     for (let i = 0; i < playersNum; i++) {
       const entityName =
         playersNum === 2 ? TwoPlayerLayers[i] : FourPlayerLayers[i];
@@ -64,23 +68,22 @@ export class Game extends EventBus {
 
     /* Из стартовой колоды берём одну карту для открытия */
     const lastCard = initialPack.pop();
-    if (lastCard) {
-      /* Открываем карту поле раздачи всех карт игрокам */
+    if (!lastCard) {
+      throw new Error('Куда-то делись все карты');
+    }
+    /* Открываем карту после раздачи всех карт игрокам */
+    setTimeout(() => {
+      this.table.addUpcard(lastCard);
+    }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
+
+    if (lastCard.action) {
       setTimeout(() => {
-        this.table.addUpcard(lastCard);
-      }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
-
-      if (lastCard.action) {
-        setTimeout(() => {
-          this.checkCard(lastCard);
-          this.moveLine();
-        }, ANIMATION_TIME * (START_NUM_CARDS_IN_HAND + 1));
-      } else {
-        this.activePlayerId = 0;
-        this.getActivePlayer().highlight();
-      }
-
-      this.activeColor = lastCard.color;
+        this.checkCard(lastCard);
+        this.moveLine();
+      }, ANIMATION_TIME * (START_NUM_CARDS_IN_HAND + 1));
+    } else {
+      this.activePlayerId = 0;
+      this.getActivePlayer().highlight();
     }
     /* Оставшаяся часть карт будет в закрытой колоде */
     this.table.setClosePack(initialPack);
@@ -92,9 +95,9 @@ export class Game extends EventBus {
   }
 
   /* Юзер берёт карту со стола */
-  playerTakeCard(clickPos: Record<string, number>) {
+  playerTakeCard(clickPos: PlayerClickPosition) {
     const playerLayer = this.handEntities['frontHand'];
-    const playerCards = playerLayer.cards;
+    const playerCards = playerLayer.getCards();
     const { x: xClick, y: yClick } = clickPos;
 
     /* Если клик по слою стола был не на закрытой колоде, ничего не происходит */
@@ -104,17 +107,18 @@ export class Game extends EventBus {
       yClick <= 0 &&
       yClick >= BASE_HEIGHT_CARD
     ) {
-      console.log('Чтобы взять карту, нужно кликнуть по закрытой колоде');
       return;
     }
 
     /* Если есть карта, которую можно скинуть, то взять из закрытой колоды нельзя */
-    for (let i = playerCards.length - 1; i >= 0; i--) {
-      const card = playerCards[i];
+    for (const card of playerCards) {
+      const isRelevantCard = compareCardWithUpcard(
+        card,
+        this.table.getUpcard(),
+        this.table.getActiveColor()
+      );
 
-      if (compareCards(card, this.table.getUpcard(), this.activeColor)) {
-        console.log('Нужно сбросить карту');
-
+      if (isRelevantCard) {
         return;
       }
     }
@@ -124,11 +128,9 @@ export class Game extends EventBus {
   }
 
   /* Юзер сбрасывет карту с руки */
-  playerDiscardCard(clickPos: Record<string, number>) {
-    console.log('Ход игрока');
-
+  playerDiscardCard(clickPos: PlayerClickPosition) {
     const playerLayer = this.handEntities['frontHand'];
-    const playerCards = playerLayer.cards;
+    const playerCards = playerLayer.getCards();
     const { x: xClick, y: yClick } = clickPos;
 
     for (let i = playerCards.length - 1; i >= 0; i--) {
@@ -136,37 +138,49 @@ export class Game extends EventBus {
 
       /* Поиск карты, по которой был клик */
       if (
-        xClick >= card.x! &&
-        xClick <= card.x! + BASE_WIDTH_CARD &&
-        yClick >= card.y! &&
-        yClick <= card.y! + BASE_HEIGHT_CARD
+        xClick < card.x! ||
+        xClick > card.x! + BASE_WIDTH_CARD ||
+        yClick < card.y! ||
+        yClick > card.y! + BASE_HEIGHT_CARD
       ) {
-        /* Проверка, можно ли сбросить эту карту */
-        if (compareCards(card, this.table.getUpcard(), this.activeColor)) {
-          console.log('Перемещение карты');
+        continue;
+      }
 
-          this.discardCard(card);
-        } else {
-          console.log('Карта не подходит');
-        }
-        /* Завершаем цикл поиска карты */
+      /* Проверка, можно ли сбросить эту карту */
+      const isRelevantCard = compareCardWithUpcard(
+        card,
+        this.table.getUpcard(),
+        this.table.getActiveColor()
+      );
+
+      if (!isRelevantCard) {
         return;
       }
+
+      this.discardCard(card);
+
+      /* Завершаем цикл поиска карты */
+      return;
     }
   }
 
   botMove() {
-    console.log('Ход бота');
     const botLayer = this.getActivePlayer();
-    const botCards = botLayer.cards;
+    const botCards = botLayer.getCards();
 
-    for (let i = 0; i < botCards.length; i++) {
-      const card = botCards[i];
+    for (const card of botCards) {
+      const isRelevantCard = compareCardWithUpcard(
+        card,
+        this.table.getUpcard(),
+        this.table.getActiveColor()
+      );
 
-      if (compareCards(card, this.table.getUpcard(), this.activeColor)) {
-        this.discardCard(card);
-        return;
+      if (!isRelevantCard) {
+        continue;
       }
+
+      this.discardCard(card);
+      return;
     }
 
     this.takeCard(1);
@@ -177,18 +191,19 @@ export class Game extends EventBus {
 
     activePlayerLayer.removeCard(movedCard);
     this.table.addUpcard(movedCard);
-    this.activeColor = movedCard.color;
 
     /* Если у активного игрока не осталось карт на руке, завершаем игру */
-    if (activePlayerLayer.cards.length === 0) {
+    if (activePlayerLayer.getCards().length === 0) {
       setTimeout(() => {
         this.finishGame();
       }, ANIMATION_TIME);
+
       return;
     }
 
     /* Если у активного игрока осталась одна карта на руке, проверяем, был ли клик по кнопке 'UNO' */
-    if (activePlayerLayer.cards.length === 1) {
+    if (activePlayerLayer.getCards().length === 1) {
+      /* Боту кликать не нужно */
       if (this.players[this.activePlayerId].isBot) {
         console.log('У бота осталась одна карта');
       } else {
@@ -199,17 +214,18 @@ export class Game extends EventBus {
           clickUno = true;
           console.log('У юзера осталась одна карта');
         };
+
         /* Подписка на событие клика по кнопке UNO */
         this.on('click uno', cb);
+
         /* Если за 1,5 сек клика не было, игроку выдаются 2 карты на руку и ход переходит к след. игроку */
         await sleep(1500, () => {
           if (!clickUno) {
-            console.log('Юзер не нажал на кнопку');
             this.takeCard(2);
             return;
-          } else {
-            this.off('click uno', cb);
           }
+
+          this.off('click uno', cb);
         });
       }
     }
@@ -221,41 +237,43 @@ export class Game extends EventBus {
   }
 
   checkCard(card: CardType) {
-    if (card.action === 'draw two') {
-      /* Следующий игрок берёт две карты и пропускает ход */
-      this.skipMove();
-      this.takeCard(2);
-    }
-
-    if (card.action === 'wild') {
-      /* Игрок выбирает новый цвет */
-      this.activeColor =
-        cardColors[Math.floor(Math.random() * cardColors.length)];
-      this.table.setColor(this.activeColor);
-    }
-
-    if (card.action === 'wild draw four') {
-      /* Игрок выбирает новый цвет, а следующий игрок берёт 4 карты */
-      this.activeColor =
-        cardColors[Math.floor(Math.random() * cardColors.length)];
-      this.table.setColor(this.activeColor);
-      this.skipMove();
-      this.takeCard(4);
-    }
-
-    if (card.action === 'reverse') {
-      /* Очёрёдность хода меняется в обратную сторону */
-      /* Но если два игрока, то второй игрок пропускает ход */
-      if (this.players.length === 2) {
+    switch (card.action) {
+      case 'draw two':
+        /* Следующий игрок берёт две карты и пропускает ход */
         this.skipMove();
-      } else {
-        this.clockwiseMovement = this.clockwiseMovement === true ? false : true;
-      }
-    }
+        this.takeCard(2);
+        break;
 
-    if (card.action === 'skip') {
-      /* Следующий игрок пропускает ход */
-      this.skipMove();
+      case 'wild': {
+        /* Игрок выбирает новый цвет */
+        const newColor =
+          cardColors[Math.floor(Math.random() * cardColors.length)];
+        this.table.setColor(newColor);
+        break;
+      }
+      case 'wild draw four': {
+        /* Игрок выбирает новый цвет, а следующий игрок берёт 4 карты */
+        const newColor =
+          cardColors[Math.floor(Math.random() * cardColors.length)];
+        this.table.setColor(newColor);
+        this.skipMove();
+        this.takeCard(4);
+        break;
+      }
+      case 'reverse':
+        /* Очёрёдность хода меняется в обратную сторону */
+        /* Но если два игрока, то второй игрок пропускает ход */
+        if (this.players.length === 2) {
+          this.skipMove();
+        } else {
+          this.clockwiseMovement = !this.clockwiseMovement;
+        }
+        break;
+
+      case 'skip':
+        /* Следующий игрок пропускает ход */
+        this.skipMove();
+        break;
     }
   }
 
@@ -268,28 +286,41 @@ export class Game extends EventBus {
 
     activePlayer.addCards(cards);
 
-    /* Если берётся 1 карта и её можно выложить на стол, то игрок должен это сделать */
-    if (countCards === 1) {
-      if (compareCards(cards[0], this.table.getUpcard(), this.activeColor)) {
-        /* Если ход бота, делаем за него ход */
-        if (this.players[this.activePlayerId].isBot) {
-          console.log('Бот через секунду скинет карту');
-          const card = activePlayer.cards.at(-1);
-
-          if (card) {
-            setTimeout(() => {
-              this.discardCard(card);
-            }, 1000);
-          }
-        } else {
-          /* Если ход юзера, ждём клик */
-          console.log('Можно скинуть карту');
-        }
-      } else {
-        /* Если карта не подходит, переход хода */
-        this.moveLine();
-      }
+    if (countCards !== 1) {
+      return;
     }
+
+    /* Если берётся 1 карта и её можно выложить на стол, то игрок должен это сделать */
+    /* Проверка, можно ли сбросить эту карту */
+    const isRelevantCard = compareCardWithUpcard(
+      cards[0],
+      this.table.getUpcard(),
+      this.table.getActiveColor()
+    );
+
+    /* Если карта не подходит, переход хода */
+    if (!isRelevantCard) {
+      this.moveLine();
+      return;
+    }
+
+    const { isBot } = this.players[this.activePlayerId];
+
+    /* Если ход юзера, ждём клик */
+    if (!isBot) {
+      return;
+    }
+
+    /* Если ход бота, делаем за него ход */
+    const card = activePlayer.getCards().at(-1);
+
+    if (!card) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.discardCard(card);
+    }, 1000);
   }
 
   /* Переход хода */
@@ -297,10 +328,13 @@ export class Game extends EventBus {
     if (this.activePlayerId !== -1) {
       this.getActivePlayer().removeHighlight();
     }
+
     this.changeActivePlayerId();
     this.getActivePlayer().highlight();
 
-    if (this.players[this.activePlayerId].isBot) {
+    const { isBot } = this.players[this.activePlayerId];
+
+    if (isBot) {
       setTimeout(() => {
         this.botMove();
       }, 2000);
@@ -312,6 +346,7 @@ export class Game extends EventBus {
     if (this.activePlayerId !== -1) {
       this.getActivePlayer().removeHighlight();
     }
+
     this.changeActivePlayerId();
   }
 
@@ -334,7 +369,7 @@ export class Game extends EventBus {
     }
   }
 
-  getActivePlayer() {
+  getActivePlayer(): HandEntity {
     const entityName =
       this.players.length === 2
         ? TwoPlayerLayers[this.activePlayerId]
@@ -344,9 +379,10 @@ export class Game extends EventBus {
   }
 
   finishGame() {
-    const elements = [this.table.layer];
+    const elements = [this.table.getLayer()];
+
     for (const layer in this.handEntities) {
-      elements.push(this.handEntities[layer].layer);
+      elements.push(this.handEntities[layer].getLayer());
     }
     clearGamePage(elements);
     /* Вызов события завершения игры */
@@ -354,8 +390,8 @@ export class Game extends EventBus {
   }
 
   /* Генерация клика по кнопке UNO */
-  getUnoClick() {
-    if (this.getActivePlayer().cards.length === 1) {
+  unoClick() {
+    if (this.getActivePlayer().getCards().length === 1) {
       this.emit('click uno');
     }
   }
