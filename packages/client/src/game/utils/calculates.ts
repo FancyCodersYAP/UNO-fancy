@@ -1,8 +1,11 @@
-import { EntityTypes, HandEntityTypes, HandOrientationTypes } from '../types';
+import { EntityTypes, HandEntityTypes } from '../types';
 import { BASE_WIDTH_CARD, BASE_HEIGHT_CARD, margin } from './constants';
+import { getHandOrientation, HandOrientationTypes } from './getHandOrientation';
 
 /* Расчёт ширины и высоты слоя */
-export const calcCanvasMaxSizes = (entityName: EntityTypes | 'animation') => {
+export const calcCanvasMaxSizes = (
+  entityName: EntityTypes | 'animation'
+): Record<string, number> => {
   let width = 0,
     height = 0;
 
@@ -40,7 +43,7 @@ export const calcCanvasCoords = (
   screenHeight: number,
   canvasWidth: number,
   canvasHeight: number
-) => {
+): Record<string, number> => {
   const margin = 10;
 
   let xCanvas = 0,
@@ -76,8 +79,8 @@ export const calcCanvasCoords = (
 export const calcVisiblePartOfCard = (
   cardsNum: number,
   entityName: HandEntityTypes
-) => {
-  const handType = HandOrientationTypes[entityName];
+): number => {
+  const handType = getHandOrientation(entityName);
   let size = 0;
 
   if (handType === 'horizontal') {
@@ -110,8 +113,8 @@ export const calcHandSize = (
   totalCards: number,
   visiblePart: number,
   entityName: HandEntityTypes
-) => {
-  const handType = HandOrientationTypes[entityName];
+): number => {
+  const handType = getHandOrientation(entityName);
   let cardSize = 0;
 
   if (handType === 'horizontal') {
@@ -149,17 +152,17 @@ export const calcStartCoords = (
   visiblePart: number,
   entityName: HandEntityTypes,
   layerMaxSize: number
-) => {
+): Record<string, number> => {
   const centerOfLayer = layerMaxSize / 2;
   const handSize = calcHandSize(totalCards, visiblePart, entityName);
   const startCoord =
     centerOfLayer - handSize / 2 > 0 ? centerOfLayer - handSize / 2 : 0;
 
-  switch (HandOrientationTypes[entityName]) {
-    case 'horizontal':
-      return { x: startCoord, y: 2 };
-    case 'vertical':
-      return { x: 2, y: startCoord };
+  switch (getHandOrientation(entityName)) {
+    case HandOrientationTypes.HORIZONTAL:
+      return { x: startCoord, y: 0 };
+    case HandOrientationTypes.VERTICAL:
+      return { x: 0, y: startCoord };
     default:
       return { x: 0, y: 0 };
   }

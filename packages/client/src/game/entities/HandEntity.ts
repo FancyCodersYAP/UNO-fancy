@@ -1,18 +1,14 @@
 import { drawCardBack, drawCardFront } from '../utils/drawCard';
 import { Entity } from './Entity';
-import {
-  CardType,
-  GamePlayerType,
-  HandOrientationTypes,
-  HandEntityTypes,
-} from '../types';
+import { CardType, GamePlayerType, HandEntityTypes } from '../types';
 import { calcStartCoords, calcVisiblePartOfCard, moveCard } from '../utils';
 import { ANIMATION_TIME } from '../utils/constants';
+import { getHandOrientation } from '../utils/getHandOrientation';
 
 export class HandEntity extends Entity<HandEntityTypes> {
-  cards: CardType[] = [];
+  private cards: CardType[] = [];
 
-  animation: Animation | null = null;
+  private animation: Animation | null = null;
 
   constructor(entityName: HandEntityTypes, player: GamePlayerType) {
     super(entityName);
@@ -21,7 +17,7 @@ export class HandEntity extends Entity<HandEntityTypes> {
 
   addCards(cards: CardType[]) {
     const totalCards = this.cards.length + cards.length;
-    const handType = HandOrientationTypes[this.entityName];
+    const handType = getHandOrientation(this.entityName);
     const layerSize = handType === 'horizontal' ? this.width : this.height;
 
     const visiblePart = calcVisiblePartOfCard(
@@ -98,13 +94,7 @@ export class HandEntity extends Entity<HandEntityTypes> {
     this.cards = this.cards.filter(c => c.id !== card.id);
 
     const direction = this.player && this.player.isBot ? 'fromBot' : 'fromUser';
-    moveCard(
-      card,
-      this.entityName,
-      direction,
-      this.width,
-      this.height
-    );
+    moveCard(card, this.entityName, direction, this.width, this.height);
 
     this.clear();
     this.redrawHand();
@@ -118,13 +108,10 @@ export class HandEntity extends Entity<HandEntityTypes> {
     }
 
     if (visiblePart === undefined) {
-      visiblePart = calcVisiblePartOfCard(
-        totalCards,
-        this.entityName
-      );
+      visiblePart = calcVisiblePartOfCard(totalCards, this.entityName);
     }
 
-    const handType = HandOrientationTypes[this.entityName];
+    const handType = getHandOrientation(this.entityName);
     const layerSize = handType === 'horizontal' ? this.width : this.height;
 
     let { x, y } = calcStartCoords(
@@ -179,5 +166,9 @@ export class HandEntity extends Entity<HandEntityTypes> {
       this.name.style.opacity = '1';
       this.name.style.color = 'white';
     }
+  }
+
+  getCards() {
+    return this.cards;
   }
 }

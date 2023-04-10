@@ -1,18 +1,31 @@
-import { BASE_WIDTH_CARD, ANIMATION_TIME } from '../utils/constants';
-import { shuffle, drawCardBack, drawCardFront, moveCard } from '../utils';
+import {
+  BASE_WIDTH_CARD,
+  ANIMATION_TIME,
+  startZindexForLayers,
+} from '../utils/constants';
+import {
+  shuffle,
+  drawCardBack,
+  drawCardFront,
+  moveCard,
+  cardColors,
+  cardBackColor,
+} from '../utils';
 import { Entity } from './Entity';
-import { CardType, EntityTypes } from '../types';
+import { CardType, EntityTypes, PaintedCardColor } from '../types';
 
 export class TableEntity extends Entity<EntityTypes> {
-  closePack: CardType[] = [];
-  openPack: CardType[] = [];
+  private closePack: CardType[] = [];
+  private openPack: CardType[] = [];
+
+  private activeColor: PaintedCardColor = '#009F66';
 
   constructor() {
     super('table');
   }
 
   start() {
-    this.create(10);
+    this.create(startZindexForLayers);
     drawCardBack(this.context, 0, 0);
   }
 
@@ -20,16 +33,17 @@ export class TableEntity extends Entity<EntityTypes> {
     this.closePack = cards;
   }
 
-  getUpcard() {
+  getUpcard(): CardType {
     return this.openPack[this.openPack.length - 1];
   }
 
-  setColor(color: string) {
+  setColor(color: PaintedCardColor) {
+    this.activeColor = color;
     this.colorBox!.style.backgroundColor = color;
   }
 
-  getColor() {
-    return this.colorBox!.style.backgroundColor;
+  getActiveColor(): PaintedCardColor {
+    return this.activeColor;
   }
 
   /* Обновление закрытой колоды когда карты заканчиваются */
@@ -38,7 +52,7 @@ export class TableEntity extends Entity<EntityTypes> {
       const upcard = this.openPack.pop();
       const renewPack = shuffle(this.openPack);
       this.openPack.length = 0;
-      this.openPack.push(upcard as CardType);
+      this.openPack.push(upcard!);
 
       for (let i = 0; i < this.closePack.length; i++) {
         renewPack.push(this.closePack[i]);
@@ -62,12 +76,12 @@ export class TableEntity extends Entity<EntityTypes> {
       drawCardFront(this.context, card.x!, card.y!, card.color, card.sign);
     }, ANIMATION_TIME);
 
-    if (card.color !== this.getColor() && card.color !== '#1F1D1E') {
+    if (card.color !== cardBackColor && card.color !== this.activeColor) {
       this.setColor(card.color);
     }
   }
 
-  giveCards(countCards: number) {
+  giveCards(countCards: number): CardType[] {
     return this.closePack.splice(
       this.closePack.length - 1 - countCards,
       countCards

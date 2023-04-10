@@ -7,7 +7,10 @@ import {
   UNO_BUTTON_STYLES,
 } from '../styles';
 
-export const createLayer = (entityName: EntityTypes, zIndex: number) => {
+export const createLayer = (
+  entityName: EntityTypes,
+  zIndex: number
+): HTMLDivElement => {
   const layer = document.createElement('div');
 
   layer.style.position = LAYER_STYLES.POSITION;
@@ -45,7 +48,7 @@ export const createCanvas = (
   width: number,
   height: number,
   zIndex: number
-) => {
+): HTMLCanvasElement => {
   const canvas = document.createElement('canvas');
 
   canvas.width = width;
@@ -72,7 +75,7 @@ export const createAnimationCanvas = (
   width: number,
   height: number,
   zIndex: number
-) => {
+): HTMLCanvasElement => {
   const canvas = createCanvas('animation', width, height, zIndex);
 
   canvas.style.position = 'absolute';
@@ -84,7 +87,10 @@ export const createAnimationCanvas = (
   return canvas;
 };
 
-export const createNameLayer = (entityName: HandEntityTypes, name: string) => {
+export const createNameLayer = (
+  entityName: HandEntityTypes,
+  name: string
+): HTMLParagraphElement => {
   const p = document.createElement('p');
 
   p.style.textAlign = 'center';
@@ -117,7 +123,7 @@ export const createNameLayer = (entityName: HandEntityTypes, name: string) => {
   return p;
 };
 
-export const createUnoButton = () => {
+export const createUnoButton = (): HTMLButtonElement => {
   const button = document.createElement('button');
 
   button.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
@@ -138,7 +144,7 @@ export const createUnoButton = () => {
   return button;
 };
 
-export const createColorBox = () => {
+export const createColorBox = (): HTMLDivElement => {
   const div = document.createElement('div');
 
   div.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
@@ -152,12 +158,14 @@ export const createColorBox = () => {
 };
 
 /* Удаление слоя из DOM */
-export const removeLayer = (layer: HTMLCanvasElement | HTMLDivElement) => {
+export const removeLayer = (
+  layer: HTMLCanvasElement | HTMLDivElement
+): void => {
   layer.remove();
 };
 
 /* Удаление DOM-элементов со страницы игры */
-export const clearGamePage = (elements: HTMLDivElement[]) => {
+export const clearGamePage = (elements: HTMLDivElement[]): void => {
   for (let i = 0; i < elements.length; i++) {
     removeLayer(elements[i]);
   }

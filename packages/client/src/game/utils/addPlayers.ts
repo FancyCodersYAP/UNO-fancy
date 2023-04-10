@@ -2,7 +2,10 @@ import { GamePlayerType } from '../types';
 import { namesForBots } from './data';
 
 /* Добавление в игру юзера и ботов */
-export const addPlayers = (playersNum: number, playerData: GamePlayerType) => {
+export const addPlayers = (
+  playersNum: number,
+  playerData: GamePlayerType
+): GamePlayerType[] => {
   const players = [] as GamePlayerType[];
 
   for (let i = 0; i < playersNum; i++) {
