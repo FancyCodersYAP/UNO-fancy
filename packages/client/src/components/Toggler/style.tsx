@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as COLORS from '../../styles/variables/colors-const';
+import * as COLORS from 'styles/variables/colors-const';
 
 export const StToggleLabel = styled.label`
   display: inline-flex;
@@ -7,6 +7,7 @@ export const StToggleLabel = styled.label`
   width: 100%;
   gap: 15px;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 export const StToggle = styled.input`
@@ -56,7 +57,7 @@ export const StToggleControl = styled.div`
   justify-content: flex-start;
   width: 3.25em;
   height: 1.75em;
-  border: 1px solid ${COLORS.COLOR_ELEMENT_ALTERNATE};
+  border: 2px solid ${COLORS.COLOR_ELEMENT_ALTERNATE};
   border-radius: 1em;
   cursor: pointer;
   transition: background-color 0.5s ease;
@@ -69,7 +70,7 @@ export const StToggleIcon = styled.div`
   height: 1.5em;
   left: 0;
   transform: scale(0.9);
-  background: ${COLORS.COLOR_ELEMENT_ALTERNATE};
+  background: ${COLORS.COLOR_ELEMENT_CONTRAST};
   transition: left 0.5s ease, background-color 0.5s ease;
 `;
 

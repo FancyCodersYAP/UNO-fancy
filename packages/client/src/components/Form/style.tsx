@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DEPTH_CONTAINER } from 'styles/variables/styleConstants';
 
 export const StFormTitle = styled.div`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
@@ -22,13 +23,34 @@ export const StForm = styled.form`
   width: 400px;
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
   padding: 40px 60px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: ${DEPTH_CONTAINER};
   border-radius: 50px;
   box-sizing: border-box;
 `;
 
+export const StFieldList = styled.fieldset`
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  margin: 0;
+  gap: 43px;
+`;
+
 export const StFormFooter = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 15px;
   flex-direction: column;
+  text-align: center;
+  margin-top: 43px;
+`;
+
+export const FormError = styled.p`
+  color: ${props => props.theme.COLOR_ELEMENT_WARN};
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  white-space: nowrap;
 `;
