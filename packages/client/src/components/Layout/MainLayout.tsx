@@ -42,7 +42,6 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     const oauthCode = new URLSearchParams(window.location.search).get('code');
-    console.log('oauthCode', oauthCode);
     if (oauthCode) {
       window.history.pushState({}, '', REDIRECT_URL);
 
