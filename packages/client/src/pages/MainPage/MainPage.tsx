@@ -7,6 +7,7 @@ import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
 import useModal from 'utils/useModal';
 import Rules from 'components/Rules';
+import AddAnswer from 'components/AddAnswer/AddAnswer';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
@@ -20,6 +21,11 @@ export const marginTop20 = css`
   margin-top: 20px;
 `;
 
+const addAnswerModalStyles = css`
+  width: 700px;
+  padding: 56px 90px 70px;
+`;
+
 const MainPage: FC = () => {
   const navigate = useNavigate();
 
@@ -31,6 +37,15 @@ const MainPage: FC = () => {
 
   return (
     <>
+      {isOpen && (
+        <Modal
+          title="Сообщение"
+          styles={addAnswerModalStyles}
+          handleCloseModal={handleCloseModal}
+          isCloseOutside={true}>
+          <AddAnswer handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
       <StFlex
         flexDirection="column"
         rowGap={40}
@@ -46,11 +61,11 @@ const MainPage: FC = () => {
         />
       </StFlex>
 
-      {isOpen && (
+      {/* {isOpen && (
         <Modal title="Правила игры" handleCloseModal={handleCloseModal}>
           <Rules />
         </Modal>
-      )}
+      )} */}
     </>
   );
 };
