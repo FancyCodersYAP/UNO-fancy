@@ -7,6 +7,7 @@ import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import MainPage from 'pages/MainPage';
 import ProfilePage from 'pages/ProfilePage';
+import ForumTopic from 'pages/ForumTopicPage';
 
 import { ThemeContextProvider } from 'contexts/ThemeContext';
 import AuthRoute from './components/AuthRoute/AuthRuote';
@@ -58,6 +59,7 @@ function App() {
             path={AppRoute.FORUM}
             // element={<ForumPage/>}
           />
+          <Route path={`${AppRoute.FORUM}/:id`} element={<ForumTopic />} />
           <Route
             path={AppRoute.NOT_FOUND_PAGE}
             // element={<ErrorPage />}
