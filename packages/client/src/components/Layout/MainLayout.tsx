@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
 
-import bgImage from '../../assets/img/background.png';
+import bgImage from '/assets/img/background.png';
 import { fetchOauthCodePost } from '../../store/User/oauth/actions';
 import { REDIRECT_URL } from '../../store/constatns';
 
