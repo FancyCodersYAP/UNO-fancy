@@ -3,7 +3,7 @@ import Form from 'components/Form';
 import styled, { css } from 'styled-components';
 
 import { AvatarType } from 'types';
-import defaultAvatar from 'assets/icons/default-avatar.svg';
+import defaultAvatar from '../../../public/assets/icons/default-avatar.svg';
 
 export const StyledForm = styled(Form)`
   width: 928px;
