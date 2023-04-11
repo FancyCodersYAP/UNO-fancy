@@ -83,3 +83,9 @@ export const StButtonCloseModal = styled(StButton)`
   box-shadow: none;
   border-radius: 0;
 `;
+
+export const StButtonReply = styled(StButton)`
+  padding: 10px 12px;
+  height: min-content;
+  margin: 0;
+`;

@@ -1,0 +1,143 @@
+import styled, {css} from 'styled-components';
+import { customScrollbar } from 'styles/global';
+import { BACKGROUND_COLOR_OPACITY_LIGHT, COLOR_ELEMENT_CONTRAST_REVERSE } from 'styles/variables/colors-const';
+import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
+
+
+export const stBoardStyle = css`
+  max-height: none;
+  overflow: inherit;
+  padding: 35px 70px;
+  min-width: 880px;
+`;
+
+export const lineHeight130Percent = css`
+  line-height: 130%;
+`;
+
+const containerStyle = css`
+  display: grid;
+  border-radius: ${BORDER_RADIUS_SIZE};
+  margin-bottom: 12px;
+  background: ${props => props.theme?.BACKGROUND_COLOR_TOPIC_MESSAGE};
+  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+export const StTopic = styled.div`
+  ${containerStyle}
+  grid-template-columns: 144px 1fr;
+  min-height: 150px;
+`;
+
+export const StUser = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${props => props.theme?.BACKGROUND_COLOR_TOPIC};
+  border-radius: ${BORDER_RADIUS_SIZE} 0 0 ${BORDER_RADIUS_SIZE};
+  padding: 12px 8px 8px;
+  border-right: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+`;
+
+export const StUserAvatar = styled.img`
+  width: 90px;
+  height: 90px;
+  background-color: ${props => props.theme?.BACKGROUND_COLOR_TOPIC_MESSAGE};
+  border-radius: 50%;
+  margin-bottom: 5px;
+  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+`;
+
+export const StUserInfo = styled.div`
+  width: min-content;
+`;
+
+export const StUserName = styled.p`
+  font-size: 15px;
+  line-height: 15px;
+  color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
+  margin-bottom: 5px;
+  text-align: center;
+`;
+
+export const StUserRank = styled.span`
+  font-size: 10px;
+  line-height: 15px;
+  color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
+  opacity: 0.8;
+  text-align: center;
+  display: block;
+`;
+
+export const StTopicName = styled.p`
+  font-size: 15px;
+  ${lineHeight130Percent}
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  text-align: center;
+  padding: 5px;
+  
+  background: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  border-radius: 0px ${BORDER_RADIUS_SIZE} 0px 0px;
+`;
+
+export const StTopicText = styled.p`
+  font-size: 18px;
+  ${lineHeight130Percent}
+  color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
+  position: relative;
+  padding: 25px 15px;
+  min-height: 121px;
+`;
+
+export const StTopicDate = styled.span`
+  font-size: 10px;
+  ${lineHeight130Percent}
+  color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
+  position: absolute;
+  bottom: 5px;
+  right: 23px;
+  opacity: 0.8;
+`;
+
+export const StTopicDiscussion = styled.div`
+  ${customScrollbar}
+  overflow-y: auto;
+  background: ${BACKGROUND_COLOR_OPACITY_LIGHT};
+  border-radius: ${BORDER_RADIUS_SIZE} 0 0 ${BORDER_RADIUS_SIZE};
+  padding: 10px;
+  margin-bottom: 28px;
+  max-height: 400px;  
+`;
+
+export const StMessage = styled.span`
+  ${containerStyle}
+  grid-template-columns: 134px 1fr;
+  min-height: 78px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+export const StMessageAvatar = styled(StUserAvatar)`
+  width: 50px;
+  height: 50px;
+  margin-right: 12px;
+  margin-bottom: 0;
+`;
+
+export const StMessageWrapper = styled.div`
+  padding: 10px 20px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StMessageText = styled.p`
+  font-size: 15px;
+  ${lineHeight130Percent}
+  color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
+  max-width: 775px;
+`;
