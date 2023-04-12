@@ -61,7 +61,7 @@ export class Entity<T extends EntityTypes> {
     this.context.clearRect(0, 0, this.width, this.height);
   }
 
-  getLayer() {
+  getLayer(): HTMLDivElement {
     return this.layer;
   }
 }
