@@ -3,12 +3,12 @@ import { useRef, useState } from 'react';
 export default function useTimer(initialState = 0) {
   const [timer, setTimer] = useState(initialState);
   const [isActive, setIsActive] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(true);
   const countRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const handleStart = () => {
     setIsActive(true);
-    setIsPaused(true);
+    setIsPaused(false);
     countRef.current = setInterval(() => {
       setTimer(timer => timer + 1);
     }, 1000);
@@ -19,11 +19,11 @@ export default function useTimer(initialState = 0) {
       clearInterval(countRef.current);
     }
 
-    setIsPaused(false);
+    setIsPaused(true);
   };
 
   const handleResume = () => {
-    setIsPaused(true);
+    setIsPaused(false);
     countRef.current = setInterval(() => {
       setTimer(timer => timer + 1);
     }, 1000);
@@ -34,7 +34,7 @@ export default function useTimer(initialState = 0) {
       clearInterval(countRef.current);
     }
     setIsActive(false);
-    setIsPaused(false);
+    setIsPaused(true);
     setTimer(0);
   };
 
