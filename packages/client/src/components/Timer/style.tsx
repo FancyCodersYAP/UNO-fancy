@@ -1,12 +1,16 @@
 import styled from 'styled-components';
+import { COLOR_ELEMENT_CONTRAST } from 'styles/variables/colors-const';
 
 export const StTimer = styled.div`
   width: 85px;
 `;
 
 export const StTimerContainer = styled.p`
-  background-color: ${props => props.theme.COLOR_PREVIEW_PRIMARY};
-  padding: 10px;
-  color: ${props => props.theme.COLOR_TEXT_PRIMARY};
-  text-align: end;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  padding: 5px;
+  color: ${COLOR_ELEMENT_CONTRAST};
 `;
