@@ -22,7 +22,7 @@ export const StButtonStatusBar = styled(StButton)`
   border-radius: 0;
   fill: ${COLORS.COLOR_ELEMENT_CONTRAST};
   padding: 0;
-  margin: 0 5px 0 0;
+  margin: 0 5px 0;
   svg {
     transition: all 0.3s ease-in-out;
   }
