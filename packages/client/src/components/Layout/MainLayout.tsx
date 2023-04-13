@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
 
-import bgImage from '../../assets/img/background.png';
+import bgImage from '/assets/img/background.png';
 import { fetchOauthCodePost } from '../../store/User/oauth/actions';
 import { REDIRECT_URL } from '../../store/constatns';
 
@@ -42,7 +42,6 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     const oauthCode = new URLSearchParams(window.location.search).get('code');
-    console.log('oauthCode', oauthCode);
     if (oauthCode) {
       window.history.pushState({}, '', REDIRECT_URL);
 

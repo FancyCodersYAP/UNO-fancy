@@ -10,7 +10,7 @@ type LogoProps = {
 const StLogo = styled.div`
   padding: 46px 65.5px; //проблемное место можно оставить так, но с масштабированием надо учитывать пропорции
   opacity: 0.7;
-  background: url('src/assets/img/colorLogo.png');
+  background: url('/assets/img/colorLogo.png');
   background-size: cover;
   mix-blend-mode: color-dodge; //darken color-burn
 
