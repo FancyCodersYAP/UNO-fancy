@@ -11,7 +11,7 @@ import Rules from 'components/Rules';
 const StMainLogo = styled.div`
   padding: 210px 400px;
   opacity: 0.8;
-  background: url('src/assets/img/logo.png');
+  background: url('/assets/img/logo.png');
   background-size: cover;
   mix-blend-mode: multiply; //darken color-burn
 `;

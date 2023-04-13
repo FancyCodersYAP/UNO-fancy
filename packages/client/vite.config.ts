@@ -1,8 +1,9 @@
-import path from 'path';
+import path, { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 // https://vitejs.dev/config/
@@ -32,6 +33,13 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        app: resolve(__dirname, 'index.html'),
+      },
+    },
+  },
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),
@@ -44,6 +52,7 @@ export default defineConfig({
       contexts: path.resolve(__dirname, './src/contexts'),
       assets: path.resolve(__dirname, './src/assets'),
       hooks: path.resolve(__dirname, './src/hooks'),
+      data: path.resolve(__dirname, './src/data'),
     },
   },
 });

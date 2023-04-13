@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
 import useModal from 'hooks/useModal';
 import ForumTopic from './ForumTopic';
-import { testForumData } from 'assets/data/testForumData';
+import { testForumData } from 'data/testForumData';
 import {
   stBoardStyle,
   StNewTopicIcon,
@@ -45,7 +45,7 @@ const ForumPage = () => {
           <p>
             <StButtonNewTopic onClick={handleOpenModal}>
               <StNewTopicIcon>
-                <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
+                <use href="/assets/icons/icons_sprite.svg#icon-plus"></use>
               </StNewTopicIcon>
             </StButtonNewTopic>
           </p>
