@@ -79,18 +79,4 @@ export const testForumData: TestForumDataType[] = [
     author: 'Элеонора',
     last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
   },
-  {
-    id: 11,
-    topic: 'Баги в игре',
-    total_messages: 2,
-    author: 'Элеонора',
-    last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
-  },
-  {
-    id: 12,
-    topic: 'Баги в игре',
-    total_messages: 2,
-    author: 'Элеонора',
-    last_message: 'Чет всё зависло. Не дает ходить хотя мой ход.',
-  },
 ];

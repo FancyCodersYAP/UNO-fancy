@@ -1,3 +1,27 @@
+// Пока не используется
+// Способ подключения:
+// COUNT_PER_PAGE - количество старниц
+// const {
+//   firstContentIndex,
+//   lastContentIndex,
+//   nextPage,
+//   prevPage,
+//   page,
+//   setPage,
+//   totalPages,
+// } = usePagination({
+//   contentPerPage: COUNT_PER_PAGE,
+//   count: testForumData.length,
+// });
+
+// <Pagination
+//   page={page}
+//   totalPages={totalPages}
+//   nextPage={nextPage}
+//   prevPage={prevPage}
+//   setPage={setPage}
+// />;
+// Добавляется к массиву данных .slice(firstContentIndex, lastContentIndex)
 interface UsePaginationProps {
   contentPerPage: number;
   count: number;
@@ -13,17 +37,11 @@ const usePagination = ({ contentPerPage, count }: UsePaginationProps) => {
 
   const changePage = (direction: boolean) => {
     setPage(state => {
-      if (direction) {
-        if (state === pageCount) {
-          return state;
-        }
-        return state + 1;
-      } else {
-        if (state === 1) {
-          return state;
-        }
-        return state - 1;
+      if ((direction && state === pageCount) || (!direction && state === 1)) {
+        return state;
       }
+
+      return direction ? state + 1 : state - 1;
     });
   };
 
