@@ -31,16 +31,14 @@ const Modal = (props: ModalType) => {
     evt.stopPropagation();
   };
 
-  const checkPossibleToCloseOutside = () => {
+  const closeModalOutside = () => {
     if (isCloseOutside) {
-      if (handleCloseModal) {
-        return handleCloseModal();
-      }
+      return handleCloseModal?.();
     }
   };
 
   return (
-    <StModal onClick={checkPossibleToCloseOutside}>
+    <StModal onClick={closeModalOutside}>
       <StModalWrapper css={styles} onClick={stopPropagationEvent}>
         {title && <StModalTitle>{title}</StModalTitle>}
         {isCrossButton && (
