@@ -4,9 +4,7 @@ import {
   StStatusBarButtons,
   StStatusBarTime,
 } from './style';
-import CloseSvg from 'assets/icons/close-status-bar.svg';
-import FullScreenSvg from 'assets/icons/fullscreen.svg';
-import FullScreenExitSvg from 'assets/icons/fullscreen-exit.svg';
+import { CloseSvg, FullScreenSvg, FullScreenExitSvg } from './statusBarSVG';
 import { useState } from 'react';
 import { useGameContext } from 'contexts/GameContext';
 
