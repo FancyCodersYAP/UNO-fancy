@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components';
-import { BACKGROUND_COLOR_TABLE_PRIMARY } from 'styles/variables/colors-const';
+import { BACKGROUND_COLOR_OPACITY_LIGHT } from 'styles/variables/colors-const';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 export const stBoardStyle = css`
@@ -56,7 +56,7 @@ export const StTableCell = styled.div`
   padding: 5px 12px;
   min-height: 68px;
   background-color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_SECONDARY};
-  border: 1px solid ${BACKGROUND_COLOR_TABLE_PRIMARY};
+  border: 1px solid ${BACKGROUND_COLOR_OPACITY_LIGHT};
 `;
 
 export const StBody = styled.div``;
@@ -79,14 +79,10 @@ export const StTableTopic = styled.article`
   }
 `;
 
-export const StEmptyTable = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const StEmptyTable = styled.p`
   font-size: 22px;
+  background-color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_SECONDARY};
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
-
-  p {
-    margin-right: 10px;
-  }
+  width: 100%;
+  padding: 20px;
 `;

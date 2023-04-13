@@ -40,38 +40,31 @@ const ForumPage = () => {
     <StBoard css={stBoardStyle}>
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
-      {isArrayAndHasItems(testForumData) ? (
-        <StTable>
-          <StHead>
-            <p>
-              <StButtonNewTopic onClick={handleOpenModal}>
-                <StNewTopicIcon>
-                  <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
-                </StNewTopicIcon>
-              </StButtonNewTopic>
-            </p>
-            <p>тема</p>
-            <p>всего сообщений</p>
-            <p>автор</p>
-            <p>последнее сообщение</p>
-          </StHead>
+      <StTable>
+        <StHead>
+          <p>
+            <StButtonNewTopic onClick={handleOpenModal}>
+              <StNewTopicIcon>
+                <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
+              </StNewTopicIcon>
+            </StButtonNewTopic>
+          </p>
+          <p>тема</p>
+          <p>всего сообщений</p>
+          <p>автор</p>
+          <p>последнее сообщение</p>
+        </StHead>
 
-          <StBody onClick={navigateToTopic}>
-            {testForumData.map((topic, index) => (
+        <StBody onClick={navigateToTopic}>
+          {isArrayAndHasItems(testForumData) ? (
+            testForumData.map((topic, index) => (
               <ForumTopic key={index + 1} {...topic} />
-            ))}
-          </StBody>
-        </StTable>
-      ) : (
-        <StEmptyTable>
-          <p>Форум пока пуст, можете создать новую тему кликнув на</p>
-          <StButtonNewTopic onClick={handleOpenModal}>
-            <StNewTopicIcon>
-              <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
-            </StNewTopicIcon>
-          </StButtonNewTopic>
-        </StEmptyTable>
-      )}
+            ))
+          ) : (
+            <StEmptyTable>Форум пока пуст</StEmptyTable>
+          )}
+        </StBody>
+      </StTable>
     </StBoard>
   );
 };
