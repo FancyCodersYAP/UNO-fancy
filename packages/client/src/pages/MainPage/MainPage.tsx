@@ -50,8 +50,8 @@ const MainPage: FC = () => {
         <Modal
           title="Правила игры"
           handleCloseModal={handleCloseModal}
-          isCloseOutside={true}
-          isCrossButton={true}>
+          isCloseOutside
+          isCrossButton>
           <Rules />
         </Modal>
       )}
