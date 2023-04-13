@@ -3,7 +3,6 @@ import { BACKGROUND_COLOR_TABLE_PRIMARY } from 'styles/variables/colors-const';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 export const stBoardStyle = css`
-  max-height: none;
   overflow: inherit;
   min-width: 1128px;
 `;
@@ -25,10 +24,8 @@ export const StNewTopicIcon = styled.svg`
 `;
 
 export const StTable = styled.div`
-  width: 100%;
   min-width: 1000px;
 
-  border: 1px solid rgba(142, 121, 121, 0.81);
   border-radius: ${BORDER_RADIUS_SIZE};
   overflow: hidden;
 
@@ -41,7 +38,7 @@ export const StHead = styled.div`
   ${gridTemplateColumnsStyle}
   height: 68px;
 
-  & > div {
+  & > p {
     ${tableCellStyle}
     
     font-size: 18px;
@@ -64,7 +61,7 @@ export const StTableCell = styled.div`
 
 export const StBody = styled.div``;
 
-export const StTableColumn = styled.article`
+export const StTableTopic = styled.article`
   ${gridTemplateColumnsStyle}
   grid-auto-rows: minmax(68px, auto);
   cursor: pointer;
@@ -79,5 +76,17 @@ export const StTableColumn = styled.article`
 
   &:last-child ${StTableCell} {
     border-bottom: none;
+  }
+`;
+
+export const StEmptyTable = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+
+  p {
+    margin-right: 10px;
   }
 `;

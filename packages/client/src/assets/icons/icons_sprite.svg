@@ -119,13 +119,13 @@
         <symbol id="accordion-marker" fill="none">
             <path d="M1 1L9 9L17 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
-        <symbol id="icon-plus" fill="none">
+        <symbol id="icon-plus" fill="currentColor">
             <path d="M4.90696 13.0146V0.443536H8.08523V13.0146H4.90696ZM0.210582 8.31818V5.13991H12.7816V8.31818H0.210582Z" fill="white"/>
         </symbol>
-        <symbol id="icon-arrow" fill="none" >
+        <symbol id="icon-arrow" fill="currentColor">
             <path d="M0.239166 20.1767L8.645 11.7708L0.239166 3.365L2.83333 0.770828L13.8333 11.7708L2.83333 22.7708L0.239166 20.1767Z" fill="#FFFEFE"/>
         </symbol>
-        <symbol id="icon-smile" viewBox="0 0 81 81" fill="none">
+        <symbol id="icon-smile" viewBox="0 0 81 81" fill="currentColor">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M40.5 77.625C19.9964 77.625 3.375 61.0036 3.375 40.5C3.375 19.9964 19.9964 3.375 40.5 3.375C61.0036 3.375 77.625 19.9964 77.625 40.5C77.625 61.0036 61.0036 77.625 40.5 77.625ZM40.5 70.875C57.2757 70.875 70.875 57.2757 70.875 40.5C70.875 23.7243 57.2757 10.125 40.5 10.125C23.7243 10.125 10.125 23.7243 10.125 40.5C10.125 57.2757 23.7243 70.875 40.5 70.875ZM57.0731 52.1383L51.552 48.2552C49.0364 51.8319 44.9533 54 40.5 54C36.0467 54 31.9636 51.8319 29.448 48.2552L23.9269 52.1383C27.6934 57.4937 33.8258 60.75 40.5 60.75C47.1742 60.75 53.3066 57.4937 57.0731 52.1383ZM47.25 37.125V30.375H54V37.125H47.25ZM27 30.375V37.125H33.75V30.375H27Z" fill="#D9E2EC"/>
         </symbol>
     </defs>

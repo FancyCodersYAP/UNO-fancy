@@ -2,15 +2,19 @@ import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
 import useModal from 'hooks/useModal';
-import usePagination from 'hooks/usePagination';
 import ForumTopic from './ForumTopic';
-import Pagination from 'components/Pagination';
 import { testForumData } from 'assets/data/testForumData';
-import { stBoardStyle, StNewTopicIcon, StTable, StHead, StBody } from './style';
+import {
+  stBoardStyle,
+  StNewTopicIcon,
+  StTable,
+  StHead,
+  StBody,
+  StEmptyTable,
+} from './style';
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
-
-const COUNT_PER_PAGE = 5;
+import { isArrayAndHasItems } from 'utils';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -19,27 +23,16 @@ const marginBottom58px = css`
 const ForumPage = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
-  const {
-    firstContentIndex,
-    lastContentIndex,
-    nextPage,
-    prevPage,
-    page,
-    setPage,
-    totalPages,
-  } = usePagination({
-    contentPerPage: COUNT_PER_PAGE,
-    count: testForumData.length,
-  });
-
   const navigate = useNavigate();
 
   const navigateToTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
     const topic = target.closest('article');
     const topicId = topic?.dataset.topic;
+
     // временный код
     console.log('Выбранная тема: ' + topicId);
+
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
 
@@ -47,42 +40,38 @@ const ForumPage = () => {
     <StBoard css={stBoardStyle}>
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
-      {testForumData.length > COUNT_PER_PAGE && (
-        <Pagination
-          page={page}
-          totalPages={totalPages}
-          nextPage={nextPage}
-          prevPage={prevPage}
-          setPage={setPage}
-        />
-      )}
+      {isArrayAndHasItems(testForumData) ? (
+        <StTable>
+          <StHead>
+            <p>
+              <StButtonNewTopic onClick={handleOpenModal}>
+                <StNewTopicIcon>
+                  <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
+                </StNewTopicIcon>
+              </StButtonNewTopic>
+            </p>
+            <p>тема</p>
+            <p>всего сообщений</p>
+            <p>автор</p>
+            <p>последнее сообщение</p>
+          </StHead>
 
-      <StTable>
-        <StHead>
-          <div>
-            <StButtonNewTopic onClick={handleOpenModal}>
-              <StNewTopicIcon>
-                <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
-              </StNewTopicIcon>
-            </StButtonNewTopic>
-          </div>
-          <div>тема</div>
-          <div>всего сообщений</div>
-          <div>автор</div>
-          <div>последнее сообщение</div>
-        </StHead>
-        <StBody>
-          {testForumData
-            .slice(firstContentIndex, lastContentIndex)
-            .map((topic, index) => (
-              <ForumTopic
-                key={index + 1}
-                {...topic}
-                onClick={navigateToTopic}
-              />
+          <StBody onClick={navigateToTopic}>
+            {testForumData.map((topic, index) => (
+              <ForumTopic key={index + 1} {...topic} />
             ))}
-        </StBody>
-      </StTable>
+          </StBody>
+        </StTable>
+      ) : (
+        <StEmptyTable>
+          <p>Форум пока пуст, можете создать новую тему кликнув на</p>
+          <StButtonNewTopic onClick={handleOpenModal}>
+            <StNewTopicIcon>
+              <use href="src/assets/icons/icons_sprite.svg#icon-plus"></use>
+            </StNewTopicIcon>
+          </StButtonNewTopic>
+        </StEmptyTable>
+      )}
     </StBoard>
   );
 };
