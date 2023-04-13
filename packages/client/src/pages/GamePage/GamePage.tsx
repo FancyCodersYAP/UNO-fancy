@@ -17,9 +17,7 @@ export function GamePage() {
   const { changeGameStatus } = useGameContext();
 
   const startGame = () => {
-    if (changeGameStatus) {
-      changeGameStatus();
-    }
+    changeGameStatus?.();
   };
 
   return (
