@@ -47,7 +47,7 @@ const Modal = (props: ModalType) => {
         {handleCloseModal && (
           <StButtonCloseModal onClick={handleCloseModal}>
             <StModalCloseIcon>
-              <use href="src/assets/icons/icons_sprite.svg#icon-close-modal"></use>
+              <use href="/assets/icons/icons_sprite.svg#icon-close-modal"></use>
             </StModalCloseIcon>
           </StButtonCloseModal>
         )}
