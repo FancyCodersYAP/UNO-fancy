@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
-import useModal from 'utils/useModal';
+import useModal from 'hooks/useModal';
 import Rules from 'components/Rules';
 
 const StMainLogo = styled.div`
@@ -47,7 +47,11 @@ const MainPage: FC = () => {
       </StFlex>
 
       {isOpen && (
-        <Modal title="Правила игры" handleCloseModal={handleCloseModal}>
+        <Modal
+          title="Правила игры"
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside
+          hasCrossButton>
           <Rules />
         </Modal>
       )}
