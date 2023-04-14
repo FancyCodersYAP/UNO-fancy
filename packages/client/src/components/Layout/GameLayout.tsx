@@ -6,8 +6,9 @@ import { GameContext } from 'contexts/GameContext';
 import { BACKGROUND_COLOR_GAME_PRIMARY } from 'styles/variables/colors-const';
 
 const StGameScreen = styled.div`
-  height: 100vh;
   background: ${BACKGROUND_COLOR_GAME_PRIMARY};
+  width: 100%;
+  height: 100%;
 `;
 
 type LayoutProps = {
