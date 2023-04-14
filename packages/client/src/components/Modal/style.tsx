@@ -19,11 +19,8 @@ export const StModalWrapper = styled.div<ModalProps>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: ${props =>
-      props.verticalPaddings ? `${props.verticalPaddings}px` : '55px'}
-    ${props =>
-      props.horizontalPaddings ? `${props.horizontalPaddings}px` : '65px'};
-  width: ${props => (props.width ? `${props.width}px` : '766px')};
+  padding: 55px 65px;
+  width: 766px;
 `;
 
 export const StModalTitle = styled.h3`
