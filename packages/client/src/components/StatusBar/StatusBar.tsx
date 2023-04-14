@@ -1,19 +1,29 @@
+import { useState } from 'react';
 import {
   StStatusBar,
   StButtonStatusBar,
   StStatusBarButtons,
   StStatusBarTime,
 } from './style';
-import { CloseSvg, FullScreenSvg, FullScreenExitSvg } from './statusBarSVG';
-import { useState } from 'react';
+import {
+  CloseSvg,
+  FullScreenSvg,
+  FullScreenExitSvg,
+  SoundLoudSvg,
+  SoundOffSvg,
+  PauseSVG,
+} from './statusBarSVG';
 import { useGameContext } from 'contexts/GameContext';
 
 const StatusBar = () => {
   const [fullScreen, setFullScreen] = useState(false);
-  const { isGame } = useGameContext();
+  const { isGame, switchSoundMode, audioMute, toggleAudioPause } =
+    useGameContext();
 
-  const exitGameClick = () => {
-    // TODO: при клике вызывать модальное окно
+  const toggleSound = () => {
+    if (switchSoundMode) {
+      switchSoundMode();
+    }
   };
 
   const toggleFullScreen = () => {
@@ -26,9 +36,23 @@ const StatusBar = () => {
     }
   };
 
+  const exitGameClick = () => {
+    // TODO: при клике вызывать модальное окно
+  };
+
   return (
     <StStatusBar>
       <StStatusBarButtons>
+        {isGame && (
+          <StButtonStatusBar onClick={toggleSound}>
+            {!audioMute ? <SoundLoudSvg /> : <SoundOffSvg />}
+          </StButtonStatusBar>
+        )}
+        {isGame && (
+          <StButtonStatusBar onClick={toggleAudioPause}>
+            <PauseSVG />
+          </StButtonStatusBar>
+        )}
         <StButtonStatusBar onClick={toggleFullScreen}>
           {fullScreen ? <FullScreenExitSvg /> : <FullScreenSvg />}
         </StButtonStatusBar>
