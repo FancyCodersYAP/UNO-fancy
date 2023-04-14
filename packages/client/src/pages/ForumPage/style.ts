@@ -38,7 +38,8 @@ export const StHead = styled.div`
   ${gridTemplateColumnsStyle}
   height: 68px;
 
-  & > p {
+  & > p,
+  & > div {
     ${tableCellStyle}
     
     font-size: 18px;

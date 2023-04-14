@@ -1,7 +1,6 @@
 import path, { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import svgr from 'vite-plugin-svgr';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,9 +14,6 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [
-    svgr({
-      exportAsDefault: true,
-    }),
     react({
       babel: {
         plugins: [

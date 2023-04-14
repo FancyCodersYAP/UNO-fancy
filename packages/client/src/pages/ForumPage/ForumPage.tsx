@@ -42,13 +42,13 @@ const ForumPage = () => {
 
       <StTable>
         <StHead>
-          <p>
+          <div>
             <StButtonNewTopic onClick={handleOpenModal}>
               <StNewTopicIcon>
                 <use href="/assets/icons/icons_sprite.svg#icon-plus"></use>
               </StNewTopicIcon>
             </StButtonNewTopic>
-          </p>
+          </div>
           <p>тема</p>
           <p>всего сообщений</p>
           <p>автор</p>
