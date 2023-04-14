@@ -47,7 +47,11 @@ const MainPage: FC = () => {
       </StFlex>
 
       {isOpen && (
-        <Modal title="Правила игры" handleCloseModal={handleCloseModal}>
+        <Modal
+          title="Правила игры"
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside
+          hasCrossButton>
           <Rules />
         </Modal>
       )}
