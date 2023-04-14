@@ -1,5 +1,5 @@
 import GameSettings from 'components/GameSettings';
-import useModal from 'utils/useModal';
+import useModal from 'hooks/useModal';
 import Modal from 'components/Modal';
 import styled from 'styled-components';
 import { StFlex } from 'styles/global';

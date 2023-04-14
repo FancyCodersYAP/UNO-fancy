@@ -1,6 +1,6 @@
 import Button from 'components/Button/Button';
 import Card from 'components/Card/Card';
-import useCarousel from 'utils/useCarousel';
+import useCarousel from 'hooks/useCarousel';
 import RulesInfo from './RulesInfo';
 import { css } from 'styled-components';
 import {
