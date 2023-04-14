@@ -76,8 +76,8 @@ export const StButton = styled.button`
 
 export const StButtonCloseModal = styled(StButton)`
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 30px;
+  right: 50px;
   background-color: initial;
   border: none;
   box-shadow: none;
