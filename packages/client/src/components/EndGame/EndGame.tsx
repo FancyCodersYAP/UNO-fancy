@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
-import medalIcon from 'assets/icons/medal.svg';
+import medalIcon from '/assets/icons/medal.svg';
 import { StTextContainerWithShadow, StFlex, StFlexBg } from 'styles/global';
 
 interface EndGameType {
