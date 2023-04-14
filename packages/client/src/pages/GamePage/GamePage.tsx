@@ -14,14 +14,21 @@ export const StGameFlex = styled(StFlex)`
 
 export function GamePage() {
   const { isOpen, handleCloseModal } = useModal();
-  const { changeGameStatus } = useGameContext();
+  const { changeGameStatus, addSound, onPlay } = useGameContext();
 
   const startGame = () => {
     changeGameStatus?.();
+    addSound?.('background');
+    addSound?.('movement');
+  };
+
+  /* После мёрджа с игрой звук будет срабатывать на перемещении карты */
+  const playMovementSound = () => {
+    if (onPlay) onPlay('movement');
   };
 
   return (
-    <StGameFlex id="game-page">
+    <StGameFlex id="game-page" onClick={playMovementSound}>
       {isOpen && (
         <Modal title="Выбор режима игры">
           <GameSettings
