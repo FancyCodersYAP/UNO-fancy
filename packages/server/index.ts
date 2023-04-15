@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import cors from 'cors';
 dotenv.config();
+
 import express from 'express';
 import { initPostgresDBConnection } from './utils/dataBaseConnect';
 
