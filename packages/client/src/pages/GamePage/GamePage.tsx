@@ -7,7 +7,9 @@ import Modal from 'components/Modal';
 import EndGame from 'components/EndGame';
 import styled from 'styled-components';
 import { StFlex } from 'styles/global';
-import { useGameContext } from 'contexts/GameContext';
+import ExitMenu from 'components/ExitMenu/ExitMenu';
+import { exitMenuModalStyles } from 'components/Modal/style';
+import StatusBar from 'components/StatusBar/StatusBar';
 
 export const StGameFlex = styled(StFlex)`
   justify-content: center;
@@ -17,29 +19,42 @@ export const StGameFlex = styled(StFlex)`
 `;
 
 export function GamePage() {
+  const [isStart, setStart] = useState(false);
+  const [isFinish, setFinish] = useState(false);
+  const [isPause, setPause] = useState(false);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-  const [gamePlay, setGamePlay] = useState(true);
-  const { changeGameStatus } = useGameContext();
 
   useEffect(() => {
+    setStart(true);
     handleOpenModal();
+
     controller.initGame();
     controller.onFinish(() => {
-      changeGameStatus?.();
+      setFinish(true);
       handleOpenModal();
-      setGamePlay(!gamePlay);
     });
   }, []);
 
   const startGame = (playerNums: number) => {
+    setStart(false);
+    handleCloseModal();
     controller.startGame(playerNums, { name: 'Carl' } as GamePlayerType);
-    changeGameStatus?.();
-    setGamePlay(!gamePlay);
   };
 
   const reactivateGame = () => {
-    changeGameStatus?.();
+    setFinish(false);
+    setStart(true);
   };
+
+  const pauseGame = () => {
+    handleOpenModal();
+    setPause(true);
+  }
+
+  const resumeGame = () => {
+    handleCloseModal();
+    setPause(false);
+  }
 
   const data = {
     time: '05:10',
@@ -50,7 +65,8 @@ export function GamePage() {
 
   return (
     <StGameFlex id="game-page">
-      {gamePlay && isOpen && (
+      <StatusBar isStart={isStart} pauseGame={pauseGame} />
+      {isStart && isOpen && (
         <Modal title="Выбор режима игры">
           <GameSettings
             handleCloseModal={handleCloseModal}
@@ -58,7 +74,15 @@ export function GamePage() {
           />
         </Modal>
       )}
-      {!gamePlay && isOpen && (
+      {isPause && isOpen && (
+        <Modal
+          styles={exitMenuModalStyles}
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside>
+          <ExitMenu resumeGame={resumeGame} />
+        </Modal>
+      )}
+      {isFinish && isOpen && (
         <Modal title="Игра завершена">
           <EndGame
             time={data.time}
