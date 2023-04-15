@@ -11,7 +11,7 @@ import ProfilePage from 'pages/ProfilePage';
 import { ThemeContextProvider } from 'contexts/ThemeContext';
 import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
-import { GamePage } from 'pages/GamePage/Game';
+import { GamePage } from 'pages/GamePage/GamePage';
 
 function App() {
   useEffect(() => {
