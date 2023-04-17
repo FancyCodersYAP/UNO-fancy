@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
-import medalIcon from 'assets/icons/medal.svg';
+import medalIcon from '/assets/icons/medal.svg';
 import { StTextContainerWithShadow, StFlex, StFlexBg } from 'styles/global';
 
 interface EndGameType {
@@ -9,19 +9,16 @@ interface EndGameType {
   countPlace: number;
   points: number;
   result: number;
+  reactivateGame: () => void;
 }
 
 const EndGame = (props: EndGameType) => {
-  const { time, countPlace, points, result } = props;
+  const { time, countPlace, points, result, reactivateGame } = props;
 
   const navigate = useNavigate();
 
   const navigateToMain = () => {
     navigate(AppRoute.MAIN);
-  };
-
-  const navigateToGame = () => {
-    navigate(AppRoute.GAME);
   };
 
   return (
@@ -68,7 +65,7 @@ const EndGame = (props: EndGameType) => {
           disignType="primary"
         />
         <Button
-          onClick={navigateToGame}
+          onClick={reactivateGame}
           text="Сыграть снова"
           disignType="alternate"
         />

@@ -1,26 +1,36 @@
+type testAnswerType = {
+  asking_id: number;
+};
+
 type testTopicDiscussionType = {
+  id: number;
   author: string;
   rank: string;
-  answer?: boolean;
+  answer?: testAnswerType;
   messages: string;
   date: string;
 };
 
 export const testTopicDiscussionData: testTopicDiscussionType[] = [
   {
+    id: 1,
     author: 'Иван',
     rank: 'заядлый игрок',
     messages: 'Алексей, может напишешь сам нам пару стратегий для начала :)',
     date: '25.03.2023',
   },
   {
+    id: 2,
     author: 'Иван',
     rank: 'заядлый игрок',
-    answer: true,
+    answer: {
+      asking_id: 1,
+    },
     messages: 'Алексей, может напишешь сам нам пару стратегий для начала :)',
     date: '25.03.2023',
   },
   {
+    id: 3,
     author: 'Иван',
     rank: 'заядлый игрок',
     messages:
@@ -28,12 +38,14 @@ export const testTopicDiscussionData: testTopicDiscussionType[] = [
     date: '25.03.2023',
   },
   {
+    id: 4,
     author: 'Иван',
     rank: 'заядлый игрок',
     messages: 'Алексей, может напишешь сам нам пару стратегий для начала :)',
     date: '25.03.2023',
   },
   {
+    id: 5,
     author: 'Иван',
     rank: 'заядлый игрок',
     messages: 'Алексей, может напишешь сам нам пару стратегий для начала :)',

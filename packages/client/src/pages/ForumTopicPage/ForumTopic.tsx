@@ -1,10 +1,10 @@
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import Button from 'components/Button/Button';
 import TopicMessage from './TopicMessage';
-import { testTopicData } from 'assets/data/testTopicData';
-import { testTopicDiscussionData } from 'assets/data/testTopicDiscussionData';
+import { testTopicData } from 'data/testTopicData';
+import { testTopicDiscussionData } from 'data/testTopicDiscussionData';
 import { css } from 'styled-components';
-import EmptyAvatar from 'assets/img/empty-avatar.png';
+import EmptyAvatar from '/assets/icons/default-avatar.svg';
 import {
   StTopic,
   StUser,
@@ -18,7 +18,7 @@ import {
   StTopicDate,
   StTopicDiscussion,
 } from './style';
-import useModal from 'utils/useModal';
+import useModal from 'hooks/useModal';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -52,10 +52,9 @@ const ForumTopic = () => {
       </StTopic>
 
       <StTopicDiscussion>
-        {testTopicDiscussionData.map((message, index) => (
+        {testTopicDiscussionData.map(message => (
           <TopicMessage
-            key={index + 1}
-            id={index}
+            key={message.id}
             {...message}
             onClick={handleOpenModal}
           />

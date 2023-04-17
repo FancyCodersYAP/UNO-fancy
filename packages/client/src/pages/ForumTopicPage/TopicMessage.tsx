@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { StButtonReply } from 'components/Button/style';
-import EmptyAvatar from 'assets/img/empty-avatar.png';
+import EmptyAvatar from '/assets/icons/default-avatar.svg';
 import {
   StUser,
   StUserInfo,
@@ -13,12 +13,16 @@ import {
   StMessageText,
 } from './style';
 
+type AnswerType = {
+  asking_id: number;
+};
+
 interface TopicMessageType {
   id: number;
   avatar?: string;
   author: string;
   rank: string;
-  answer?: boolean;
+  answer?: AnswerType;
   messages: string;
   date: string;
   onClick?: () => void;
