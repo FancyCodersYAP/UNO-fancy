@@ -81,7 +81,7 @@ export const moveCard = (
   const animtaionLayer = createAnimationCanvas(
     animtaionCanvasWidth,
     animtaionCanvasHeight,
-    1000
+    30
   );
   const context = animtaionLayer.getContext('2d') as CanvasRenderingContext2D;
 

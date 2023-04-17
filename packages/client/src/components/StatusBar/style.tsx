@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { StButton } from 'components/Button/style';
 import * as COLORS from 'styles/variables/colors-const';
+import { COLOR_ELEMENT_ALTERNATE } from 'styles/variables/colors-theme-light';
 
 export const StStatusBar = styled.div`
   position: absolute;
@@ -27,19 +28,13 @@ export const StButtonStatusBar = styled(StButton)`
     transition: all 0.3s ease-in-out;
   }
   &:hover svg {
-    fill: ${COLORS.COLOR_ELEMENT_MAIN};
+    fill: ${COLOR_ELEMENT_ALTERNATE};
   }
   &: last-child {
     margin-right: 0;
   }
 `;
 
-export const StStatusBarTime = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  text-align: right;
-  line-height: 1.5;
-  letter-spacing: 1px;
-  padding: 5px;
-  color: ${COLORS.COLOR_ELEMENT_CONTRAST};
+export const ButtonStatusBarActive = css`
+  fill: ${COLOR_ELEMENT_ALTERNATE};
 `;

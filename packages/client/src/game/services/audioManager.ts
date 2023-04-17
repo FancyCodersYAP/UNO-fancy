@@ -75,6 +75,12 @@ export const audioManager = () => {
     }
   };
 
+  const stopAudio = () => {
+    audioList['background'].pause();
+    const list: AudioListType = {};
+    setAudioList(list);
+  };
+
   return {
     audioList,
     audioMute,
@@ -83,5 +89,6 @@ export const audioManager = () => {
     onPlay,
     switchSoundMode,
     toggleAudioPause,
+    stopAudio,
   };
 };
