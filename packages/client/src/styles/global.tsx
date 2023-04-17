@@ -157,7 +157,7 @@ export const customScrollbar = css`
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #f5b945;
+    background-color: ${props => props.theme?.BACKGROUND_COLOR_SCROLLBAR};
     border-radius: 10px;
   }
 

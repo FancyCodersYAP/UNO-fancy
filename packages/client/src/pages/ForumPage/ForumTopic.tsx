@@ -1,5 +1,10 @@
 import stringReduction from 'utils/stringReduction';
-import { StTableTopic, StTableCell } from './style';
+import {
+  StTableTopic,
+  StTableCell,
+  StDeleteTopicButton,
+  StDeleteTopicIcon,
+} from './style';
 import { css } from 'styled-components';
 
 interface ForumTopicType {
@@ -24,8 +29,18 @@ const fontStyle = css`
   line-height: 130%;
 `;
 
-const cursourPointer = css`
-  ${textAlignLeft}
+const hoverStyle = css`
+  button {
+    cursor: pointer;
+  }
+
+  svg {
+    opacity: 0.5;
+  }
+
+  svg:hover {
+    opacity: 1;
+  }
 `;
 
 const ForumTopic = ({
@@ -40,8 +55,14 @@ const ForumTopic = ({
 
   return (
     <StTableTopic data-topic={id}>
-      <StTableCell>{id}</StTableCell>
-      <StTableCell css={cursourPointer}>{topic}</StTableCell>
+      <StTableCell css={hoverStyle}>
+        <StDeleteTopicButton>
+          <StDeleteTopicIcon>
+            <use href="/assets/icons/icons_sprite.svg#icon-basket"></use>
+          </StDeleteTopicIcon>
+        </StDeleteTopicButton>
+      </StTableCell>
+      <StTableCell css={textAlignLeft}>{topic}</StTableCell>
       <StTableCell>{total_messages}</StTableCell>
       <StTableCell>{author}</StTableCell>
       <StTableCell css={fontStyle}>{last_message}</StTableCell>

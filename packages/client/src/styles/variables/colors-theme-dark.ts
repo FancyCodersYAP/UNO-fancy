@@ -14,6 +14,7 @@ export const COLOR_TABLE_TEXT_PRIMARY = '#ffffff';
 export const BACKGROUND_COLOR_FORUM_PRIMARY = 'rgba(65, 57, 37, 0.9)';
 export const BACKGROUND_COLOR_FORUM_SECONDARY = '#44493f';
 export const BACKGROUND_COLOR_BUTTON = '#12665c';
+export const BACKGROUND_COLOR_SCROLLBAR = '#7b5d23';
 
 export const name = 'dark';
 

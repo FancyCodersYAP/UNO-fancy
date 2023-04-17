@@ -25,14 +25,22 @@ const ForumPage = () => {
 
   const navigate = useNavigate();
 
-  const navigateToTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
+  const interactionWithTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
+
+    const basket = target.closest('button');
+
+    if (basket) {
+      const topic = basket.closest('article');
+      const topicId = topic?.dataset.topic;
+      console.log('Удаленная тема: ' + topicId);
+      return;
+    }
+
     const topic = target.closest('article');
     const topicId = topic?.dataset.topic;
-
     // временный код
     console.log('Выбранная тема: ' + topicId);
-
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
 
@@ -55,11 +63,9 @@ const ForumPage = () => {
           <p>последнее сообщение</p>
         </StHead>
 
-        <StBody onClick={navigateToTopic}>
+        <StBody onClick={interactionWithTopic}>
           {isArrayAndHasItems(testForumData) ? (
-            testForumData.map((topic, index) => (
-              <ForumTopic key={index + 1} {...topic} />
-            ))
+            testForumData.map(topic => <ForumTopic key={topic.id} {...topic} />)
           ) : (
             <StEmptyTable>Форум пока пуст</StEmptyTable>
           )}
