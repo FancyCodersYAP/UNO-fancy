@@ -105,7 +105,7 @@ export const StTopicDiscussion = styled.div`
   ${customScrollbar}
   overflow-y: auto;
   background: ${BACKGROUND_COLOR_OPACITY_LIGHT};
-  border-radius: ${BORDER_RADIUS_SIZE} 0 0 ${BORDER_RADIUS_SIZE};
+  border-radius: ${BORDER_RADIUS_SIZE} 10px 10px ${BORDER_RADIUS_SIZE};
   padding: 10px;
   margin-bottom: 28px;
   max-height: 400px;  

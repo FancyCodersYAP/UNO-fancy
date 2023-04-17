@@ -1,6 +1,6 @@
 import Button from 'components/Button/Button';
 import Card from 'components/Card/Card';
-import useCarousel from 'utils/useCarousel';
+import useCarousel from 'hooks/useCarousel';
 import RulesInfo from './RulesInfo';
 import { css } from 'styled-components';
 import {
@@ -9,7 +9,7 @@ import {
   StCarouselBox,
   width100Percent,
 } from 'styles/global';
-import { cardsWithRules } from 'assets/data/cardsWithRules';
+import { cardsWithRules } from '../../data/cardsWithRules';
 
 const TOTAL_SLIDES = 2;
 
@@ -40,7 +40,7 @@ const Rules = () => {
   const { ref, goNext, goPrev } = useCarousel(TOTAL_SLIDES);
 
   const iconMoreButton = {
-    url: 'src/assets/icons/icons_sprite.svg#icon-arrow',
+    url: '/assets/icons/icons_sprite.svg#icon-arrow',
     width: 14,
     height: 23,
   };
