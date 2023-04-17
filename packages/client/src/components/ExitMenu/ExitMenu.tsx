@@ -4,10 +4,10 @@ import Button from 'components/Button';
 import { StFlex } from 'styles/global';
 
 interface ExitMenuType {
-  handleCloseModal: () => void;
+  resumeGame: () => void;
 }
 
-const ExitMenu = ({ handleCloseModal }: ExitMenuType) => {
+const ExitMenu = ({ resumeGame }: ExitMenuType) => {
   const navigate = useNavigate();
 
   const navigateToMain = () => {
@@ -16,7 +16,7 @@ const ExitMenu = ({ handleCloseModal }: ExitMenuType) => {
 
   return (
     <StFlex>
-      <Button onClick={handleCloseModal} text="Играть" disignType="primary" />
+      <Button onClick={resumeGame} text="Играть" disignType="primary" />
       <Button onClick={navigateToMain} text="Выход" disignType="alternate" />
     </StFlex>
   );

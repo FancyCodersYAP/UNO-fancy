@@ -6,14 +6,17 @@ import {
 } from './style';
 import { CloseSvg, FullScreenSvg, FullScreenExitSvg } from './statusBarSVG';
 import { useState } from 'react';
-import { useGameContext } from 'contexts/GameContext';
 
-const StatusBar = () => {
+type StatusBarProps = {
+  isStart: boolean;
+  pauseGame: () => void;
+}
+
+const StatusBar = ({isStart, pauseGame}: StatusBarProps) => {
   const [fullScreen, setFullScreen] = useState(false);
-  const { isGame } = useGameContext();
 
   const exitGameClick = () => {
-    // TODO: при клике вызывать модальное окно
+    pauseGame();
   };
 
   const toggleFullScreen = () => {
@@ -32,13 +35,13 @@ const StatusBar = () => {
         <StButtonStatusBar onClick={toggleFullScreen}>
           {fullScreen ? <FullScreenExitSvg /> : <FullScreenSvg />}
         </StButtonStatusBar>
-        {isGame && (
+        {!isStart && (
           <StButtonStatusBar onClick={exitGameClick}>
             <CloseSvg />
           </StButtonStatusBar>
         )}
       </StStatusBarButtons>
-      {isGame && (
+      {!isStart && (
         <StStatusBarTime>
           0:12:34
           {/* TODO: Написать функцию для счётчика времени, пока заглушка */}
