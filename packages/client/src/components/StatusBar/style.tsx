@@ -7,7 +7,7 @@ export const StStatusBar = styled.div`
   top: 0;
   right: 0;
   padding: 5px;
-  z-index: 2;
+  z-index: 120;
 `;
 
 export const StStatusBarButtons = styled.div`
