@@ -20,7 +20,7 @@ export const LAYER_STYLES = {
 export const NAME_STYLES = {
   SIZE: `${Math.floor(BASE_HEIGHT_CARD / 8)}px`,
   FONT_FAMILY: GAME_STYLES.FONT_FAMILY_MAIN,
-  COLOR: GAME_STYLES.FONT_COLOR_MAIN,
+  COLOR: '#ffffff80',
   FONT_WEIGHT: '600',
 };
 

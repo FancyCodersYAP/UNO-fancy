@@ -8,7 +8,7 @@ interface EndGameType {
   time: string;
   countPlace: number;
   points: number;
-  result: number;
+  result: string;
   reactivateGame: () => void;
 }
 
@@ -53,7 +53,7 @@ const EndGame = (props: EndGameType) => {
             fontWeight={500}
             fontSize={25}
             lineHeight={24}>
-            результат: {result}-е место
+            результат: {result}
           </StTextContainerWithShadow>
         </div>
       </StFlexBg>

@@ -29,7 +29,12 @@ class Controller {
     this.game.unoClick();
   }
 
-  onFinish(callback: () => void) {
+  onMove(callback: () => void) {
+    this.game.on('card move', callback);
+    return () => this.game.off('card move', callback);
+  }
+
+  onFinish(callback: (points: number) => void) {
     this.game.on('finish', callback);
     return () => this.game.off('finish', callback);
   }

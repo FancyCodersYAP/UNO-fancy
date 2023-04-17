@@ -11,6 +11,8 @@ import ExitMenu from 'components/ExitMenu/ExitMenu';
 import { exitMenuModalStyles } from 'components/Modal/style';
 import StatusBar from 'components/StatusBar/StatusBar';
 import { audioManager } from 'game/services/audioManager';
+import useTimer from 'hooks/useTimer';
+import formatTime from 'utils/formatTime';
 
 export const StGameFlex = styled(StFlex)`
   justify-content: center;
@@ -23,27 +25,48 @@ export function GamePage() {
   const [isStart, setStart] = useState(false);
   const [isFinish, setFinish] = useState(false);
   const [isPause, setPause] = useState(false);
+  const [points, setPoints] = useState(0);
+  const [countPlayers, setCountPlayers] = useState(0);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-  const { audioMute, switchSoundMode, addSound, onPlay, toggleAudioPause } =
-    audioManager();
+  const {
+    audioMute,
+    switchSoundMode,
+    addSound,
+    onPlay,
+    toggleAudioPause,
+    stopAudio,
+  } = audioManager();
+  const { timer, handleStart, handlePause, handleResume, handleReset } =
+    useTimer();
 
   useEffect(() => {
     setStart(true);
     handleOpenModal();
 
     controller.initGame();
-    controller.onFinish(() => {
+
+    controller.onMove(() => {
+      onPlay?.('movement');
+    });
+
+    controller.onFinish((points: number) => {
       setFinish(true);
+      stopAudio();
       handleOpenModal();
+      setPoints(points);
+      handlePause();
     });
   }, []);
 
   const startGame = (playerNums: number) => {
+    handleReset();
     setStart(false);
     handleCloseModal();
     controller.startGame(playerNums, { name: 'Carl' } as GamePlayerType);
     addSound?.('background');
     addSound?.('movement');
+    handleStart();
+    setCountPlayers(playerNums);
   };
 
   const reactivateGame = () => {
@@ -52,36 +75,39 @@ export function GamePage() {
   };
 
   const pauseGame = () => {
-    handleOpenModal();
-    setPause(true);
+    setPause(!isPause);
     toggleAudioPause();
+    if (!isPause) {
+      handlePause();
+    } else {
+      handleResume();
+    }
+  };
+
+  const exitGame = () => {
+    pauseGame();
+    handleOpenModal();
   };
 
   const resumeGame = () => {
     handleCloseModal();
     setPause(false);
+    toggleAudioPause();
+    handleResume();
   };
 
-  const data = {
-    time: '05:10',
-    countPlace: 4,
-    points: 100,
-    result: 1,
-  };
-
-  /* После мёрджа с игрой звук будет срабатывать на перемещении карты */
-  const playMovementSound = () => {
-    if (onPlay) onPlay('movement');
-  };
+  const isGameOn = !isStart && !isFinish;
 
   return (
-    <StGameFlex id="game-page" onClick={playMovementSound}>
+    <StGameFlex id="game-page">
       <StatusBar
-        isStart={isStart}
+        isGameOn={isGameOn}
+        isPause={isPause}
+        timer={timer}
         pauseGame={pauseGame}
+        exitGame={exitGame}
         audioMute={audioMute}
         switchSoundMode={switchSoundMode}
-        toggleAudioPause={toggleAudioPause}
       />
       {isStart && isOpen && (
         <Modal title="Выбор режима игры">
@@ -94,7 +120,7 @@ export function GamePage() {
       {isPause && isOpen && (
         <Modal
           styles={exitMenuModalStyles}
-          handleCloseModal={handleCloseModal}
+          handleCloseModal={resumeGame}
           canBeClosedOutside>
           <ExitMenu resumeGame={resumeGame} />
         </Modal>
@@ -102,10 +128,10 @@ export function GamePage() {
       {isFinish && isOpen && (
         <Modal title="Игра завершена">
           <EndGame
-            time={data.time}
-            countPlace={data.countPlace}
-            points={data.points}
-            result={data.result}
+            time={formatTime(timer).toString()}
+            countPlace={countPlayers}
+            points={points}
+            result={points ? 'Победа' : 'Проигрыш'}
             reactivateGame={reactivateGame}
           />
         </Modal>

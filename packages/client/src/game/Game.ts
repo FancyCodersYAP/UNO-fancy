@@ -24,6 +24,7 @@ import {
 } from './types';
 import { HandEntity, TableEntity } from './entities';
 import { EventBus } from './utils/EventBus';
+import { countPoints } from './utils/countPoints';
 
 export class Game extends EventBus {
   private activePlayerId = -1;
@@ -61,7 +62,7 @@ export class Game extends EventBus {
         START_NUM_CARDS_IN_HAND
       );
       this.handEntities[entityName].create(zIndex);
-      this.handEntities[entityName].addCards(cards);
+      this.handEntities[entityName].addCards(cards, this.emitMoveEvent);
 
       zIndex -= 1;
     }
@@ -190,6 +191,7 @@ export class Game extends EventBus {
     const activePlayerLayer = this.getActivePlayer();
 
     activePlayerLayer.removeCard(movedCard);
+    this.emitMoveEvent();
     this.table.addUpcard(movedCard);
 
     /* Если у активного игрока не осталось карт на руке, завершаем игру */
@@ -284,7 +286,7 @@ export class Game extends EventBus {
     const cards = this.table.giveCards(countCards);
     const activePlayer = this.getActivePlayer();
 
-    activePlayer.addCards(cards);
+    activePlayer.addCards(cards, this.emitMoveEvent);
 
     if (countCards !== 1) {
       return;
@@ -385,8 +387,22 @@ export class Game extends EventBus {
       elements.push(this.handEntities[layer].getLayer());
     }
     clearGamePage(elements);
+
+    const points = this.players[this.activePlayerId].isBot
+      ? 0
+      : this.countPoints();
     /* Вызов события завершения игры */
-    this.emit('finish');
+    this.emit('finish', points);
+  }
+
+  countPoints() {
+    let points = 0;
+    for (const entity in this.handEntities) {
+      const cards = this.handEntities[entity].getCards();
+      points += countPoints(cards);
+    }
+
+    return points;
   }
 
   /* Генерация клика по кнопке UNO */
@@ -394,5 +410,9 @@ export class Game extends EventBus {
     if (this.getActivePlayer().getCards().length === 1) {
       this.emit('click uno');
     }
+  }
+
+  emitMoveEvent() {
+    this.emit('card move');
   }
 }
