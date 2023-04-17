@@ -13,18 +13,23 @@ import {
   SoundOffSvg,
   PauseSVG,
 } from './statusBarSVG';
-import { useGameContext } from 'contexts/GameContext';
 
-const StatusBar = () => {
+type StatusBarProps = {
+  isStart: boolean;
+  pauseGame: () => void;
+  audioMute: boolean;
+  switchSoundMode: () => void;
+  toggleAudioPause: () => void;
+};
+
+const StatusBar = ({
+  isStart,
+  pauseGame,
+  audioMute,
+  switchSoundMode,
+  toggleAudioPause,
+}: StatusBarProps) => {
   const [fullScreen, setFullScreen] = useState(false);
-  const { isGame, switchSoundMode, audioMute, toggleAudioPause } =
-    useGameContext();
-
-  const toggleSound = () => {
-    if (switchSoundMode) {
-      switchSoundMode();
-    }
-  };
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -36,19 +41,15 @@ const StatusBar = () => {
     }
   };
 
-  const exitGameClick = () => {
-    // TODO: при клике вызывать модальное окно
-  };
-
   return (
     <StStatusBar>
       <StStatusBarButtons>
-        {isGame && (
-          <StButtonStatusBar onClick={toggleSound}>
+        {!isStart && (
+          <StButtonStatusBar onClick={switchSoundMode}>
             {!audioMute ? <SoundLoudSvg /> : <SoundOffSvg />}
           </StButtonStatusBar>
         )}
-        {isGame && (
+        {!isStart && (
           <StButtonStatusBar onClick={toggleAudioPause}>
             <PauseSVG />
           </StButtonStatusBar>
@@ -56,13 +57,13 @@ const StatusBar = () => {
         <StButtonStatusBar onClick={toggleFullScreen}>
           {fullScreen ? <FullScreenExitSvg /> : <FullScreenSvg />}
         </StButtonStatusBar>
-        {isGame && (
-          <StButtonStatusBar onClick={exitGameClick}>
+        {!isStart && (
+          <StButtonStatusBar onClick={pauseGame}>
             <CloseSvg />
           </StButtonStatusBar>
         )}
       </StStatusBarButtons>
-      {isGame && (
+      {!isStart && (
         <StStatusBarTime>
           0:12:34
           {/* TODO: Написать функцию для счётчика времени, пока заглушка */}
