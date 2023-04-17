@@ -3,16 +3,18 @@ import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
 import medalIcon from '/assets/icons/medal.svg';
 import { StTextContainerWithShadow, StFlex, StFlexBg } from 'styles/global';
+import { StEndGameTextWrapper } from './style';
 
 interface EndGameType {
   time: string;
   countPlace: number;
   points: number;
   result: number;
+  reactivateGame: () => void;
 }
 
 const EndGame = (props: EndGameType) => {
-  const { time, countPlace, points, result } = props;
+  const { time, countPlace, points, result, reactivateGame } = props;
 
   const navigate = useNavigate();
 
@@ -20,20 +22,16 @@ const EndGame = (props: EndGameType) => {
     navigate(AppRoute.MAIN);
   };
 
-  const navigateToGame = () => {
-    navigate(AppRoute.GAME);
-  };
-
   return (
     <>
       <StFlexBg
-        justifyContent="space-between"
+        justifyContent="center"
+        alignItems="center"
         borderRadius={20}
-        columnGap={60}
         padding={25}
         marginBottom={50}>
         <img src={medalIcon} alt="Медаль" width={152} height={216} />
-        <div>
+        <StEndGameTextWrapper>
           <StTextContainerWithShadow
             fontWeight={500}
             fontSize={25}
@@ -58,7 +56,7 @@ const EndGame = (props: EndGameType) => {
             lineHeight={24}>
             результат: {result}-е место
           </StTextContainerWithShadow>
-        </div>
+        </StEndGameTextWrapper>
       </StFlexBg>
 
       <StFlex>
@@ -68,7 +66,7 @@ const EndGame = (props: EndGameType) => {
           disignType="primary"
         />
         <Button
-          onClick={navigateToGame}
+          onClick={reactivateGame}
           text="Сыграть снова"
           disignType="alternate"
         />

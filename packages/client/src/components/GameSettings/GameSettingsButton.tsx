@@ -3,6 +3,7 @@ import { StTextContainer, StFlex } from 'styles/global';
 import styled from 'styled-components';
 import { StButton } from 'components/Button/style';
 import { ButtonProps } from 'components/Button/Button';
+import { changeNumberToString } from 'utils/changeNumberToString';
 
 type GameSettingsButtonType = {
   value: number;
@@ -14,6 +15,7 @@ const StGameSettingsButton = styled(StButton)`
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(2, 1fr);
   padding: 22px;
+  margin-bottom: 20px;
 `;
 
 const GameSettingsButton = ({
@@ -37,7 +39,9 @@ const GameSettingsButton = ({
           </StGameSettingsButtonSvg>
         ))}
       </StGameSettingsButton>
-      <StTextContainer textAlign="center">{value} игрока</StTextContainer>
+      <StTextContainer textAlign="center">
+        {changeNumberToString(value)} игрока
+      </StTextContainer>
     </StFlex>
   );
 };

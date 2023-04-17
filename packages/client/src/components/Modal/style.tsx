@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as COLORS from 'styles/variables/colors-const';
 import { ModalProps } from 'styles/variables/types';
 
@@ -9,7 +9,7 @@ export const StModal = styled.section`
   height: 100%;
   width: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
 `;
 
 export const StModalWrapper = styled.div<ModalProps>`
@@ -19,11 +19,8 @@ export const StModalWrapper = styled.div<ModalProps>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: ${props =>
-      props.verticalPaddings ? `${props.verticalPaddings}px` : '55px'}
-    ${props =>
-      props.horizontalPaddings ? `${props.horizontalPaddings}px` : '65px'};
-  width: ${props => (props.width ? `${props.width}px` : '766px')};
+  padding: 55px 65px;
+  width: 766px;
 `;
 
 export const StModalTitle = styled.h3`
@@ -37,4 +34,9 @@ export const StModalTitle = styled.h3`
 export const StModalCloseIcon = styled.svg`
   width: 36px;
   height: 36px;
+`;
+
+export const exitMenuModalStyles = css`
+  width: 430px;
+  padding: 46px 50px;
 `;

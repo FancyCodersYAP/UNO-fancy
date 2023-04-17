@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components';
-import { BACKGROUND_COLOR_OPACITY_LIGHT } from 'styles/variables/colors-const';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
+import { customScrollbar } from 'styles/global';
 
 export const stBoardStyle = css`
   overflow: inherit;
@@ -23,13 +23,23 @@ export const StNewTopicIcon = styled.svg`
   height: 14px;
 `;
 
+export const StDeleteTopicButton = styled.button`
+  background-color: inherit;
+  border-radius: none;
+  border: none;
+`;
+
+export const StDeleteTopicIcon = styled.svg`
+  width: 20px;
+  height: 26px;
+`;
+
 export const StTable = styled.div`
   min-width: 1000px;
 
   border-radius: ${BORDER_RADIUS_SIZE};
   overflow: hidden;
 
-  line-height: 130%;
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
   text-align: center;
 `;
@@ -50,6 +60,13 @@ export const StHead = styled.div`
   }
 `;
 
+export const StBody = styled.div`
+  ${customScrollbar}
+  overflow-y: auto;
+  max-height: 380px;
+`;
+
+
 export const StTableCell = styled.div`
   ${tableCellStyle}
   
@@ -57,10 +74,8 @@ export const StTableCell = styled.div`
   padding: 5px 12px;
   min-height: 68px;
   background-color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_SECONDARY};
-  border: 1px solid ${BACKGROUND_COLOR_OPACITY_LIGHT};
+  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_SCROLLBAR};
 `;
-
-export const StBody = styled.div``;
 
 export const StTableTopic = styled.article`
   ${gridTemplateColumnsStyle}
