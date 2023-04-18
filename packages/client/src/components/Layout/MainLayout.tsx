@@ -46,8 +46,6 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
       window.history.pushState({}, '', REDIRECT_URL);
 
       dispatch(fetchOauthCodePost(oauthCode));
-    } else {
-      dispatch(fetchAuthUserGet());
     }
   }, []);
 

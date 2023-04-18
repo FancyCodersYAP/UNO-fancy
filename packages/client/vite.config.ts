@@ -20,7 +20,7 @@ export default defineConfig({
           [
             'babel-plugin-styled-components',
             {
-              ssr: false,
+              ssr: true,
               displayName: true,
               fileName: false,
             },
