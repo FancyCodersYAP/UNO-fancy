@@ -1,5 +1,5 @@
-export const CANVAS_WIDTH = window.innerWidth;
-export const CANVAS_HEIGHT = window.innerHeight;
+export const CANVAS_WIDTH = 1000; //ReferenceError: window is not defined (убрал из-за этой ошибки)
+export const CANVAS_HEIGHT = 1000; //Получать window нужно после того как компонент отмонтируется
 
 export const BASE_WIDTH_CARD =
   CANVAS_WIDTH <= CANVAS_HEIGHT ? CANVAS_WIDTH / 10 : CANVAS_HEIGHT / 7;
