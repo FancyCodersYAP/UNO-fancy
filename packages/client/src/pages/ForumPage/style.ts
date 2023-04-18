@@ -32,6 +32,7 @@ export const StDeleteTopicButton = styled.button`
 export const StDeleteTopicIcon = styled.svg`
   width: 20px;
   height: 26px;
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
 `;
 
 export const StTable = styled.div`
@@ -74,7 +75,7 @@ export const StTableCell = styled.div`
   padding: 5px 12px;
   min-height: 68px;
   background-color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_SECONDARY};
-  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_SCROLLBAR};
+  border: 1px solid ${props => props.theme?.COLOR_PREVIEW_PRIMARY};
 `;
 
 export const StTableTopic = styled.article`
