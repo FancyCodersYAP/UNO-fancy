@@ -45,7 +45,6 @@ const userSlice = createSlice({
         fetchAuthUserGet.rejected,
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
-
           if ('reason' in action.payload) {
             state.user = null;
           } else {

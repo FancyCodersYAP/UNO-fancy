@@ -6,6 +6,7 @@ export class YandexAPIRepository {
   constructor(private _cookieHeader: string | undefined) {}
 
   async getCurrent(): Promise<any> {
+    console.log('Запрос с сервера');
     const { data } = await axios.get(`${API_ROOT}/auth/user`, {
       headers: {
         cookie: this._cookieHeader,
