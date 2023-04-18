@@ -29,7 +29,7 @@ export const BUTTON_AND_BOX_STYLES = {
   WIDTH: '70px',
   POSITION: 'absolute',
   BORDER_RADIUS: '5px',
-  Z_INDEX: '10',
+  Z_INDEX: '31',
 };
 
 export const UNO_BUTTON_STYLES = {

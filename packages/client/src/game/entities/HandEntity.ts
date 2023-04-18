@@ -55,9 +55,9 @@ export class HandEntity extends Entity<HandEntityTypes> {
           this.entityName,
           'fromTable',
           this.width,
-          this.height
+          this.height,
+          playSound
         );
-        playSound();
       }, timer);
 
       setTimeout(() => {
@@ -91,12 +91,19 @@ export class HandEntity extends Entity<HandEntityTypes> {
     }
   }
 
-  removeCard(card: CardType) {
+  removeCard(card: CardType, playSound: () => void) {
     this.cards = this.cards.filter(c => c.id !== card.id);
 
     const direction = this.player && this.player.isBot ? 'fromBot' : 'fromUser';
-    moveCard(card, this.entityName, direction, this.width, this.height);
-
+    moveCard(
+      card,
+      this.entityName,
+      direction,
+      this.width,
+      this.height,
+      playSound
+    );
+    playSound();
     this.clear();
     this.redrawHand();
   }
