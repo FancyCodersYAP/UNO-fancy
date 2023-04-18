@@ -19,7 +19,7 @@ export const fetchAuthUserGet = createAsyncThunk(
 
       // return response.data;
       const service: IUserService = thunkAPI.extra as IUserService;
-      return service.getCurrentUser();
+      return await service.getCurrentUser();
     } catch (error) {
       return thunkAPI.rejectWithValue(
         errorMessage(error, 'Не удалось загрузить пользователя')
