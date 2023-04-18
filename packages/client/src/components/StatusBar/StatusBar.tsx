@@ -50,8 +50,10 @@ const StatusBar = ({
     <StStatusBar>
       <StStatusBarButtons>
         {isGameOn && !isPause && (
-          <StButtonStatusBar onClick={switchSoundMode}>
-            {!audioMute ? <SoundLoudSvg /> : <SoundOffSvg />}
+          <StButtonStatusBar
+            onClick={switchSoundMode}
+            css={audioMute ? ButtonStatusBarActive : ''}>
+            {audioMute ? <SoundOffSvg /> : <SoundLoudSvg />}
           </StButtonStatusBar>
         )}
         {isGameOn && (
@@ -61,7 +63,9 @@ const StatusBar = ({
             <PauseSVG />
           </StButtonStatusBar>
         )}
-        <StButtonStatusBar onClick={toggleFullScreen}>
+        <StButtonStatusBar
+          onClick={toggleFullScreen}
+          css={fullScreen ? ButtonStatusBarActive : ''}>
           {fullScreen ? <FullScreenExitSvg /> : <FullScreenSvg />}
         </StButtonStatusBar>
         {isGameOn && !isPause && (

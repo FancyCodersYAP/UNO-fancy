@@ -62,7 +62,9 @@ export class Game extends EventBus {
         START_NUM_CARDS_IN_HAND
       );
       this.handEntities[entityName].create(zIndex);
-      this.handEntities[entityName].addCards(cards, this.emitMoveEvent);
+      this.handEntities[entityName].addCards(cards, () => {
+        this.emit('card move');
+      });
 
       zIndex -= 1;
     }
@@ -74,7 +76,9 @@ export class Game extends EventBus {
     }
     /* Открываем карту после раздачи всех карт игрокам */
     setTimeout(() => {
-      this.table.addUpcard(lastCard);
+      this.table.addUpcard(lastCard, () => {
+        this.emit('card move');
+      });
     }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
 
     if (lastCard.action) {
@@ -190,8 +194,9 @@ export class Game extends EventBus {
   async discardCard(movedCard: CardType) {
     const activePlayerLayer = this.getActivePlayer();
 
-    activePlayerLayer.removeCard(movedCard);
-    this.emitMoveEvent();
+    activePlayerLayer.removeCard(movedCard, () => {
+      this.emit('card move');
+    });
     this.table.addUpcard(movedCard);
 
     /* Если у активного игрока не осталось карт на руке, завершаем игру */
@@ -207,6 +212,7 @@ export class Game extends EventBus {
     if (activePlayerLayer.getCards().length === 1) {
       /* Боту кликать не нужно */
       if (this.players[this.activePlayerId].isBot) {
+        this.unoClick();
         console.log('У бота осталась одна карта');
       } else {
         /* Проверяем, что "живой" игрок сделал клик */
@@ -286,7 +292,9 @@ export class Game extends EventBus {
     const cards = this.table.giveCards(countCards);
     const activePlayer = this.getActivePlayer();
 
-    activePlayer.addCards(cards, this.emitMoveEvent);
+    activePlayer.addCards(cards, () => {
+      this.emit('card move');
+    });
 
     if (countCards !== 1) {
       return;
@@ -410,9 +418,5 @@ export class Game extends EventBus {
     if (this.getActivePlayer().getCards().length === 1) {
       this.emit('click uno');
     }
-  }
-
-  emitMoveEvent() {
-    this.emit('card move');
   }
 }

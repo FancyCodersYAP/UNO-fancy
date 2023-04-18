@@ -7,7 +7,7 @@ export const audioManager = () => {
   const [audioMute, setAudioMute] = useState<boolean>(false);
   const [audioPaused, setAudioPaused] = useState<boolean>(false);
 
-  const playSound = (audio: HTMLAudioElement) => {
+  const play = (audio: HTMLAudioElement) => {
     audio.play().catch((e: Error) => {
       console.error(e.message);
     });
@@ -24,25 +24,21 @@ export const audioManager = () => {
       const list = audioList;
       list[name] = audio;
       setAudioList(list);
-
-      if (SoundList[name].autoplay) {
-        playSound(audio);
-      }
     });
 
     if (SoundList[name].loop) {
       audio.addEventListener('ended', () => {
-        playSound(audio);
+        play(audio);
       });
     }
   };
 
-  const onPlay = (name: SoundNameType) => {
+  const playSound = (name: SoundNameType) => {
     if (Object.keys(audioList).length === 0) return;
 
     if (!audioList[name]) return;
 
-    playSound(audioList[name]);
+    play(audioList[name]);
   };
 
   /* Оставила закомментироованный вариант */
@@ -60,7 +56,7 @@ export const audioManager = () => {
   const toggleAudioPause = () => {
     if (audioPaused) {
       setAudioPaused(false);
-      playSound(audioList['background']);
+      play(audioList['background']);
     } else {
       setAudioPaused(true);
       audioList['background'].pause();
@@ -76,9 +72,12 @@ export const audioManager = () => {
   };
 
   const stopAudio = () => {
-    audioList['background'].pause();
-    const list: AudioListType = {};
-    setAudioList(list);
+    for (const audio in audioList) {
+      audioList[audio].pause();
+    }
+
+    const list = {};
+    setAudioList({ ...list });
   };
 
   return {
@@ -86,7 +85,7 @@ export const audioManager = () => {
     audioMute,
     audioPaused,
     addSound,
-    onPlay,
+    playSound,
     switchSoundMode,
     toggleAudioPause,
     stopAudio,

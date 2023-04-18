@@ -1,5 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { GamePlayerType } from 'game/types';
+import { GamePlayerType, soundNames } from 'game/types';
 import { controller } from '../../game/Controller';
 import GameSettings from 'components/GameSettings';
 import useModal from 'hooks/useModal';
@@ -13,6 +14,10 @@ import StatusBar from 'components/StatusBar/StatusBar';
 import { audioManager } from 'game/services/audioManager';
 import useTimer from 'hooks/useTimer';
 import formatTime from 'utils/formatTime';
+import { userState } from 'hooks/userState';
+import { useAppDispatch } from 'hooks/redux';
+import { fetchAuthUserGet } from '../../store/User/auth/actions';
+import { AppRoute } from 'utils/constants';
 
 export const StGameFlex = styled(StFlex)`
   justify-content: center;
@@ -22,65 +27,79 @@ export const StGameFlex = styled(StFlex)`
 `;
 
 export function GamePage() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const [isStart, setStart] = useState(false);
   const [isFinish, setFinish] = useState(false);
   const [isPause, setPause] = useState(false);
   const [points, setPoints] = useState(0);
   const [countPlayers, setCountPlayers] = useState(0);
+
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const {
     audioMute,
     switchSoundMode,
     addSound,
-    onPlay,
+    playSound,
     toggleAudioPause,
     stopAudio,
   } = audioManager();
-  const { timer, handleStart, handlePause, handleResume, handleReset } =
-    useTimer();
+  const { timer, timerStart, timerPause, timerResume, timerReset } = useTimer();
+  const { isLoading, user } = userState();
 
   useEffect(() => {
+    dispatch(fetchAuthUserGet());
+
+    for (const soundName of soundNames) {
+      addSound?.(soundName);
+    }
+
     setStart(true);
     handleOpenModal();
 
     controller.initGame();
 
     controller.onMove(() => {
-      onPlay?.('movement');
+      playSound?.('movement');
+    });
+
+    controller.onUnoClick(() => {
+      playSound?.('uno');
     });
 
     controller.onFinish((points: number) => {
       setFinish(true);
-      stopAudio();
+      playSound?.('finish');
       handleOpenModal();
       setPoints(points);
-      handlePause();
+      timerPause();
     });
   }, []);
 
-  const startGame = (playerNums: number) => {
-    handleReset();
-    setStart(false);
-    handleCloseModal();
-    controller.startGame(playerNums, { name: 'Carl' } as GamePlayerType);
-    addSound?.('background');
-    addSound?.('movement');
-    handleStart();
-    setCountPlayers(playerNums);
-  };
+  if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
 
-  const reactivateGame = () => {
-    setFinish(false);
-    setStart(true);
+  const startGame = (playerNums: number) => {
+    setStart(false);
+
+    timerReset();
+    playSound('background');
+    setCountPlayers(playerNums);
+    timerStart();
+    controller.startGame(playerNums, {
+      name: user?.first_name,
+    } as GamePlayerType);
+    handleCloseModal();
   };
 
   const pauseGame = () => {
     setPause(!isPause);
     toggleAudioPause();
+
     if (!isPause) {
-      handlePause();
+      timerPause();
     } else {
-      handleResume();
+      timerResume();
     }
   };
 
@@ -90,10 +109,20 @@ export function GamePage() {
   };
 
   const resumeGame = () => {
-    handleCloseModal();
     setPause(false);
+    handleCloseModal();
     toggleAudioPause();
-    handleResume();
+    timerResume();
+  };
+
+  const reactivateGame = () => {
+    setFinish(false);
+    setStart(true);
+  };
+
+  const navigateToMain = () => {
+    stopAudio();
+    navigate(AppRoute.MAIN);
   };
 
   const isGameOn = !isStart && !isFinish;
@@ -122,7 +151,7 @@ export function GamePage() {
           styles={exitMenuModalStyles}
           handleCloseModal={resumeGame}
           canBeClosedOutside>
-          <ExitMenu resumeGame={resumeGame} />
+          <ExitMenu resumeGame={resumeGame} navigateToMain={navigateToMain} />
         </Modal>
       )}
       {isFinish && isOpen && (
@@ -133,6 +162,7 @@ export function GamePage() {
             points={points}
             result={points ? 'Победа' : 'Проигрыш'}
             reactivateGame={reactivateGame}
+            navigateToMain={navigateToMain}
           />
         </Modal>
       )}

@@ -26,12 +26,11 @@ export type CardMovementDirection = 'fromUser' | 'fromBot' | 'fromTable';
 export type PlayerClickPosition = Record<string, number>;
 
 /* Audio types */
-export const soundNames = ['background', 'movement'] as const;
+export const soundNames = ['background', 'movement', 'uno', 'finish'] as const;
 
 export type SoundOptionsType = {
   src: string;
   volume: number;
-  autoplay: boolean;
   loop: boolean;
 };
 export type SoundNameType = typeof soundNames[number];
