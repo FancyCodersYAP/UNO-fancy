@@ -15,7 +15,7 @@ interface ForumTopicType {
   last_message: string;
 }
 
-const MAX_TOPIC_LENGTH = 55;
+const MAX_TOPIC_LENGTH = 30;
 const MAX_LAST_MESSAGE_LENGTH = 60;
 
 const textAlignLeft = css`
@@ -34,11 +34,11 @@ const hoverStyle = css`
     cursor: pointer;
   }
 
-  svg {
+  svg:hover {
     opacity: 0.5;
   }
 
-  svg:hover {
+  svg {
     opacity: 1;
   }
 `;
