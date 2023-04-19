@@ -12,11 +12,12 @@ import NotFoundPage from 'pages/NotFoundPage';
 import { ThemeContextProvider } from 'contexts/ThemeContext';
 import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
+import { GamePage } from 'pages/GamePage/GamePage';
 
 function App() {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`;
+      const url = `http://localhost:${3001}`;
       const response = await fetch(url);
       const data = await response.json();
       console.log(data);
@@ -62,10 +63,7 @@ function App() {
           <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
         </Route>
         <Route element={<GameLayout />}>
-          <Route
-            path={AppRoute.GAME}
-            // element={<GamePage />}
-          />
+          <Route path={AppRoute.GAME} element={<GamePage />} />
         </Route>
       </Routes>
     </ThemeContextProvider>
