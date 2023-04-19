@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from './User/userSlice';
-import { IUser, UserState } from './types';
+import { IUser } from './types';
 
 const rootReducer = combineReducers({
   USER: userSlice,
@@ -8,10 +8,6 @@ const rootReducer = combineReducers({
 
 interface IUserService {
   getCurrentUser(): Promise<IUser>;
-}
-
-export interface StoreState {
-  user: UserState;
 }
 
 export const setupStore = (service: IUserService) => {
