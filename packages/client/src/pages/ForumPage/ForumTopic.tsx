@@ -15,7 +15,7 @@ interface ForumTopicType {
   last_message: string;
 }
 
-const MAX_TOPIC_LENGTH = 30;
+const MAX_TOPIC_LENGTH = 35;
 const MAX_LAST_MESSAGE_LENGTH = 60;
 
 const textAlignLeft = css`
