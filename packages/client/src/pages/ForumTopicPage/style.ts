@@ -2,10 +2,9 @@ import styled, {css} from 'styled-components';
 import { customScrollbar } from 'styles/global';
 import { BACKGROUND_COLOR_OPACITY_LIGHT, COLOR_ELEMENT_CONTRAST_REVERSE } from 'styles/variables/colors-const';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
-
+import { AvatarType } from 'types';
 
 export const stBoardStyle = css`
-  max-height: none;
   overflow: inherit;
   padding: 35px 70px;
   min-width: 880px;
@@ -40,10 +39,14 @@ export const StUser = styled.div`
   border-right: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
 `;
 
-export const StUserAvatar = styled.img`
+export const StUserAvatar = styled.div<AvatarType>`
+  position: relative;
   width: 90px;
   height: 90px;
-  background-color: ${props => props.theme?.BACKGROUND_COLOR_TOPIC_MESSAGE};
+  background: ${({ image }) =>
+    `url(${image || '/assets/icons/default-avatar.svg'}) center no-repeat`};
+  background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
+  background-size: ${({ image }) => (image ? 'cover' : 'auto')};
   border-radius: 50%;
   margin-bottom: 5px;
   border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
@@ -111,7 +114,7 @@ export const StTopicDiscussion = styled.div`
   max-height: 400px;  
 `;
 
-export const StMessage = styled.span`
+export const StMessage = styled.div`
   ${containerStyle}
   grid-template-columns: 134px 1fr;
   min-height: 78px;
@@ -126,6 +129,7 @@ export const StMessageAvatar = styled(StUserAvatar)`
   height: 50px;
   margin-right: 12px;
   margin-bottom: 0;
+  background-size: 20px;
 `;
 
 export const StMessageWrapper = styled.div`
@@ -140,4 +144,13 @@ export const StMessageText = styled.p`
   ${lineHeight130Percent}
   color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
   max-width: 775px;
+`;
+
+export const StAnswer = styled.a`
+  font-size: 13px;
+  color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  border-left: 5px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  padding-left: 5px;
+  margin-bottom: 10px;
+  display: block;
 `;

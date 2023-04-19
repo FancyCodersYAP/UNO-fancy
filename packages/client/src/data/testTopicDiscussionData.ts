@@ -1,5 +1,7 @@
 type testAnswerType = {
   asking_id: number;
+  name: string;
+  message: string;
 };
 
 type testTopicDiscussionType = {
@@ -25,6 +27,8 @@ export const testTopicDiscussionData: testTopicDiscussionType[] = [
     rank: 'заядлый игрок',
     answer: {
       asking_id: 1,
+      name: 'Иван',
+      message: 'Алексей, может напишешь сам нам пару стратегий для начала :)',
     },
     messages: 'Алексей, может напишешь сам нам пару стратегий для начала :)',
     date: '25.03.2023',

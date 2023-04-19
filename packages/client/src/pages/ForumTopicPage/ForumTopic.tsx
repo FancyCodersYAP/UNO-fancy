@@ -33,10 +33,7 @@ const ForumTopic = () => {
 
       <StTopic>
         <StUser>
-          <StUserAvatar
-            src={testTopicData.avatar || EmptyAvatar}
-            alt={testTopicData.author}
-          />
+          <StUserAvatar image={testTopicData.avatar} />
           <StUserInfo>
             <StUserName>{testTopicData.author}</StUserName>
             <StUserRank>{testTopicData.rank}</StUserRank>

@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { StButtonReply } from 'components/Button/style';
-import EmptyAvatar from '/assets/icons/default-avatar.svg';
+import stringReduction from 'utils/stringReduction';
 import {
   StUser,
   StUserInfo,
@@ -11,10 +11,15 @@ import {
   StMessageAvatar,
   StMessageWrapper,
   StMessageText,
+  StAnswer,
 } from './style';
+
+const MAX_ANSWER_LENGTH = 20;
 
 type AnswerType = {
   asking_id: number;
+  name: string;
+  message: string;
 };
 
 interface TopicMessageType {
@@ -28,12 +33,9 @@ interface TopicMessageType {
   onClick?: () => void;
 }
 
-const flexDirectionRow = css`
+const flexStyles = css`
   flex-direction: row;
-`;
-
-const marginLeft = css`
-  margin-left: 20px;
+  align-items: start;
 `;
 
 const TopicMessage = ({
@@ -47,9 +49,9 @@ const TopicMessage = ({
   onClick,
 }: TopicMessageType) => {
   return (
-    <StMessage css={answer ? marginLeft : ''} data-message={id}>
-      <StUser css={flexDirectionRow}>
-        <StMessageAvatar src={avatar || EmptyAvatar} alt={author} />
+    <StMessage id={`${id}`} data-message={id}>
+      <StUser css={flexStyles}>
+        <StMessageAvatar image={avatar} />
         <StUserInfo>
           <StUserName>{author}</StUserName>
           <StUserRank>{rank}</StUserRank>
@@ -57,7 +59,16 @@ const TopicMessage = ({
       </StUser>
 
       <StMessageWrapper>
-        <StMessageText>{messages}</StMessageText>
+        <div>
+          {answer && (
+            <StAnswer href={`#${answer.asking_id}`}>
+              {answer.name}: "
+              {stringReduction(answer.message, MAX_ANSWER_LENGTH)}"
+            </StAnswer>
+          )}
+          <StMessageText>{messages}</StMessageText>
+        </div>
+
         <StButtonReply onClick={onClick} disignType="secondary">
           ответить
         </StButtonReply>
