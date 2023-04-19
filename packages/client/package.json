@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:ssr": "tsc && vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -12,7 +13,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.9.3",
-    "@types/cookie-parser": "^1.4.3",
     "babel-plugin-styled-components": "2.0.7",
     "dotenv": "16.0.2",
     "eslint-config-prettier": "8.5.0",

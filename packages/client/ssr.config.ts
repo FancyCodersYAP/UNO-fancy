@@ -18,28 +18,13 @@ export default defineConfig({
       hooks: path.resolve(__dirname, './src/hooks'),
     },
   },
-  plugins: [
-    react({
-      babel: {
-        plugins: [
-          [
-            'babel-plugin-styled-components',
-            {
-              ssr: true,
-              displayName: true,
-              fileName: false,
-            },
-          ],
-        ],
-      },
-    }),
-  ],
+  plugins: [react()],
   build: {
     outDir: 'ssr-dist',
     ssr: true,
     lib: {
       entry: path.resolve(__dirname, 'ssr.tsx'),
-      name: 'Client',
+      name: 'client',
       formats: ['cjs'],
     },
     rollupOptions: {
