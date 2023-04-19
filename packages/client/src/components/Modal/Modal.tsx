@@ -6,23 +6,24 @@ import {
   StModalCloseIcon,
 } from './style';
 import { StButtonCloseModal } from 'components/Button/style';
+import { CSSProp } from 'styled-components';
 
 interface ModalType {
   children?: ReactNode;
   title?: string;
   handleCloseModal?: () => void;
-  width?: number;
-  verticalPaddings?: number;
-  horizontalPaddings?: number;
+  styles?: CSSProp;
+  canBeClosedOutside?: boolean;
+  hasCrossButton?: boolean;
 }
 
 const Modal = (props: ModalType) => {
   const {
     title,
     handleCloseModal,
-    width,
-    verticalPaddings,
-    horizontalPaddings,
+    canBeClosedOutside,
+    hasCrossButton,
+    styles,
     children,
   } = props;
 
@@ -30,24 +31,20 @@ const Modal = (props: ModalType) => {
     evt.stopPropagation();
   };
 
-  const checkPossibleToClose = () => {
-    if (handleCloseModal) {
-      return handleCloseModal();
+  const closeModalOutside = () => {
+    if (canBeClosedOutside) {
+      return handleCloseModal?.();
     }
   };
 
   return (
-    <StModal onClick={checkPossibleToClose}>
-      <StModalWrapper
-        width={width}
-        verticalPaddings={verticalPaddings}
-        horizontalPaddings={horizontalPaddings}
-        onClick={stopPropagationEvent}>
+    <StModal onClick={closeModalOutside}>
+      <StModalWrapper css={styles} onClick={stopPropagationEvent}>
         {title && <StModalTitle>{title}</StModalTitle>}
-        {handleCloseModal && (
+        {hasCrossButton && (
           <StButtonCloseModal onClick={handleCloseModal}>
             <StModalCloseIcon>
-              <use href="src/assets/icons/icons_sprite.svg#icon-close-modal"></use>
+              <use href="/assets/icons/icons_sprite.svg#icon-close-modal"></use>
             </StModalCloseIcon>
           </StButtonCloseModal>
         )}
