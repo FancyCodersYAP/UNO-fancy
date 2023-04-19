@@ -85,7 +85,7 @@ export const StButtonCloseModal = styled(StButton)`
 `;
 
 export const StButtonReply = styled(StButton)`
-  padding: 10px 12px;
+  padding: 5px 7px;
   height: min-content;
   margin: 0;
 `;
