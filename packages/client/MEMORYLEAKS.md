@@ -3,11 +3,11 @@
 Анализ проводился в devtools браузера.
 
 ### Вкладка Performance
-![performance.jpg](./public/performance.jpg)<br>
+![performance.jpg](./public/assets/img/performance.jpg)<br>
 При взаимодействии пользователя с игрой память растёт, но после сборки мусора сбрасывается до минимума.
 
 ### Вкладка Memory
-![memory.jpg](./public/memory.jpg)<br>
+![memory.jpg](./public/assets/img/memory.jpg)<br>
 Снимки сделаны:
 1. при загрузке главной страницы
 2. при загрузке страницы с игрой
