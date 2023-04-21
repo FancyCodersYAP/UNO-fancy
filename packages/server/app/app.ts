@@ -6,7 +6,4 @@ import cors from 'cors';
 const app = express();
 app.use(cors());
 app.use('/api/v2/*', proxy);
-
-createClientAndConnect();
-
 export default app;

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { localStgMethodsObj } from 'utils/localStg';
 import { Theme, THEMES } from 'styles/variables/colors-const';
+import { themeService } from '../api/ThemeService';
 
 interface IThemeContext {
   isDarkTheme: boolean;
@@ -23,10 +24,11 @@ export const ThemeContextProvider: React.FC<{
     localTheme || Theme.LIGHT
   );
 
-  const handleThemeChange = () => {
+  const handleThemeChange = async () => {
     const theme = currentTheme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
     setCurrentTheme(theme);
     localStgMethodsObj.addValue('theme', theme);
+    await themeService.setUserTheme({ theme_name: theme });
   };
 
   const providerValue = {
