@@ -1,4 +1,4 @@
-type TestForumDataType = {
+type TestForumData = {
   id: number;
   topic: string;
   total_messages: number;
@@ -6,7 +6,7 @@ type TestForumDataType = {
   last_message: string;
 };
 
-export const testForumData: TestForumDataType[] = [
+export const testForumData: TestForumData[] = [
   {
     id: 1,
     topic:
