@@ -6,18 +6,14 @@ import { StTitle } from 'pages/LeaderBoardPage/style';
 import { St404Wrapper } from './style';
 import { drawCardFront } from 'game/utils';
 import { cardColors } from 'game/utils';
-import { StFlex } from 'styles/global';
 import { css } from 'styled-components';
 
-const marginBottom10px = css`
+const titleStyles = css`
+  font-size: 42px;
   margin-bottom: 20px;
 `;
 
-const fontStyles = css`
-  font-size: 42px;
-`;
-
-const Canvas = () => {
+const CanvasErorr404 = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -26,13 +22,13 @@ const Canvas = () => {
       const context = canvas.getContext('2d');
       if (context) {
         drawCardFront(context, 0, 0, cardColors[1], '4');
-        drawCardFront(context, 90, 0, cardColors[0], '0');
-        drawCardFront(context, 180, 0, cardColors[2], '4');
+        drawCardFront(context, 60, 20, cardColors[0], '0');
+        drawCardFront(context, 120, 0, cardColors[2], '4');
       }
     }
   }, []);
 
-  return <canvas ref={canvasRef} height={120} width={260} />;
+  return <canvas ref={canvasRef} width={200} height={140} />;
 };
 
 const NotFoundPage = () => {
@@ -44,11 +40,8 @@ const NotFoundPage = () => {
 
   return (
     <St404Wrapper>
-      <StFlex css={marginBottom10px} alignItems="center" columnGap={20}>
-        <StTitle css={fontStyles}>Ошибка</StTitle>
-        <Canvas />
-      </StFlex>
-
+      <StTitle css={titleStyles}>Ошибка</StTitle>
+      <CanvasErorr404 />
       <p>Такой страницы нет</p>
       <Button
         onClick={navigateToMain}
