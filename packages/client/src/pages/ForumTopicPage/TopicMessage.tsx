@@ -16,18 +16,18 @@ import {
 
 const MAX_ANSWER_LENGTH = 20;
 
-type AnswerType = {
-  asking_id: number;
+type Answer = {
+  askingId: number;
   name: string;
   message: string;
 };
 
-interface TopicMessageType {
+interface TopicMessage {
   id: number;
   avatar?: string;
   author: string;
   rank: string;
-  answer?: AnswerType;
+  answer?: Answer;
   messages: string;
   date: string;
   onClick?: () => void;
@@ -47,9 +47,9 @@ const TopicMessage = ({
   messages,
   date,
   onClick,
-}: TopicMessageType) => {
+}: TopicMessage) => {
   return (
-    <StMessage id={`${id}`} data-message={id}>
+    <StMessage id={String(id)} data-message={id}>
       <StUser css={flexStyles}>
         <StMessageAvatar image={avatar} />
         <StUserInfo>
@@ -61,7 +61,7 @@ const TopicMessage = ({
       <StMessageWrapper>
         <div>
           {answer && (
-            <StAnswer href={`#${answer.asking_id}`}>
+            <StAnswer href={`#${answer.askingId}`}>
               {answer.name}: "
               {stringReduction(answer.message, MAX_ANSWER_LENGTH)}"
             </StAnswer>

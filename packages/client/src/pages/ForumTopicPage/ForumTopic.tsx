@@ -4,7 +4,6 @@ import TopicMessage from './TopicMessage';
 import { testTopicData } from 'data/testTopicData';
 import { testTopicDiscussionData } from 'data/testTopicDiscussionData';
 import { css } from 'styled-components';
-import EmptyAvatar from '/assets/icons/default-avatar.svg';
 import {
   StTopic,
   StUser,
@@ -40,7 +39,7 @@ const ForumTopic = () => {
           </StUserInfo>
         </StUser>
         <div>
-          <StTopicName>{testTopicData.topic_name}</StTopicName>
+          <StTopicName>{testTopicData.topicName}</StTopicName>
           <StTopicText>
             {testTopicData.messages}
             <StTopicDate>тема создана: {testTopicData.date}</StTopicDate>

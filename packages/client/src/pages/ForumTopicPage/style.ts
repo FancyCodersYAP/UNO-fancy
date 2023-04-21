@@ -81,8 +81,7 @@ export const StTopicName = styled.p`
   padding: 5px;
   
   background: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
-  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
-  border-radius: 0px ${BORDER_RADIUS_SIZE} 0px 0px;
+  border-radius: 0px 17px 0px 0px;
 `;
 
 export const StTopicText = styled.p`
@@ -144,6 +143,7 @@ export const StMessageText = styled.p`
   ${lineHeight130Percent}
   color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
   max-width: 775px;
+  padding-bottom: 10px;
 `;
 
 export const StAnswer = styled.a`
@@ -153,4 +153,8 @@ export const StAnswer = styled.a`
   padding-left: 5px;
   margin-bottom: 10px;
   display: block;
+
+  &:hover {
+    color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  }
 `;

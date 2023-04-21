@@ -1,19 +1,19 @@
-type testAnswerType = {
-  asking_id: number;
+type TestAnswer = {
+  askingId: number;
   name: string;
   message: string;
 };
 
-type testTopicDiscussionType = {
+type TestTopicDiscussion = {
   id: number;
   author: string;
   rank: string;
-  answer?: testAnswerType;
+  answer?: TestAnswer;
   messages: string;
   date: string;
 };
 
-export const testTopicDiscussionData: testTopicDiscussionType[] = [
+export const testTopicDiscussionData: TestTopicDiscussion[] = [
   {
     id: 1,
     author: 'Иван',
@@ -26,7 +26,7 @@ export const testTopicDiscussionData: testTopicDiscussionType[] = [
     author: 'Иван',
     rank: 'заядлый игрок',
     answer: {
-      asking_id: 1,
+      askingId: 1,
       name: 'Иван',
       message: 'Алексей, может напишешь сам нам пару стратегий для начала :)',
     },
