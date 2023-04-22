@@ -7,7 +7,7 @@ import { UserService } from './src/api/UserService';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { fetchAuthUserGet } from './src/store/User/auth/actions';
 
-async function render(uri, repository) {
+async function render(uri, repository, cookies) {
   const store = setupStore(new UserService(repository));
   await store.dispatch(fetchAuthUserGet());
   const sheet = new ServerStyleSheet();
@@ -16,7 +16,7 @@ async function render(uri, repository) {
   const AppNode = () => (
     <StaticRouter location={uri}>
       <Provider store={store}>
-        <App />
+        <App cookies={cookies} />
       </Provider>
     </StaticRouter>
   );
