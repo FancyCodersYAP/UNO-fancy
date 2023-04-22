@@ -55,7 +55,8 @@ export const startSSR = async () => {
       interface SSRModule {
         render: (
           uri: string,
-          repository: any
+          repository: any,
+          cookies: string | undefined
         ) => Promise<[Record<string, any>, string, any]>;
       }
 
@@ -72,7 +73,8 @@ export const startSSR = async () => {
       const { render } = mod;
       const [initialState, appHtml, css] = await render(
         url,
-        new YandexAPIRepository(req.headers['cookie'])
+        new YandexAPIRepository(req.headers['cookie']),
+        req.headers['cookie']
       );
 
       const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(

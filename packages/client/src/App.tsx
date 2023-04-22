@@ -12,9 +12,13 @@ import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
 import { GamePage } from 'pages/GamePage/GamePage';
 
-function App() {
+interface AppProps {
+  cookies: string | undefined;
+}
+
+function App({ cookies }: AppProps) {
   return (
-    <ThemeContextProvider>
+    <ThemeContextProvider cookies={cookies}>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path={AppRoute.MAIN} element={<MainPage />} />
