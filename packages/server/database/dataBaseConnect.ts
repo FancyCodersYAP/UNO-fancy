@@ -1,6 +1,5 @@
 import * as path from 'path';
 import { type SequelizeOptions, Sequelize } from 'sequelize-typescript';
-import { User } from '../models/User';
 import { Themes } from '../models/Themes';
 
 const {
@@ -29,11 +28,9 @@ export const initPostgresDBConnection = async (): Promise<
 
     client = new Sequelize(sequelizeOptions);
 
-    /** Регистрируем модели */
     const modelsPath = path.join(__dirname, '../models');
     client.addModels([modelsPath]);
 
-    //TODO убрать alter на продакшене (при деплое)
     const synced = await client.sync({ alter: true });
 
     if (synced) {
@@ -42,26 +39,6 @@ export const initPostgresDBConnection = async (): Promise<
         [{ theme_name: 'dark' }, { theme_name: 'light' }],
         { ignoreDuplicates: true }
       );
-
-      // await User.bulkCreate(
-      //   [
-      //     {
-      //       ya_id: 11111,
-      //       login: 'test_login1',
-      //       display_name: 'test_name1',
-      //       avatar: '/test_avatar1',
-      //     },
-      //     {
-      //       ya_id: 22223,
-      //       login: 'test_login2',
-      //       display_name: 'test_name2',
-      //       avatar: '/test_avatar2',
-      //     },
-      //   ],
-      //   {
-      //     ignoreDuplicates: true,
-      //   }
-      // );
     } else {
       console.log('Sync error');
     }
