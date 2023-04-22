@@ -8,21 +8,17 @@ export const themeRoutes = Router()
   .use(express.json())
   .use('/', checkUserAuth)
   .get('/', async (req: Request, res: Response) => {
-    if (res.locals.user && res.locals.user.id) {
-      const userId = res.locals.user.id;
+    const userId = res.locals.user.id;
 
-      const userTheme: UserThemes | null = await UserThemes.findOne({
-        where: { user_id: userId },
-        include: [{ model: Themes, attributes: ['theme_name'] }],
-      });
+    const userTheme: UserThemes | null = await UserThemes.findOne({
+      where: { user_id: userId },
+      include: [{ model: Themes, attributes: ['theme_name'] }],
+    });
 
-      if (userTheme && userTheme.theme.theme_name) {
-        return res.status(200).json(userTheme.theme.theme_name);
-      }
-      return res.status(404).json('user theme not found');
-    } else {
-      return res.status(400).json('Доступ запрещен');
+    if (userTheme && userTheme.theme.theme_name) {
+      return res.status(200).json(userTheme.theme.theme_name);
     }
+    return res.status(404).json('для пользователя нет темы');
   })
 
   .post('/', async (req: Request, res: Response) => {
@@ -47,5 +43,5 @@ export const themeRoutes = Router()
       }
     }
 
-    return res.status(500).json('invalid data or DB error');
+    return res.status(500).json('data is invalid');
   });
