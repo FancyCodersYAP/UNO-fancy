@@ -35,10 +35,13 @@ export const ThemeContextProvider: React.FC<{
           const themeNameFromDB = await themeService.getUserTheme();
           const themeNameFromDBIsValid =
             typeof themeNameFromDB === 'string' &&
-            themeNameFromDB !== currentTheme;
-          if (themeNameFromDBIsValid && Theme[themeNameFromDB]) {
+            themeNameFromDB !== currentTheme &&
+            Object.values(Theme).includes(themeNameFromDB);
+
+          if (themeNameFromDBIsValid) {
             console.log('устанавливаю тему из базы', themeNameFromDB);
             setCurrentTheme(themeNameFromDB);
+            setCookie('theme', themeNameFromDB);
           }
         }
       } catch (error) {
