@@ -1,8 +1,8 @@
 import { StAvatar } from './style';
-import styled from 'styled-components';
-import { fetchAvatarChange } from '../../store/User/profile/actions';
-import { useAppDispatch } from '../../hooks/redux';
 import { StFlex } from '../../styles/global';
+import Modal from 'components/Modal';
+import useModal from 'hooks/useModal';
+import AvatarModalWindow from 'components/AvatarModalWindow';
 
 interface IAvatar {
   image: string | undefined;
@@ -10,32 +10,27 @@ interface IAvatar {
 
 const API_RESOURCES = 'https://ya-praktikum.tech/api/v2/resources/';
 
-const StImageInput = styled.input`
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
-`;
 const ProfileAvatar = ({ image }: IAvatar) => {
-  const dispatch = useAppDispatch();
-
-  const onAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) {
-      return;
-    }
-    const file = event.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('avatar', file);
-      dispatch(fetchAvatarChange(formData));
-    }
-  };
   const avatar = image && API_RESOURCES + image;
+
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   return (
     <StFlex flexDirection="column" alignItems="center">
       <label>
-        <StImageInput type="file" onChange={onAvatarChange} />
-        <StAvatar image={avatar} />
+        <StAvatar onClick={handleOpenModal} image={avatar} />
       </label>
+      {isOpen && (
+        <Modal
+          title="Изменить аватар"
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside>
+          <AvatarModalWindow
+            avatar={avatar}
+            handleCloseModal={handleCloseModal}
+          />
+        </Modal>
+      )}
     </StFlex>
   );
 };
