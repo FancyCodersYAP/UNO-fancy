@@ -1,30 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { GamePlayerType, soundNames } from 'game/types';
-import { controller } from '../../game/Controller';
-import GameSettings from 'components/GameSettings';
+import { userState } from 'hooks/userState';
+import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
+import useTimer from 'hooks/useTimer';
+import { audioManager } from 'game/services/audioManager';
+import { fetchAuthUserGet } from '../../store/User/auth/actions';
+import { controller } from '../../game/Controller';
+import { GamePlayerType, soundNames } from 'game/types';
+import formatTime from 'utils/formatTime';
+import { AppRoute } from 'utils/constants';
+import GameSettings from 'components/GameSettings';
 import Modal from 'components/Modal';
 import EndGame from 'components/EndGame';
-import styled from 'styled-components';
-import { StFlex } from 'styles/global';
 import ExitMenu from 'components/ExitMenu/ExitMenu';
 import { exitMenuModalStyles } from 'components/Modal/style';
 import StatusBar from 'components/StatusBar/StatusBar';
-import { audioManager } from 'game/services/audioManager';
-import useTimer from 'hooks/useTimer';
-import formatTime from 'utils/formatTime';
-import { userState } from 'hooks/userState';
-import { useAppDispatch } from 'hooks/redux';
-import { fetchAuthUserGet } from '../../store/User/auth/actions';
-import { AppRoute } from 'utils/constants';
-
-export const StGameFlex = styled(StFlex)`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
+import { PlayModal } from './PlayModal';
+import { StGameFlex } from './style';
 
 export function GamePage() {
   const dispatch = useAppDispatch();
@@ -33,6 +26,7 @@ export function GamePage() {
   const [isStart, setStart] = useState(false);
   const [isFinish, setFinish] = useState(false);
   const [isPause, setPause] = useState(false);
+  const [isOpenExitMenu, openExitMenu] = useState(false);
   const [points, setPoints] = useState(0);
   const [countPlayers, setCountPlayers] = useState(0);
 
@@ -44,6 +38,7 @@ export function GamePage() {
     playSound,
     toggleAudioPause,
     stopAudio,
+    playFinish,
   } = audioManager();
   const { timer, timerStart, timerPause, timerResume, timerReset } = useTimer();
   const { isLoading, user } = userState();
@@ -52,7 +47,7 @@ export function GamePage() {
     dispatch(fetchAuthUserGet());
 
     for (const soundName of soundNames) {
-      addSound?.(soundName);
+      addSound(soundName);
     }
 
     setStart(true);
@@ -61,20 +56,28 @@ export function GamePage() {
     controller.initGame();
 
     controller.onMove(() => {
-      playSound?.('movement');
+      playSound('movement');
     });
 
     controller.onUnoClick(() => {
-      playSound?.('uno');
+      playSound('uno');
+    });
+
+    controller.onSkipUnoClick(() => {
+      playSound('skipUno');
     });
 
     controller.onFinish((points: number) => {
       setFinish(true);
-      playSound?.('finish');
+      playFinish();
       handleOpenModal();
       setPoints(points);
       timerPause();
     });
+
+    return () => {
+      stopAudio();
+    };
   }, []);
 
   if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
@@ -92,46 +95,56 @@ export function GamePage() {
     handleCloseModal();
   };
 
-  const pauseGame = () => {
-    setPause(!isPause);
+  /* Срабатывает при нажатии на паузу и на крестик (выход из игры) */
+  const pauseAudioAndTimer = () => {
     toggleAudioPause();
-
-    if (!isPause) {
-      timerPause();
-    } else {
-      timerResume();
-    }
-  };
-
-  const exitGame = () => {
-    pauseGame();
+    timerPause();
     handleOpenModal();
   };
 
-  const resumeGame = () => {
-    setPause(false);
-    handleCloseModal();
-    toggleAudioPause();
-    timerResume();
+  /* Срабатывает при нажатии на паузу */
+  const pauseGame = () => {
+    setPause(true);
+    pauseAudioAndTimer();
   };
 
+  /* Срабатывает при клике на крестик в статус баре (выход из игры) */
+  const exitGame = () => {
+    openExitMenu(true);
+    pauseAudioAndTimer();
+  };
+
+  /* Срабатывает при возвращении в игру с паузы либо, если юзер передумал выходить из игры */
+  const resumeGame = () => {
+    if (isPause) {
+      setPause(false);
+    }
+    if (isOpenExitMenu) {
+      openExitMenu(false);
+    }
+    toggleAudioPause();
+    timerResume();
+    handleCloseModal();
+  };
+
+  /* Срабатывает, когда игра закончилась и юзер хочет сыграть ещё раз */
   const reactivateGame = () => {
     setFinish(false);
     setStart(true);
   };
 
+  /* Выход со страницы игры */
   const navigateToMain = () => {
     stopAudio();
     navigate(AppRoute.MAIN);
   };
 
-  const isGameOn = !isStart && !isFinish;
+  const isGameOn = !isStart && !isFinish && !isOpenExitMenu && !isPause;
 
   return (
     <StGameFlex id="game-page">
       <StatusBar
         isGameOn={isGameOn}
-        isPause={isPause}
         timer={timer}
         pauseGame={pauseGame}
         exitGame={exitGame}
@@ -146,7 +159,8 @@ export function GamePage() {
           />
         </Modal>
       )}
-      {isPause && isOpen && (
+      {isPause && isOpen && <PlayModal resumeGame={resumeGame} />}
+      {isOpenExitMenu && isOpen && (
         <Modal
           styles={exitMenuModalStyles}
           handleCloseModal={resumeGame}

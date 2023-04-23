@@ -39,6 +39,11 @@ class Controller {
     return () => this.game.off('click uno', callback);
   }
 
+  onSkipUnoClick(callback: () => void) {
+    this.game.on('skip click uno', callback);
+    return () => this.game.off('skip click uno', callback);
+  }
+
   onFinish(callback: (points: number) => void) {
     this.game.on('finish', callback);
     return () => this.game.off('finish', callback);

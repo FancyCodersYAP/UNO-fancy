@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 import { BACKGROUND_COLOR_GAME_PRIMARY } from 'styles/variables/colors-const';
-import { audioManager } from 'game/services/audioManager';
 
 const StGameScreen = styled.div`
   background: ${BACKGROUND_COLOR_GAME_PRIMARY};

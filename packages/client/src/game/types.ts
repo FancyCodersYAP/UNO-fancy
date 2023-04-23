@@ -26,7 +26,13 @@ export type CardMovementDirection = 'fromUser' | 'fromBot' | 'fromTable';
 export type PlayerClickPosition = Record<string, number>;
 
 /* Audio types */
-export const soundNames = ['background', 'movement', 'uno', 'finish'] as const;
+export const soundNames = [
+  'background',
+  'movement',
+  'uno',
+  'finish',
+  'skipUno',
+] as const;
 
 export type SoundOptionsType = {
   src: string;
@@ -36,4 +42,8 @@ export type SoundOptionsType = {
 export type SoundNameType = typeof soundNames[number];
 export type SoundListType = Record<SoundNameType, SoundOptionsType>;
 
-export type AudioListType = Record<string, HTMLAudioElement>;
+export type AudioObjectType = {
+  audio: HTMLAudioElement;
+  isPlaying: boolean;
+};
+export type AudioListType = Record<string, AudioObjectType>;
