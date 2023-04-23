@@ -3,21 +3,13 @@ import {
   StStatusBar,
   StButtonStatusBar,
   StStatusBarButtons,
-  ButtonStatusBarActive,
+  StStatusBarIconActive,
 } from './style';
-import {
-  CloseSvg,
-  FullScreenSvg,
-  FullScreenExitSvg,
-  SoundLoudSvg,
-  SoundOffSvg,
-  PauseSVG,
-} from './statusBarSVG';
 import Timer from 'components/Timer/Timer';
+import { StStatusBarIcon } from './style';
 
 type StatusBarProps = {
   isGameOn: boolean;
-  isPause: boolean;
   timer: number;
   pauseGame: () => void;
   exitGame: () => void;
@@ -27,7 +19,6 @@ type StatusBarProps = {
 
 const StatusBar = ({
   isGameOn,
-  isPause,
   timer,
   pauseGame,
   exitGame,
@@ -49,28 +40,38 @@ const StatusBar = ({
   return (
     <StStatusBar>
       <StStatusBarButtons>
-        {isGameOn && !isPause && (
-          <StButtonStatusBar
-            onClick={switchSoundMode}
-            css={audioMute ? ButtonStatusBarActive : ''}>
-            {audioMute ? <SoundOffSvg /> : <SoundLoudSvg />}
+        {isGameOn && (
+          <StButtonStatusBar onClick={switchSoundMode} type="button">
+            <StStatusBarIcon css={audioMute ? StStatusBarIconActive : ''}>
+              {audioMute ? (
+                <use href="/assets/icons/status-bar_sprite.svg#sound-off"></use>
+              ) : (
+                <use href="/assets/icons/status-bar_sprite.svg#sound-loud"></use>
+              )}
+            </StStatusBarIcon>
           </StButtonStatusBar>
         )}
         {isGameOn && (
-          <StButtonStatusBar
-            onClick={pauseGame}
-            css={isPause ? ButtonStatusBarActive : ''}>
-            <PauseSVG />
+          <StButtonStatusBar onClick={pauseGame} type="button">
+            <StStatusBarIcon>
+              <use href="/assets/icons/status-bar_sprite.svg#pause"></use>
+            </StStatusBarIcon>
           </StButtonStatusBar>
         )}
-        <StButtonStatusBar
-          onClick={toggleFullScreen}
-          css={fullScreen ? ButtonStatusBarActive : ''}>
-          {fullScreen ? <FullScreenExitSvg /> : <FullScreenSvg />}
+        <StButtonStatusBar onClick={toggleFullScreen} type="button">
+          <StStatusBarIcon css={fullScreen ? StStatusBarIconActive : ''}>
+            {fullScreen ? (
+              <use href="/assets/icons/status-bar_sprite.svg#fullscreen-exit"></use>
+            ) : (
+              <use href="/assets/icons/status-bar_sprite.svg#fullscreen"></use>
+            )}
+          </StStatusBarIcon>
         </StButtonStatusBar>
-        {isGameOn && !isPause && (
-          <StButtonStatusBar onClick={exitGame}>
-            <CloseSvg />
+        {isGameOn && (
+          <StButtonStatusBar onClick={exitGame} type="button">
+            <StStatusBarIcon>
+              <use href="/assets/icons/status-bar_sprite.svg#close"></use>
+            </StStatusBarIcon>
           </StButtonStatusBar>
         )}
       </StStatusBarButtons>

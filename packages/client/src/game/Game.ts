@@ -81,14 +81,23 @@ export class Game extends EventBus {
       });
     }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
 
+    this.activePlayerId = 0;
+    this.getActivePlayer().highlight();
+
     if (lastCard.action) {
+      if (lastCard.action !== 'wild') {
+        this.activePlayerId = this.players.length - 1;
+      }
+      if (lastCard.action === 'reverse' && this.players.length === 4) {
+        this.activePlayerId = 1;
+      }
+
       setTimeout(() => {
         this.checkCard(lastCard);
-        this.moveLine();
+        if (lastCard.action !== 'wild') {
+          this.moveLine();
+        }
       }, ANIMATION_TIME * (START_NUM_CARDS_IN_HAND + 1));
-    } else {
-      this.activePlayerId = 0;
-      this.getActivePlayer().highlight();
     }
     /* Оставшаяся часть карт будет в закрытой колоде */
     this.table.setClosePack(initialPack);
@@ -229,6 +238,7 @@ export class Game extends EventBus {
         /* Если за 1,5 сек клика не было, игроку выдаются 2 карты на руку и ход переходит к след. игроку */
         await sleep(1500, () => {
           if (!clickUno) {
+            this.emit('skip click uno');
             this.takeCard(2);
             return;
           }
@@ -335,9 +345,8 @@ export class Game extends EventBus {
 
   /* Переход хода */
   moveLine() {
-    if (this.activePlayerId !== -1) {
-      this.getActivePlayer().removeHighlight();
-    }
+    console.log(this.getActivePlayer());
+    this.getActivePlayer().removeHighlight();
 
     this.changeActivePlayerId();
     this.getActivePlayer().highlight();
@@ -353,9 +362,7 @@ export class Game extends EventBus {
 
   /* Пропуск хода (когда на стол выкладывается спец.карта) */
   skipMove() {
-    if (this.activePlayerId !== -1) {
-      this.getActivePlayer().removeHighlight();
-    }
+    this.getActivePlayer().removeHighlight();
 
     this.changeActivePlayerId();
   }
@@ -371,7 +378,7 @@ export class Game extends EventBus {
         break;
 
       case false:
-        if (this.activePlayerId === 0 || this.activePlayerId === -1) {
+        if (this.activePlayerId === 0) {
           this.activePlayerId = this.players.length - 1;
         } else {
           this.activePlayerId--;

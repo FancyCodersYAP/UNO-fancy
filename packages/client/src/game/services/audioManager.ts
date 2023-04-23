@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SoundList } from 'game/utils';
-import { SoundNameType, AudioListType } from 'game/types';
+import { SoundNameType, AudioListType, AudioObjectType } from 'game/types';
 
 export const audioManager = () => {
   const [audioList, setAudioList] = useState<AudioListType>({});
@@ -13,71 +13,93 @@ export const audioManager = () => {
     });
   };
 
+  const changeVolume = (mute: boolean) => {
+    for (const audio in audioList) {
+      audioList[audio].audio.muted = mute;
+    }
+  };
+
   const addSound = (name: SoundNameType) => {
     const src = SoundList[name].src;
 
     const audio = new Audio(src);
     audio.muted = audioMute;
     audio.volume = SoundList[name].volume;
+    audio.loop = SoundList[name].loop;
 
     audio.addEventListener('loadeddata', () => {
       const list = audioList;
-      list[name] = audio;
+      list[name] = {} as AudioObjectType;
+      list[name].audio = audio;
+      list[name].isPlaying = false;
       setAudioList(list);
     });
-
-    if (SoundList[name].loop) {
-      audio.addEventListener('ended', () => {
-        play(audio);
-      });
-    }
   };
 
   const playSound = (name: SoundNameType) => {
-    if (Object.keys(audioList).length === 0) return;
+    if (
+      !Object.keys(audioList).length ||
+      !audioList[name] ||
+      audioPaused ||
+      audioList[name].isPlaying
+    ) {
+      return;
+    }
 
-    if (!audioList[name]) return;
+    play(audioList[name].audio);
+    audioList[name].isPlaying = true;
 
-    play(audioList[name]);
+    audioList[name].audio.onended = () => {
+      if (SoundList[name].loop) return;
+
+      audioList[name].isPlaying = false;
+    };
   };
 
-  /* Оставила закомментироованный вариант */
-  /* если по клику на иконку паузы будем только ставить на паузу */
-  /*const onPause = () => {
-    if (audioPaused) return;
-
-    setAudioPaused(true);
-
-    audioList['background'].pause();
-  };*/
-
-  /* Оставила вариант со снятием с паузы по щелчу на ту же иконку
-  /* Возможно стоит выводить модалку при включении паузы */
   const toggleAudioPause = () => {
+    if (audioMute) return;
+
     if (audioPaused) {
       setAudioPaused(false);
-      play(audioList['background']);
+      play(audioList['background'].audio);
+      changeVolume(false);
     } else {
       setAudioPaused(true);
-      audioList['background'].pause();
+      audioList['background'].audio.pause();
+      changeVolume(true);
     }
   };
 
   const switchSoundMode = () => {
     setAudioMute(!audioMute);
 
-    for (const audio in audioList) {
-      audioList[audio].muted = !audioMute;
-    }
+    changeVolume(!audioMute);
   };
 
   const stopAudio = () => {
     for (const audio in audioList) {
-      audioList[audio].pause();
+      if (audioList[audio].isPlaying) {
+        audioList[audio].audio.pause();
+        audioList[audio].audio.currentTime = 0;
+        audioList[audio].isPlaying = false;
+      }
     }
 
     const list = {};
     setAudioList({ ...list });
+  };
+
+  const playFinish = () => {
+    for (const audio in audioList) {
+      if (audioList[audio].isPlaying) {
+        audioList[audio].audio.pause();
+        audioList[audio].audio.currentTime = 0;
+        audioList[audio].isPlaying = false;
+      }
+    }
+
+    play(audioList['finish'].audio);
+    audioList['finish'].isPlaying = true;
   };
 
   return {
@@ -89,5 +111,6 @@ export const audioManager = () => {
     switchSoundMode,
     toggleAudioPause,
     stopAudio,
+    playFinish,
   };
 };
