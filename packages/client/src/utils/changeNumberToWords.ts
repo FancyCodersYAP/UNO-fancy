@@ -1,4 +1,4 @@
-export const changeNumberToString = (value: number) => {
+export default (value: number) => {
   let stringValue;
   switch (value) {
     case 2:

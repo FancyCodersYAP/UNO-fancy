@@ -35,13 +35,16 @@ const usePagination = ({ contentPerPage, count }: UsePaginationProps) => {
   const lastContentIndex = page * contentPerPage;
   const firstContentIndex = lastContentIndex - contentPerPage;
 
-  const changePage = (direction: boolean) => {
+  const changePage = (isMovingToRight?: boolean) => {
     setPage(state => {
-      if ((direction && state === pageCount) || (!direction && state === 1)) {
+      if (
+        (isMovingToRight && state === pageCount) ||
+        (!isMovingToRight && state === 1)
+      ) {
         return state;
       }
 
-      return direction ? state + 1 : state - 1;
+      return isMovingToRight ? state + 1 : state - 1;
     });
   };
 

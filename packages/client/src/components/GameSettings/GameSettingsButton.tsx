@@ -3,7 +3,7 @@ import { StTextContainer, StFlex } from 'styles/global';
 import styled from 'styled-components';
 import { StButton } from 'components/Button/style';
 import { ButtonProps } from 'components/Button/Button';
-import { changeNumberToString } from 'utils/changeNumberToString';
+import changeNumberToWords from 'utils/changeNumberToWords';
 
 type GameSettingsButtonType = {
   value: number;
@@ -40,7 +40,7 @@ const GameSettingsButton = ({
         ))}
       </StGameSettingsButton>
       <StTextContainer textAlign="center">
-        {changeNumberToString(value)} игрока
+        {changeNumberToWords(value)} игрока
       </StTextContainer>
     </StFlex>
   );
