@@ -14,6 +14,7 @@ const drawCardBlackAndWhiteLayers = (
 ): void => {
   /* Нижний чёрный слой (для отрисовки тонкой чёрной границы) */
   ctx.beginPath();
+  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD, [CARD_BORDER_RADIUS]);
   ctx.fillStyle = GAME_STYLES.BG_COLOR_BLACK;
   ctx.fill();
@@ -21,6 +22,7 @@ const drawCardBlackAndWhiteLayers = (
 
   /* Средний белый слой */
   ctx.beginPath();
+  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(x + 0.5, y + 0.5, BASE_WIDTH_CARD - 1, BASE_HEIGHT_CARD - 1, [
     CARD_BORDER_RADIUS,
   ]);
@@ -61,6 +63,7 @@ export const drawCardBack = (
   /* Чёрный фон */
   ctx.beginPath();
   ctx.fillStyle = GAME_STYLES.BG_COLOR_BLACK;
+  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(
     x + padding,
     y + padding,
@@ -108,6 +111,7 @@ export const drawCardFront = (
 
   /* Цветной фон */
   ctx.beginPath();
+  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(
     x + CARD_BORDER,
     y + CARD_BORDER,

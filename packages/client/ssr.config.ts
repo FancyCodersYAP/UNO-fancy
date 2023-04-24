@@ -1,41 +1,9 @@
-import path, { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import * as path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    port: Number(process.env.CLIENT_PORT) || 3000,
-  },
-  define: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
-  },
-  plugins: [
-    react({
-      babel: {
-        plugins: [
-          [
-            'babel-plugin-styled-components',
-            {
-              ssr: true,
-              displayName: true,
-              fileName: false,
-            },
-          ],
-        ],
-      },
-    }),
-  ],
-  build: {
-    rollupOptions: {
-      input: {
-        app: resolve(__dirname, 'index.html'),
-      },
-    },
-  },
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),
@@ -49,5 +17,23 @@ export default defineConfig({
       assets: path.resolve(__dirname, './src/assets'),
       hooks: path.resolve(__dirname, './src/hooks'),
     },
+  },
+  plugins: [react()],
+  build: {
+    outDir: 'ssr-dist',
+    ssr: true,
+    lib: {
+      entry: path.resolve(__dirname, 'ssr.tsx'),
+      name: 'client',
+      formats: ['cjs'],
+    },
+    rollupOptions: {
+      output: {
+        dir: 'ssr-dist',
+      },
+    },
+  },
+  ssr: {
+    format: 'cjs',
   },
 });
