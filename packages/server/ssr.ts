@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 import app from './app/app';
+
 dotenv.config();
 
 import express from 'express';
@@ -21,9 +22,8 @@ const isDev = () => process.env.NODE_ENV === 'development';
 
 export const startSSR = async () => {
   let vite: ViteDevServer | undefined;
-  const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));
-  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs');
+  let distPath: string, ssrClientPath: string;
 
   if (isDev()) {
     vite = await createViteServer({
@@ -33,9 +33,10 @@ export const startSSR = async () => {
     });
 
     app.use(vite.middlewares);
-  }
+  } else {
+    distPath = path.dirname(require.resolve('client/dist/index.html'));
+    ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs');
 
-  if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
 
