@@ -1,5 +1,5 @@
 import { Game } from './Game';
-import { GamePlayerType } from './types';
+import { GameEvents, GamePlayerType } from './types';
 import { PlayerClickPosition } from './types';
 
 class Controller {
@@ -30,23 +30,23 @@ class Controller {
   }
 
   onMove(callback: () => void) {
-    this.game.on('card move', callback);
-    return () => this.game.off('card move', callback);
+    this.game.on(GameEvents.CARD_MOVEMENT, callback);
+    return () => this.game.off(GameEvents.CARD_MOVEMENT, callback);
   }
 
   onUnoClick(callback: () => void) {
-    this.game.on('click uno', callback);
-    return () => this.game.off('click uno', callback);
+    this.game.on(GameEvents.CLICK_UNO, callback);
+    return () => this.game.off(GameEvents.CLICK_UNO, callback);
   }
 
   onSkipUnoClick(callback: () => void) {
-    this.game.on('skip click uno', callback);
-    return () => this.game.off('skip click uno', callback);
+    this.game.on(GameEvents.SKIP_CLICK_UNO, callback);
+    return () => this.game.off(GameEvents.SKIP_CLICK_UNO, callback);
   }
 
   onFinish(callback: (points: number) => void) {
-    this.game.on('finish', callback);
-    return () => this.game.off('finish', callback);
+    this.game.on(GameEvents.FINISH_GAME, callback);
+    return () => this.game.off(GameEvents.FINISH_GAME, callback);
   }
 }
 

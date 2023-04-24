@@ -18,6 +18,7 @@ import {
 } from './utils/constants';
 import {
   CardType,
+  GameEvents,
   GamePlayerType,
   HandEntityTypes,
   PlayerClickPosition,
@@ -63,7 +64,7 @@ export class Game extends EventBus {
       );
       this.handEntities[entityName].create(zIndex);
       this.handEntities[entityName].addCards(cards, () => {
-        this.emit('card move');
+        this.emit(GameEvents.CARD_MOVEMENT);
       });
 
       zIndex -= 1;
@@ -77,7 +78,7 @@ export class Game extends EventBus {
     /* Открываем карту после раздачи всех карт игрокам */
     setTimeout(() => {
       this.table.addUpcard(lastCard, () => {
-        this.emit('card move');
+        this.emit(GameEvents.CARD_MOVEMENT);
       });
     }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
 
@@ -204,7 +205,7 @@ export class Game extends EventBus {
     const activePlayerLayer = this.getActivePlayer();
 
     activePlayerLayer.removeCard(movedCard, () => {
-      this.emit('card move');
+      this.emit(GameEvents.CARD_MOVEMENT);
     });
     this.table.addUpcard(movedCard);
 
@@ -233,17 +234,17 @@ export class Game extends EventBus {
         };
 
         /* Подписка на событие клика по кнопке UNO */
-        this.on('click uno', cb);
+        this.on(GameEvents.CLICK_UNO, cb);
 
         /* Если за 1,5 сек клика не было, игроку выдаются 2 карты на руку и ход переходит к след. игроку */
         await sleep(1500, () => {
           if (!clickUno) {
-            this.emit('skip click uno');
+            this.emit(GameEvents.SKIP_CLICK_UNO);
             this.takeCard(2);
             return;
           }
 
-          this.off('click uno', cb);
+          this.off(GameEvents.CLICK_UNO, cb);
         });
       }
     }
@@ -303,7 +304,7 @@ export class Game extends EventBus {
     const activePlayer = this.getActivePlayer();
 
     activePlayer.addCards(cards, () => {
-      this.emit('card move');
+      this.emit(GameEvents.CARD_MOVEMENT);
     });
 
     if (countCards !== 1) {
@@ -345,7 +346,6 @@ export class Game extends EventBus {
 
   /* Переход хода */
   moveLine() {
-    console.log(this.getActivePlayer());
     this.getActivePlayer().removeHighlight();
 
     this.changeActivePlayerId();
@@ -407,7 +407,7 @@ export class Game extends EventBus {
       ? 0
       : this.countPoints();
     /* Вызов события завершения игры */
-    this.emit('finish', points);
+    this.emit(GameEvents.FINISH_GAME, points);
   }
 
   countPoints() {
@@ -423,7 +423,7 @@ export class Game extends EventBus {
   /* Генерация клика по кнопке UNO */
   unoClick() {
     if (this.getActivePlayer().getCards().length === 1) {
-      this.emit('click uno');
+      this.emit(GameEvents.CLICK_UNO);
     }
   }
 }

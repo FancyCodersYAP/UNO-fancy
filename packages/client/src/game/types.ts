@@ -47,3 +47,10 @@ export type AudioObjectType = {
   isPlaying: boolean;
 };
 export type AudioListType = Record<string, AudioObjectType>;
+
+export enum GameEvents {
+  CARD_MOVEMENT = 'card movement',
+  CLICK_UNO = 'click uno',
+  SKIP_CLICK_UNO = 'skip click uno',
+  FINISH_GAME = 'finish',
+}
