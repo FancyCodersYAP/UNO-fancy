@@ -85,8 +85,7 @@ export const audioManager = () => {
       }
     }
 
-    const list = {};
-    setAudioList({ ...list });
+    setAudioList({});
   };
 
   const playFinish = () => {
