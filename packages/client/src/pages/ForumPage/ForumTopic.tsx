@@ -1,4 +1,4 @@
-import stringReduction from 'utils/stringReduction';
+import stringShorten from 'utils/stringShorten';
 import {
   StTableTopic,
   StTableCell,
@@ -50,8 +50,8 @@ const ForumTopic = ({
   author,
   last_message,
 }: ForumTopicType) => {
-  topic = stringReduction(topic, MAX_TOPIC_LENGTH);
-  last_message = stringReduction(last_message, MAX_LAST_MESSAGE_LENGTH);
+  topic = stringShorten(topic, MAX_TOPIC_LENGTH);
+  last_message = stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH);
 
   return (
     <StTableTopic data-topic={id}>
