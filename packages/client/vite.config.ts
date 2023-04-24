@@ -48,6 +48,8 @@ export default defineConfig({
       contexts: path.resolve(__dirname, './src/contexts'),
       assets: path.resolve(__dirname, './src/assets'),
       hooks: path.resolve(__dirname, './src/hooks'),
+      game: path.resolve(__dirname, './src/game'),
+      store: path.resolve(__dirname, './src/store'),
     },
   },
 });
