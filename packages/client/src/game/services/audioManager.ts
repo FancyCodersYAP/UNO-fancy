@@ -13,7 +13,7 @@ export const audioManager = () => {
     });
   };
 
-  const changeVolume = (mute: boolean) => {
+  const muteAudio = (mute: boolean) => {
     for (const audio in audioList) {
       audioList[audio].audio.muted = mute;
     }
@@ -62,18 +62,18 @@ export const audioManager = () => {
     if (audioPaused) {
       setAudioPaused(false);
       play(audioList['background'].audio);
-      changeVolume(false);
+      muteAudio(false);
     } else {
       setAudioPaused(true);
       audioList['background'].audio.pause();
-      changeVolume(true);
+      muteAudio(true);
     }
   };
 
   const switchSoundMode = () => {
     setAudioMute(!audioMute);
 
-    changeVolume(!audioMute);
+    muteAudio(!audioMute);
   };
 
   const stopAudio = () => {
