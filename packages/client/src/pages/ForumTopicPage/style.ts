@@ -40,8 +40,7 @@ export const StUser = styled.div`
   border-radius: ${BORDER_RADIUS_SIZE} 0 0 ${BORDER_RADIUS_SIZE};
   padding: 12px 8px 8px;
   border: 1px solid rgba(129, 113, 74, 0.9);
-  //border-right: none;
-  // ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
 `;
 
 export const StUserAvatar = styled.div<AvatarType>`
@@ -89,7 +88,7 @@ export const StTopicName = styled.div`
   padding: 5px 0;
   width: 100%;
   background: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
-  border-radius: 0px 20px 0px 0px;
+  border-radius: 0 20px 0 0;
 `;
 
 export const StTopicText = styled.p`
