@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { StButtonReply } from 'components/Button/style';
-import stringReduction from 'utils/stringReduction';
+import stringShorten from 'utils/stringShorten';
 import {
   StUser,
   StUserInfo,
@@ -62,8 +62,8 @@ const TopicMessage = ({
         <div>
           {answer && (
             <StAnswer href={`#${answer.askingId}`}>
-              {answer.name}: "
-              {stringReduction(answer.message, MAX_ANSWER_LENGTH)}"
+              {answer.name}: "{stringShorten(answer.message, MAX_ANSWER_LENGTH)}
+              "
             </StAnswer>
           )}
           <StMessageText>{messages}</StMessageText>
