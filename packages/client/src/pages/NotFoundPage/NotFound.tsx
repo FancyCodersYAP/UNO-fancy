@@ -21,9 +21,9 @@ const CanvasErorr404 = () => {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
       if (context) {
-        drawCardFront(context, 0, 0, cardColors[1], '4');
-        drawCardFront(context, 60, 20, cardColors[0], '0');
-        drawCardFront(context, 120, 0, cardColors[2], '4');
+        drawCardFront(context, 0, 0, cardColors[1], '4', true);
+        drawCardFront(context, 60, 20, cardColors[0], '0', true);
+        drawCardFront(context, 120, 0, cardColors[2], '4', true);
       }
     }
   }, []);
