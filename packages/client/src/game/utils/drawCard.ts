@@ -4,24 +4,35 @@ import {
   CARD_BORDER_RADIUS,
   BASE_WIDTH_CARD,
   BASE_HEIGHT_CARD,
+  NOT_FOUND_PAGE_WIDTH_CARD,
+  NOT_FOUND_PAGE_HEIGHT_CARD,
 } from './constants';
 import { GAME_STYLES } from '../styles';
 
 const drawCardBlackAndWhiteLayers = (
   ctx: CanvasRenderingContext2D,
   x: number,
-  y: number
+  y: number,
+  cardWidth?: number,
+  cardHeight?: number
 ): void => {
+  if (cardWidth === undefined) {
+    cardWidth = BASE_WIDTH_CARD;
+  }
+  if (cardHeight === undefined) {
+    cardHeight = BASE_HEIGHT_CARD;
+  }
+
   /* Нижний чёрный слой (для отрисовки тонкой чёрной границы) */
   ctx.beginPath();
-  ctx.roundRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD, [CARD_BORDER_RADIUS]);
+  ctx.roundRect(x, y, cardWidth, cardHeight, [CARD_BORDER_RADIUS]);
   ctx.fillStyle = GAME_STYLES.BG_COLOR_BLACK;
   ctx.fill();
   ctx.closePath();
 
   /* Средний белый слой */
   ctx.beginPath();
-  ctx.roundRect(x + 0.5, y + 0.5, BASE_WIDTH_CARD - 1, BASE_HEIGHT_CARD - 1, [
+  ctx.roundRect(x + 0.5, y + 0.5, cardWidth - 1, cardHeight - 1, [
     CARD_BORDER_RADIUS,
   ]);
   ctx.fillStyle = GAME_STYLES.BG_COLOR_MAIN;
@@ -102,17 +113,23 @@ export const drawCardFront = (
   x: number,
   y: number,
   color: string,
-  sign: string
+  sign: string,
+  notFoundPage?: boolean
 ): void => {
-  drawCardBlackAndWhiteLayers(ctx, x, y);
+  const cardWidth = notFoundPage ? NOT_FOUND_PAGE_WIDTH_CARD : BASE_WIDTH_CARD;
+  const cardHeight = notFoundPage
+    ? NOT_FOUND_PAGE_HEIGHT_CARD
+    : BASE_HEIGHT_CARD;
+
+  drawCardBlackAndWhiteLayers(ctx, x, y, cardWidth, cardHeight);
 
   /* Цветной фон */
   ctx.beginPath();
   ctx.roundRect(
     x + CARD_BORDER,
     y + CARD_BORDER,
-    BASE_WIDTH_CARD - CARD_BORDER * 2,
-    BASE_HEIGHT_CARD - CARD_BORDER * 2,
+    cardWidth - CARD_BORDER * 2,
+    cardHeight - CARD_BORDER * 2,
     [CARD_BORDER_RADIUS + 3]
   );
   ctx.fillStyle = color;
@@ -121,15 +138,15 @@ export const drawCardFront = (
 
   /* Размер цифры по центру */
   /* Соотношение высоты карты и цифры по макету: 395 / 195 = 2.03 */
-  const bigFontSize = BASE_HEIGHT_CARD / 2.03;
+  const bigFontSize = cardHeight / 2.03;
   /* Соотношение высоты карты и цифр по краям по макету: 395 / 58 = 6.8 */
-  const smallFontSize = BASE_HEIGHT_CARD / 6.8;
+  const smallFontSize = cardHeight / 6.8;
   /* Отступы от края карты */
   /* Соотношение высоты карты и отступа от верхнего/нижнего края карты по макету: 395 / 26 = 15.2 */
   /* Соотношение высоты карты и отступа от правого/левого края карты по макету: 395 / 21 = 18.8 */
   /* TODO: 2 добавлены временно, т.к. карты отрисованы не по макету */
-  const xOffset = BASE_HEIGHT_CARD / 18.8 + 2;
-  const yOffset = BASE_HEIGHT_CARD / 15.2 + 2;
+  const xOffset = cardHeight / 18.8 + 2;
+  const yOffset = cardHeight / 15.2 + 2;
 
   /* Цвет цифр */
   ctx.fillStyle = GAME_STYLES.FONT_COLOR_MAIN;
@@ -143,8 +160,8 @@ export const drawCardFront = (
   ctx.font = `${bigFontSize}px ${GAME_STYLES.FONT_FAMILY_MAIN}`;
 
   /* Координаты */
-  const xBigSign = x + BASE_WIDTH_CARD / 2;
-  const yBigSign = y + BASE_HEIGHT_CARD / 2;
+  const xBigSign = x + cardWidth / 2;
+  const yBigSign = y + cardHeight / 2;
 
   ctx.fillText(sign, xBigSign, yBigSign);
   ctx.closePath();
@@ -171,10 +188,8 @@ export const drawCardFront = (
   ctx.beginPath();
 
   /* Координаты цифры в правом нижнем углу*/
-  const xRightSmallSign =
-    x + BASE_WIDTH_CARD - xOffset - smallSignFontWidth / 2;
-  const yRightSmallSign =
-    y + BASE_HEIGHT_CARD - yOffset - smallSignFontHeight / 2;
+  const xRightSmallSign = x + cardWidth - xOffset - smallSignFontWidth / 2;
+  const yRightSmallSign = y + cardHeight - yOffset - smallSignFontHeight / 2;
 
   ctx.fillText(sign, xRightSmallSign, yRightSmallSign);
   ctx.closePath();
