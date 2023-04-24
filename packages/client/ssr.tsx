@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { UserService } from './src/api/UserService';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { fetchAuthUserGet } from './src/store/User/auth/actions';
+import { ThemeContextProvider } from './src/contexts/ThemeContext';
+import { GlobalStyle } from './src/styles/global';
 
 async function render(uri, repository, cookies) {
   const store = setupStore(new UserService(repository));
@@ -16,7 +18,10 @@ async function render(uri, repository, cookies) {
   const AppNode = () => (
     <StaticRouter location={uri}>
       <Provider store={store}>
-        <App cookies={cookies} />
+        <ThemeContextProvider cookies={cookies}>
+          <App />
+        </ThemeContextProvider>
+        <GlobalStyle />
       </Provider>
     </StaticRouter>
   );

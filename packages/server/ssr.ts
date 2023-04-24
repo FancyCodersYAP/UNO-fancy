@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 import app from './app/app';
+
 dotenv.config();
 
 import express from 'express';
@@ -10,13 +11,20 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 
+interface SSRModule {
+  render: (
+    uri: string,
+    repository: any,
+    cookies: string | undefined
+  ) => Promise<[Record<string, any>, string, any]>;
+}
+
 const isDev = () => process.env.NODE_ENV === 'development';
 
 export const startSSR = async () => {
   let vite: ViteDevServer | undefined;
-  const distPath = path.dirname(require.resolve('client/dist/index.html'));
   const srcPath = path.dirname(require.resolve('client'));
-  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs');
+  let distPath: string, ssrClientPath: string;
 
   if (isDev()) {
     vite = await createViteServer({
@@ -26,9 +34,10 @@ export const startSSR = async () => {
     });
 
     app.use(vite.middlewares);
-  }
+  } else {
+    distPath = path.dirname(require.resolve('client/dist/index.html'));
+    ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs');
 
-  if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
 
@@ -50,14 +59,6 @@ export const startSSR = async () => {
         );
 
         template = await vite!.transformIndexHtml(url, template);
-      }
-
-      interface SSRModule {
-        render: (
-          uri: string,
-          repository: any,
-          cookies: string | undefined
-        ) => Promise<[Record<string, any>, string, any]>;
       }
 
       let mod: SSRModule;
