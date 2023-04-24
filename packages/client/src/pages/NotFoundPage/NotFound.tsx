@@ -7,6 +7,10 @@ import { St404Wrapper } from './style';
 import { drawCardFront } from 'game/utils';
 import { cardColors } from 'game/utils';
 import { css } from 'styled-components';
+import {
+  NOT_FOUND_PAGE_WIDTH_CARD,
+  NOT_FOUND_PAGE_HEIGHT_CARD,
+} from 'game/utils/constants';
 
 const titleStyles = css`
   font-size: 42px;
@@ -21,9 +25,33 @@ const CanvasErorr404 = () => {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
       if (context) {
-        drawCardFront(context, 0, 0, cardColors[1], '4', true);
-        drawCardFront(context, 60, 20, cardColors[0], '0', true);
-        drawCardFront(context, 120, 0, cardColors[2], '4', true);
+        drawCardFront(
+          context,
+          0,
+          0,
+          cardColors[1],
+          '4',
+          NOT_FOUND_PAGE_WIDTH_CARD,
+          NOT_FOUND_PAGE_HEIGHT_CARD
+        );
+        drawCardFront(
+          context,
+          60,
+          20,
+          cardColors[0],
+          '0',
+          NOT_FOUND_PAGE_WIDTH_CARD,
+          NOT_FOUND_PAGE_HEIGHT_CARD
+        );
+        drawCardFront(
+          context,
+          120,
+          0,
+          cardColors[2],
+          '4',
+          NOT_FOUND_PAGE_WIDTH_CARD,
+          NOT_FOUND_PAGE_HEIGHT_CARD
+        );
       }
     }
   }, []);
