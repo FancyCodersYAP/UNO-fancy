@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from './User/userSlice';
+import leaderboardSlice from './Leaderboard/leaderboardSlice';
 
 const rootReducer = combineReducers({
   USER: userSlice,
+  LEADERBOARD: leaderboardSlice,
 });
 
 export const setupStore = () => {

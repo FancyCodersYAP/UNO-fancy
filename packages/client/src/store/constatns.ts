@@ -6,6 +6,7 @@ export const API_ENDPOINTS = {
   auth: `${API_MAIN_ENDPOINT}/auth`,
   oauth: `${API_MAIN_ENDPOINT}/oauth/yandex`,
   profile: `${API_MAIN_ENDPOINT}/user`,
+  leaderboard: `${API_MAIN_ENDPOINT}/leaderboard`,
 };
 axios.interceptors.request.use(function (config) {
   config.withCredentials = true;
