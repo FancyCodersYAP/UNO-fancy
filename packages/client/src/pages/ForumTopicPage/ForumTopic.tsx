@@ -27,10 +27,6 @@ const testStyle = css`
 `;
 
 const testStyle2 = css`
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  //background: rgba(129, 113, 74, 0.9);
   border: 1px solid rgba(129, 113, 74, 0.9);
   border-left: none;
   border-top: none;
