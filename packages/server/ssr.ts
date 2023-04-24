@@ -10,6 +10,13 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 
+interface SSRModule {
+  render: (
+    uri: string,
+    repository: any
+  ) => Promise<[Record<string, any>, string, any]>;
+}
+
 const isDev = () => process.env.NODE_ENV === 'development';
 
 export const startSSR = async () => {
@@ -50,13 +57,6 @@ export const startSSR = async () => {
         );
 
         template = await vite!.transformIndexHtml(url, template);
-      }
-
-      interface SSRModule {
-        render: (
-          uri: string,
-          repository: any
-        ) => Promise<[Record<string, any>, string, any]>;
       }
 
       let mod: SSRModule;
