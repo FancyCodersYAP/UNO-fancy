@@ -114,12 +114,11 @@ export const drawCardFront = (
   y: number,
   color: string,
   sign: string,
-  notFoundPage?: boolean
+  width?: number,
+  height?: number,
 ): void => {
-  const cardWidth = notFoundPage ? NOT_FOUND_PAGE_WIDTH_CARD : BASE_WIDTH_CARD;
-  const cardHeight = notFoundPage
-    ? NOT_FOUND_PAGE_HEIGHT_CARD
-    : BASE_HEIGHT_CARD;
+  const cardWidth = width || BASE_WIDTH_CARD;
+  const cardHeight = height || BASE_HEIGHT_CARD;
 
   drawCardBlackAndWhiteLayers(ctx, x, y, cardWidth, cardHeight);
 
