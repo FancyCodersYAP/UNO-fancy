@@ -4,7 +4,6 @@ import { UserThemes } from '../models/UserThemes';
 import { checkUserAuth } from '../middlewares/checkUserAuth';
 
 export const themeRoutes = Router()
-  .use(express.urlencoded({ extended: true }))
   .use(express.json())
   .use('/', checkUserAuth)
   .get('/', async (req: Request, res: Response) => {
