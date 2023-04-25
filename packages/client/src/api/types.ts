@@ -1,5 +1,5 @@
-export type responseData = Record<string, never>;
+export type ResponseData = Record<string, never>;
 
-export type setUserThemeData = {
+export type SetUserThemeData = {
   theme_name: string;
 };

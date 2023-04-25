@@ -27,20 +27,26 @@ export const themeRoutes = Router()
 
     const userId = res.locals.user.id;
 
-    const theme: Themes | null = await Themes.findOne({
-      where: { theme_name },
-    });
-
-    if (theme) {
-      const userTheme: [UserThemes, null | boolean] = await UserThemes.upsert({
-        theme_id: theme.id,
-        user_id: userId,
+    try {
+      const theme: Themes | null = await Themes.findOne({
+        where: { theme_name },
       });
 
-      if (userTheme) {
-        return res.status(201).json(userTheme);
-      }
-    }
+      if (theme) {
+        const userTheme: [UserThemes, null | boolean] = await UserThemes.upsert(
+          {
+            theme_id: theme.id,
+            user_id: userId,
+          }
+        );
 
-    return res.status(500).json('data is invalid');
+        if (userTheme) {
+          return res.status(201).json(userTheme);
+        }
+      }
+
+      return res.status(422).json('unknown data');
+    } catch {
+      return res.status(500).json('Internal error');
+    }
   });

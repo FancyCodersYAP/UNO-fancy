@@ -18,7 +18,7 @@ const ThemeContext = React.createContext<IThemeContext>(defaultState);
 
 export const ThemeContextProvider: React.FC<{
   children: React.ReactNode;
-  cookies?: string | undefined;
+  cookies?: string;
 }> = ({ children, cookies }) => {
   const localTheme = getCookie('theme', cookies) as Theme;
 
@@ -30,22 +30,18 @@ export const ThemeContextProvider: React.FC<{
 
   useEffect(() => {
     (async () => {
-      try {
-        if (!localTheme && user) {
-          const themeNameFromDB = await themeService.getUserTheme();
-          const themeNameFromDBIsValid =
-            typeof themeNameFromDB === 'string' &&
-            themeNameFromDB !== currentTheme &&
-            Object.values(Theme).includes(themeNameFromDB);
+      if (!localTheme && user) {
+        const themeNameFromDB = await themeService.getUserTheme();
+        const themeNameFromDBIsValid =
+          typeof themeNameFromDB === 'string' &&
+          themeNameFromDB !== currentTheme &&
+          Object.values(Theme).includes(themeNameFromDB);
 
-          if (themeNameFromDBIsValid) {
-            console.log('устанавливаю тему из базы', themeNameFromDB);
-            setCurrentTheme(themeNameFromDB);
-            setCookie('theme', themeNameFromDB);
-          }
+        if (themeNameFromDBIsValid) {
+          console.log('устанавливаю тему из базы', themeNameFromDB);
+          setCurrentTheme(themeNameFromDB);
+          setCookie('theme', themeNameFromDB);
         }
-      } catch (error) {
-        console.log(error);
       }
     })();
   }, []);
