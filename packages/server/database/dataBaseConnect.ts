@@ -45,7 +45,7 @@ export const initPostgresDBConnection = async (): Promise<
 
     console.log('  ➜ 🎸 Connected to the Postgres database');
   } catch (e) {
-    console.error(e);
+    console.log('⛔️ Connection error ⛔️');
   }
 
   return client;
