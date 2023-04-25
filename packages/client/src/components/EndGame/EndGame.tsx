@@ -1,6 +1,8 @@
 import Button from 'components/Button';
 import medalIcon from '/assets/icons/medal.svg';
-import { StTextContainerWithShadow, StFlex, StFlexBg } from 'styles/global';
+import { StFlex, StFlexBg } from 'styles/global';
+import { StEndGameTextWrapper } from './style';
+import EndGameText from './EndGameText';
 
 interface EndGameType {
   time: string;
@@ -21,38 +23,18 @@ const EndGame = ({
 }: EndGameType) => (
   <>
     <StFlexBg
-      justifyContent="space-between"
+      justifyContent="center"
+      alignItems="center"
       borderRadius={20}
-      columnGap={60}
       padding={25}
       marginBottom={50}>
       <img src={medalIcon} alt="Медаль" width={152} height={216} />
-      <div>
-        <StTextContainerWithShadow
-          fontWeight={500}
-          fontSize={25}
-          lineHeight={24}>
-          время игры: {time}
-        </StTextContainerWithShadow>
-        <StTextContainerWithShadow
-          fontWeight={500}
-          fontSize={25}
-          lineHeight={24}>
-          игроков: {countPlace}
-        </StTextContainerWithShadow>
-        <StTextContainerWithShadow
-          fontWeight={500}
-          fontSize={25}
-          lineHeight={24}>
-          очки: {points}
-        </StTextContainerWithShadow>
-        <StTextContainerWithShadow
-          fontWeight={500}
-          fontSize={25}
-          lineHeight={24}>
-          результат: {result}
-        </StTextContainerWithShadow>
-      </div>
+      <StEndGameTextWrapper>
+        <EndGameText text={`время игры: ${time}`} />
+        <EndGameText text={`игроков: ${countPlace}`} />
+        <EndGameText text={`очки: ${points}`} />
+        <EndGameText text={`результат: ${result}`} />
+      </StEndGameTextWrapper>
     </StFlexBg>
 
     <StFlex>

@@ -6,6 +6,7 @@ import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import MainPage from 'pages/MainPage';
 import ProfilePage from 'pages/ProfilePage';
+import ForumPage from 'pages/ForumPage';
 
 import AuthRoute from './components/AuthRoute/AuthRuote';
 import LeaderBoard from './pages/LeaderBoardPage';
@@ -41,10 +42,7 @@ function App() {
           element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>}
         />
         <Route path={AppRoute.LEADERBOARD} element={<LeaderBoard />} />
-        <Route
-          path={AppRoute.FORUM}
-          // element={<ForumPage/>}
-        />
+        <Route path={AppRoute.FORUM} element={<ForumPage />} />
         <Route
           path={AppRoute.NOT_FOUND_PAGE}
           // element={<ErrorPage />}
