@@ -46,7 +46,8 @@ export const StTable = styled.div`
 `;
 
 export const StHead = styled.div`
-  ${gridTemplateColumnsStyle}
+  display: grid;
+  grid-template-columns: 58px 1fr 163px 174px 315px;
   height: 68px;
 
   & > p,
@@ -57,7 +58,7 @@ export const StHead = styled.div`
     padding: 3px;
     height: 100%;
     background-color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   }
 `;
 
@@ -93,7 +94,7 @@ export const StTableTopic = styled.article`
   &:last-child ${StTableCell} {
     border-bottom: none;
   }
-  
+
   &:hover {
     font-size: 23px;
     text-shadow: 1px 1px 1px rgb(0 0 0 / 50%);

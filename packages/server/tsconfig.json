@@ -13,6 +13,8 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitOverride": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
