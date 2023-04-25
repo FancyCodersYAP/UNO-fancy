@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { fetchAvatarChange } from '../../store/User/profile/actions';
 import { useAppDispatch } from '../../hooks/redux';
 import { StFlex } from '../../styles/global';
+import { REDIRECT_URL } from '../../store/constatns';
 
 interface IAvatar {
   image: string | undefined;
 }
 
-const API_RESOURCES = 'https://ya-praktikum.tech/api/v2/resources/';
+const API_RESOURCES = `${REDIRECT_URL}/api/v2/resources`;
 
 const StImageInput = styled.input`
   position: absolute;

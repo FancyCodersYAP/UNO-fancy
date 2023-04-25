@@ -14,7 +14,7 @@ import {
 } from './profile/actions';
 import { fetchOauthCodePost, fetchOauthServiceIdGet } from './oauth/actions';
 
-const initialState: UserState = {
+export const initialState: UserState = {
   user: null,
   isLoading: false,
   error: '',
