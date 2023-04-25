@@ -94,6 +94,11 @@ export const StTableTopic = styled.article`
   &:last-child ${StTableCell} {
     border-bottom: none;
   }
+
+  &:hover {
+    font-size: 23px;
+    text-shadow: 1px 1px 1px rgb(0 0 0 / 50%);
+  }
 `;
 
 export const StEmptyTable = styled.p`
