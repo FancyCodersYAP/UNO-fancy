@@ -80,7 +80,7 @@ export class Game extends EventBus {
       this.table.addUpcard(lastCard, () => {
         this.emit(GameEvents.CARD_MOVEMENT);
       });
-    }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
+    }, (ANIMATION_TIME / 2) * START_NUM_CARDS_IN_HAND);
 
     this.activePlayerId = 0;
     this.getActivePlayer().highlight();
@@ -98,7 +98,7 @@ export class Game extends EventBus {
         if (lastCard.action !== 'wild') {
           this.moveLine();
         }
-      }, ANIMATION_TIME * (START_NUM_CARDS_IN_HAND + 1));
+      }, (ANIMATION_TIME / 2) * (START_NUM_CARDS_IN_HAND + 1));
     }
     /* Оставшаяся часть карт будет в закрытой колоде */
     this.table.setClosePack(initialPack);
@@ -250,9 +250,12 @@ export class Game extends EventBus {
     }
 
     /* Проверяем, была ли выложена спец.карта. Если да, выполняем действие карты */
-    this.checkCard(movedCard);
+    const isSpecialCard = this.checkCard(movedCard);
+    const time = isSpecialCard ? ANIMATION_TIME : 0;
 
-    this.moveLine();
+    sleep(time, () => {
+      this.moveLine();
+    });
   }
 
   checkCard(card: CardType) {
@@ -261,14 +264,13 @@ export class Game extends EventBus {
         /* Следующий игрок берёт две карты и пропускает ход */
         this.skipMove();
         this.takeCard(2);
-        break;
-
+        return true;
       case 'wild': {
         /* Игрок выбирает новый цвет */
         const newColor =
           cardColors[Math.floor(Math.random() * cardColors.length)];
         this.table.setColor(newColor);
-        break;
+        return true;
       }
       case 'wild draw four': {
         /* Игрок выбирает новый цвет, а следующий игрок берёт 4 карты */
@@ -277,7 +279,7 @@ export class Game extends EventBus {
         this.table.setColor(newColor);
         this.skipMove();
         this.takeCard(4);
-        break;
+        return true;
       }
       case 'reverse':
         /* Очёрёдность хода меняется в обратную сторону */
@@ -287,12 +289,11 @@ export class Game extends EventBus {
         } else {
           this.clockwiseMovement = !this.clockwiseMovement;
         }
-        break;
-
+        return true;
       case 'skip':
         /* Следующий игрок пропускает ход */
         this.skipMove();
-        break;
+        return true;
     }
   }
 
@@ -303,9 +304,17 @@ export class Game extends EventBus {
     const cards = this.table.giveCards(countCards);
     const activePlayer = this.getActivePlayer();
 
-    activePlayer.addCards(cards, () => {
-      this.emit(GameEvents.CARD_MOVEMENT);
-    });
+    if (countCards > 1) {
+      sleep(ANIMATION_TIME, () => {
+        activePlayer.addCards(cards, () => {
+          this.emit(GameEvents.CARD_MOVEMENT);
+        });
+      });
+    } else {
+      activePlayer.addCards(cards, () => {
+        this.emit(GameEvents.CARD_MOVEMENT);
+      });
+    }
 
     if (countCards !== 1) {
       return;

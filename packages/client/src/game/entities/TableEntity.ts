@@ -72,7 +72,7 @@ export class TableEntity extends Entity<EntityTypes> {
       moveCard(
         card,
         this.entityName,
-        'fromTable',
+        'onTable',
         this.width,
         this.height,
         playSound!

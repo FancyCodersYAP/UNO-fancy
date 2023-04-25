@@ -137,7 +137,8 @@ export const createUnoButton = (): HTMLButtonElement => {
   button.style.textAlign = UNO_BUTTON_STYLES.TEXT_ALIGN;
   button.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
   button.style.color = UNO_BUTTON_STYLES.COLOR;
-  button.style.border = UNO_BUTTON_STYLES.BORDER;
+  button.style.border = BUTTON_AND_BOX_STYLES.BORDER;
+  button.style.boxShadow = BUTTON_AND_BOX_STYLES.BOX_SHADOW;
   button.textContent = 'UNO';
 
   button.addEventListener('click', clickOnUno);
@@ -149,10 +150,13 @@ export const createColorBox = (): HTMLDivElement => {
   const div = document.createElement('div');
 
   div.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
-  div.style.width = BUTTON_AND_BOX_STYLES.WIDTH;
+  div.style.width = BUTTON_AND_BOX_STYLES.HEIGHT;
   div.style.position = BUTTON_AND_BOX_STYLES.POSITION;
   div.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDER_RADIUS;
   div.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
+  div.style.border = BUTTON_AND_BOX_STYLES.BORDER;
+  div.style.boxShadow = BUTTON_AND_BOX_STYLES.BOX_SHADOW;
+  div.style.transform = 'rotate(45deg)';
   div.style.left = '-80px';
 
   return div;

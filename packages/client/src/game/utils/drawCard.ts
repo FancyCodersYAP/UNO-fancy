@@ -1,11 +1,6 @@
 import { CardType } from '../types';
-import {
-  CARD_BORDER,
-  CARD_BORDER_RADIUS,
-  BASE_WIDTH_CARD,
-  BASE_HEIGHT_CARD,
-} from './constants';
-import { GAME_STYLES } from '../styles';
+import { BASE_WIDTH_CARD, BASE_HEIGHT_CARD } from './constants';
+import { GAME_STYLES, CARD_STYLES, CARD_BORDER } from '../styles';
 
 const drawCardBlackAndWhiteLayers = (
   ctx: CanvasRenderingContext2D,
@@ -15,18 +10,37 @@ const drawCardBlackAndWhiteLayers = (
   /* Нижний чёрный слой (для отрисовки тонкой чёрной границы) */
   ctx.beginPath();
   // @ts-ignore//TODO Катя поправь пожалуйста
-  ctx.roundRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD, [CARD_BORDER_RADIUS]);
-  ctx.fillStyle = GAME_STYLES.BG_COLOR_BLACK;
+  ctx.roundRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD, [
+    CARD_STYLES.BORDER_RADIUS,
+  ]);
+  ctx.fillStyle = GAME_STYLES.BG_COLOR_DARK_BLUE;
   ctx.fill();
   ctx.closePath();
 
   /* Средний белый слой */
   ctx.beginPath();
   // @ts-ignore//TODO Катя поправь пожалуйста
-  ctx.roundRect(x + 0.5, y + 0.5, BASE_WIDTH_CARD - 1, BASE_HEIGHT_CARD - 1, [
-    CARD_BORDER_RADIUS,
-  ]);
+  ctx.roundRect(
+    x + CARD_STYLES.BORDER_WIDTH_BLACK,
+    y + CARD_STYLES.BORDER_WIDTH_BLACK,
+    BASE_WIDTH_CARD - CARD_STYLES.BORDER_WIDTH_BLACK * 2,
+    BASE_HEIGHT_CARD - CARD_STYLES.BORDER_WIDTH_BLACK * 2,
+    [CARD_STYLES.BORDER_RADIUS]
+  );
   ctx.fillStyle = GAME_STYLES.BG_COLOR_MAIN;
+  ctx.fill();
+  ctx.closePath();
+
+  /* Верхний чёрный слой */
+  ctx.beginPath();
+  ctx.roundRect(
+    x + CARD_STYLES.BORDER_WIDTH_WHITE,
+    y + CARD_STYLES.BORDER_WIDTH_WHITE,
+    BASE_WIDTH_CARD - CARD_STYLES.BORDER_WIDTH_WHITE * 2,
+    BASE_HEIGHT_CARD - CARD_STYLES.BORDER_WIDTH_WHITE * 2,
+    [CARD_STYLES.BORDER_RADIUS]
+  );
+  ctx.fillStyle = GAME_STYLES.BG_COLOR_DARK_BLUE;
   ctx.fill();
   ctx.closePath();
 };
@@ -69,7 +83,7 @@ export const drawCardBack = (
     y + padding,
     BASE_WIDTH_CARD - padding * 2,
     BASE_HEIGHT_CARD - padding * 2,
-    [CARD_BORDER_RADIUS + 3]
+    [CARD_STYLES.BORDER_RADIUS]
   );
   ctx.fill();
   ctx.closePath();
@@ -78,24 +92,31 @@ export const drawCardBack = (
   const coords = [x + BASE_WIDTH_CARD / 2, y + BASE_HEIGHT_CARD / 2];
   /* Длины большой и малой полуосей эллипса — массив [a, b] */
   const sizes = [
-    BASE_HEIGHT_CARD / 1.15 / 2 + 4,
-    BASE_HEIGHT_CARD / 2.18 / 2 + 1,
+    Math.floor(BASE_HEIGHT_CARD / 1.15 / 2) + 4,
+    Math.floor(BASE_HEIGHT_CARD / 2.18 / 2) + 1,
   ];
   /* Вектор [x, y] наклона эллипса */
-  const angle = Math.PI / 1.5;
+  const angle = Math.floor(Math.PI / 1.5);
   const ellipseBgd = GAME_STYLES.BG_COLOR_ELLIPSE;
 
   /* Отрисовка эллипса */
   drawEllipse(ctx, coords, sizes, angle, ellipseBgd);
 
-  const fontSize = BASE_HEIGHT_CARD / 5;
+  const fontSize = Math.floor(BASE_HEIGHT_CARD / 5);
   /* Текст */
   ctx.beginPath();
   ctx.fillStyle = GAME_STYLES.FONT_COLOR_MAIN;
   ctx.font = `bold ${fontSize}px ${GAME_STYLES.FONT_FAMILY_MAIN}`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('UNO', x + BASE_WIDTH_CARD / 2, y + BASE_HEIGHT_CARD / 2);
+  ctx.shadowColor = GAME_STYLES.BG_COLOR_BLACK;
+  ctx.shadowBlur = CARD_STYLES.SHADOW_BLUR;
+  ctx.fillText(
+    'UNO',
+    x + Math.floor(BASE_WIDTH_CARD / 2),
+    y + Math.floor(BASE_HEIGHT_CARD / 2)
+  );
+  ctx.shadowBlur = 0;
   ctx.closePath();
 };
 
@@ -109,15 +130,17 @@ export const drawCardFront = (
 ): void => {
   drawCardBlackAndWhiteLayers(ctx, x, y);
 
+  const padding = CARD_BORDER;
+
   /* Цветной фон */
   ctx.beginPath();
   // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(
-    x + CARD_BORDER,
-    y + CARD_BORDER,
-    BASE_WIDTH_CARD - CARD_BORDER * 2,
-    BASE_HEIGHT_CARD - CARD_BORDER * 2,
-    [CARD_BORDER_RADIUS + 3]
+    x + padding,
+    y + padding,
+    BASE_WIDTH_CARD - padding * 2,
+    BASE_HEIGHT_CARD - padding * 2,
+    [CARD_STYLES.BORDER_RADIUS]
   );
   ctx.fillStyle = color;
   ctx.fill();
@@ -125,15 +148,15 @@ export const drawCardFront = (
 
   /* Размер цифры по центру */
   /* Соотношение высоты карты и цифры по макету: 395 / 195 = 2.03 */
-  const bigFontSize = BASE_HEIGHT_CARD / 2.03;
+  const bigFontSize = Math.floor(BASE_HEIGHT_CARD / 2.03);
   /* Соотношение высоты карты и цифр по краям по макету: 395 / 58 = 6.8 */
-  const smallFontSize = BASE_HEIGHT_CARD / 6.8;
+  const smallFontSize = Math.floor(BASE_HEIGHT_CARD / 6.8);
   /* Отступы от края карты */
   /* Соотношение высоты карты и отступа от верхнего/нижнего края карты по макету: 395 / 26 = 15.2 */
   /* Соотношение высоты карты и отступа от правого/левого края карты по макету: 395 / 21 = 18.8 */
   /* TODO: 2 добавлены временно, т.к. карты отрисованы не по макету */
-  const xOffset = BASE_HEIGHT_CARD / 18.8 + 2;
-  const yOffset = BASE_HEIGHT_CARD / 15.2 + 2;
+  const xOffset = Math.floor(BASE_HEIGHT_CARD / 18.8) + 4;
+  const yOffset = Math.floor(BASE_HEIGHT_CARD / 15.2) + 4;
 
   /* Цвет цифр */
   ctx.fillStyle = GAME_STYLES.FONT_COLOR_MAIN;
@@ -147,10 +170,16 @@ export const drawCardFront = (
   ctx.font = `${bigFontSize}px ${GAME_STYLES.FONT_FAMILY_MAIN}`;
 
   /* Координаты */
-  const xBigSign = x + BASE_WIDTH_CARD / 2;
-  const yBigSign = y + BASE_HEIGHT_CARD / 2;
+  const xBigSign = x + Math.floor(BASE_WIDTH_CARD / 2);
+  const yBigSign = y + Math.floor(BASE_HEIGHT_CARD / 2);
 
+  ctx.shadowColor = GAME_STYLES.FONT_COLOR_DARK;
+  ctx.shadowBlur = CARD_STYLES.SHADOW_BLUR;
   ctx.fillText(sign, xBigSign, yBigSign);
+  ctx.shadowBlur = 0;
+  ctx.strokeStyle = GAME_STYLES.FONT_COLOR_DARK;
+  ctx.lineWidth = CARD_STYLES.SIGN_BORDER_WIDTH;
+  ctx.strokeText(sign, xBigSign, yBigSign);
   ctx.closePath();
 
   /* Sign в левом верхнем углу */
@@ -165,10 +194,13 @@ export const drawCardFront = (
     smallSignMetrics.actualBoundingBoxDescent;
 
   /* Координаты цифры в левом верхнем углу*/
-  const xLeftSmallSign = x + xOffset + smallSignFontWidth / 2;
-  const yLeftSmallSign = y + yOffset + smallSignFontHeight / 2;
+  const xLeftSmallSign = x + xOffset + Math.floor(smallSignFontWidth / 2);
+  const yLeftSmallSign = y + yOffset + Math.floor(smallSignFontHeight / 2);
 
+  ctx.shadowColor = GAME_STYLES.FONT_COLOR_DARK;
+  ctx.shadowBlur = CARD_STYLES.SHADOW_BLUR;
   ctx.fillText(sign, xLeftSmallSign, yLeftSmallSign);
+  ctx.shadowBlur = 0;
   ctx.closePath();
 
   /* Sign в правом нижнем углу */
@@ -176,11 +208,14 @@ export const drawCardFront = (
 
   /* Координаты цифры в правом нижнем углу*/
   const xRightSmallSign =
-    x + BASE_WIDTH_CARD - xOffset - smallSignFontWidth / 2;
+    x + BASE_WIDTH_CARD - xOffset - Math.floor(smallSignFontWidth / 2);
   const yRightSmallSign =
-    y + BASE_HEIGHT_CARD - yOffset - smallSignFontHeight / 2;
+    y + BASE_HEIGHT_CARD - yOffset - Math.floor(smallSignFontHeight / 2);
 
+  ctx.shadowColor = GAME_STYLES.FONT_COLOR_DARK;
+  ctx.shadowBlur = CARD_STYLES.SHADOW_BLUR;
   ctx.fillText(sign, xRightSmallSign, yRightSmallSign);
+  ctx.shadowBlur = 0;
   ctx.closePath();
 };
 

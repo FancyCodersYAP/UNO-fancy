@@ -44,8 +44,6 @@ export function GamePage() {
   const { isLoading, user } = userState();
 
   useEffect(() => {
-    dispatch(fetchAuthUserGet());
-
     for (const soundName of soundNames) {
       addSound(soundName);
     }
