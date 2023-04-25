@@ -38,7 +38,7 @@ export const StDeleteTopicIcon = styled.svg`
 export const StTable = styled.div`
   min-width: 1000px;
 
-  border-radius: ${BORDER_RADIUS_SIZE};
+  border-radius: ${BORDER_RADIUS_SIZE} ${BORDER_RADIUS_SIZE} 5px 10px;
   overflow: hidden;
 
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
@@ -64,7 +64,7 @@ export const StHead = styled.div`
 export const StBody = styled.div`
   ${customScrollbar}
   overflow-y: auto;
-  max-height: 380px;
+  min-height: 580px;
 `;
 
 
