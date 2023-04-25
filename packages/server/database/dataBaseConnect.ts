@@ -40,12 +40,12 @@ export const initPostgresDBConnection = async (): Promise<
         { ignoreDuplicates: true }
       );
     } else {
-      console.log('⛔️ Sync error ⛔️');
+      console.log('⛔️ DB Sync error ⛔️');
     }
 
     console.log('  ➜ 🎸 Connected to the Postgres database');
   } catch (e) {
-    console.log('⛔️ Connection error ⛔️');
+    console.log('⛔️ DB Connection error ⛔️');
   }
 
   return client;
