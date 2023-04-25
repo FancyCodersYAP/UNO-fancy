@@ -38,8 +38,6 @@ export const NAME_STYLES = {
 };
 
 export const BUTTON_AND_BOX_STYLES = {
-  HEIGHT: '50px',
-  WIDTH: '70px',
   POSITION: 'absolute',
   BORDER_RADIUS: '1em',
   Z_INDEX: '31',
@@ -47,10 +45,22 @@ export const BUTTON_AND_BOX_STYLES = {
   BOX_SHADOW: '0px 0px 5px rgba(58, 93, 112, 0.7)',
 };
 
+const buttonWidth = Math.floor(BASE_HEIGHT_CARD / 3);
+const buttonHeight = Math.floor(BASE_HEIGHT_CARD / 4);
+
 export const UNO_BUTTON_STYLES = {
+  HEIGHT: `${buttonHeight}px`,
+  WIDTH: `${buttonWidth}px`,
   MARGIN: 'auto',
-  RIGHT: '-90px',
+  RIGHT: `-${buttonWidth + 20}px`,
   BACKGROUND_COLOR: '#3a5d70',
   TEXT_ALIGN: 'center',
   COLOR: 'white',
+};
+
+export const COLOR_BOX_STYLES = {
+  HEIGHT: UNO_BUTTON_STYLES.HEIGHT,
+  WIDTH: UNO_BUTTON_STYLES.HEIGHT,
+  TRANSFORM: 'rotate(45deg)',
+  LEFT: `-${buttonWidth + 20 - (buttonWidth - buttonHeight)}px`,
 };

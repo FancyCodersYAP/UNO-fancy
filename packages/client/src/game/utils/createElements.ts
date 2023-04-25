@@ -5,6 +5,7 @@ import {
   LAYER_STYLES,
   BUTTON_AND_BOX_STYLES,
   UNO_BUTTON_STYLES,
+  COLOR_BOX_STYLES,
 } from '../styles';
 
 export const createLayer = (
@@ -127,8 +128,8 @@ export const createNameLayer = (
 export const createUnoButton = (): HTMLButtonElement => {
   const button = document.createElement('button');
 
-  button.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
-  button.style.width = BUTTON_AND_BOX_STYLES.WIDTH;
+  button.style.height = UNO_BUTTON_STYLES.HEIGHT;
+  button.style.width = UNO_BUTTON_STYLES.WIDTH;
   button.style.position = BUTTON_AND_BOX_STYLES.POSITION;
   button.style.margin = UNO_BUTTON_STYLES.MARGIN;
   button.style.right = UNO_BUTTON_STYLES.RIGHT;
@@ -149,15 +150,15 @@ export const createUnoButton = (): HTMLButtonElement => {
 export const createColorBox = (): HTMLDivElement => {
   const div = document.createElement('div');
 
-  div.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
-  div.style.width = BUTTON_AND_BOX_STYLES.HEIGHT;
+  div.style.height = COLOR_BOX_STYLES.HEIGHT;
+  div.style.width = COLOR_BOX_STYLES.HEIGHT;
   div.style.position = BUTTON_AND_BOX_STYLES.POSITION;
   div.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDER_RADIUS;
   div.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
   div.style.border = BUTTON_AND_BOX_STYLES.BORDER;
   div.style.boxShadow = BUTTON_AND_BOX_STYLES.BOX_SHADOW;
-  div.style.transform = 'rotate(45deg)';
-  div.style.left = '-80px';
+  div.style.transform = COLOR_BOX_STYLES.TRANSFORM;
+  div.style.left = COLOR_BOX_STYLES.LEFT;
 
   return div;
 };
