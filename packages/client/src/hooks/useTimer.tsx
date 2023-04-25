@@ -5,21 +5,21 @@ export default function useTimer(initialState = 0) {
   const [isActive, setIsActive] = useState(false);
   const countRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const handleStart = () => {
+  const timerStart = () => {
     setIsActive(true);
     countRef.current = setInterval(() => {
       setTimer(timer => timer + 1);
     }, 1000);
   };
 
-  const handlePause = () => {
+  const timerPause = () => {
     if (countRef.current) {
       clearInterval(countRef.current);
     }
     setIsActive(false);
   };
 
-  const handleResume = () => {
+  const timerResume = () => {
     if (isActive) {
       return;
     }
@@ -29,7 +29,7 @@ export default function useTimer(initialState = 0) {
     }, 1000);
   };
 
-  const handleReset = () => {
+  const timerReset = () => {
     if (countRef.current) {
       clearInterval(countRef.current);
     }
@@ -40,9 +40,9 @@ export default function useTimer(initialState = 0) {
   return {
     timer,
     isActive,
-    handleStart,
-    handlePause,
-    handleResume,
-    handleReset,
+    timerStart,
+    timerPause,
+    timerResume,
+    timerReset,
   };
 }

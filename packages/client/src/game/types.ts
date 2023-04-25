@@ -24,3 +24,33 @@ export type AnimatedCardType = 'close' | 'open';
 export type CardMovementDirection = 'fromUser' | 'fromBot' | 'fromTable';
 
 export type PlayerClickPosition = Record<string, number>;
+
+/* Audio types */
+export const soundNames = [
+  'background',
+  'movement',
+  'uno',
+  'finish',
+  'skipUno',
+] as const;
+
+export type SoundOptionsType = {
+  src: string;
+  volume: number;
+  loop: boolean;
+};
+export type SoundNameType = typeof soundNames[number];
+export type SoundListType = Record<SoundNameType, SoundOptionsType>;
+
+export type AudioObjectType = {
+  audio: HTMLAudioElement;
+  isPlaying: boolean;
+};
+export type AudioListType = Record<string, AudioObjectType>;
+
+export enum GameEvents {
+  CARD_MOVEMENT = 'card movement',
+  CLICK_UNO = 'click uno',
+  SKIP_CLICK_UNO = 'skip click uno',
+  FINISH_GAME = 'finish',
+}

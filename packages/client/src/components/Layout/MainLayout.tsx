@@ -2,7 +2,6 @@ import { FC, useEffect } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import { fetchAuthUserGet } from '../../store/User/auth/actions';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
@@ -46,8 +45,6 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
       window.history.pushState({}, '', REDIRECT_URL);
 
       dispatch(fetchOauthCodePost(oauthCode));
-    } else {
-      dispatch(fetchAuthUserGet());
     }
   }, []);
 
