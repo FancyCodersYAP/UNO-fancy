@@ -28,7 +28,7 @@ export class YandexAPIRepository {
       try {
         await addUserData(data);
       } catch (error) {
-        console.log('  ➜💾 add user to DB error ⛔️');
+        console.log('  ➜ 💾 add user to DB error ⛔️');
       }
     }
     return data;
