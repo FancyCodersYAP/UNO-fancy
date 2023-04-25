@@ -16,6 +16,12 @@ export interface UserState {
   error: string;
 }
 
+export interface ForumState {
+  forumTopics: Record<any, any>[] | [];
+  isLoading: boolean;
+  error: string;
+}
+
 export interface IServiceId {
   service_id: string;
 }

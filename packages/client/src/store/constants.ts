@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
   oauth: `${API_MAIN_ENDPOINT}/oauth/yandex`,
   profile: `${API_MAIN_ENDPOINT}/user`,
   theme: `${REDIRECT_URL}/theme-service`,
+  forum: `${REDIRECT_URL}/forum`,
 };
 axios.interceptors.request.use(function (config) {
   config.withCredentials = true;
