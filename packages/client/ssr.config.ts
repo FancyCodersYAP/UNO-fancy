@@ -16,6 +16,8 @@ export default defineConfig({
       contexts: path.resolve(__dirname, './src/contexts'),
       assets: path.resolve(__dirname, './src/assets'),
       hooks: path.resolve(__dirname, './src/hooks'),
+      data: path.resolve(__dirname, './src/data'),
+      game: path.resolve(__dirname, './src/game'),
     },
   },
   plugins: [react()],
