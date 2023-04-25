@@ -122,6 +122,10 @@ export const resetDefaultStyles = css`
   [type='reset'],
   [type='submit'] {
     -webkit-appearance: button;
+    background-color: initial;
+    border-style: none;
+    padding: 0;
+    cursor: pointer;
   }
 
   button::-moz-focus-inner,

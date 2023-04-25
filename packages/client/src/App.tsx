@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import PrivateRoute from 'components/PrivateRoute';
@@ -14,17 +13,6 @@ import LeaderBoard from './pages/LeaderBoardPage';
 import { GamePage } from 'pages/GamePage/GamePage';
 
 function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${3001}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      console.log(data);
-    };
-
-    fetchServerData();
-  }, []);
-
   return (
     <ThemeContextProvider>
       <Routes>
