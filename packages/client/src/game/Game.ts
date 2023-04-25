@@ -18,12 +18,14 @@ import {
 } from './utils/constants';
 import {
   CardType,
+  GameEvents,
   GamePlayerType,
   HandEntityTypes,
   PlayerClickPosition,
 } from './types';
 import { HandEntity, TableEntity } from './entities';
 import { EventBus } from './utils/EventBus';
+import { countPoints } from './utils/countPoints';
 
 export class Game extends EventBus {
   private activePlayerId = -1;
@@ -61,7 +63,9 @@ export class Game extends EventBus {
         START_NUM_CARDS_IN_HAND
       );
       this.handEntities[entityName].create(zIndex);
-      this.handEntities[entityName].addCards(cards);
+      this.handEntities[entityName].addCards(cards, () => {
+        this.emit(GameEvents.CARD_MOVEMENT);
+      });
 
       zIndex -= 1;
     }
@@ -73,17 +77,28 @@ export class Game extends EventBus {
     }
     /* Открываем карту после раздачи всех карт игрокам */
     setTimeout(() => {
-      this.table.addUpcard(lastCard);
+      this.table.addUpcard(lastCard, () => {
+        this.emit(GameEvents.CARD_MOVEMENT);
+      });
     }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
 
+    this.activePlayerId = 0;
+    this.getActivePlayer().highlight();
+
     if (lastCard.action) {
+      if (lastCard.action !== 'wild') {
+        this.activePlayerId = this.players.length - 1;
+      }
+      if (lastCard.action === 'reverse' && this.players.length === 4) {
+        this.activePlayerId = 1;
+      }
+
       setTimeout(() => {
         this.checkCard(lastCard);
-        this.moveLine();
+        if (lastCard.action !== 'wild') {
+          this.moveLine();
+        }
       }, ANIMATION_TIME * (START_NUM_CARDS_IN_HAND + 1));
-    } else {
-      this.activePlayerId = 0;
-      this.getActivePlayer().highlight();
     }
     /* Оставшаяся часть карт будет в закрытой колоде */
     this.table.setClosePack(initialPack);
@@ -189,7 +204,9 @@ export class Game extends EventBus {
   async discardCard(movedCard: CardType) {
     const activePlayerLayer = this.getActivePlayer();
 
-    activePlayerLayer.removeCard(movedCard);
+    activePlayerLayer.removeCard(movedCard, () => {
+      this.emit(GameEvents.CARD_MOVEMENT);
+    });
     this.table.addUpcard(movedCard);
 
     /* Если у активного игрока не осталось карт на руке, завершаем игру */
@@ -205,6 +222,7 @@ export class Game extends EventBus {
     if (activePlayerLayer.getCards().length === 1) {
       /* Боту кликать не нужно */
       if (this.players[this.activePlayerId].isBot) {
+        this.unoClick();
         console.log('У бота осталась одна карта');
       } else {
         /* Проверяем, что "живой" игрок сделал клик */
@@ -216,16 +234,17 @@ export class Game extends EventBus {
         };
 
         /* Подписка на событие клика по кнопке UNO */
-        this.on('click uno', cb);
+        this.on(GameEvents.CLICK_UNO, cb);
 
         /* Если за 1,5 сек клика не было, игроку выдаются 2 карты на руку и ход переходит к след. игроку */
         await sleep(1500, () => {
           if (!clickUno) {
+            this.emit(GameEvents.SKIP_CLICK_UNO);
             this.takeCard(2);
             return;
           }
 
-          this.off('click uno', cb);
+          this.off(GameEvents.CLICK_UNO, cb);
         });
       }
     }
@@ -284,7 +303,9 @@ export class Game extends EventBus {
     const cards = this.table.giveCards(countCards);
     const activePlayer = this.getActivePlayer();
 
-    activePlayer.addCards(cards);
+    activePlayer.addCards(cards, () => {
+      this.emit(GameEvents.CARD_MOVEMENT);
+    });
 
     if (countCards !== 1) {
       return;
@@ -325,9 +346,7 @@ export class Game extends EventBus {
 
   /* Переход хода */
   moveLine() {
-    if (this.activePlayerId !== -1) {
-      this.getActivePlayer().removeHighlight();
-    }
+    this.getActivePlayer().removeHighlight();
 
     this.changeActivePlayerId();
     this.getActivePlayer().highlight();
@@ -343,9 +362,7 @@ export class Game extends EventBus {
 
   /* Пропуск хода (когда на стол выкладывается спец.карта) */
   skipMove() {
-    if (this.activePlayerId !== -1) {
-      this.getActivePlayer().removeHighlight();
-    }
+    this.getActivePlayer().removeHighlight();
 
     this.changeActivePlayerId();
   }
@@ -361,7 +378,7 @@ export class Game extends EventBus {
         break;
 
       case false:
-        if (this.activePlayerId === 0 || this.activePlayerId === -1) {
+        if (this.activePlayerId === 0) {
           this.activePlayerId = this.players.length - 1;
         } else {
           this.activePlayerId--;
@@ -385,14 +402,28 @@ export class Game extends EventBus {
       elements.push(this.handEntities[layer].getLayer());
     }
     clearGamePage(elements);
+
+    const points = this.players[this.activePlayerId].isBot
+      ? 0
+      : this.countPoints();
     /* Вызов события завершения игры */
-    this.emit('finish');
+    this.emit(GameEvents.FINISH_GAME, points);
+  }
+
+  countPoints() {
+    let points = 0;
+    for (const entity in this.handEntities) {
+      const cards = this.handEntities[entity].getCards();
+      points += countPoints(cards);
+    }
+
+    return points;
   }
 
   /* Генерация клика по кнопке UNO */
   unoClick() {
     if (this.getActivePlayer().getCards().length === 1) {
-      this.emit('click uno');
+      this.emit(GameEvents.CLICK_UNO);
     }
   }
 }
