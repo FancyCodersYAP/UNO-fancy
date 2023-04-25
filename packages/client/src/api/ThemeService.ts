@@ -1,22 +1,22 @@
 import { API_ENDPOINTS } from '../store/constants';
 import axios from 'axios';
-import { type responseData, type setUserThemeData } from './types';
+import { type ResponseData, type SetUserThemeData } from './types';
 
 export const themeService = {
   getUserTheme: async () => {
     try {
-      const response = await axios.get<responseData>(API_ENDPOINTS.theme);
+      const response = await axios.get<ResponseData>(API_ENDPOINTS.theme);
       return response.data;
     } catch (error) {
-      console.log(error, 'Ошбка получения темы с сервера');
-      return 'light';
+      console.log(error, 'Ошибка получения темы с сервера');
+      return null;
     }
   },
-  setUserTheme: async (data: setUserThemeData) => {
+  setUserTheme: async (data: SetUserThemeData) => {
     try {
-      await axios.post<responseData>(API_ENDPOINTS.theme, { data });
+      await axios.post<ResponseData>(API_ENDPOINTS.theme, { data });
     } catch (error) {
-      console.log(error, 'Ошбка отправки темы на сервер');
+      console.log(error, 'Ошибка отправки темы на сервер');
     }
   },
 };

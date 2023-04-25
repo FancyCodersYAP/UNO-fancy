@@ -2,9 +2,9 @@ import type { RequestHandler } from 'express';
 import { IUser, YandexAPIRepository } from '../repository/YandexAPIRepository';
 
 export const checkUserAuth: RequestHandler = async (req, res, next) => {
-  const user = (await new YandexAPIRepository(
-    req.headers['cookie']
-  ).getCurrent()) as IUser;
+  const cookie = req.headers['cookie'];
+  const yandexAPIRepository = new YandexAPIRepository(cookie);
+  const user = (await yandexAPIRepository.getCurrent()) as IUser;
 
   if (user?.id) {
     res.locals.user = user;
