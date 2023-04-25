@@ -34,11 +34,11 @@ const hoverStyle = css`
     cursor: pointer;
   }
 
-  svg:hover {
+  svg {
     opacity: 0.5;
   }
 
-  svg {
+  svg:hover {
     opacity: 1;
   }
 `;
