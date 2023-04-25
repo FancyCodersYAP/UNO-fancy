@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { fetchAvatarChange } from '../../store/User/profile/actions';
 import { useAppDispatch } from '../../hooks/redux';
 import { StFlex } from '../../styles/global';
-import { REDIRECT_URL } from '../../store/constatns';
+import { REDIRECT_URL } from '../../store/constants';
 
 interface IAvatar {
   image: string | undefined;

@@ -8,7 +8,7 @@ import { StContainer } from 'styles/global';
 
 import bgImage from '/assets/img/background.png';
 import { fetchOauthCodePost } from '../../store/User/oauth/actions';
-import { REDIRECT_URL } from '../../store/constatns';
+import { REDIRECT_URL } from '../../store/constants';
 
 const StMainScreen = styled.div`
   display: flex;

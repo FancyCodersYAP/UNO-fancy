@@ -6,12 +6,15 @@ import App from './App';
 import { setupStore } from './store/store';
 import { UserService } from './api/UserService';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
+import { ThemeContextProvider } from 'contexts/ThemeContext';
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <BrowserRouter>
     <Provider store={setupStore(new UserService(new YandexAPIRepository()))}>
-      <App />
+      <ThemeContextProvider>
+        <App />
+      </ThemeContextProvider>
       <GlobalStyle />
     </Provider>
   </BrowserRouter>
