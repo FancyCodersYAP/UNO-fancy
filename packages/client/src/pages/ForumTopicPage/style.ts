@@ -22,7 +22,6 @@ const containerStyle = css`
   border-radius: ${BORDER_RADIUS_SIZE};
   margin-bottom: 12px;
   background: ${props => props.theme?.BACKGROUND_COLOR_TOPIC_MESSAGE};
-  //border: 1px solid rgba(129, 113, 74, 0.9);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
@@ -30,6 +29,7 @@ export const StTopic = styled.div`
   ${containerStyle}
   grid-template-columns: 144px 1fr;
   min-height: 150px;
+  position: relative;
 `;
 
 export const StUser = styled.div`
@@ -39,7 +39,7 @@ export const StUser = styled.div`
   background-color: ${props => props.theme?.BACKGROUND_COLOR_TOPIC};
   border-radius: ${BORDER_RADIUS_SIZE} 0 0 ${BORDER_RADIUS_SIZE};
   padding: 12px 8px 8px;
-  border: 1px solid rgba(129, 113, 74, 0.9);
+  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
   ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
 `;
 
@@ -77,14 +77,30 @@ export const StUserRank = styled.span`
   display: block;
 `;
 
-export const StTopicName = styled.div`
-  box-sizing: initial;
-  margin: -0px;
+export const StTopicWrapper = styled.div`
+  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  border-left: none;
+  border-top: none;
+  border-radius: 0 ${BORDER_RADIUS_SIZE} ${BORDER_RADIUS_SIZE} 0;
+`;
+
+export const StTopicName = styled.h3`
   font-size: 15px;
+  font-weight: 400;
   ${lineHeight130Percent}
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
   text-align: center;
-  border-right: 1px solid rgba(129, 113, 74, 0.9);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+export const StTopicNameContainer = styled.div`
+  height: 20px;
+  box-sizing: initial;
+  margin: -0px;
+  text-align: center;
+  border-right: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
   padding: 5px 0;
   width: 100%;
   background: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
@@ -162,6 +178,6 @@ export const StAnswer = styled.a`
   display: block;
 
   &:hover {
-    color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+    text-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
   }
 `;
