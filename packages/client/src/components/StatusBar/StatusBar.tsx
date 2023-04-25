@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   StStatusBar,
   StButtonStatusBar,
@@ -30,12 +30,30 @@ const StatusBar = ({
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
-      setFullScreen(true);
+      setFullScreenState();
     } else {
       document.exitFullscreen();
-      setFullScreen(false);
+      setFullScreenState();
     }
   };
+
+  const setFullScreenState = () => {
+    if (!document.fullscreenElement) {
+      setFullScreen(false);
+    } else {
+      setFullScreen(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('fullscreenchange', setFullScreenState);
+    return () => {
+      document.removeEventListener(
+        'fullscreenchange',
+        () => setFullScreenState
+      );
+    };
+  }, []);
 
   return (
     <StStatusBar>

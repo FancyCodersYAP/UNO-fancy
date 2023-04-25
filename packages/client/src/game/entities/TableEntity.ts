@@ -8,7 +8,6 @@ import {
   drawCardBack,
   drawCardFront,
   moveCard,
-  cardColors,
   cardBackColor,
 } from '../utils';
 import { Entity } from './Entity';
