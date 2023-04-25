@@ -89,3 +89,14 @@ export const StButtonReply = styled(StButton)`
   height: min-content;
   margin: 0;
 `;
+
+export const StButtonNewTopic = styled(StButton)`
+  width: 40px;
+  height: 40px;
+  background-color: ${props => props.theme?.BACKGROUND_COLOR_BUTTON};
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

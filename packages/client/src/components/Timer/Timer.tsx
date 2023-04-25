@@ -1,10 +1,11 @@
 import formatTime from 'utils/formatTime';
-import useTimer from 'hooks/useTimer';
 import { StTimer, StTimerContainer } from './style';
 
-const Timer = () => {
-  const { timer } = useTimer(0);
+type TimerProps = {
+  timer: number;
+};
 
+const Timer = ({ timer }: TimerProps) => {
   return (
     <StTimer>
       <StTimerContainer>{formatTime(timer)}</StTimerContainer>
