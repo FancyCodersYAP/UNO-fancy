@@ -3,7 +3,7 @@ import Button from 'components/Button/Button';
 import TopicMessage from './TopicMessage';
 import { testTopicData } from 'data/testTopicData';
 import { testTopicDiscussionData } from 'data/testTopicDiscussionData';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   StTopic,
   StUser,
@@ -22,6 +22,16 @@ import useModal from 'hooks/useModal';
 const marginBottom58px = css`
   margin: 0 0 58px;
 `;
+const testStyle = css`
+  border: 1px solid rgba(129, 113, 74, 0.9);
+`;
+
+const testStyle2 = css`
+  border: 1px solid rgba(129, 113, 74, 0.9);
+  border-left: none;
+  border-top: none;
+  border-radius: 0 20px 20px 0;
+`;
 
 const ForumTopic = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
@@ -38,7 +48,7 @@ const ForumTopic = () => {
             <StUserRank>{testTopicData.rank}</StUserRank>
           </StUserInfo>
         </StUser>
-        <div>
+        <div css={testStyle2}>
           <StTopicName>{testTopicData.topicName}</StTopicName>
           <StTopicText>
             {testTopicData.messages}

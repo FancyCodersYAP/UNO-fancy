@@ -1,6 +1,9 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { customScrollbar } from 'styles/global';
-import { BACKGROUND_COLOR_OPACITY_LIGHT, COLOR_ELEMENT_CONTRAST_REVERSE } from 'styles/variables/colors-const';
+import {
+  BACKGROUND_COLOR_OPACITY_LIGHT,
+  COLOR_ELEMENT_CONTRAST_REVERSE,
+} from 'styles/variables/colors-const';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { AvatarType } from 'types';
 
@@ -19,7 +22,7 @@ const containerStyle = css`
   border-radius: ${BORDER_RADIUS_SIZE};
   margin-bottom: 12px;
   background: ${props => props.theme?.BACKGROUND_COLOR_TOPIC_MESSAGE};
-  border: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  //border: 1px solid rgba(129, 113, 74, 0.9);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
@@ -36,7 +39,8 @@ export const StUser = styled.div`
   background-color: ${props => props.theme?.BACKGROUND_COLOR_TOPIC};
   border-radius: ${BORDER_RADIUS_SIZE} 0 0 ${BORDER_RADIUS_SIZE};
   padding: 12px 8px 8px;
-  border-right: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  border: 1px solid rgba(129, 113, 74, 0.9);
+  ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
 `;
 
 export const StUserAvatar = styled.div<AvatarType>`
@@ -73,15 +77,18 @@ export const StUserRank = styled.span`
   display: block;
 `;
 
-export const StTopicName = styled.p`
+export const StTopicName = styled.div`
+  box-sizing: initial;
+  margin: -0px;
   font-size: 15px;
   ${lineHeight130Percent}
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
   text-align: center;
-  padding: 5px;
-  
+  border-right: 1px solid rgba(129, 113, 74, 0.9);
+  padding: 5px 0;
+  width: 100%;
   background: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
-  border-radius: 0px 17px 0px 0px;
+  border-radius: 0 20px 0 0;
 `;
 
 export const StTopicText = styled.p`
@@ -110,7 +117,7 @@ export const StTopicDiscussion = styled.div`
   border-radius: ${BORDER_RADIUS_SIZE} 10px 10px ${BORDER_RADIUS_SIZE};
   padding: 10px;
   margin-bottom: 28px;
-  max-height: 400px;  
+  max-height: 400px;
 `;
 
 export const StMessage = styled.div`
