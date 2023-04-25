@@ -25,7 +25,11 @@ export class YandexAPIRepository {
     });
     if (data?.id) {
       //TODO подумать над проверкой
-      await addUserData(data);
+      try {
+        await addUserData(data);
+      } catch (error) {
+        console.log('DB connection error');
+      }
     }
     return data;
   }
