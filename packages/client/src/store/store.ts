@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from './User/userSlice';
 import { IUser } from './types';
+import forumSlice from './Forum/forumSlice';
 
 const rootReducer = combineReducers({
   USER: userSlice,
+  FORUM: forumSlice,
 });
 
 interface IUserService {

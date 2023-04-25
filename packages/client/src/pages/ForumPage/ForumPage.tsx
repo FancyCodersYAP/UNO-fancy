@@ -15,6 +15,8 @@ import {
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
+import { useAppDispatch } from '../../hooks/redux';
+import { fetchForumTopicPost } from '../../store/Forum/actions';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -22,6 +24,7 @@ const marginBottom58px = css`
 
 const ForumPage = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -43,6 +46,14 @@ const ForumPage = () => {
     console.log('Выбранная тема: ' + topicId);
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
+  const addTopicTest = async () => {
+    const testData = {
+      name: 'TestTopicName',
+      description: 'TestTopicName TestTopicName TestTopicName',
+    };
+    // @ts-ignore
+    dispatch(fetchForumTopicPost(testData));
+  };
 
   return (
     <StBoard css={stBoardStyle}>
@@ -51,7 +62,7 @@ const ForumPage = () => {
       <StTable>
         <StHead>
           <div>
-            <StButtonNewTopic onClick={handleOpenModal}>
+            <StButtonNewTopic onClick={addTopicTest}>
               <StNewTopicIcon>
                 <use href="/assets/icons/icons_sprite.svg#icon-plus"></use>
               </StNewTopicIcon>
