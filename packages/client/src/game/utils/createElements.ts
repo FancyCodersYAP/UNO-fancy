@@ -98,15 +98,16 @@ export const createNameLayer = (
   p.style.fontSize = NAME_STYLES.SIZE;
   p.style.fontFamily = NAME_STYLES.FONT_FAMILY;
   p.style.fontWeight = NAME_STYLES.FONT_WEIGHT;
+  p.style.lineHeight = '0';
   p.textContent = name.toLocaleUpperCase();
 
   switch (entityName) {
     case 'frontHand':
-      p.style.margin = '0 0 5px 0';
+      p.style.margin = '0 0 20px 0';
       p.style.order = '0';
       break;
     case 'topHand':
-      p.style.margin = '5px 0 0 0';
+      p.style.margin = '20px 0 0 0';
       break;
     case 'rightHand':
       p.style.margin = '0';

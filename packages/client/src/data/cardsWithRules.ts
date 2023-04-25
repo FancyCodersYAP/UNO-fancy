@@ -2,9 +2,9 @@ type CardsWithRules = {
   src: string;
   alt: string;
   text: string;
-}[];
+};
 
-export const cardsWithRules: CardsWithRules = [
+export const cardsWithRules: CardsWithRules[] = [
   {
     src: '/assets/img/start-game-1.jpg',
     alt: 'Карточка правил',
