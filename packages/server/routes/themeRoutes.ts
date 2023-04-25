@@ -8,16 +8,19 @@ export const themeRoutes = Router()
   .use('/', checkUserAuth)
   .get('/', async (req: Request, res: Response) => {
     const userId = res.locals.user.id;
+    try {
+      const userTheme: UserThemes | null = await UserThemes.findOne({
+        where: { user_id: userId },
+        include: [{ model: Themes, attributes: ['theme_name'] }],
+      });
 
-    const userTheme: UserThemes | null = await UserThemes.findOne({
-      where: { user_id: userId },
-      include: [{ model: Themes, attributes: ['theme_name'] }],
-    });
-
-    if (userTheme && userTheme.theme.theme_name) {
-      return res.status(200).json(userTheme.theme.theme_name);
+      if (userTheme && userTheme.theme.theme_name) {
+        return res.status(200).json(userTheme.theme.theme_name);
+      }
+      return res.status(404).json('для пользователя нет темы');
+    } catch {
+      return res.status(500).json('Internal DB error');
     }
-    return res.status(404).json('для пользователя нет темы');
   })
 
   .post('/', async (req: Request, res: Response) => {
