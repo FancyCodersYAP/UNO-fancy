@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { customScrollbar } from 'styles/global';
 
@@ -25,7 +25,7 @@ export const StNewTopicIcon = styled.svg`
 
 export const StDeleteTopicButton = styled.button`
   background-color: inherit;
-  border-radius: none;
+  border-radius: initial;
   border: none;
 `;
 
@@ -38,7 +38,7 @@ export const StDeleteTopicIcon = styled.svg`
 export const StTable = styled.div`
   min-width: 1000px;
 
-  border-radius: ${BORDER_RADIUS_SIZE} ${BORDER_RADIUS_SIZE} 5px 10px;
+  border-radius: ${BORDER_RADIUS_SIZE} ${BORDER_RADIUS_SIZE} 10px 10px;
   overflow: hidden;
 
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
@@ -52,7 +52,7 @@ export const StHead = styled.div`
   & > p,
   & > div {
     ${tableCellStyle}
-    
+
     font-size: 18px;
     padding: 3px;
     height: 100%;
@@ -64,13 +64,12 @@ export const StHead = styled.div`
 export const StBody = styled.div`
   ${customScrollbar}
   overflow-y: auto;
-  min-height: 580px;
+  max-height: 580px;
 `;
-
 
 export const StTableCell = styled.div`
   ${tableCellStyle}
-  
+
   font-size: 22px;
   padding: 5px 12px;
   min-height: 68px;
@@ -93,6 +92,10 @@ export const StTableTopic = styled.article`
 
   &:last-child ${StTableCell} {
     border-bottom: none;
+  }
+  &:hover {
+    font-size: 23px;
+    text-shadow: 1px 1px 1px rgb(0 0 0 / 50%);
   }
 `;
 
