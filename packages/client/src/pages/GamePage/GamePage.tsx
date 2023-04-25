@@ -13,11 +13,20 @@ import { AppRoute } from 'utils/constants';
 import GameSettings from 'components/GameSettings';
 import Modal from 'components/Modal';
 import EndGame from 'components/EndGame';
+import { css } from 'styled-components';
 import ExitMenu from 'components/ExitMenu/ExitMenu';
 import { exitMenuModalStyles } from 'components/Modal/style';
 import StatusBar from 'components/StatusBar/StatusBar';
 import { PlayModal } from './PlayModal';
 import { StGameFlex } from './style';
+
+const modalWidth = css`
+  width: 700px;
+`;
+
+const modalPadding = css`
+  padding: 50px 82px 76px;
+`;
 
 export function GamePage() {
   const dispatch = useAppDispatch();
@@ -152,7 +161,7 @@ export function GamePage() {
         switchSoundMode={switchSoundMode}
       />
       {isStart && isOpen && (
-        <Modal title="Выбор режима игры">
+        <Modal title="Выбор режима игры" styles={modalWidth}>
           <GameSettings
             handleCloseModal={handleCloseModal}
             startGame={startGame}
@@ -169,7 +178,7 @@ export function GamePage() {
         </Modal>
       )}
       {isFinish && isOpen && (
-        <Modal title="Игра завершена">
+        <Modal title="Игра завершена" styles={modalPadding}>
           <EndGame
             time={formatTime(timer).toString()}
             countPlace={countPlayers}
