@@ -47,6 +47,6 @@ export const themeRoutes = Router()
 
       return res.status(422).json('unknown data');
     } catch {
-      return res.status(500).json('Internal error');
+      return res.status(500).json('Internal DB error');
     }
   });
