@@ -28,3 +28,4 @@ export {
 export { drawCardBack, drawCardFront } from './drawCard';
 export { shuffle, sleep } from './helpers';
 export { moveCard } from './moveCard';
+export { SoundList } from './sounds';

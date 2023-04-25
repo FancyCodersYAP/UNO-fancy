@@ -62,14 +62,21 @@ export class TableEntity extends Entity<EntityTypes> {
     }
   }
 
-  addUpcard(card: CardType) {
+  addUpcard(card: CardType, playSound?: () => void) {
     card.x = this.width - BASE_WIDTH_CARD;
     card.y = 0;
 
     this.openPack.push(card);
 
     if (this.openPack.length === 1) {
-      moveCard(card, this.entityName, 'fromTable', this.width, this.height);
+      moveCard(
+        card,
+        this.entityName,
+        'fromTable',
+        this.width,
+        this.height,
+        playSound!
+      );
     }
 
     setTimeout(() => {

@@ -56,7 +56,8 @@ export const moveCard = (
   handEntityName: EntityTypes,
   direction: CardMovementDirection,
   layerWidth: number,
-  layerHeight: number
+  layerHeight: number,
+  playSound: () => void
 ): void => {
   const { width: animtaionCanvasWidth, height: animtaionCanvasHeight } =
     calcCanvasMaxSizes('animation');
@@ -81,7 +82,7 @@ export const moveCard = (
   const animtaionLayer = createAnimationCanvas(
     animtaionCanvasWidth,
     animtaionCanvasHeight,
-    1000
+    30
   );
   const context = animtaionLayer.getContext('2d') as CanvasRenderingContext2D;
 
@@ -105,6 +106,9 @@ export const moveCard = (
       card,
       cardView
     );
+    setTimeout(() => {
+      playSound();
+    }, 15);
   }
 
   setTimeout(() => {
