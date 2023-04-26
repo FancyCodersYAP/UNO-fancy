@@ -31,7 +31,8 @@ export const leaderboardSlice = createSlice({
 
 export const leaderboardList = () => {
   const leaders = useAppSelector(state => state.LEADERBOARD.leaderList);
-  return leaders;
+  const isLoading = useAppSelector(state => state.LEADERBOARD.isLoading);
+  return { isLoading, leaders };
 };
 
 export default leaderboardSlice.reducer;

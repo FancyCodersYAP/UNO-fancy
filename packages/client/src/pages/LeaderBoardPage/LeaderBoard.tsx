@@ -21,12 +21,16 @@ import { fetchLeaderboard } from 'store/Leaderboard/actions';
 const LeaderBoard: FC = () => {
   const dispatch = useAppDispatch();
 
+  const { leaders, isLoading } = leaderboardList();
+
   const displayedPlayersNum = 20;
-  const topPlayers = leaderboardList().slice(0, displayedPlayersNum);
+  const topPlayers = leaders.slice(0, displayedPlayersNum);
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
   }, []);
+
+  if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
 
   const sortedPlayers = orderBy(topPlayers, 'score', 'desc');
 
