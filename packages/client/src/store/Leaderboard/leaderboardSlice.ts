@@ -31,7 +31,7 @@ export const leaderboardSlice = createSlice({
 
 export const leaderboardList = () => {
   const leaders = useAppSelector(state => state.LEADERBOARD.leaderList);
-  return { leaders };
+  return leaders;
 };
 
 export default leaderboardSlice.reducer;
