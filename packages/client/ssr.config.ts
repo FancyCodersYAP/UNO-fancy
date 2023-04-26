@@ -18,6 +18,7 @@ export default defineConfig({
       hooks: path.resolve(__dirname, './src/hooks'),
       data: path.resolve(__dirname, './src/data'),
       game: path.resolve(__dirname, './src/game'),
+      store: path.resolve(__dirname, './src/store'),
     },
   },
   plugins: [react()],

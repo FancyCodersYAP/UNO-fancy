@@ -48,6 +48,10 @@ class Controller {
     this.game.on(GameEvents.FINISH_GAME, callback);
     return () => this.game.off(GameEvents.FINISH_GAME, callback);
   }
+
+  unloadGame() {
+    this.game.unload();
+  }
 }
 
 export const controller = new Controller();

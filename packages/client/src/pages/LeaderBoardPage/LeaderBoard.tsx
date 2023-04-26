@@ -21,10 +21,10 @@ import { fetchLeaderboard } from 'store/Leaderboard/actions';
 const LeaderBoard: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { leaders } = leaderboardList();
+  const leaders = leaderboardList();
 
   useEffect(() => {
-    dispatch(fetchLeaderboard(20));
+    dispatch(fetchLeaderboard());
   }, []);
 
   const sortedPlayers = orderBy(leaders, 'score', 'desc');

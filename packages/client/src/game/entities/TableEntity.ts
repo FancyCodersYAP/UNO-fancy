@@ -8,7 +8,6 @@ import {
   drawCardBack,
   drawCardFront,
   moveCard,
-  cardColors,
   cardBackColor,
 } from '../utils';
 import { Entity } from './Entity';
@@ -93,5 +92,11 @@ export class TableEntity extends Entity<EntityTypes> {
       this.closePack.length - 1 - countCards,
       countCards
     );
+  }
+
+  reset() {
+    this.activeColor = '#009F66';
+    this.openPack = [];
+    this.closePack = [];
   }
 }

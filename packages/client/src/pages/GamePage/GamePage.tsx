@@ -4,7 +4,7 @@ import { userState } from 'hooks/userState';
 import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
 import useTimer from 'hooks/useTimer';
-import { fetchLeaderboard, fetchUserData } from 'store/Leaderboard/actions';
+import { fetchLeaderboard, fetchUserDataLB } from 'store/Leaderboard/actions';
 import { leaderboardList } from 'store/Leaderboard/leaderboardSlice';
 import { controller } from 'game/Controller';
 import { audioManager } from 'game/services/audioManager';
@@ -54,11 +54,11 @@ export function GamePage() {
   } = audioManager();
   const { timer, timerStart, timerPause, timerResume, timerReset } = useTimer();
   const { isLoading, user } = userState();
-  const { leaders } = leaderboardList();
+  const leaders = leaderboardList();
 
   useEffect(() => {
     if (!leaders.length) {
-      dispatch(fetchLeaderboard(100));
+      dispatch(fetchLeaderboard());
     }
 
     for (const soundName of soundNames) {
@@ -100,7 +100,7 @@ export function GamePage() {
     });
 
     return () => {
-      stopAudio();
+      unloadGame();
     };
   }, []);
 
@@ -108,7 +108,12 @@ export function GamePage() {
 
   const updateLeaderboardData = (playerData: PlayerType) => {
     console.log('playerData', playerData);
-    dispatch(fetchUserData(playerData));
+    dispatch(fetchUserDataLB(playerData));
+  };
+
+  const unloadGame = () => {
+    controller.unloadGame();
+    stopAudio();
   };
 
   const startGame = (playerNums: number) => {

@@ -59,7 +59,7 @@ export class Game extends EventBus {
     /* Если игроки ранее были добавлены и в новой игре режим не поменялся, оставляем players */
 
     /* Перемешиваем массив карт. Это стартовая колода */
-    const initialPack = shuffle(allCards);
+    const initialPack = shuffle([...allCards]);
 
     this.table = new TableEntity();
     this.table.start();
@@ -412,27 +412,25 @@ export class Game extends EventBus {
   }
 
   finishGame() {
-    const elements = [this.table.getLayer()];
-
-    for (const layer in this.handEntities) {
-      elements.push(this.handEntities[layer].getLayer());
-    }
-    clearGamePage(elements);
-
     const isBot = this.players[this.activePlayerId].isBot;
     const points = isBot ? 0 : this.countPoints();
-    const user = this.players[0];
+    const user = this.players.find(player => !player.isBot);
 
-    this.resetProps();
+    this.resetGame();
 
-    /* Если победил бот, данные для обновления лидерборда не нужны */
-    if (!points) {
+    /* Если победил бот или юзер не авторизован, данные для обновления лидерборда не нужны */
+    if (
+      !points ||
+      (user?.score === undefined &&
+        user?.wins_2 === undefined &&
+        user?.wins_4 === undefined)
+    ) {
       /* Вызов события завершения игры */
       this.emit('finish', points);
       return;
     }
 
-    /* Если юзер победил, обновляем данные для лидерборда */
+    /* Если юзер авторизован и победил, обновляем данные для лидерборда */
     user.score! += points;
 
     if (this.players.length === 2) {
@@ -459,10 +457,18 @@ export class Game extends EventBus {
     return points;
   }
 
-  resetProps() {
+  resetGame() {
+    const elements = [this.table.getLayer()];
+
+    for (const layer in this.handEntities) {
+      elements.push(this.handEntities[layer].getLayer());
+    }
+    clearGamePage(elements);
+
     this.activePlayerId = -1;
     this.handEntities = {};
     this.clockwiseMovement = true;
+    this.table.reset();
   }
 
   /* Генерация клика по кнопке UNO */
@@ -470,5 +476,11 @@ export class Game extends EventBus {
     if (this.getActivePlayer().getCards().length === 1) {
       this.emit(GameEvents.CLICK_UNO);
     }
+  }
+
+  unload() {
+    this.resetGame();
+    this.players = [];
+    this.destroy();
   }
 }
