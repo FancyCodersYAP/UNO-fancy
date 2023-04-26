@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
 import { resetDefaultStyles } from './normalize';
 import { FlexProps, TextContainerProps } from './variables/types';
+import { DEPTH_CONTAINER } from 'styles/variables/styleConstants';
 
 export const GlobalStyle = createGlobalStyle`
   ${resetDefaultStyles}
@@ -31,7 +32,7 @@ export const StFormContainer = styled.div`
   min-width: 350px;
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
   padding: 40px 60px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: ${DEPTH_CONTAINER};
   border-radius: 50px;
 `;
 
@@ -157,7 +158,7 @@ export const customScrollbar = css`
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #f5b945;
+    background-color: ${props => props.theme?.BACKGROUND_COLOR_SCROLLBAR};
     border-radius: 10px;
   }
 

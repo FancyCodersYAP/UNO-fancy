@@ -22,7 +22,7 @@ const Toggler: FC = () => {
         checked={isDarkTheme}
       />
       <StToggleThemeIcon className="toggle__theme-icon toggle__theme-icon_sun">
-        <use href="src/assets/icons/icons_sprite.svg#theme-toggle-sun"></use>
+        <use href="/assets/icons/icons_sprite.svg#theme-toggle-sun"></use>
       </StToggleThemeIcon>
       <StToggleState className="toggle__state">
         <StToggleControl className="toggle__control">
@@ -30,7 +30,7 @@ const Toggler: FC = () => {
         </StToggleControl>
       </StToggleState>
       <StToggleThemeIcon className="toggle__theme-icon toggle__theme-icon_moon">
-        <use href="src/assets/icons/icons_sprite.svg#theme-toggle-moon"></use>
+        <use href="/assets/icons/icons_sprite.svg#theme-toggle-moon"></use>
       </StToggleThemeIcon>
     </StToggleLabel>
   );

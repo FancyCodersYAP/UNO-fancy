@@ -13,16 +13,16 @@ interface ModalType {
   title?: string;
   handleCloseModal?: () => void;
   styles?: CSSProp;
-  isCloseOutside?: boolean;
-  isCrossButton?: boolean;
+  canBeClosedOutside?: boolean;
+  hasCrossButton?: boolean;
 }
 
 const Modal = (props: ModalType) => {
   const {
     title,
     handleCloseModal,
-    isCloseOutside,
-    isCrossButton,
+    canBeClosedOutside,
+    hasCrossButton,
     styles,
     children,
   } = props;
@@ -31,22 +31,20 @@ const Modal = (props: ModalType) => {
     evt.stopPropagation();
   };
 
-  const checkPossibleToCloseOutside = () => {
-    if (isCloseOutside) {
-      if (handleCloseModal) {
-        return handleCloseModal();
-      }
+  const closeModalOutside = () => {
+    if (canBeClosedOutside) {
+      return handleCloseModal?.();
     }
   };
 
   return (
-    <StModal onClick={checkPossibleToCloseOutside}>
+    <StModal onClick={closeModalOutside}>
       <StModalWrapper css={styles} onClick={stopPropagationEvent}>
         {title && <StModalTitle>{title}</StModalTitle>}
-        {isCrossButton && (
+        {hasCrossButton && (
           <StButtonCloseModal onClick={handleCloseModal}>
             <StModalCloseIcon>
-              <use href="src/assets/icons/icons_sprite.svg#icon-close-modal"></use>
+              <use href="/assets/icons/icons_sprite.svg#icon-close-modal"></use>
             </StModalCloseIcon>
           </StButtonCloseModal>
         )}

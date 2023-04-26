@@ -5,14 +5,14 @@ import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
-import useModal from 'utils/useModal';
+import useModal from 'hooks/useModal';
 import Rules from 'components/Rules';
 import AddTopic from 'components/AddTopic/AddTopic';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
   opacity: 0.8;
-  background: url('src/assets/img/logo.png');
+  background: url('/assets/img/logo.png');
   background-size: cover;
   mix-blend-mode: multiply; //darken color-burn
 `;
@@ -42,7 +42,7 @@ const MainPage: FC = () => {
           title="Создание темы"
           styles={addTopicModalStyles}
           handleCloseModal={handleCloseModal}
-          isCloseOutside={true}>
+          canBeClosedOutside>
           <AddTopic handleCloseModal={handleCloseModal} />
         </Modal>
       )}
@@ -62,11 +62,15 @@ const MainPage: FC = () => {
         />
       </StFlex>
 
-      {/* {isOpen && (
-        <Modal title="Правила игры" handleCloseModal={handleCloseModal}>
+      {isOpen && (
+        <Modal
+          title="Правила игры"
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside
+          hasCrossButton>
           <Rules />
         </Modal>
-      )} */}
+      )}
     </>
   );
 };
