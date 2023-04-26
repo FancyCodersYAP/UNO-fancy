@@ -36,8 +36,8 @@ const CanvasErorr404 = () => {
         );
         drawCardFront(
           context,
-          140,
-          40,
+          90,
+          35,
           cardColors[0],
           '0',
           NOT_FOUND_PAGE_WIDTH_CARD,
@@ -45,7 +45,7 @@ const CanvasErorr404 = () => {
         );
         drawCardFront(
           context,
-          280,
+          180,
           0,
           cardColors[2],
           '4',
@@ -56,7 +56,7 @@ const CanvasErorr404 = () => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} width={460} height={340} />;
+  return <canvas ref={canvasRef} width={300} height={215} />;
 };
 
 const NotFoundPage = () => {

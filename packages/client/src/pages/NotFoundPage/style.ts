@@ -11,7 +11,7 @@ export const St404Wrapper = styled.div`
 
 export const St404Text = styled.p`
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
-  margin: 10px 0 40px;
+  margin: 20px 0 40px;
   text-align: center;
-  font-size: 24px;
+  font-size: 22px;
 `;
