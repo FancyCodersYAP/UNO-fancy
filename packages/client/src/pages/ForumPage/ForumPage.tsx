@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
+import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
+import AddTopic from 'components/AddTopic';
 import ForumTopic from './ForumTopic';
 import { testForumData } from 'data/testForumData';
 import {
@@ -18,6 +20,11 @@ import { isArrayAndHasItems } from 'utils';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
+`;
+
+const addTopicModalStyles = css`
+  width: 700px;
+  padding: 60px 100px 70px;
 `;
 
 const ForumPage = () => {
@@ -39,8 +46,6 @@ const ForumPage = () => {
 
     const topic = target.closest('article');
     const topicId = topic?.dataset.topic;
-    // временный код
-    console.log('Выбранная тема: ' + topicId);
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
 
@@ -71,6 +76,16 @@ const ForumPage = () => {
           )}
         </StBody>
       </StTable>
+
+      {isOpen && (
+        <Modal
+          title="Создание темы"
+          styles={addTopicModalStyles}
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside>
+          <AddTopic handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
     </StBoard>
   );
 };

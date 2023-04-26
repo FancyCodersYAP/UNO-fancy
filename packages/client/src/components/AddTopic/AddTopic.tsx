@@ -9,7 +9,7 @@ interface AddTopicType {
 const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
 
-  const submitNewTopic = (evt: SubmitEvent) => {
+  const submitNewTopic = (evt: React.FormEvent) => {
     evt.preventDefault();
     const topicName = document.querySelector(
       '[name="topic_name"]'
@@ -27,23 +27,25 @@ const AddTopic = (props: AddTopicType) => {
 
   return (
     <>
-      <form action="">
+      <form action="" onSubmit={submitNewTopic}>
         <StTopicLabel htmlFor="topic_name">Название темы</StTopicLabel>
         <StTopicInput
           type="text"
           id="topic_name"
           name="topic_name"
           placeholder="Название темы"
+          autoComplete="off"
+          required
         />
 
         <StTopicLabel htmlFor="topic_message">Описание темы</StTopicLabel>
         <StTopicTextarea
           name="topic_message"
           id="topic_message"
-          placeholder="Описание темы"></StTopicTextarea>
+          placeholder="Описание темы"
+          required></StTopicTextarea>
         <StFlex>
-          {/* не знаю как правильно убрать ошибку */}
-          {/* <Button text="Создать" onClick={submitNewTopic} /> */}
+          <Button text="Создать" type="submit" />
           <Button
             text="Отмена"
             disignType="alternate"
