@@ -13,13 +13,8 @@ type LayoutProps = {
   children?: React.ReactNode;
 };
 
-const GameLayout: FC<LayoutProps> = ({ children }) => {
-
-  return (
-      <StGameScreen>
-        {children ?? <Outlet />}
-      </StGameScreen>
-  );
-};
+const GameLayout: FC<LayoutProps> = ({ children }) => (
+  <StGameScreen>{children ?? <Outlet />}</StGameScreen>
+);
 
 export default GameLayout;
