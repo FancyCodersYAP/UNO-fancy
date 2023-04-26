@@ -4,12 +4,14 @@ import { userState } from 'hooks/userState';
 import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
 import useTimer from 'hooks/useTimer';
+import { fetchLeaderboard, fetchUserData } from 'store/Leaderboard/actions';
+import { leaderboardList } from 'store/Leaderboard/leaderboardSlice';
+import { controller } from 'game/Controller';
 import { audioManager } from 'game/services/audioManager';
-import { fetchAuthUserGet } from '../../store/User/auth/actions';
-import { controller } from '../../game/Controller';
-import { GamePlayerType, soundNames } from 'game/types';
+import { GamePlayerType, soundNames, ResultData } from 'game/types';
 import formatTime from 'utils/formatTime';
 import { AppRoute } from 'utils/constants';
+import { PlayerType } from 'types';
 import GameSettings from 'components/GameSettings';
 import Modal from 'components/Modal';
 import EndGame from 'components/EndGame';
@@ -38,6 +40,7 @@ export function GamePage() {
   const [isOpenExitMenu, openExitMenu] = useState(false);
   const [points, setPoints] = useState(0);
   const [countPlayers, setCountPlayers] = useState(0);
+  const [hasDataBeenUpdated, setDataUpdateStatus] = useState(false);
 
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const {
@@ -51,9 +54,12 @@ export function GamePage() {
   } = audioManager();
   const { timer, timerStart, timerPause, timerResume, timerReset } = useTimer();
   const { isLoading, user } = userState();
+  const { leaders } = leaderboardList();
 
   useEffect(() => {
-    dispatch(fetchAuthUserGet());
+    if (!leaders.length) {
+      dispatch(fetchLeaderboard(100));
+    }
 
     for (const soundName of soundNames) {
       addSound(soundName);
@@ -76,12 +82,21 @@ export function GamePage() {
       playSound('skipUno');
     });
 
-    controller.onFinish((points: number) => {
+    controller.onFinish((points: number, resultData?: ResultData) => {
       setFinish(true);
       playFinish();
       handleOpenModal();
       setPoints(points);
       timerPause();
+
+      if (user && resultData) {
+        updateLeaderboardData({
+          id: user.id,
+          username: user.first_name,
+          avatar: user.avatar,
+          ...resultData,
+        });
+      }
     });
 
     return () => {
@@ -91,6 +106,11 @@ export function GamePage() {
 
   if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
 
+  const updateLeaderboardData = (playerData: PlayerType) => {
+    console.log('playerData', playerData);
+    dispatch(fetchUserData(playerData));
+  };
+
   const startGame = (playerNums: number) => {
     setStart(false);
 
@@ -98,10 +118,42 @@ export function GamePage() {
     playSound('background');
     setCountPlayers(playerNums);
     timerStart();
-    controller.startGame(playerNums, {
-      name: user?.first_name,
-    } as GamePlayerType);
     handleCloseModal();
+
+    console.log('leaders', leaders);
+
+    /* Если пользователь не авторизован или его данные уже отправляли в Game */
+    if (!user || hasDataBeenUpdated) {
+      /* передаём в Game только выбранный режим игры */
+      controller.startGame(playerNums);
+      return;
+    }
+    /* Если пользователь авторизован, будем обновлять данные для лидерборда */
+    setDataUpdateStatus(true);
+
+    /* Ищем данные пользователя в лидерах */
+    const player = leaders.find(player => player.data.id === user.id)?.data;
+
+    /* Если данные юзера уже есть в лидерах, то передаём их в Game */
+    if (player) {
+      controller.startGame(playerNums, {
+        username: user.first_name,
+        score: player.score,
+        wins_2: player.wins_2,
+        wins_4: player.wins_4,
+      });
+      return;
+    }
+
+    /* Если данных юзера в лидерах нет, добавляем с начальными значениями */
+    const playerData: GamePlayerType = {
+      username: user.first_name,
+      score: 0,
+      wins_2: 0,
+      wins_4: 0,
+    };
+
+    controller.startGame(playerNums, playerData);
   };
 
   /* Срабатывает при нажатии на паузу и на крестик (выход из игры) */

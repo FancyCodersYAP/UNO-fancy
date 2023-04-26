@@ -39,8 +39,24 @@ export class Game extends EventBus {
     super();
   }
 
-  startGame(playersNum: number, playerData: GamePlayerType) {
-    this.players = addPlayers(playersNum, playerData);
+  startGame(playersNum: number, playerData?: GamePlayerType) {
+    /* Если есть данные, добавляем игрока с этими данными */
+    if (playerData !== undefined) {
+      this.players = addPlayers(playersNum, playerData);
+    }
+
+    /* Если ранее игроки были добавлены и количество игроков изменилось */
+    /* Добавляем игроков заново с данными юзера, используемыми ранее */
+    if (this.players.length && this.players.length !== playersNum) {
+      this.players = addPlayers(playersNum, this.players[0]);
+    }
+
+    /* Если нет данных и игроков ранее не добавляли */
+    /* Юзер не авторизован, добавляем его без данных */
+    if (playerData === undefined && !this.players.length) {
+      this.players = addPlayers(playersNum, { username: 'Игрок' });
+    }
+    /* Если игроки ранее были добавлены и в новой игре режим не поменялся, оставляем players */
 
     /* Перемешиваем массив карт. Это стартовая колода */
     const initialPack = shuffle(allCards);
@@ -403,11 +419,34 @@ export class Game extends EventBus {
     }
     clearGamePage(elements);
 
-    const points = this.players[this.activePlayerId].isBot
-      ? 0
-      : this.countPoints();
+    const isBot = this.players[this.activePlayerId].isBot;
+    const points = isBot ? 0 : this.countPoints();
+    const user = this.players[0];
+
+    this.resetProps();
+
+    /* Если победил бот, данные для обновления лидерборда не нужны */
+    if (!points) {
+      /* Вызов события завершения игры */
+      this.emit('finish', points);
+      return;
+    }
+
+    /* Если юзер победил, обновляем данные для лидерборда */
+    user.score! += points;
+
+    if (this.players.length === 2) {
+      user.wins_2! += 1;
+    } else {
+      user.wins_4! += 1;
+    }
+
     /* Вызов события завершения игры */
-    this.emit(GameEvents.FINISH_GAME, points);
+    this.emit('finish', points, {
+      score: user.score,
+      wins_2: user.wins_2,
+      wins_4: user.wins_4,
+    });
   }
 
   countPoints() {
@@ -418,6 +457,12 @@ export class Game extends EventBus {
     }
 
     return points;
+  }
+
+  resetProps() {
+    this.activePlayerId = -1;
+    this.handEntities = {};
+    this.clockwiseMovement = true;
   }
 
   /* Генерация клика по кнопке UNO */
