@@ -1,12 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { userState } from 'hooks/userState';
-import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
 import useTimer from 'hooks/useTimer';
-import { audioManager } from 'game/services/audioManager';
-import { fetchAuthUserGet } from '../../store/User/auth/actions';
-import { controller } from '../../game/Controller';
+import { controller, audioManager } from 'game';
 import { GamePlayerType, soundNames } from 'game/types';
 import formatTime from 'utils/formatTime';
 import { AppRoute } from 'utils/constants';
@@ -20,7 +17,6 @@ import { PlayModal } from './PlayModal';
 import { StGameFlex } from './style';
 
 export function GamePage() {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [isStart, setStart] = useState(false);

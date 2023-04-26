@@ -1,4 +1,4 @@
-import { controller } from '../Controller';
+import { controller } from 'game';
 
 export const clickOnHand = (event: MouseEvent): void => {
   controller.move({ x: event.offsetX, y: event.offsetY });

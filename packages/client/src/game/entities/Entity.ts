@@ -1,4 +1,4 @@
-import { EntityTypes, GamePlayerType, HandEntityTypes } from '../types';
+import { EntityTypes, GamePlayerType, HandEntityTypes } from 'game/types';
 import {
   calcCanvasMaxSizes,
   createCanvas,
@@ -6,7 +6,7 @@ import {
   createLayer,
   createNameLayer,
   createUnoButton,
-} from '../utils';
+} from 'game/utils';
 
 export class Entity<T extends EntityTypes> {
   protected layer!: HTMLDivElement;

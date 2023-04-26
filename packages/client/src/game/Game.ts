@@ -8,24 +8,24 @@ import {
   shuffle,
   sleep,
   clearGamePage,
-} from './utils';
+  EventBus,
+  countPoints,
+} from 'game/utils';
 import {
   BASE_HEIGHT_CARD,
   BASE_WIDTH_CARD,
   ANIMATION_TIME,
   START_NUM_CARDS_IN_HAND,
   startZindexForLayers,
-} from './utils/constants';
+} from 'game/utils/constants';
 import {
   CardType,
   GameEvents,
   GamePlayerType,
   HandEntityTypes,
   PlayerClickPosition,
-} from './types';
-import { HandEntity, TableEntity } from './entities';
-import { EventBus } from './utils/EventBus';
-import { countPoints } from './utils/countPoints';
+} from 'game/types';
+import { HandEntity, TableEntity } from 'game/entities';
 
 export class Game extends EventBus {
   private activePlayerId = -1;
@@ -237,7 +237,7 @@ export class Game extends EventBus {
         this.on(GameEvents.CLICK_UNO, cb);
 
         /* Если за 1,5 сек клика не было, игроку выдаются 2 карты на руку и ход переходит к след. игроку */
-        await sleep(1500, () => {
+        await sleep(2000, () => {
           if (!clickUno) {
             this.emit(GameEvents.SKIP_CLICK_UNO);
             this.takeCard(2);

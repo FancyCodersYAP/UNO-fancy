@@ -1,14 +1,19 @@
-import { drawCardBack, drawCardFront } from '../utils/drawCard';
-import { Entity } from './Entity';
+import { Entity } from 'game/entities';
 import {
   CardMovementDirection,
   CardType,
   GamePlayerType,
   HandEntityTypes,
-} from '../types';
-import { calcStartCoords, calcVisiblePartOfCard, moveCard } from '../utils';
-import { ANIMATION_TIME } from '../utils/constants';
-import { getHandOrientation } from '../utils/getHandOrientation';
+} from 'game/types';
+import {
+  drawCardBack,
+  drawCardFront,
+  calcStartCoords,
+  calcVisiblePartOfCard,
+  moveCard,
+  getHandOrientation,
+} from 'game/utils';
+import { ANIMATION_TIME } from 'game/utils/constants';
 
 export class HandEntity extends Entity<HandEntityTypes> {
   private cards: CardType[] = [];
