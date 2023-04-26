@@ -3,13 +3,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINTS } from '../constants';
 import { PlayerType } from 'types';
 import { LeaderListType } from 'store/types';
+import { errorMessage } from '../../utils/apiErrorMessageCheck';
 
 const teamName = 'FancyCoders';
 
 /* add user to leaderboard */
 export const fetchUserData = createAsyncThunk(
   'leaderboard/fetchUserData',
-  async (data: PlayerType) => {
+  async (data: PlayerType, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_ENDPOINTS.leaderboard}`, {
         data: data,
@@ -18,7 +19,9 @@ export const fetchUserData = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      console.error(error);
+      return rejectWithValue(
+        errorMessage(error, 'Не удалось отправить юзера на Leaderboard')
+      );
     }
   }
 );
@@ -26,7 +29,7 @@ export const fetchUserData = createAsyncThunk(
 /* get team leaderboard */
 export const fetchLeaderboard = createAsyncThunk(
   'leaderboard/fetchLeaderboard',
-  async (limit: number) => {
+  async (limit: number, { rejectWithValue }) => {
     try {
       const response = await axios.post<LeaderListType>(
         `${API_ENDPOINTS.leaderboard}/${teamName}`,
@@ -34,7 +37,9 @@ export const fetchLeaderboard = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.error(error);
+      return rejectWithValue(
+        errorMessage(error, 'Не удалось получить Leaderboard')
+      );
     }
   }
 );
