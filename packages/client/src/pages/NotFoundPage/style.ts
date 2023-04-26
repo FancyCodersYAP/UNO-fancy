@@ -7,10 +7,11 @@ export const St404Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
 
-  p {
-    color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
-    margin: 20px 0 60px;
-    text-align: center;
-  }
+export const St404Text = styled.p`
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  margin: 10px 0 40px;
+  text-align: center;
+  font-size: 24px;
 `;

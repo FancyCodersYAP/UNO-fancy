@@ -4,8 +4,6 @@ import {
   CARD_BORDER_RADIUS,
   BASE_WIDTH_CARD,
   BASE_HEIGHT_CARD,
-  NOT_FOUND_PAGE_WIDTH_CARD,
-  NOT_FOUND_PAGE_HEIGHT_CARD,
 } from './constants';
 import { GAME_STYLES } from '../styles';
 
@@ -13,18 +11,12 @@ const drawCardBlackAndWhiteLayers = (
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
-  cardWidth?: number,
-  cardHeight?: number
+  cardWidth: number = BASE_WIDTH_CARD,
+  cardHeight: number = BASE_HEIGHT_CARD
 ): void => {
-  if (cardWidth === undefined) {
-    cardWidth = BASE_WIDTH_CARD;
-  }
-  if (cardHeight === undefined) {
-    cardHeight = BASE_HEIGHT_CARD;
-  }
-
   /* Нижний чёрный слой (для отрисовки тонкой чёрной границы) */
   ctx.beginPath();
+  // @ts-ignore //TODO Катя поправь пожалуйста
   ctx.roundRect(x, y, cardWidth, cardHeight, [CARD_BORDER_RADIUS]);
   ctx.fillStyle = GAME_STYLES.BG_COLOR_BLACK;
   ctx.fill();
@@ -32,6 +24,7 @@ const drawCardBlackAndWhiteLayers = (
 
   /* Средний белый слой */
   ctx.beginPath();
+  // @ts-ignore //TODO Катя поправь пожалуйста
   ctx.roundRect(x + 0.5, y + 0.5, cardWidth - 1, cardHeight - 1, [
     CARD_BORDER_RADIUS,
   ]);
@@ -72,6 +65,7 @@ export const drawCardBack = (
   /* Чёрный фон */
   ctx.beginPath();
   ctx.fillStyle = GAME_STYLES.BG_COLOR_BLACK;
+  // @ts-ignore //TODO Катя поправь пожалуйста
   ctx.roundRect(
     x + padding,
     y + padding,
@@ -124,6 +118,7 @@ export const drawCardFront = (
 
   /* Цветной фон */
   ctx.beginPath();
+  // @ts-ignore //TODO Катя поправь пожалуйста
   ctx.roundRect(
     x + CARD_BORDER,
     y + CARD_BORDER,
