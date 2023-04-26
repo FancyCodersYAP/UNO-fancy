@@ -35,7 +35,6 @@ const LoginPage: FC = () => {
   };
 
   const handleOauth = (): void => {
-    console.log(2131321);
     dispatch(fetchOauthServiceIdGet());
   };
 

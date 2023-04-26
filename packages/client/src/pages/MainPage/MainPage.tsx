@@ -5,25 +5,19 @@ import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
-import useModal from 'utils/useModal';
+import useModal from 'hooks/useModal';
 import Rules from 'components/Rules';
-import AddAnswer from 'components/AddAnswer/AddAnswer';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
   opacity: 0.8;
-  background: url('src/assets/img/logo.png');
+  background: url('/assets/img/logo.png');
   background-size: cover;
   mix-blend-mode: multiply; //darken color-burn
 `;
 
 export const marginTop20 = css`
   margin-top: 20px;
-`;
-
-const addAnswerModalStyles = css`
-  width: 700px;
-  padding: 56px 90px 70px;
 `;
 
 const MainPage: FC = () => {
@@ -37,15 +31,6 @@ const MainPage: FC = () => {
 
   return (
     <>
-      {isOpen && (
-        <Modal
-          title="Сообщение"
-          styles={addAnswerModalStyles}
-          handleCloseModal={handleCloseModal}
-          isCloseOutside={true}>
-          <AddAnswer handleCloseModal={handleCloseModal} />
-        </Modal>
-      )}
       <StFlex
         flexDirection="column"
         rowGap={40}
@@ -61,11 +46,15 @@ const MainPage: FC = () => {
         />
       </StFlex>
 
-      {/* {isOpen && (
-        <Modal title="Правила игры" handleCloseModal={handleCloseModal}>
+      {isOpen && (
+        <Modal
+          title="Правила игры"
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside
+          hasCrossButton>
           <Rules />
         </Modal>
-      )} */}
+      )}
     </>
   );
 };
