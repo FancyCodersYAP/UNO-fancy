@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && tsc && vite build --config ssr.config.ts",
+    "build:ssr": "tsc && vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -22,8 +23,7 @@
     "react-hook-form": "7.43.3",
     "react-redux": "8.0.5",
     "react-router-dom": "6.8.1",
-    "styled-components": "5.3.8",
-    "vite-plugin-svgr": "2.4.0"
+    "styled-components": "5.3.8"
   },
   "devDependencies": {
     "@testing-library/react": "13.3.0",

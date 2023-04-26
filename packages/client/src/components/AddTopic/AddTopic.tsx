@@ -43,7 +43,7 @@ const AddTopic = (props: AddTopicType) => {
           placeholder="Описание темы"></StTopicTextarea>
         <StFlex>
           {/* не знаю как правильно убрать ошибку */}
-          <Button text="Создать" onClick={submitNewTopic} />
+          {/* <Button text="Создать" onClick={submitNewTopic} /> */}
           <Button
             text="Отмена"
             disignType="alternate"
