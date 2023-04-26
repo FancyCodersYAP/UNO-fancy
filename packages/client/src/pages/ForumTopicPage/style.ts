@@ -100,7 +100,8 @@ export const StTopicNameContainer = styled.div`
   box-sizing: initial;
   margin: -0px;
   text-align: center;
-  border-right: 1px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  border-right: 1px solid
+    ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
   padding: 5px 0;
   width: 100%;
   background: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
@@ -159,6 +160,9 @@ export const StMessageWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
+  border-radius: 0 20px 20px 0;
+  border: 1px solid rgba(129, 113, 74, 0.9);
+  border-left: none;
 `;
 
 export const StMessageText = styled.p`
