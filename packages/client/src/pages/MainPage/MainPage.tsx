@@ -7,7 +7,7 @@ import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
 import Rules from 'components/Rules';
-import AddTopic from 'components/AddTopic/AddTopic';
+import AddTopic from 'components/AddTopic';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
