@@ -36,11 +36,19 @@ function App() {
         />
         <Route
           path={AppRoute.PROFILE}
-          element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>}
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
         />
         <Route
           path={`${AppRoute.PROFILE}/:id`}
-          element={<PrivateRoute>{<ProfilePage />}</PrivateRoute>}
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
         />
         <Route path={AppRoute.LEADERBOARD} element={<LeaderBoard />} />
         <Route path={AppRoute.FORUM} element={<ForumPage />} />
