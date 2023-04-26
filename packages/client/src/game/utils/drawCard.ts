@@ -9,7 +9,6 @@ const drawCardBlackAndWhiteLayers = (
 ): void => {
   /* Нижний чёрный слой (для отрисовки тонкой чёрной границы) */
   ctx.beginPath();
-  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(x, y, BASE_WIDTH_CARD, BASE_HEIGHT_CARD, [
     CARD_STYLES.BORDER_RADIUS,
   ]);
@@ -19,7 +18,6 @@ const drawCardBlackAndWhiteLayers = (
 
   /* Средний белый слой */
   ctx.beginPath();
-  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(
     x + CARD_STYLES.BORDER_WIDTH_BLACK,
     y + CARD_STYLES.BORDER_WIDTH_BLACK,
@@ -33,6 +31,7 @@ const drawCardBlackAndWhiteLayers = (
 
   /* Верхний чёрный слой */
   ctx.beginPath();
+
   ctx.roundRect(
     x + CARD_STYLES.BORDER_WIDTH_WHITE,
     y + CARD_STYLES.BORDER_WIDTH_WHITE,
@@ -77,7 +76,6 @@ export const drawCardBack = (
   /* Чёрный фон */
   ctx.beginPath();
   ctx.fillStyle = GAME_STYLES.BG_COLOR_BLACK;
-  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(
     x + padding,
     y + padding,
@@ -134,7 +132,6 @@ export const drawCardFront = (
 
   /* Цветной фон */
   ctx.beginPath();
-  // @ts-ignore//TODO Катя поправь пожалуйста
   ctx.roundRect(
     x + padding,
     y + padding,
@@ -154,7 +151,6 @@ export const drawCardFront = (
   /* Отступы от края карты */
   /* Соотношение высоты карты и отступа от верхнего/нижнего края карты по макету: 395 / 26 = 15.2 */
   /* Соотношение высоты карты и отступа от правого/левого края карты по макету: 395 / 21 = 18.8 */
-  /* TODO: 2 добавлены временно, т.к. карты отрисованы не по макету */
   const xOffset = Math.floor(BASE_HEIGHT_CARD / 18.8) + 4;
   const yOffset = Math.floor(BASE_HEIGHT_CARD / 15.2) + 4;
 
