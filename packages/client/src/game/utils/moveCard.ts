@@ -4,13 +4,13 @@ import {
   ANIMATION_TIME,
   MOVEMENT_ANIMATION_TIME,
   FLIPPING_ANIMATION_TIME,
-} from './constants';
+} from 'game/utils/constants';
 import {
   CardType,
   CardMovementDirection,
   AnimatedCardType,
   EntityTypes,
-} from '../types';
+} from 'game/types';
 import {
   createAnimationCanvas,
   removeLayer,
@@ -18,7 +18,7 @@ import {
   drawCardFront,
   calcCanvasMaxSizes,
   calcCanvasCoords,
-} from '.';
+} from 'game/utils';
 
 /* Анимация перемещения карты */
 const animateCardMovement = (

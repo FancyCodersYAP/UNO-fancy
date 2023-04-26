@@ -1,12 +1,12 @@
-import { clickOnHand, clickOnTable, clickOnUno } from './events';
-import { EntityTypes, HandEntityTypes } from '../types';
+import { clickOnHand, clickOnTable, clickOnUno } from 'game/utils/events';
+import { EntityTypes, HandEntityTypes } from 'game/types';
 import {
   NAME_STYLES,
   LAYER_STYLES,
   BUTTON_AND_BOX_STYLES,
   UNO_BUTTON_STYLES,
   COLOR_BOX_STYLES,
-} from '../styles';
+} from 'game/styles';
 
 export const createLayer = (
   entityName: EntityTypes,

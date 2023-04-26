@@ -1,4 +1,4 @@
-import { CardType } from '../types';
+import { CardType } from 'game/types';
 
 export const compareCardWithUpcard = (
   handCard: CardType,

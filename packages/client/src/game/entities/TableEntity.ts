@@ -2,16 +2,16 @@ import {
   BASE_WIDTH_CARD,
   ANIMATION_TIME,
   startZindexForLayers,
-} from '../utils/constants';
+} from 'game/utils/constants';
 import {
   shuffle,
   drawCardBack,
   drawCardFront,
   moveCard,
   cardBackColor,
-} from '../utils';
-import { Entity } from './Entity';
-import { CardType, EntityTypes, PaintedCardColor } from '../types';
+} from 'game/utils';
+import { Entity } from 'game/entities';
+import { CardType, EntityTypes, PaintedCardColor } from 'game/types';
 
 export class TableEntity extends Entity<EntityTypes> {
   private closePack: CardType[] = [];

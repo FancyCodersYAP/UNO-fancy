@@ -1,6 +1,6 @@
-import { CardType } from '../types';
-import { BASE_WIDTH_CARD, BASE_HEIGHT_CARD } from './constants';
-import { GAME_STYLES, CARD_STYLES, CARD_BORDER } from '../styles';
+import { CardType } from 'game/types';
+import { BASE_WIDTH_CARD, BASE_HEIGHT_CARD } from 'game/utils/constants';
+import { GAME_STYLES, CARD_STYLES, CARD_BORDER } from 'game/styles';
 
 const drawCardBlackAndWhiteLayers = (
   ctx: CanvasRenderingContext2D,
