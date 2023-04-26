@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
 import { StTitle } from 'pages/LeaderBoardPage/style';
-import { St404Wrapper } from './style';
+import { St404Wrapper, St404Text } from './style';
 import { drawCardFront } from 'game/utils';
 import { cardColors } from 'game/utils';
 import { css } from 'styled-components';
@@ -36,8 +36,8 @@ const CanvasErorr404 = () => {
         );
         drawCardFront(
           context,
-          60,
-          20,
+          140,
+          40,
           cardColors[0],
           '0',
           NOT_FOUND_PAGE_WIDTH_CARD,
@@ -45,7 +45,7 @@ const CanvasErorr404 = () => {
         );
         drawCardFront(
           context,
-          120,
+          280,
           0,
           cardColors[2],
           '4',
@@ -56,7 +56,7 @@ const CanvasErorr404 = () => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} width={200} height={140} />;
+  return <canvas ref={canvasRef} width={460} height={340} />;
 };
 
 const NotFoundPage = () => {
@@ -70,7 +70,7 @@ const NotFoundPage = () => {
     <St404Wrapper>
       <StTitle css={titleStyles}>Ошибка</StTitle>
       <CanvasErorr404 />
-      <p>Такой страницы нет</p>
+      <St404Text>Такой страницы нет</St404Text>
       <Button
         onClick={navigateToMain}
         text="На главную"

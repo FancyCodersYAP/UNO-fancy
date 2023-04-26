@@ -3,6 +3,7 @@ import { COLOR_ELEMENT_CONTRAST } from 'styles/variables/colors-const';
 
 export const StTimer = styled.div`
   width: 85px;
+  margin-left: auto;
 `;
 
 export const StTimerContainer = styled.p`
