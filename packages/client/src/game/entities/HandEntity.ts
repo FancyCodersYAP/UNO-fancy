@@ -12,6 +12,7 @@ import {
   calcVisiblePartOfCard,
   moveCard,
   getHandOrientation,
+  createBubble,
 } from 'game/utils';
 import { ANIMATION_TIME } from 'game/utils/constants';
 
@@ -200,5 +201,14 @@ export class HandEntity extends Entity<HandEntityTypes> {
 
   getCards() {
     return this.cards;
+  }
+
+  showTooltip() {
+    const tooltip = createBubble(this.entityName);
+    this.layer.appendChild(tooltip);
+
+    setTimeout(() => {
+      tooltip.remove();
+    }, 2500);
   }
 }

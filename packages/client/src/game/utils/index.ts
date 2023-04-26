@@ -17,6 +17,7 @@ export {
   createColorBox,
   removeLayer,
   clearGamePage,
+  createBubble,
 } from './createElements';
 export {
   allCards,

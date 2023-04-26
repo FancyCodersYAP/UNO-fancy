@@ -223,14 +223,12 @@ export class Game extends EventBus {
       /* Боту кликать не нужно */
       if (this.players[this.activePlayerId].isBot) {
         this.unoClick();
-        console.log('У бота осталась одна карта');
       } else {
         /* Проверяем, что "живой" игрок сделал клик */
         let clickUno = false;
 
         const cb = () => {
           clickUno = true;
-          console.log('У юзера осталась одна карта');
         };
 
         /* Подписка на событие клика по кнопке UNO */
@@ -433,6 +431,7 @@ export class Game extends EventBus {
   unoClick() {
     if (this.getActivePlayer().getCards().length === 1) {
       this.emit(GameEvents.CLICK_UNO);
+      this.getActivePlayer().showTooltip();
     }
   }
 }
