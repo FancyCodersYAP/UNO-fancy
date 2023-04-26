@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import * as COLORS from 'styles/variables/colors-const';
 import { ModalProps } from 'styles/variables/types';
+import { DEPTH_CONTAINER } from 'styles/variables/styleConstants';
 
 export const StModal = styled.section`
   background-color: ${COLORS.BACKGROUND_ELEMENT_OPACITY};
@@ -21,6 +22,7 @@ export const StModalWrapper = styled.div<ModalProps>`
   transform: translate(-50%, -50%);
   padding: 55px 65px;
   width: 766px;
+  box-shadow: ${DEPTH_CONTAINER};
 `;
 
 export const StModalTitle = styled.h3`

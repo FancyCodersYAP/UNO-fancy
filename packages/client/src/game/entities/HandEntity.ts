@@ -15,7 +15,7 @@ export class HandEntity extends Entity<HandEntityTypes> {
     this.player = player;
   }
 
-  addCards(cards: CardType[]) {
+  addCards(cards: CardType[], playSound: () => void) {
     const totalCards = this.cards.length + cards.length;
     const handType = getHandOrientation(this.entityName);
     const layerSize = handType === 'horizontal' ? this.width : this.height;
@@ -55,7 +55,8 @@ export class HandEntity extends Entity<HandEntityTypes> {
           this.entityName,
           'fromTable',
           this.width,
-          this.height
+          this.height,
+          playSound
         );
       }, timer);
 
@@ -90,12 +91,19 @@ export class HandEntity extends Entity<HandEntityTypes> {
     }
   }
 
-  removeCard(card: CardType) {
+  removeCard(card: CardType, playSound: () => void) {
     this.cards = this.cards.filter(c => c.id !== card.id);
 
     const direction = this.player && this.player.isBot ? 'fromBot' : 'fromUser';
-    moveCard(card, this.entityName, direction, this.width, this.height);
-
+    moveCard(
+      card,
+      this.entityName,
+      direction,
+      this.width,
+      this.height,
+      playSound
+    );
+    playSound();
     this.clear();
     this.redrawHand();
   }
@@ -149,12 +157,21 @@ export class HandEntity extends Entity<HandEntityTypes> {
   highlight() {
     this.animation = this.name.animate(
       [
-        { opacity: 1, easing: 'ease-out' },
-        { opacity: 0.4, color: 'red', easing: 'ease-out' },
-        { opacity: 1 },
+        {
+          boxShadow: '0px 0px 40px 20px rgb(255 255 255 / 60%)',
+          color: 'rgb(255 255 255)',
+        },
+        {
+          boxShadow: '0px 0px 40px 20px rgb(255 255 255 / 20%)',
+          color: 'rgb(255 255 255)',
+        },
+        {
+          boxShadow: '0px 0px 40px 20px rgb(255 255 255 / 60%)',
+          color: 'rgb(255 255 255)',
+        },
       ],
       {
-        duration: 1000,
+        duration: 1500,
         iterations: Infinity,
       }
     );
@@ -164,7 +181,7 @@ export class HandEntity extends Entity<HandEntityTypes> {
     if (this.animation) {
       this.animation.cancel();
       this.name.style.opacity = '1';
-      this.name.style.color = 'white';
+      this.name.style.color = 'rgb(255 255 255 / 50%)';
     }
   }
 
