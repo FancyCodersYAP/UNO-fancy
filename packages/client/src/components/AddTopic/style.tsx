@@ -4,12 +4,13 @@ import { customScrollbar } from 'styles/global';
 
 export const StTopicLabel = styled.label`
   visibility: hidden;
+  display: none;
 `;
 
 const inputStyle = css`
   width: 100%;
-  border-radius: 20px;
-  font-size: ${BORDER_RADIUS_SIZE};
+  border-radius: ${BORDER_RADIUS_SIZE};
+  font-size: 20px;
   line-height: 26px;
   color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
   border: none;
@@ -30,6 +31,7 @@ export const StTopicInput = styled.input`
 export const StTopicTextarea = styled.textarea`
   ${inputStyle}
   ${customScrollbar}
+  border-radius: ${BORDER_RADIUS_SIZE} 10px 10px ${BORDER_RADIUS_SIZE};
   resize: none;
   height: 111px;
 `;

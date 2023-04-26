@@ -7,7 +7,6 @@ import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
 import Rules from 'components/Rules';
-import AddTopic from 'components/AddTopic';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
@@ -21,11 +20,6 @@ export const marginTop20 = css`
   margin-top: 20px;
 `;
 
-const addTopicModalStyles = css`
-  width: 700px;
-  padding: 60px 100px 70px;
-`;
-
 const MainPage: FC = () => {
   const navigate = useNavigate();
 
@@ -37,16 +31,6 @@ const MainPage: FC = () => {
 
   return (
     <>
-      {isOpen && (
-        <Modal
-          title="Создание темы"
-          styles={addTopicModalStyles}
-          handleCloseModal={handleCloseModal}
-          canBeClosedOutside>
-          <AddTopic handleCloseModal={handleCloseModal} />
-        </Modal>
-      )}
-
       <StFlex
         flexDirection="column"
         rowGap={40}
