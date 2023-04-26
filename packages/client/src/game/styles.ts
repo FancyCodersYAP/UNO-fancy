@@ -41,7 +41,7 @@ export const BUTTON_AND_BOX_STYLES = {
   POSITION: 'absolute',
   BORDER_RADIUS: '1em',
   Z_INDEX: '31',
-  BORDER: '4px solid white',
+  BORDER: `4px solid ${GAME_STYLES.BG_COLOR_MAIN}`,
   BOX_SHADOW: '0px 0px 5px rgba(58, 93, 112, 0.7)',
 };
 
@@ -55,7 +55,7 @@ export const UNO_BUTTON_STYLES = {
   RIGHT: `-${buttonWidth + 20}px`,
   BACKGROUND_COLOR: '#3a5d70',
   TEXT_ALIGN: 'center',
-  COLOR: 'white',
+  COLOR: `${GAME_STYLES.BG_COLOR_MAIN}`,
 };
 
 export const COLOR_BOX_STYLES = {
@@ -63,4 +63,21 @@ export const COLOR_BOX_STYLES = {
   WIDTH: UNO_BUTTON_STYLES.HEIGHT,
   TRANSFORM: 'rotate(45deg)',
   LEFT: `-${buttonWidth + 20 - (buttonWidth - buttonHeight)}px`,
+};
+
+export const BUBBLE_STYLES = {
+  HEIGHT: `${buttonHeight - 10}px`,
+  WIDTH: `${buttonWidth - 10}px`,
+  POSITION: 'absolute',
+  Z_INDEX: '3',
+  BACKGROUND_COLOR: GAME_STYLES.BG_COLOR_MAIN,
+  BORDER_RADIUS: '1em',
+  BOX_SHADOW: '0px 0px 5px rgba(58, 93, 112, 0.7)',
+  COLOR: GAME_STYLES.FONT_COLOR_DARK,
+  TEXT_ALIGN: 'center',
+  FONT_SIZE: `${Math.floor(BASE_HEIGHT_CARD / 10)}px`,
+  FONT_FAMILY: GAME_STYLES.FONT_FAMILY_MAIN,
+  FONT_WEIGHT: '600',
+  LINE_HEIGHT: `${buttonHeight - 10}px`,
+  MARGIN: `-${Math.floor(BASE_HEIGHT_CARD / 8) + 25}px`,
 };

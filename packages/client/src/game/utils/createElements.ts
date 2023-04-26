@@ -6,6 +6,7 @@ import {
   BUTTON_AND_BOX_STYLES,
   UNO_BUTTON_STYLES,
   COLOR_BOX_STYLES,
+  BUBBLE_STYLES,
 } from 'game/styles';
 
 export const createLayer = (
@@ -159,6 +160,58 @@ export const createColorBox = (): HTMLDivElement => {
   div.style.boxShadow = BUTTON_AND_BOX_STYLES.BOX_SHADOW;
   div.style.transform = COLOR_BOX_STYLES.TRANSFORM;
   div.style.left = COLOR_BOX_STYLES.LEFT;
+
+  return div;
+};
+
+export const createBubble = (entityName: HandEntityTypes): HTMLDivElement => {
+  const div = document.createElement('div');
+
+  div.style.height = BUBBLE_STYLES.HEIGHT;
+  div.style.width = BUBBLE_STYLES.WIDTH;
+  div.style.position = BUBBLE_STYLES.POSITION;
+  div.style.zIndex = BUBBLE_STYLES.Z_INDEX;
+  div.style.backgroundColor = BUBBLE_STYLES.BACKGROUND_COLOR;
+  div.style.borderRadius = BUBBLE_STYLES.BORDER_RADIUS;
+  div.style.boxShadow = BUBBLE_STYLES.BOX_SHADOW;
+  div.style.color = BUBBLE_STYLES.COLOR;
+  div.style.fontSize = BUBBLE_STYLES.FONT_SIZE;
+  div.style.fontFamily = BUBBLE_STYLES.FONT_FAMILY;
+  div.style.fontWeight = BUBBLE_STYLES.FONT_WEIGHT;
+  div.style.lineHeight = BUBBLE_STYLES.LINE_HEIGHT;
+  div.style.textAlign = BUBBLE_STYLES.TEXT_ALIGN;
+  div.textContent = 'UNO';
+
+  switch (entityName) {
+    case 'frontHand':
+      div.style.top = BUBBLE_STYLES.MARGIN;
+      div.style.right = '0';
+      div.style.left = '100px';
+      div.style.marginLeft = 'auto';
+      div.style.marginRight = 'auto';
+      break;
+    case 'topHand':
+      div.style.bottom = BUBBLE_STYLES.MARGIN;
+      div.style.right = '100px';
+      div.style.left = '0';
+      div.style.marginLeft = 'auto';
+      div.style.marginRight = 'auto';
+      break;
+    case 'rightHand':
+      div.style.bottom = '100px';
+      div.style.top = '0';
+      div.style.left = BUBBLE_STYLES.MARGIN;
+      div.style.marginTop = 'auto';
+      div.style.marginBottom = 'auto';
+      break;
+    case 'leftHand':
+      div.style.bottom = '100px';
+      div.style.top = '0';
+      div.style.right = BUBBLE_STYLES.MARGIN;
+      div.style.marginTop = 'auto';
+      div.style.marginBottom = 'auto';
+      break;
+  }
 
   return div;
 };
