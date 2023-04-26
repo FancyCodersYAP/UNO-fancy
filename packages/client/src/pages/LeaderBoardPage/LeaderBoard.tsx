@@ -21,13 +21,14 @@ import { fetchLeaderboard } from 'store/Leaderboard/actions';
 const LeaderBoard: FC = () => {
   const dispatch = useAppDispatch();
 
-  const leaders = leaderboardList();
+  const displayedPlayersNum = 20;
+  const topPlayers = leaderboardList().slice(0, displayedPlayersNum);
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
   }, []);
 
-  const sortedPlayers = orderBy(leaders, 'score', 'desc');
+  const sortedPlayers = orderBy(topPlayers, 'score', 'desc');
 
   return (
     <StBoard>
