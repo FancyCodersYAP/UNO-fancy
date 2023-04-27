@@ -72,6 +72,9 @@ export const StButton = styled.button`
   &&:hover {
     filter: saturate(1.3);
   }
+  &&:active {
+    transform: translate(1%, 1%);
+  }
 `;
 
 export const StButtonCloseModal = styled(StButton)`
