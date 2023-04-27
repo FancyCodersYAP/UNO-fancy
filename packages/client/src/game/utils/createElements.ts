@@ -139,6 +139,7 @@ export const createUnoButton = (): HTMLButtonElement => {
   button.style.textAlign = UNO_BUTTON_STYLES.TEXT_ALIGN;
   button.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
   button.style.color = UNO_BUTTON_STYLES.COLOR;
+  button.style.fontSize = UNO_BUTTON_STYLES.FONT_SIZE;
   button.style.border = BUTTON_AND_BOX_STYLES.BORDER;
   button.style.boxShadow = BUTTON_AND_BOX_STYLES.BOX_SHADOW;
   button.textContent = 'UNO';

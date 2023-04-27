@@ -15,7 +15,7 @@ export const CARD_STYLES = {
   BORDER_WIDTH_WHITE: Math.floor(BASE_HEIGHT_CARD / 29.5),
   SIGN_BORDER_WIDTH: 0.64,
   BORDER_RADIUS: 15,
-  SHADOW_BLUR: 4,
+  SHADOW_BLUR: 3,
 };
 
 export const CARD_BORDER =
@@ -52,17 +52,18 @@ export const UNO_BUTTON_STYLES = {
   HEIGHT: `${buttonHeight}px`,
   WIDTH: `${buttonWidth}px`,
   MARGIN: 'auto',
-  RIGHT: `-${buttonWidth + 20}px`,
+  RIGHT: `-${buttonWidth + buttonWidth / 2}px`,
   BACKGROUND_COLOR: '#3a5d70',
   TEXT_ALIGN: 'center',
   COLOR: `${GAME_STYLES.BG_COLOR_MAIN}`,
+  FONT_SIZE: `${Math.floor(BASE_HEIGHT_CARD / 10)}px`,
 };
 
 export const COLOR_BOX_STYLES = {
   HEIGHT: UNO_BUTTON_STYLES.HEIGHT,
   WIDTH: UNO_BUTTON_STYLES.HEIGHT,
   TRANSFORM: 'rotate(45deg)',
-  LEFT: `-${buttonWidth + 20 - (buttonWidth - buttonHeight)}px`,
+  LEFT: `-${buttonWidth + buttonWidth / 2 - (buttonWidth - buttonHeight)}px`,
 };
 
 export const BUBBLE_STYLES = {
