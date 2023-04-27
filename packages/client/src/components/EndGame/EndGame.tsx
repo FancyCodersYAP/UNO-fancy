@@ -30,10 +30,10 @@ const EndGame = ({
       marginBottom={50}>
       <img src={medalIcon} alt="Медаль" width={152} height={216} />
       <StEndGameTextWrapper>
-        <EndGameText text={`время игры: ${time}`} />
-        <EndGameText text={`игроков: ${countPlace}`} />
-        <EndGameText text={`очки: ${points}`} />
         <EndGameText text={`результат: ${result}`} />
+        <EndGameText text={`очки: ${points}`} />
+        <EndGameText text={`игроков: ${countPlace}`} />
+        <EndGameText text={`время игры: ${time}`} />
       </StEndGameTextWrapper>
     </StFlexBg>
 
