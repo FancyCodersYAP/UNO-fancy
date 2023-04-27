@@ -55,7 +55,9 @@ export const forumRoute = Router()
       .then((topics: ForumTopic[]) => {
         res.status(200).json(topics);
       })
-      .catch(next);
+      .catch(() => {
+        res.status(500).json('DB connect error');
+      });
   })
   .get('/:id', (req: Request, res: Response, next) => {
     ForumTopic.findByPk(req.params.id, {
@@ -67,7 +69,9 @@ export const forumRoute = Router()
     })
       // .then(throwIf(r => !r, res, 400, 'Тема не найдена'))
       .then(topic => res.status(200).json(topic))
-      .catch(next);
+      .catch(() => {
+        res.status(500).json('DB connect error');
+      });
   })
   .post('/', (req: Request, res: Response, next) => {
     req.body.user_id = res.locals.user.id;

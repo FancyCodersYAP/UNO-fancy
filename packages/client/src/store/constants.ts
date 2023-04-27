@@ -11,7 +11,6 @@ export const API_ENDPOINTS = {
   resources: `${API_MAIN_ENDPOINT}/resources`,
   theme: `${REDIRECT_URL}/theme-service`,
   forum: `${REDIRECT_URL}/api/forum`,
-  resources: `${API_MAIN_ENDPOINT}/resources`,
 };
 axios.interceptors.request.use(function (config) {
   config.withCredentials = true;
