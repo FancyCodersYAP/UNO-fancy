@@ -3,7 +3,6 @@ import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
 import useModal from 'hooks/useModal';
 import ForumTopic from './ForumTopic';
-import { testForumData } from 'data/testForumData';
 import {
   stBoardStyle,
   StNewTopicIcon,
@@ -15,6 +14,13 @@ import {
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
+import { useAppDispatch } from '../../hooks/redux';
+import {
+  fetchForumTopicPost,
+  fetchForumTopicsGet,
+} from '../../store/Forum/forumActions';
+import { useEffect } from 'react';
+import { useAppSelector } from 'hooks/redux';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -22,8 +28,15 @@ const marginBottom58px = css`
 
 const ForumPage = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchForumTopicsGet());
+  }, []);
 
   const navigate = useNavigate();
+  const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
+  const isLoading = useAppSelector(state => state.FORUM.isLoading);
 
   const interactionWithTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
@@ -39,8 +52,7 @@ const ForumPage = () => {
 
     const topic = target.closest('article');
     const topicId = topic?.dataset.topic;
-    // временный код
-    console.log('Выбранная тема: ' + topicId);
+
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
 
@@ -64,10 +76,12 @@ const ForumPage = () => {
         </StHead>
 
         <StBody onClick={interactionWithTopic}>
-          {isArrayAndHasItems(testForumData) ? (
-            testForumData.map(topic => <ForumTopic key={topic.id} {...topic} />)
+          {isArrayAndHasItems(forumTopics) ? (
+            forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
+          ) : isLoading ? (
+            <StEmptyTable>Загрузка...</StEmptyTable>
           ) : (
-            <StEmptyTable>Форум пока пуст</StEmptyTable>
+            <StEmptyTable>...</StEmptyTable>
           )}
         </StBody>
       </StTable>

@@ -33,3 +33,18 @@ export type LeaderboardState = {
   isLoading: boolean;
   leaderList: LeaderListType;
 };
+
+export interface IUserForum {
+  display_name: string;
+  avatar: string;
+}
+
+export type ITopicsForum = Array<ITopicData>;
+
+export interface ITopicData {
+  id: number;
+  name: string;
+  total_messages: number;
+  user: IUserForum;
+  last_message?: string;
+}

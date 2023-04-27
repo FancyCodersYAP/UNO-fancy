@@ -10,6 +10,7 @@ export const API_ENDPOINTS = {
   leaderboard: `${API_MAIN_ENDPOINT}/leaderboard`,
   resources: `${API_MAIN_ENDPOINT}/resources`,
   theme: `${REDIRECT_URL}/theme-service`,
+  forum: `${REDIRECT_URL}/api/forum`,
 };
 axios.interceptors.request.use(function (config) {
   config.withCredentials = true;
