@@ -34,12 +34,14 @@ export class Game extends EventBus {
   private table!: TableEntity;
 
   private clockwiseMovement = true;
+  private gameStatus = false;
 
   constructor() {
     super();
   }
 
   startGame(playersNum: number, playerData?: GamePlayerType) {
+    this.gameStatus = true;
     /* Если есть данные, добавляем игрока с этими данными */
     if (playerData !== undefined) {
       this.players = addPlayers(playersNum, playerData);
@@ -196,6 +198,10 @@ export class Game extends EventBus {
   }
 
   botMove() {
+    if (this.gameStatus === false) {
+      return;
+    }
+
     const botLayer = this.getActivePlayer();
     const botCards = botLayer.getCards();
 
@@ -465,17 +471,24 @@ export class Game extends EventBus {
   }
 
   resetGame() {
-    const elements = [this.table.getLayer()];
+    const elements: HTMLDivElement[] = [];
+
+    if (this.table) {
+      elements.push(this.table.getLayer());
+      this.table.reset();
+    }
 
     for (const layer in this.handEntities) {
       elements.push(this.handEntities[layer].getLayer());
     }
-    clearGamePage(elements);
+    if (elements.length > 0) {
+      clearGamePage(elements);
+    }
 
     this.activePlayerId = -1;
     this.handEntities = {};
     this.clockwiseMovement = true;
-    this.table.reset();
+    console.log(this.table, this.handEntities, this.activePlayerId);
   }
 
   /* Генерация клика по кнопке UNO */
@@ -487,6 +500,7 @@ export class Game extends EventBus {
   }
 
   unload() {
+    this.gameStatus = false;
     this.resetGame();
     this.players = [];
     this.destroy();
