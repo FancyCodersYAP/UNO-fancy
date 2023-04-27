@@ -46,11 +46,22 @@ const drawCardBlackAndWhiteLayers = (
 
 const drawEllipse = (
   ctx: CanvasRenderingContext2D,
-  coords: number[],
-  sizes: number[],
-  angle: number,
-  bgd: string
+  x: number,
+  y: number,
+  bgd: string,
+  cardWidth: number = BASE_WIDTH_CARD,
+  cardHeight: number = BASE_HEIGHT_CARD
 ): void => {
+  /* Координаты центра эллипса — массив [x, y] */
+  const coords = [x + cardWidth / 2, y + cardHeight / 2];
+  /* Длины большой и малой полуосей эллипса — массив [a, b] */
+  const sizes = [
+    Math.floor(cardHeight / 1.15 / 2) + 7,
+    Math.floor(cardHeight / 2.18 / 2) + 1,
+  ];
+  /* Вектор [x, y] наклона эллипса */
+  const angle = Math.floor(Math.PI / 1.5);
+
   ctx.fillStyle = bgd;
   ctx.beginPath();
   ctx.save(); // сохраняем стейт контекста
@@ -86,19 +97,10 @@ export const drawCardBack = (
   ctx.fill();
   ctx.closePath();
 
-  /* Координаты центра эллипса — массив [x, y] */
-  const coords = [x + BASE_WIDTH_CARD / 2, y + BASE_HEIGHT_CARD / 2];
-  /* Длины большой и малой полуосей эллипса — массив [a, b] */
-  const sizes = [
-    Math.floor(BASE_HEIGHT_CARD / 1.15 / 2) + 4,
-    Math.floor(BASE_HEIGHT_CARD / 2.18 / 2) + 1,
-  ];
-  /* Вектор [x, y] наклона эллипса */
-  const angle = Math.floor(Math.PI / 1.5);
   const ellipseBgd = GAME_STYLES.BG_COLOR_ELLIPSE;
 
   /* Отрисовка эллипса */
-  drawEllipse(ctx, coords, sizes, angle, ellipseBgd);
+  drawEllipse(ctx, x, y, ellipseBgd);
 
   const fontSize = Math.floor(BASE_HEIGHT_CARD / 5);
   /* Текст */
@@ -148,9 +150,14 @@ export const drawCardFront = (
   ctx.fill();
   ctx.closePath();
 
+  const ellipseBgd = 'white';
+
+  /* Отрисовка эллипса */
+  drawEllipse(ctx, x, y, ellipseBgd, cardWidth, cardHeight);
+
   /* Размер цифры по центру */
   /* Соотношение высоты карты и цифры по макету: 395 / 195 = 2.03 */
-  const bigFontSize = Math.floor(cardHeight / 2.03);
+  const bigFontSize = Math.floor(cardHeight / 2.23);
   /* Соотношение высоты карты и цифр по краям по макету: 395 / 58 = 6.8 */
   const smallFontSize = Math.floor(cardHeight / 6.8);
   /* Отступы от края карты */
@@ -158,9 +165,6 @@ export const drawCardFront = (
   /* Соотношение высоты карты и отступа от правого/левого края карты по макету: 395 / 21 = 18.8 */
   const xOffset = Math.floor(cardHeight / 18.8) + 4;
   const yOffset = Math.floor(cardHeight / 15.2) + 4;
-
-  /* Цвет цифр */
-  ctx.fillStyle = GAME_STYLES.FONT_COLOR_MAIN;
 
   ctx.textAlign = 'center';
 
@@ -174,6 +178,9 @@ export const drawCardFront = (
   const xBigSign = x + Math.floor(cardWidth / 2);
   const yBigSign = y + Math.floor(cardHeight / 2);
 
+  /* Цвет центральной цифры */
+  ctx.fillStyle = color;
+
   ctx.shadowColor = GAME_STYLES.FONT_COLOR_DARK;
   ctx.shadowBlur = CARD_STYLES.SHADOW_BLUR;
   ctx.fillText(sign, xBigSign, yBigSign);
@@ -183,6 +190,8 @@ export const drawCardFront = (
   ctx.strokeText(sign, xBigSign, yBigSign);
   ctx.closePath();
 
+  /* Цвет угловых цифр */
+  ctx.fillStyle = GAME_STYLES.FONT_COLOR_MAIN;
   /* Sign в левом верхнем углу */
   ctx.font = `${smallFontSize}px ${GAME_STYLES.FONT_FAMILY_MAIN}`;
   ctx.beginPath();
