@@ -37,5 +37,6 @@ export class ForumTopic extends Model {
   user!: User;
 
   @HasMany(() => ForumMessage, 'topic_id')
-  messages!: ForumMessage[];
+  messages?: ForumMessage[];
+  last_message!: string | null;
 }

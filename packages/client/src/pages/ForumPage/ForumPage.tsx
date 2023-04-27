@@ -3,7 +3,6 @@ import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
 import useModal from 'hooks/useModal';
 import ForumTopic from './ForumTopic';
-import { testForumData } from 'data/testForumData';
 import {
   stBoardStyle,
   StNewTopicIcon,
@@ -16,7 +15,12 @@ import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from '../../hooks/redux';
-import { fetchForumTopicPost } from '../../store/Forum/actions';
+import {
+  fetchForumTopicPost,
+  fetchForumTopicsGet,
+} from '../../store/Forum/actions';
+import { useEffect } from 'react';
+import { useAppSelector } from 'hooks/redux';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -26,8 +30,13 @@ const ForumPage = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchForumTopicsGet());
+  }, []);
 
+  const navigate = useNavigate();
+  const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
+  console.log(forumTopics);
   const interactionWithTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
 
@@ -46,14 +55,6 @@ const ForumPage = () => {
     console.log('Выбранная тема: ' + topicId);
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
-  const addTopicTest = async () => {
-    const testData = {
-      name: 'TestTopicName',
-      description: 'TestTopicName TestTopicName TestTopicName',
-    };
-    // @ts-ignore
-    dispatch(fetchForumTopicPost(testData));
-  };
 
   return (
     <StBoard css={stBoardStyle}>
@@ -62,7 +63,7 @@ const ForumPage = () => {
       <StTable>
         <StHead>
           <div>
-            <StButtonNewTopic onClick={addTopicTest}>
+            <StButtonNewTopic onClick={handleOpenModal}>
               <StNewTopicIcon>
                 <use href="/assets/icons/icons_sprite.svg#icon-plus"></use>
               </StNewTopicIcon>
@@ -75,8 +76,8 @@ const ForumPage = () => {
         </StHead>
 
         <StBody onClick={interactionWithTopic}>
-          {isArrayAndHasItems(testForumData) ? (
-            testForumData.map(topic => <ForumTopic key={topic.id} {...topic} />)
+          {isArrayAndHasItems(forumTopics) ? (
+            forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
           ) : (
             <StEmptyTable>Форум пока пуст</StEmptyTable>
           )}

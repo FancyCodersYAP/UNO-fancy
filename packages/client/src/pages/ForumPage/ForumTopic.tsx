@@ -9,10 +9,10 @@ import { css } from 'styled-components';
 
 interface ForumTopicType {
   id: number;
-  topic: string;
-  total_messages: number;
-  author: string;
-  last_message: string;
+  name: string;
+  total_messages?: number;
+  user: Record<any, any>;
+  last_message?: string;
 }
 
 const MAX_TOPIC_LENGTH = 35;
@@ -45,12 +45,12 @@ const hoverStyle = css`
 
 const ForumTopic = ({
   id,
-  topic,
+  name,
+  user,
   total_messages,
-  author,
   last_message,
 }: ForumTopicType) => {
-  topic = stringShorten(topic, MAX_TOPIC_LENGTH);
+  name = stringShorten(name, MAX_TOPIC_LENGTH);
   last_message = stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH);
 
   return (
@@ -62,9 +62,9 @@ const ForumTopic = ({
           </StDeleteTopicIcon>
         </StDeleteTopicButton>
       </StTableCell>
-      <StTableCell css={textAlignLeft}>{topic}</StTableCell>
+      <StTableCell css={textAlignLeft}>{name}</StTableCell>
       <StTableCell>{total_messages}</StTableCell>
-      <StTableCell>{author}</StTableCell>
+      <StTableCell>{user.display_name}</StTableCell>
       <StTableCell css={fontStyle}>{last_message}</StTableCell>
     </StTableTopic>
   );
