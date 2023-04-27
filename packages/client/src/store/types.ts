@@ -17,7 +17,7 @@ export interface UserState {
 }
 
 export interface ForumState {
-  forumTopics: Record<any, any>[] | [];
+  forumTopics: ITopicsForum | [];
   isLoading: boolean;
   error: string;
 }
@@ -28,4 +28,19 @@ export interface IServiceId {
 
 export interface IErrorReason {
   reason: string;
+}
+
+export interface IUerForum {
+  display_name: string;
+  avatar: string;
+}
+
+export type ITopicsForum = Array<ITopicData>;
+
+export interface ITopicData {
+  id: number;
+  name: string;
+  total_messages: number;
+  user: IUerForum;
+  last_message?: string;
 }

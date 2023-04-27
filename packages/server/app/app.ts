@@ -7,6 +7,6 @@ const app = express();
 app.use(cors());
 
 app.use('/theme-service', themeRoutes);
-app.use('/forum', forumRoute);
+app.use('/api/forum', forumRoute);
 app.use('/api/v2/*', proxy);
 export default app;
