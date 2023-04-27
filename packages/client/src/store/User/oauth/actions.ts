@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IServiceId } from '../../types';
-import { API_ENDPOINTS, REDIRECT_URL, YANDEX_OAUTH_URL } from '../../constatns';
+import { API_ENDPOINTS, REDIRECT_URL, YANDEX_OAUTH_URL } from '../../constants';
 import { errorMessage } from '../../../utils/apiErrorMessageCheck';
 import { fetchAuthUserGet } from '../auth/actions';
 

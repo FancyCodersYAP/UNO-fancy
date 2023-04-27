@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { API_ENDPOINTS } from '../../constatns';
+import { API_ENDPOINTS } from '../../constants';
 import { IUser } from '../../types';
 import { errorMessage } from '../../../utils/apiErrorMessageCheck';
 import { DataType } from '../../../components/Form/Form';
