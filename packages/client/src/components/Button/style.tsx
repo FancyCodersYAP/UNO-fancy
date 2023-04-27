@@ -84,6 +84,12 @@ export const StButtonCloseModal = styled(StButton)`
   border-radius: 0;
 `;
 
+export const StButtonReply = styled(StButton)`
+  padding: 5px 7px;
+  height: min-content;
+  margin: 0;
+`;
+
 export const StButtonNewTopic = styled(StButton)`
   width: 40px;
   height: 40px;
