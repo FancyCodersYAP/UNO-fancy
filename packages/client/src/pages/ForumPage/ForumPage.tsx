@@ -18,7 +18,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import {
   fetchForumTopicPost,
   fetchForumTopicsGet,
-} from '../../store/Forum/actions';
+} from '../../store/Forum/forumActions';
 import { useEffect } from 'react';
 import { useAppSelector } from 'hooks/redux';
 
@@ -36,7 +36,8 @@ const ForumPage = () => {
 
   const navigate = useNavigate();
   const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
-  console.log(forumTopics);
+  const isLoading = useAppSelector(state => state.FORUM.isLoading);
+
   const interactionWithTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
 
@@ -78,8 +79,10 @@ const ForumPage = () => {
         <StBody onClick={interactionWithTopic}>
           {isArrayAndHasItems(forumTopics) ? (
             forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
+          ) : isLoading ? (
+            <StEmptyTable>Загрузка...</StEmptyTable>
           ) : (
-            <StEmptyTable>Форум пока пуст</StEmptyTable>
+            <StEmptyTable>...</StEmptyTable>
           )}
         </StBody>
       </StTable>

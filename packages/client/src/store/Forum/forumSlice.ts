@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ForumState } from '../types';
-import apiErrorStateHandler from '../../utils/apiErrorStateHandler';
-import { fetchForumTopicPost, fetchForumTopicsGet } from './actions';
+import { fetchForumTopicPost, fetchForumTopicsGet } from './forumActions';
+import { fetchForumTopicGetById } from './topicActions';
 
 export const initialState: ForumState = {
   forumTopics: [],
@@ -32,6 +32,24 @@ const forumSlice = createSlice({
       })
       .addCase(
         fetchForumTopicsGet.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = action.payload;
+        }
+      )
+      .addCase(
+        fetchForumTopicGetById.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = '';
+          state.currentTopic = action.payload;
+        }
+      )
+      .addCase(fetchForumTopicGetById.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchForumTopicGetById.rejected,
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.error = action.payload;

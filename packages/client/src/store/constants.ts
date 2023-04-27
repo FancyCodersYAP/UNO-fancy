@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
   profile: `${API_MAIN_ENDPOINT}/user`,
   theme: `${REDIRECT_URL}/theme-service`,
   forum: `${REDIRECT_URL}/api/forum`,
+  resources: `${API_MAIN_ENDPOINT}/resources`,
 };
 axios.interceptors.request.use(function (config) {
   config.withCredentials = true;

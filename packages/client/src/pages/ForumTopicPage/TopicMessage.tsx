@@ -13,6 +13,7 @@ import {
   StMessageText,
   StAnswer,
 } from './style';
+import { dateStringParse } from '../../utils/dateStringParse';
 
 const MAX_ANSWER_LENGTH = 20;
 
@@ -40,21 +41,20 @@ const flexStyles = css`
 
 const TopicMessage = ({
   id,
-  avatar,
-  author,
+  user,
   rank,
   answer,
-  messages,
-  date,
+  content,
+  created_at,
   onClick,
 }: TopicMessage) => {
   return (
     <StMessage id={String(id)} data-message={id}>
       <StUser css={flexStyles}>
-        <StMessageAvatar image={avatar} />
+        <StMessageAvatar image={user.avatar} />
         <StUserInfo>
-          <StUserName>{author}</StUserName>
-          <StUserRank>{rank}</StUserRank>
+          <StUserName>{user.display_name}</StUserName>
+          <StUserRank>{'игрок'}</StUserRank>
         </StUserInfo>
       </StUser>
 
@@ -66,13 +66,13 @@ const TopicMessage = ({
               "
             </StAnswer>
           )}
-          <StMessageText>{messages}</StMessageText>
+          <StMessageText>{content}</StMessageText>
         </div>
 
         <StButtonReply onClick={onClick} disignType="secondary">
           ответить
         </StButtonReply>
-        <StTopicDate>тема создана: {date}</StTopicDate>
+        <StTopicDate>сообщение от: {dateStringParse(created_at)}</StTopicDate>
       </StMessageWrapper>
     </StMessage>
   );
