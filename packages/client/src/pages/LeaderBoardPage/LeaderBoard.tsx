@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import orderBy from 'lodash/orderBy';
 
 import { isArrayAndHasItems } from 'utils';
-import { PlayerType } from 'types';
+import { useAppDispatch } from 'hooks/redux';
 
 import {
   StBoard,
@@ -11,13 +11,28 @@ import {
   StHead,
   StBody,
   StPlaceholder,
+  StWinsColumnsHead,
+  StHeadChild,
 } from './style';
 import BoardItem from './BoardItem';
+import { leaderboardList } from 'store/Leaderboard/leaderboardSlice';
+import { fetchLeaderboard } from 'store/Leaderboard/actions';
 
 const LeaderBoard: FC = () => {
-  const players: PlayerType[] = [];
+  const dispatch = useAppDispatch();
 
-  const sortedPlayers = orderBy(players, 'score', 'desc');
+  const { leaders, isLoading } = leaderboardList();
+
+  const displayedPlayersNum = 20;
+  const topPlayers = leaders.slice(0, displayedPlayersNum);
+
+  useEffect(() => {
+    dispatch(fetchLeaderboard());
+  }, []);
+
+  if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
+
+  const sortedPlayers = orderBy(topPlayers, 'score', 'desc');
 
   return (
     <StBoard>
@@ -26,14 +41,22 @@ const LeaderBoard: FC = () => {
           <StTitle>Рейтинг игроков</StTitle>
           <StTable>
             <StHead>
-              <div>#</div>
-              <div>Игрок</div>
-              <div>Время</div>
-              <div>Очки</div>
+              <StHeadChild>#</StHeadChild>
+              <StHeadChild>Игрок</StHeadChild>
+              <StHeadChild>Очки</StHeadChild>
+              <StWinsColumnsHead>
+                <StHeadChild>Победы</StHeadChild>
+                <StHeadChild>2 игрока</StHeadChild>
+                <StHeadChild>4 игрока</StHeadChild>
+              </StWinsColumnsHead>
             </StHead>
             <StBody>
               {sortedPlayers.map((player, index) => (
-                <BoardItem key={player.id} place={index + 1} {...player} />
+                <BoardItem
+                  key={player.data.id}
+                  place={index + 1}
+                  {...player.data}
+                />
               ))}
             </StBody>
           </StTable>

@@ -1,6 +1,13 @@
 import { FourPlayerLayers } from './utils';
 import { cardColors, cardBackColor } from './utils';
 
+export enum GameEvents {
+  CARD_MOVEMENT = 'card movement',
+  CLICK_UNO = 'click uno',
+  SKIP_CLICK_UNO = 'skip click uno',
+  FINISH_GAME = 'finish',
+}
+
 export type CardType = {
   id: number;
   sign: string;
@@ -14,8 +21,17 @@ export type PaintedCardColor = typeof cardColors[number];
 
 export type GamePlayerType = {
   playerId?: number;
-  name?: string;
   isBot?: boolean;
+  username?: string;
+  score?: number;
+  wins_2?: number;
+  wins_4?: number;
+};
+
+export type ResultData = {
+  score: number;
+  wins_2: number;
+  wins_4: number;
 };
 
 export type HandEntityTypes = keyof typeof FourPlayerLayers;
@@ -52,10 +68,3 @@ export type AudioObjectType = {
   isPlaying: boolean;
 };
 export type AudioListType = Record<string, AudioObjectType>;
-
-export enum GameEvents {
-  CARD_MOVEMENT = 'card movement',
-  CLICK_UNO = 'click uno',
-  SKIP_CLICK_UNO = 'skip click uno',
-  FINISH_GAME = 'finish',
-}

@@ -93,4 +93,10 @@ export class TableEntity extends Entity<EntityTypes> {
       countCards
     );
   }
+
+  reset() {
+    this.activeColor = '#009F66';
+    this.openPack = [];
+    this.closePack = [];
+  }
 }

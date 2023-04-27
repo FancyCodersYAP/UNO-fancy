@@ -7,6 +7,8 @@ export const API_ENDPOINTS = {
   auth: `${API_MAIN_ENDPOINT}/auth`,
   oauth: `${API_MAIN_ENDPOINT}/oauth/yandex`,
   profile: `${API_MAIN_ENDPOINT}/user`,
+  leaderboard: `${API_MAIN_ENDPOINT}/leaderboard`,
+  resources: `${API_MAIN_ENDPOINT}/resources`,
   theme: `${REDIRECT_URL}/theme-service`,
 };
 axios.interceptors.request.use(function (config) {

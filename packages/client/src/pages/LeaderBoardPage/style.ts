@@ -6,6 +6,8 @@ import {
   GRID_TABLE_CONTAINER,
   BORDER_WIDTH_TABLE,
   BORDER_RADIUS_SIZE,
+  COLUMNS_WIDTH_HEAD_TABLE,
+  COLUMNS_WIDTH_TABLE,
 } from 'styles/variables/styleConstants';
 
 import { AvatarProps } from './types';
@@ -54,19 +56,43 @@ export const StPlayer = styled.div`
 
 export const StHead = styled.div`
   ${GRID_TABLE_CONTAINER};
+  grid-template-columns: ${COLUMNS_WIDTH_HEAD_TABLE};
   grid-template-rows: 60px;
+`;
 
-  & > div {
-    background-color: ${props => props?.theme.BACKGROUND_COLOR_TABLE_PRIMARY};
-    text-transform: uppercase;
-    color: ${props => props?.theme.COLOR_TABLE_TEXT_PRIMARY};
-    height: 100%;
-    padding: 20px;
+export const StWinsColumnsHead = styled.div`
+  ${GRID_TABLE_CONTAINER};
+  grid-template-columns: 200px 200px;
+  grid-template-areas:
+    'a a'
+    'b c';
+
+  > * {
+    &:first-child {
+      grid-area: a;
+    }
+    &:nth-child(2) {
+      grid-area: b;
+    }
+    &:last-child {
+      grid-area: c;
+    }
   }
+`;
+
+export const StHeadChild = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${props => props?.theme.BACKGROUND_COLOR_TABLE_PRIMARY};
+  text-transform: uppercase;
+  color: ${props => props?.theme.COLOR_TABLE_TEXT_PRIMARY};
+  height: 100%;
 `;
 
 export const StBody = styled.div`
   ${GRID_TABLE_CONTAINER};
+  grid-template-columns: ${COLUMNS_WIDTH_TABLE};
   grid-auto-rows: minmax(60px, auto);
 
   & > div {
@@ -88,7 +114,9 @@ export const StAvatar = styled.div<AvatarProps>(({ image, label }) => ({
   position: 'relative',
   minWidth: '50px',
   minHeight: '50px',
-  background: `url(${image}) center no-repeat`,
+  background: `url(${
+    image || '/assets/icons/default-avatar.svg'
+  }) center no-repeat`,
   backgroundSize: 'cover',
   borderRadius: '50%',
 
