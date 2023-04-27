@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LoginFormParams } from '../../../pages/LoginPage/LoginPage';
 import { RegFormParams } from '../../../pages/RegistrationPage/RegistrationPage';
 import { IUser } from '../../types';
-import { API_ENDPOINTS } from '../../constatns';
+import { API_ENDPOINTS } from '../../constants';
 import { errorMessage } from '../../../utils/apiErrorMessageCheck';
 
 interface IUserService {

@@ -8,7 +8,6 @@ import {
   shuffle,
   sleep,
   clearGamePage,
-  EventBus,
   countPoints,
 } from 'game/utils';
 import {
@@ -26,6 +25,7 @@ import {
   PlayerClickPosition,
 } from 'game/types';
 import { HandEntity, TableEntity } from 'game/entities';
+import { EventBus } from 'game/utils/EventBus';
 
 export class Game extends EventBus {
   private activePlayerId = -1;
