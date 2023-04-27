@@ -52,8 +52,7 @@ const ForumPage = () => {
 
     const topic = target.closest('article');
     const topicId = topic?.dataset.topic;
-    // временный код
-    console.log('Выбранная тема: ' + topicId);
+
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
 

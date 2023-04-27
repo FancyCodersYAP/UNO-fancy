@@ -44,7 +44,6 @@ const ForumTopic = () => {
   const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
   const messages = [];
 
-  console.log(TopicContent);
   if (!TopicContent) return <></>;
   return (
     <StBoard css={stBoardStyle}>
