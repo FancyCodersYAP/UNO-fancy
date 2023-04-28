@@ -1,5 +1,6 @@
 import express, { type Request, type Response, Router } from 'express';
 import { Sequelize } from 'sequelize-typescript';
+import { Op } from 'sequelize';
 
 import { checkUserAuth } from '../middlewares/checkUserAuth';
 import { ForumMessage } from '../models/ForumMessage';
@@ -23,39 +24,51 @@ export const forumRoute = Router()
                      `),
           'total_messages',
         ],
+        [
+          Sequelize.literal(`
+              (SELECT content FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
+             FROM forum_messages AS M
+             WHERE  M.topic_id = "ForumTopic"."id"))
+             `),
+          'last_message',
+        ],
+        [
+          Sequelize.literal(`
+              (SELECT id FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
+             FROM forum_messages AS M
+             WHERE  M.topic_id = "ForumTopic"."id"))
+             `),
+          'last_message_id',
+        ],
       ],
       include: [
-        /**
-         * пока получаю все сообщения
-         * TODO нужно модифицировать запрос чтобы получить только одно последнее сообщение
-         * */
-        {
-          model: ForumMessage,
-          attributes: ['content', 'created_at'],
-        },
+        // {
+        //   model: ForumMessage,
+        //   attributes: ['content'],
+        //   order: [['id', 'ASC']],
+        //   where: {
+        //     id: {
+        //       [Op.in]: Sequelize.literal(
+        //         '(SELECT MAX(id) FROM forum_messages GROUP BY topic_id)'
+        //       ),
+        //     },
+        //   },
+        // },
         {
           model: User,
-          attributes: ['display_name', 'avatar'],
+          attributes: ['display_name'],
         },
       ],
-      order: [[Sequelize.col('messages.created_at'), 'DESC']],
+      order: [[Sequelize.col('last_message_id'), 'DESC']],
     })
-      /**
-       * сделал временный then() пока не найду спопсоб поучения одного последнего сообщения*/
-      .then(topics => {
-        topics = JSON.parse(JSON.stringify(topics));
-        topics.forEach(topic => {
-          if (topic.messages && topic.messages.length) {
-            topic.last_message = topic.messages[0].content;
-          }
-          delete topic.messages;
-        });
-        return topics;
-      })
+
       .then((topics: ForumTopic[]) => {
         res.status(200).json(topics);
       })
-      .catch(next);
+      .catch(e => {
+        // console.log(e);
+        res.status(500).json('DB connect error');
+      });
   })
   .get('/:id', (req: Request, res: Response, next) => {
     ForumTopic.findByPk(req.params.id, {
@@ -67,7 +80,9 @@ export const forumRoute = Router()
     })
       // .then(throwIf(r => !r, res, 400, 'Тема не найдена'))
       .then(topic => res.status(200).json(topic))
-      .catch(next);
+      .catch(() => {
+        res.status(500).json('DB connect error');
+      });
   })
   .post('/', (req: Request, res: Response, next) => {
     req.body.user_id = res.locals.user.id;
