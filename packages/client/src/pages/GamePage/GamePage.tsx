@@ -54,7 +54,7 @@ export function GamePage() {
   } = audioManager();
   const { timer, timerStart, timerPause, timerResume, timerReset } = useTimer();
   const { isLoading, user } = userState();
-  const leaders = leaderboardList();
+  const { leaders } = leaderboardList();
 
   useEffect(() => {
     if (!leaders.length) {
