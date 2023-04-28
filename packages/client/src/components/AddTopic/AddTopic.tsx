@@ -1,6 +1,25 @@
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
-import { StTopicLabel, StTopicInput, StTopicTextarea } from './style';
+import { StTopicForm } from './style';
+import { css } from 'styled-components';
+import { addTopicConfig } from 'pages/configs';
+import { FieldValues } from 'react-hook-form';
+import getCurrentDate from 'utils/getCurrentDate';
+import { userState } from 'hooks/userState';
+
+const buttonStyle = css`
+  width: 200px;
+  margin: 0;
+`;
+
+const buttonsWrapperStyle = css`
+  margin-top: 40px;
+`;
+
+export interface TopicFormParams extends FieldValues {
+  topic_name: string;
+  topic_message: string;
+}
 
 interface AddTopicType {
   handleCloseModal: () => void;
@@ -8,51 +27,33 @@ interface AddTopicType {
 
 const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
+  const { user } = userState();
 
-  const submitNewTopic = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    const topicName = document.querySelector(
-      '[name="topic_name"]'
-    ) as HTMLInputElement;
-    const topicMessage = document.querySelector(
-      '[name="topic_message"]'
-    ) as HTMLTextAreaElement;
-
-    // временный код для проверки
-    console.log(
-      `Название темы: ${topicName.value}`,
-      `Описание темы: ${topicMessage.value}`
-    );
+  const handleLogin = (data: TopicFormParams): void => {
+    data.topic_date = getCurrentDate();
+    data.author = user?.first_name;
+    console.log(data);
   };
+
+  const footer = (
+    <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
+      <Button css={buttonStyle} text="Создать" type="submit" />
+      <Button
+        css={buttonStyle}
+        text="Отмена"
+        disignType="alternate"
+        onClick={handleCloseModal}
+      />
+    </StFlex>
+  );
 
   return (
     <>
-      <form action="" onSubmit={submitNewTopic}>
-        <StTopicLabel htmlFor="topic_name">Название темы</StTopicLabel>
-        <StTopicInput
-          type="text"
-          id="topic_name"
-          name="topic_name"
-          placeholder="Название темы"
-          autoComplete="off"
-          required
-        />
-
-        <StTopicLabel htmlFor="topic_message">Описание темы</StTopicLabel>
-        <StTopicTextarea
-          name="topic_message"
-          id="topic_message"
-          placeholder="Описание темы"
-          required></StTopicTextarea>
-        <StFlex>
-          <Button text="Создать" type="submit" />
-          <Button
-            text="Отмена"
-            disignType="alternate"
-            onClick={handleCloseModal}
-          />
-        </StFlex>
-      </form>
+      <StTopicForm
+        fields={addTopicConfig}
+        handleFormSubmit={handleLogin}
+        footer={footer}
+      />
     </>
   );
 };

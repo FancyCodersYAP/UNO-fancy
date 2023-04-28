@@ -1,37 +1,39 @@
-import styled, { css } from 'styled-components';
-import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
-import { customScrollbar } from 'styles/global';
+import styled from 'styled-components';
+import Form from 'components/Form/Form';
+import { StFieldList } from 'components/Form/style';
+import { StInputContainer, StInput, StLabel } from 'components/Input/style';
 
-export const StTopicLabel = styled.label`
-  visibility: hidden;
-  display: none;
-`;
-
-const inputStyle = css`
+export const StTopicForm = styled(Form)`
   width: 100%;
-  border-radius: ${BORDER_RADIUS_SIZE};
-  font-size: 20px;
-  line-height: 26px;
-  color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
-  border: none;
-  background-color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
-  padding: 17px 24px 13px;
-  margin-bottom: 32px;
+  min-width: auto;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+  background-color: inherit;
 
-  &::placeholder {
-    color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
-    filter: opacity(50%);
+  & ${StFieldList} {
+    gap: 40px;
   }
-`;
 
-export const StTopicInput = styled.input`
-  ${inputStyle}
-`;
+  & ${StInputContainer} {
+    height: 111px;
 
-export const StTopicTextarea = styled.textarea`
-  ${inputStyle}
-  ${customScrollbar}
-  border-radius: ${BORDER_RADIUS_SIZE} 10px 10px ${BORDER_RADIUS_SIZE};
-  resize: none;
-  height: 111px;
+    &:first-child {
+      height: 50px;
+    }
+  }
+
+  ${StInput} {
+    padding: 17px 24px;
+
+    &::placeholder {
+      color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
+      filter: opacity(50%);
+      text-align: center;
+    }
+  }
+
+  ${StLabel} {
+    display: none;
+  }
 `;
