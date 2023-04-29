@@ -91,6 +91,7 @@ export const StButtonReply = styled(StButton)`
   padding: 5px 7px;
   height: min-content;
   margin: 0;
+  font-size: 13px;
 `;
 
 export const StButtonNewTopic = styled(StButton)`

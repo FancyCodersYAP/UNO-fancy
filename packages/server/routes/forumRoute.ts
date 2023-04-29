@@ -18,23 +18,23 @@ export const forumRoute = Router()
         'id',
         [
           Sequelize.literal(`
-                    (SELECT Count(*) :: INTEGER
-                     FROM   forum_messages AS M
-                    WHERE  M.topic_id = "ForumTopic"."id")
-                     `),
+             (SELECT Count(*) :: INTEGER
+              FROM   forum_messages AS M
+              WHERE  M.topic_id = "ForumTopic"."id")
+             `),
           'total_messages',
         ],
         [
           Sequelize.literal(`
-              (SELECT content FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
+            (SELECT content FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
              FROM forum_messages AS M
              WHERE  M.topic_id = "ForumTopic"."id"))
-             `),
+            `),
           'last_message',
         ],
         [
           Sequelize.literal(`
-              (SELECT id FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
+            (SELECT id FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
              FROM forum_messages AS M
              WHERE  M.topic_id = "ForumTopic"."id"))
              `),
@@ -42,6 +42,7 @@ export const forumRoute = Router()
         ],
       ],
       include: [
+        /**запасной вариант*/
         // {
         //   model: ForumMessage,
         //   attributes: ['content'],
@@ -63,18 +64,33 @@ export const forumRoute = Router()
     })
 
       .then((topics: ForumTopic[]) => {
+        /**для дебага*/
+        // topics = JSON.parse(JSON.stringify(topics));
+        // console.log(topics);
         res.status(200).json(topics);
       })
       .catch(e => {
-        // console.log(e);
+        console.log(e);
         res.status(500).json('DB connect error');
       });
   })
   .get('/:id', (req: Request, res: Response, next) => {
     ForumTopic.findByPk(req.params.id, {
       include: [
-        { model: ForumMessage, include: [{ model: User }] },
-        { model: User },
+        {
+          model: ForumMessage,
+          attributes: ['id', 'topic_id', 'content', 'created_at'],
+          include: [
+            {
+              model: User,
+              attributes: ['display_name', 'avatar'],
+            },
+          ],
+        },
+        {
+          model: User,
+          attributes: ['display_name', 'avatar'],
+        },
       ],
       order: [[Sequelize.col('messages.created_at'), 'ASC']],
     })
