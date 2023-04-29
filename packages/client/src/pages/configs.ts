@@ -134,7 +134,7 @@ export const registrationConfig: FormConfigType[] = [
 
 export const addTopicConfig: FormConfigType[] = [
   {
-    name: 'topic_name',
+    name: 'name',
     label: 'Название темы',
     pattern: ValidationType.TopicName,
     required: true,
@@ -142,9 +142,9 @@ export const addTopicConfig: FormConfigType[] = [
     placeholder: 'Название темы',
   },
   {
-    name: 'topic_message',
+    name: 'description',
     label: 'Описание темы',
-    pattern: ValidationType.ToopicMessage,
+    pattern: ValidationType.ToopicDescription,
     required: true,
     type: 'text',
     placeholder: 'Описание темы',

@@ -4,7 +4,6 @@ import { StTopicForm } from './style';
 import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
-import getCurrentDate from 'utils/getCurrentDate';
 import { userState } from 'hooks/userState';
 
 const buttonStyle = css`
@@ -17,8 +16,8 @@ const buttonsWrapperStyle = css`
 `;
 
 export interface TopicFormParams extends FieldValues {
-  topic_name: string;
-  topic_message: string;
+  name: string;
+  description: string;
 }
 
 interface AddTopicType {
@@ -29,8 +28,7 @@ const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
   const { user } = userState();
 
-  const handleLogin = (data: TopicFormParams): void => {
-    data.topic_date = getCurrentDate();
+  const submitNewTopic = (data: TopicFormParams): void => {
     data.author = user?.first_name;
     console.log(data);
   };
@@ -51,7 +49,7 @@ const AddTopic = (props: AddTopicType) => {
     <>
       <StTopicForm
         fields={addTopicConfig}
-        handleFormSubmit={handleLogin}
+        handleFormSubmit={submitNewTopic}
         footer={footer}
       />
     </>

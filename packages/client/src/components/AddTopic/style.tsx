@@ -16,11 +16,7 @@ export const StTopicForm = styled(Form)`
   }
 
   & ${StInputContainer} {
-    height: 111px;
-
-    &:first-child {
-      height: 50px;
-    }
+    height: 50px;
   }
 
   ${StInput} {

@@ -49,7 +49,6 @@ const Profile: FC = () => {
     (acc, { name }) => ({ ...acc, [name]: user![name as keyof UserType] }),
     {}
   );
-  console.log(user);
 
   const footer = isEditMode ? (
     <StSaveButton text="Сохранить" type="submit" />
