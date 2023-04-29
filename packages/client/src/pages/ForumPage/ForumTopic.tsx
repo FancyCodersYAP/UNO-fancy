@@ -6,13 +6,14 @@ import {
   StDeleteTopicIcon,
 } from './style';
 import { css } from 'styled-components';
+import { IUserForum } from '../../store/types';
 
 interface ForumTopicType {
   id: number;
   name: string;
-  total_messages?: number;
-  user: Record<any, any>;
-  last_message?: string;
+  total_messages: number;
+  user: IUserForum;
+  last_message: string | null;
 }
 
 const MAX_TOPIC_LENGTH = 35;

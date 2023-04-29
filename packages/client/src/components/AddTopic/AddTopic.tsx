@@ -4,9 +4,9 @@ import { StTopicForm } from './style';
 import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
-import getCurrentDate from 'utils/getCurrentDate';
+import { useAppDispatch } from '../../hooks/redux';
 import { userState } from 'hooks/userState';
-
+import { fetchForumTopicPost } from '../../store/Forum/forumActions';
 const buttonStyle = css`
   width: 200px;
   margin: 0;
@@ -17,8 +17,8 @@ const buttonsWrapperStyle = css`
 `;
 
 export interface TopicFormParams extends FieldValues {
-  topic_name: string;
-  topic_message: string;
+  name: string;
+  description: string;
 }
 
 interface AddTopicType {
@@ -28,10 +28,10 @@ interface AddTopicType {
 const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
   const { user } = userState();
+  const dispatch = useAppDispatch();
 
   const handleLogin = (data: TopicFormParams): void => {
-    data.topic_date = getCurrentDate();
-    data.author = user?.first_name;
+    dispatch(fetchForumTopicPost(data));
     console.log(data);
   };
 
