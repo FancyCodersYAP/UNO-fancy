@@ -21,7 +21,7 @@ export enum ValidationType {
   Phone = 'phone',
   Name = 'name',
   TopicName = 'topic_name',
-  ToopicMessage = 'topic_message',
+  ToopicDescription = 'topic_description',
 }
 
 export const ValidationPattern = {
@@ -52,7 +52,7 @@ export const ValidationPattern = {
     message:
       '3-50 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',
   },
-  topic_message: {
+  topic_description: {
     value: /(?=.*[\D])[_A-ZА-ЯËa-zа-яё-]{1,255}$/g,
     message:
       '1-255 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',

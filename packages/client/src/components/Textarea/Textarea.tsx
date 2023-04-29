@@ -1,11 +1,11 @@
-import { FC, InputHTMLAttributes } from 'react';
+import { FC, TextareaHTMLAttributes } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import { StError, StInput, StInputContainer, StLabel } from './style';
+import { StTextarea, StTextareaContainer } from './style';
+import { StError } from 'components/Input/style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
-import { CSSProp } from 'styled-components';
 import { DataType } from '../Form/Form';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
   register: UseFormRegister<DataType>;
   label?: string;
@@ -13,21 +13,17 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   required?: boolean;
   pattern?: ValidationType;
-  inputCss?: CSSProp;
   placeholder?: string;
 }
 
-const Input: FC<InputProps> = ({
+const Textarea: FC<TextareaProps> = ({
   name,
-  label,
   register,
   required,
   error,
   errorMessage,
   pattern,
-  inputCss,
   placeholder,
-  ...rest
 }) => {
   const options = {
     ...(required && { required: 'Поле не может быть пустым' }),
@@ -35,17 +31,14 @@ const Input: FC<InputProps> = ({
   };
 
   return (
-    <StInputContainer>
-      <StInput
+    <StTextareaContainer>
+      <StTextarea
         {...register(name, options)}
         placeholder={placeholder || ''}
-        css={inputCss}
-        {...rest}
-      />
-      <StLabel>{label}</StLabel>
+        maxLength={255}></StTextarea>
       {error && <StError>{errorMessage}</StError>}
-    </StInputContainer>
+    </StTextareaContainer>
   );
 };
 
-export default Input;
+export default Textarea;
