@@ -43,7 +43,7 @@ export const profileConfig: FormConfigType[] = [
     pattern: ValidationType.Phone,
     required: true,
     type: 'tel',
-  }
+  },
 ];
 
 export const passwordConfig: FormConfigType[] = [
@@ -67,7 +67,7 @@ export const passwordConfig: FormConfigType[] = [
     pattern: ValidationType.Password,
     required: true,
     type: 'password',
-  }
+  },
 ];
 
 export const loginConfig: FormConfigType[] = [
@@ -134,7 +134,7 @@ export const registrationConfig: FormConfigType[] = [
 
 export const addTopicConfig: FormConfigType[] = [
   {
-    name: 'topic_name',
+    name: 'name',
     label: 'Название темы',
     pattern: ValidationType.TopicName,
     required: true,
@@ -142,7 +142,7 @@ export const addTopicConfig: FormConfigType[] = [
     placeholder: 'Название темы',
   },
   {
-    name: 'topic_message',
+    name: 'description',
     label: 'Описание темы',
     pattern: ValidationType.ToopicMessage,
     required: true,

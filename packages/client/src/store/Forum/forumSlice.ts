@@ -54,6 +54,23 @@ const forumSlice = createSlice({
           state.isLoading = false;
           state.error = action.payload;
         }
+      )
+      .addCase(
+        fetchForumTopicPost.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = '';
+        }
+      )
+      .addCase(fetchForumTopicPost.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchForumTopicPost.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = action.payload;
+        }
       );
   },
 });
