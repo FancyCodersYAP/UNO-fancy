@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
+import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
+import AddTopic from 'components/AddTopic';
 import ForumTopic from './ForumTopic';
 import {
   stBoardStyle,
@@ -24,6 +26,11 @@ import { useAppSelector } from 'hooks/redux';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
+`;
+
+const addTopicModalStyles = css`
+  width: 700px;
+  padding: 60px 100px 70px;
 `;
 
 const ForumPage = () => {
@@ -85,6 +92,16 @@ const ForumPage = () => {
           )}
         </StBody>
       </StTable>
+
+      {isOpen && (
+        <Modal
+          title="Создание темы"
+          styles={addTopicModalStyles}
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside>
+          <AddTopic handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
     </StBoard>
   );
 };

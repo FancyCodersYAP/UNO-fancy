@@ -11,8 +11,9 @@ import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
 import { useAppDispatch } from '../../hooks/redux';
 import { errorReset } from '../../store/User/userSlice';
 import { userState } from '../../hooks/userState';
+import { TopicFormParams } from 'components/AddTopic/AddTopic';
 
-export type DataType = LoginFormParams & RegFormParams;
+export type DataType = LoginFormParams & RegFormParams & TopicFormParams;
 
 type FormProps = {
   title?: string | ReactNode;
