@@ -19,7 +19,9 @@ import {
   StTopicDate,
   StTopicDiscussion,
 } from './style';
+import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
+import AddAnswer from 'components/AddAnswer/AddAnswer';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useEffect } from 'react';
@@ -28,6 +30,11 @@ import { dateStringParse } from 'utils/dateStringParse';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
+`;
+
+const addAnswerModalStyles = css`
+  width: 700px;
+  padding: 56px 90px 70px;
 `;
 
 const ForumTopic = () => {
@@ -81,6 +88,16 @@ const ForumTopic = () => {
       </StTopicDiscussion>
 
       <Button text="Написать сообщение" onClick={handleOpenModal} />
+
+      {isOpen && (
+        <Modal
+          title="Сообщение"
+          styles={addAnswerModalStyles}
+          handleCloseModal={handleCloseModal}
+          canBeClosedOutside>
+          <AddAnswer handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
     </StBoard>
   );
 };
