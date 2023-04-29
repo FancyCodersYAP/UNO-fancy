@@ -1,3 +1,5 @@
+import { ITopicMessage } from '../pages/ForumTopicPage/TopicMessage';
+
 export interface IUser {
   id: number;
   first_name: string;
@@ -16,13 +18,6 @@ export interface UserState {
   error: string;
 }
 
-export interface ForumState {
-  forumTopics: ITopicsForum | [];
-  isLoading: boolean;
-  error: string;
-  currentTopic?: Record<any, any>;
-}
-
 export interface IServiceId {
   service_id: string;
 }
@@ -31,9 +26,25 @@ export interface IErrorReason {
   reason: string;
 }
 
+export interface ForumState {
+  forumTopics: ITopicsForum | [];
+  isLoading: boolean;
+  error: string;
+  currentTopic?: ITopic;
+}
+
+export interface ITopic {
+  id: number;
+  name: string;
+  description: string;
+  created_at: string;
+  messages: ITopicMessage[] | [];
+  user: IUserForum;
+}
+
 export interface IUserForum {
   display_name: string;
-  avatar: string;
+  avatar?: string;
 }
 
 export type ITopicsForum = Array<ITopicData>;

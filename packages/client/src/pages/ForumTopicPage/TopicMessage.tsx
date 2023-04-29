@@ -14,6 +14,7 @@ import {
   StAnswer,
 } from './style';
 import { dateStringParse } from '../../utils/dateStringParse';
+import { IUserForum } from '../../store/types';
 
 const MAX_ANSWER_LENGTH = 20;
 
@@ -23,14 +24,14 @@ type Answer = {
   message: string;
 };
 
-interface TopicMessage {
+export interface ITopicMessage {
   id: number;
-  avatar?: string;
-  author: string;
+  topic_id: number;
+  user: IUserForum;
   rank: string;
   answer?: Answer;
-  messages: string;
-  date: string;
+  content: string;
+  created_at: string;
   onClick?: () => void;
 }
 
@@ -47,7 +48,7 @@ const TopicMessage = ({
   content,
   created_at,
   onClick,
-}: TopicMessage) => {
+}: ITopicMessage) => {
   return (
     <StMessage id={String(id)} data-message={id}>
       <StUser css={flexStyles}>
