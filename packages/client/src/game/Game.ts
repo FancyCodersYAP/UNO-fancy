@@ -34,14 +34,14 @@ export class Game extends EventBus {
   private table!: TableEntity;
 
   private clockwiseMovement = true;
-  private gameStatus = false;
+  private gameStatus = 'gameplay' || 'game over';
 
   constructor() {
     super();
   }
 
   startGame(playersNum: number, playerData?: GamePlayerType) {
-    this.gameStatus = true;
+    this.gameStatus = 'gameplay';
     /* Если есть данные, добавляем игрока с этими данными */
     if (playerData !== undefined) {
       this.players = addPlayers(playersNum, playerData);
@@ -49,7 +49,7 @@ export class Game extends EventBus {
 
     /* Если ранее игроки были добавлены и количество игроков изменилось */
     /* Добавляем игроков заново с данными юзера, используемыми ранее */
-    if (this.players.length && this.players.length !== playersNum) {
+    if (this.players.length !== playersNum) {
       this.players = addPlayers(playersNum, this.players[0]);
     }
 
@@ -198,7 +198,7 @@ export class Game extends EventBus {
   }
 
   botMove() {
-    if (this.gameStatus === false) {
+    if (this.gameStatus === 'game over') {
       return;
     }
 
@@ -492,7 +492,7 @@ export class Game extends EventBus {
   }
 
   unload() {
-    this.gameStatus = false;
+    this.gameStatus = 'game over';
     this.resetGame();
     this.players = [];
     this.destroy();
