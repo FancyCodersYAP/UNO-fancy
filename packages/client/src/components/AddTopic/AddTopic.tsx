@@ -35,7 +35,12 @@ const AddTopic = (props: AddTopicType) => {
 
   const footer = (
     <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
-      <Button css={buttonStyle} text="Создать" type="submit" />
+      <Button
+        css={buttonStyle}
+        text="Создать"
+        type="submit"
+        disignType="primary"
+      />
       <Button
         css={buttonStyle}
         text="Отмена"
@@ -46,13 +51,11 @@ const AddTopic = (props: AddTopicType) => {
   );
 
   return (
-    <>
-      <StTopicForm
-        fields={addTopicConfig}
-        handleFormSubmit={submitNewTopic}
-        footer={footer}
-      />
-    </>
+    <StTopicForm
+      fields={addTopicConfig}
+      handleFormSubmit={submitNewTopic}
+      footer={footer}
+    />
   );
 };
 

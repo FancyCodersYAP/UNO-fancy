@@ -10,9 +10,9 @@ export const StTextareaContainer = styled.div`
 
 export const StTextarea = styled.textarea`
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 25px;
   border-radius: ${BORDER_RADIUS_SIZE};
-  line-height: 26px;
   color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
   border: none;
   background-color: ${props => props.theme?.COLOR_BACKGROUND_SECONDARY};

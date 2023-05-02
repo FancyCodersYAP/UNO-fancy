@@ -104,6 +104,7 @@ export const resetDefaultStyles = css`
     font-size: 100%;
     line-height: 1.15;
     margin: 0;
+    border: none;
   }
 
   button,
@@ -121,9 +122,10 @@ export const resetDefaultStyles = css`
   [type='reset'],
   [type='submit'] {
     -webkit-appearance: button;
-    background-color: initial;
+    //почему-то стали конфликтовать
+    /* background-color: initial; */
     border-style: none;
-    padding: 0;
+    /* padding: 0; */
     cursor: pointer;
   }
 
