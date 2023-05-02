@@ -33,7 +33,7 @@ export const fetchLeaderboard = createAsyncThunk(
     try {
       const response = await axios.post<LeaderListType>(
         `${API_ENDPOINTS.leaderboard}/${teamName}`,
-        { ratingFieldName: 'score', cursor: 0, limit: 100 }
+        { ratingFieldName: 'score', cursor: 0, limit: 999 }
       );
       return response.data;
     } catch (error) {
