@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { addUserData } from '../models/User';
+import { addUserData } from '../controllers/user';
 
 const API_ROOT = 'https://ya-praktikum.tech/api/v2/';
 

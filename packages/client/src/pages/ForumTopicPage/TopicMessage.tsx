@@ -19,9 +19,10 @@ import { IUserForum } from '../../store/types';
 const MAX_ANSWER_LENGTH = 20;
 
 type Answer = {
-  askingId: number;
+  id: number;
+  user: IUserForum;
   name: string;
-  message: string;
+  content: string;
 };
 
 export interface ITopicMessage {
@@ -62,9 +63,9 @@ const TopicMessage = ({
       <StMessageWrapper>
         <div>
           {answer && (
-            <StAnswer href={`#${answer.askingId}`}>
-              {answer.name}: "{stringShorten(answer.message, MAX_ANSWER_LENGTH)}
-              "
+            <StAnswer href={`#${answer.id}`}>
+              {answer.user.display_name}: "
+              {stringShorten(answer.content, MAX_ANSWER_LENGTH)}"
             </StAnswer>
           )}
           <StMessageText>{content}</StMessageText>
