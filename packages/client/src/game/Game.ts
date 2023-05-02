@@ -437,7 +437,8 @@ export class Game extends EventBus {
     }
 
     /* Если юзер авторизован и победил, обновляем данные для лидерборда */
-    user.score! += points;
+    const pointsForLB = this.players.length === 2 ? points : points * 0.5;
+    user.score! = pointsForLB > user.score! ? pointsForLB : user.score!;
 
     if (this.players.length === 2) {
       user.wins_2! += 1;
