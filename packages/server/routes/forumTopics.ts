@@ -9,6 +9,7 @@ import { checkUserAuth } from '../middlewares/checkUserAuth';
 import { ForumTopic } from '../models/ForumTopic';
 import {
   forumTopicsList,
+  topicDel,
   topicGetById,
   topicPost,
 } from '../controllers/forumTopicsList';
@@ -32,10 +33,8 @@ export const forumTopics = Router()
     topicPost(req.body)
       .then(topic => res.status(201).send({ id: topic.id }))
       .catch(next);
+  })
+  .delete('/:id', (req: Request, res: Response, next) => {
+    topicDel(req.params.id, res.locals.user.id).then();
+    res.status(201).send('del');
   });
-//   .put('/:id', (req: Request, res: Response, next) => {
-// ;
-//   })
-// .delete('/:id', (req: Request, res: Response, next) => {
-//
-// });
