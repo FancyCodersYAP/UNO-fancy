@@ -3,22 +3,25 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LoginFormParams } from '../../../pages/LoginPage/LoginPage';
 import { RegFormParams } from '../../../pages/RegistrationPage/RegistrationPage';
 import { IUser } from '../../types';
-import { API_ENDPOINTS } from '../../constatns';
+import { API_ENDPOINTS } from '../../constants';
 import { errorMessage } from '../../../utils/apiErrorMessageCheck';
 
-// const AUTH_ENDPOINT = `${API_MAIN_ENDPOINT}/auth`;
+interface IUserService {
+  getCurrentUser(): Promise<IUser>;
+}
 
 export const fetchAuthUserGet = createAsyncThunk(
   'auth/fetchAuth',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get<IUser>(`${API_ENDPOINTS.auth}/user`);
+      const service: IUserService = thunkAPI.extra as IUserService;
 
-      return response.data;
+      return await service.getCurrentUser();
     } catch (error) {
       return thunkAPI.rejectWithValue(
         errorMessage(error, 'Не удалось загрузить пользователя')
       );
+      // return thunkAPI.rejectWithValue(error);
     }
   }
 );

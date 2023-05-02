@@ -3,12 +3,13 @@ import { StFlex } from '../../styles/global';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
 import AvatarModalWindow from 'components/AvatarModalWindow';
+import { REDIRECT_URL } from '../../store/constants';
 
 interface IAvatar {
   image: string | undefined;
 }
 
-const API_RESOURCES = 'https://ya-praktikum.tech/api/v2/resources/';
+const API_RESOURCES = `${REDIRECT_URL}/api/v2/resources`;
 
 const ProfileAvatar = ({ image }: IAvatar) => {
   const avatar = image && API_RESOURCES + image;
@@ -21,14 +22,8 @@ const ProfileAvatar = ({ image }: IAvatar) => {
         <StAvatar onClick={handleOpenModal} image={avatar} />
       </label>
       {isOpen && (
-        <Modal
-          title="Изменить аватар"
-          handleCloseModal={handleCloseModal}
-          canBeClosedOutside>
-          <AvatarModalWindow
-            avatar={avatar}
-            handleCloseModal={handleCloseModal}
-          />
+        <Modal title="Изменить аватар">
+          <AvatarModalWindow handleCloseModal={handleCloseModal} />
         </Modal>
       )}
     </StFlex>
