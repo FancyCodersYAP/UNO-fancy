@@ -482,7 +482,6 @@ export class Game extends EventBus {
     this.activePlayerId = -1;
     this.handEntities = {};
     this.clockwiseMovement = true;
-    this.table.reset();
   }
 
   /* Генерация клика по кнопке UNO */
