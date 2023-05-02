@@ -1,4 +1,3 @@
-import type { Request, Response, NextFunction } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 import { Op } from 'sequelize';
 
@@ -96,4 +95,8 @@ export const topicGetById = async (id: string) => {
 export const topicPost = async (data: Record<any, any>) => {
   //TODO типизировать data
   return await ForumTopic.create(data);
+};
+
+export const topicDel = async (id: string, userId: string) => {
+  return await ForumTopic.destroy({ where: { id, user_id: userId } });
 };
