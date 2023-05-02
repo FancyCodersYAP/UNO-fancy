@@ -20,8 +20,8 @@ export enum ValidationType {
   Email = 'email',
   Phone = 'phone',
   Name = 'name',
-  TopicName = 'topic_name',
-  ToopicDescription = 'topic_description',
+  TopicName = 'topicName',
+  ToopicDescription = 'topicDescription',
 }
 
 export const ValidationPattern = {
@@ -47,12 +47,12 @@ export const ValidationPattern = {
     value: /^[\d|+][\d]{10,15}$/i,
     message: '10-15 цифр, может начинаться с плюса',
   },
-  topic_name: {
+  topicName: {
     value: /(?=.*[\D])[_A-ZА-ЯËa-zа-яё-]{3,50}$/g,
     message:
       '3-50 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',
   },
-  topic_description: {
+  topicDescription: {
     value: /(?=.*[\D])[_A-ZА-ЯËa-zа-яё-]{1,255}$/g,
     message:
       '1-255 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',

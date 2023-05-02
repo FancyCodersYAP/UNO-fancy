@@ -4,7 +4,6 @@ import { StTopicForm } from './style';
 import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
-import { userState } from 'hooks/userState';
 
 const buttonStyle = css`
   width: 200px;
@@ -26,10 +25,9 @@ interface AddTopicType {
 
 const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
-  const { user } = userState();
 
   const submitNewTopic = (data: TopicFormParams): void => {
-    data.author = user?.first_name;
+    // временный код для проверки данных
     console.log(data);
   };
 
