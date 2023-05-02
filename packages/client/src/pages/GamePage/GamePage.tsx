@@ -107,7 +107,6 @@ export function GamePage() {
   if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
 
   const updateLeaderboardData = (playerData: PlayerType) => {
-    console.log('playerData', playerData);
     dispatch(fetchUserDataLB(playerData));
   };
 
@@ -124,8 +123,6 @@ export function GamePage() {
     setCountPlayers(playerNums);
     timerStart();
     handleCloseModal();
-
-    console.log('leaders', leaders);
 
     /* Если пользователь не авторизован или его данные уже отправляли в Game */
     if (!user || hasDataBeenUpdated) {
