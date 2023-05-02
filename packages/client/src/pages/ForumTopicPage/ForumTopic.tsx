@@ -39,13 +39,13 @@ const addAnswerModalStyles = css`
 
 const ForumTopic = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-  const { id } = useParams();
+  const { topicId } = useParams();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchForumTopicGetById(id));
+    if (topicId) {
+      dispatch(fetchForumTopicGetById(topicId));
     }
   }, []);
   const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
@@ -95,7 +95,10 @@ const ForumTopic = () => {
           styles={addAnswerModalStyles}
           handleCloseModal={handleCloseModal}
           canBeClosedOutside>
-          <AddAnswer handleCloseModal={handleCloseModal} />
+          <AddAnswer
+            handleCloseModal={handleCloseModal}
+            topicId={Number(topicId)}
+          />
         </Modal>
       )}
     </StBoard>

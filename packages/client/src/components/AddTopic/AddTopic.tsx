@@ -27,7 +27,6 @@ interface AddTopicType {
 
 const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
-  const { user } = userState();
   const dispatch = useAppDispatch();
 
   const handleLogin = (data: TopicFormParams): void => {

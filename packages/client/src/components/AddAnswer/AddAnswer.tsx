@@ -1,23 +1,30 @@
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
 import { StTopicLabel, StTopicTextarea } from './style';
+import { fetchForumMessagePost } from 'store/Forum/messageAction';
+import { useAppDispatch } from 'hooks/redux';
 
 interface AddAnswerType {
+  topicId: number;
   handleCloseModal: () => void;
 }
 
 const AddAnswer = (props: AddAnswerType) => {
-  const { handleCloseModal } = props;
+  const { handleCloseModal, topicId } = props;
+  const dispatch = useAppDispatch();
 
   const submitNewTopic = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    const topicAnswer = document.querySelector(
-      '[name="topic_answer"]'
-    ) as HTMLTextAreaElement;
+    if (evt.target && evt.target.topic_answer.value) {
+      const content = evt.target.topic_answer.value;
+      const sendData = {
+        content,
+        topic_id: topicId,
+      };
+      dispatch(fetchForumMessagePost(sendData));
 
-    // временный код для проверки
-    console.log(`Текст сообщения: ${topicAnswer.value}`);
-    handleCloseModal();
+      console.log(sendData);
+      handleCloseModal();
+    }
   };
 
   return (

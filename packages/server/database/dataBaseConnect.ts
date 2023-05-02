@@ -32,7 +32,7 @@ export const initPostgresDBConnection = async (): Promise<
     client.addModels([modelsPath]);
 
     const synced = await client.sync({ alter: true });
-
+    // console.log(await synced.query('select * from users'));
     if (synced) {
       console.log('  ➜ 🎸 Synchronized the Postgres database');
       await Themes.bulkCreate(

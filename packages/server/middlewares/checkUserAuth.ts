@@ -4,7 +4,7 @@ import { IUser, YandexAPIRepository } from '../repository/YandexAPIRepository';
 export const checkUserAuth: RequestHandler = async (req, res, next) => {
   const cookie = req.headers['cookie'];
   const yandexAPIRepository = new YandexAPIRepository(cookie);
-  const user = (await yandexAPIRepository.getCurrent()) as IUser;
+  const user = (await yandexAPIRepository.getCurrent().catch(e => e)) as IUser; //при error ловим режект
 
   if (user?.id) {
     res.locals.user = user;
