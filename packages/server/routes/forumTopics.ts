@@ -6,7 +6,6 @@ import express, {
 } from 'express';
 
 import { checkUserAuth } from '../middlewares/checkUserAuth';
-import { ForumTopic } from '../models/ForumTopic';
 import {
   forumTopicsList,
   topicDel,
@@ -35,6 +34,11 @@ export const forumTopics = Router()
       .catch(next);
   })
   .delete('/:id', (req: Request, res: Response, next) => {
-    topicDel(req.params.id, res.locals.user.id).then();
-    res.status(201).send('del');
+    topicDel(req.params.id, res.locals.user.id).then(topic => {
+      return topic
+        ? res.status(201).json(`тема id ${req.params.id} успешно удалена`)
+        : topic === null
+        ? res.status(404).json('тема не найдена')
+        : res.status(403).json('тему может удалять только автор');
+    });
   });
