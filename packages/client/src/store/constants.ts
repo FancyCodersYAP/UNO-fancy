@@ -19,4 +19,9 @@ axios.interceptors.request.use(function (config) {
 export const YANDEX_OAUTH_URL =
   'https://oauth.yandex.ru/authorize?response_type=code';
 
-export const teamName = 'FancyCoders';
+export const LEADERBOARD_DATA = {
+  teamName: 'FancyCoders',
+  ratingFieldName: 'score',
+  cursor: 0,
+  limit: 999,
+};
