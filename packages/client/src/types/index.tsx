@@ -10,7 +10,7 @@ export interface FormConfigType {
 }
 
 export interface PlayerType {
-  id: number;
+  game_id: number;
   username: string;
   avatar?: string;
   score: number;
