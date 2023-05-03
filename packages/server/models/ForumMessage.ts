@@ -35,7 +35,10 @@ export class ForumMessage extends Model {
   @Column
   id_head_answer!: number;
 
-  @BelongsTo(() => ForumTopic, 'topic_id')
+  @BelongsTo(() => ForumTopic, {
+    foreignKey: 'topic_id',
+    onDelete: 'CASCADE',
+  })
   topic!: ForumTopic;
 
   @BelongsTo(() => User)

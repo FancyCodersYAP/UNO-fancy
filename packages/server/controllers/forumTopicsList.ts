@@ -97,6 +97,13 @@ export const topicPost = async (data: Record<any, any>) => {
   return await ForumTopic.create(data);
 };
 
-export const topicDel = async (id: string, userId: string) => {
-  return await ForumTopic.destroy({ where: { id, user_id: userId } });
+export const topicDel = async (id: string, user_id: string) => {
+  const topicData = await ForumTopic.findByPk(id);
+
+  return (
+    topicData &&
+    (await ForumTopic.destroy({
+      where: { id, user_id },
+    }))
+  );
 };
