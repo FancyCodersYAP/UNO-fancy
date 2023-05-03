@@ -1,11 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchLeaderboard } from './actions';
-import { useAppSelector } from 'hooks/redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchLeaderboard, fetchUserDataLB } from './actions';
 import { LeaderboardState } from 'store/types';
+import apiErrorStateHandler from 'utils/apiErrorStateHandler';
 
 const initialState: LeaderboardState = {
   leaderList: [],
   isLoading: false,
+  error: '',
 };
 
 export const leaderboardSlice = createSlice({
@@ -20,19 +21,24 @@ export const leaderboardSlice = createSlice({
       .addCase(fetchLeaderboard.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         if (payload) {
-          state.leaderList = payload.filter(user => user.data.id);
+          state.leaderList = payload.filter(user => user.data.game_id);
         }
       })
-      .addCase(fetchLeaderboard.rejected, state => {
-        state.isLoading = false;
-      });
+      .addCase(
+        fetchLeaderboard.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = apiErrorStateHandler(action);
+          state.isLoading = false;
+        }
+      )
+      .addCase(
+        fetchUserDataLB.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.error = apiErrorStateHandler(action);
+          state.isLoading = false;
+        }
+      );
   },
 });
-
-export const leaderboardList = () => {
-  const leaders = useAppSelector(state => state.LEADERBOARD.leaderList);
-  const isLoading = useAppSelector(state => state.LEADERBOARD.isLoading);
-  return { isLoading, leaders };
-};
 
 export default leaderboardSlice.reducer;

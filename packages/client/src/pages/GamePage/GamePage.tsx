@@ -4,8 +4,8 @@ import { userState } from 'hooks/userState';
 import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
 import useTimer from 'hooks/useTimer';
+import { leaderboardList } from 'hooks/leaderboardState';
 import { fetchLeaderboard, fetchUserDataLB } from 'store/Leaderboard/actions';
-import { leaderboardList } from 'store/Leaderboard/leaderboardSlice';
 import { controller } from 'game/Controller';
 import { audioManager } from 'game/services/audioManager';
 import { GamePlayerType, soundNames, ResultData } from 'game/types';
@@ -91,7 +91,7 @@ export function GamePage() {
 
       if (user && resultData) {
         updateLeaderboardData({
-          id: user.id,
+          game_id: user.id,
           username: user.first_name,
           avatar: user.avatar,
           ...resultData,
@@ -134,7 +134,9 @@ export function GamePage() {
     setDataUpdateStatus(true);
 
     /* Ищем данные пользователя в лидерах */
-    const player = leaders.find(player => player.data.id === user.id)?.data;
+    const player = leaders.find(
+      player => player.data.game_id === user.id
+    )?.data;
 
     /* Если данные юзера уже есть в лидерах, то передаём их в Game */
     if (player) {

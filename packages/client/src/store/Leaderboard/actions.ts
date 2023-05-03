@@ -4,8 +4,7 @@ import { API_ENDPOINTS } from '../constants';
 import { PlayerType } from 'types';
 import { LeaderListType } from 'store/types';
 import { errorMessage } from '../../utils/apiErrorMessageCheck';
-
-const teamName = 'FancyCoders';
+import { teamName } from '../constants';
 
 /* add user to leaderboard */
 export const fetchUserDataLB = createAsyncThunk(

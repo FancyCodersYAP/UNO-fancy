@@ -32,4 +32,5 @@ export type LeaderListType = Array<LeaderboardRecord>;
 export type LeaderboardState = {
   isLoading: boolean;
   leaderList: LeaderListType;
+  error: string;
 };

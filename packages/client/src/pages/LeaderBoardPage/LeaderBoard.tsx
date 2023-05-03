@@ -1,8 +1,12 @@
 import { FC, useEffect } from 'react';
-import orderBy from 'lodash/orderBy';
+import { css } from 'styled-components';
 
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
+
+const marginBottom40px = css`
+  margin: 0 0 40px;
+`;
 
 import {
   StBoard,
@@ -15,13 +19,13 @@ import {
   StHeadChild,
 } from './style';
 import BoardItem from './BoardItem';
-import { leaderboardList } from 'store/Leaderboard/leaderboardSlice';
+import { leaderboardList } from 'hooks/leaderboardState';
 import { fetchLeaderboard } from 'store/Leaderboard/actions';
 
 const LeaderBoard: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { leaders, isLoading } = leaderboardList();
+  const { leaders } = leaderboardList();
 
   const displayedPlayersNum = 20;
   const topPlayers = leaders.slice(0, displayedPlayersNum);
@@ -30,15 +34,11 @@ const LeaderBoard: FC = () => {
     dispatch(fetchLeaderboard());
   }, []);
 
-  if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
-
-  const sortedPlayers = orderBy(topPlayers, 'score', 'desc');
-
   return (
     <StBoard>
-      {isArrayAndHasItems(sortedPlayers) ? (
+      {isArrayAndHasItems(topPlayers) ? (
         <>
-          <StTitle>Рейтинг игроков</StTitle>
+          <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
           <StTable>
             <StHead>
               <StHeadChild>#</StHeadChild>
@@ -51,7 +51,7 @@ const LeaderBoard: FC = () => {
               </StWinsColumnsHead>
             </StHead>
             <StBody>
-              {sortedPlayers.map((player, index) => (
+              {topPlayers.map((player, index) => (
                 <BoardItem
                   key={player.data.id}
                   place={index + 1}

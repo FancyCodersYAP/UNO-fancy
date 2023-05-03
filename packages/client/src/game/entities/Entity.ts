@@ -33,9 +33,7 @@ export class Entity<T extends EntityTypes> {
     layer.appendChild(canvas);
 
     if (this.player) {
-      if (this.player.username === undefined) {
-        this.player.username = 'Игрок';
-      }
+      this.player.username = this.player.username || 'Игрок';
 
       this.name = createNameLayer(
         this.entityName as HandEntityTypes,
