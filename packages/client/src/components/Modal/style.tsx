@@ -28,7 +28,7 @@ export const StModalWrapper = styled.div<ModalProps>`
 export const StModalTitle = styled.h3`
   color: ${props => props.theme.COLOR_TEXT_PRIMARY};
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
   margin: 0 0 50px;
 `;
