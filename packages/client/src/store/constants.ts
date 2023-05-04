@@ -21,7 +21,8 @@ export const YANDEX_OAUTH_URL =
 
 export const LEADERBOARD_DATA = {
   teamName: 'FancyCoders',
-  ratingFieldName: 'score',
+  ratingFieldName: 'total_wins',
+  sortingFieldName: 'score',
   cursor: 0,
   limit: 999,
 };

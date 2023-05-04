@@ -53,7 +53,7 @@ const LeaderBoard: FC = () => {
             <StBody>
               {topPlayers.map((player, index) => (
                 <BoardItem
-                  key={player.data.id}
+                  key={player.data.game_id}
                   place={index + 1}
                   {...player.data}
                 />

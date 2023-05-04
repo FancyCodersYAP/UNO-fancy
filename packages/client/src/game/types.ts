@@ -26,12 +26,14 @@ export type GamePlayerType = {
   score?: number;
   wins_2?: number;
   wins_4?: number;
+  total_wins?: number;
 };
 
 export type ResultData = {
   score: number;
   wins_2: number;
   wins_4: number;
+  total_wins: number;
 };
 
 export type HandEntityTypes = keyof typeof FourPlayerLayers;
