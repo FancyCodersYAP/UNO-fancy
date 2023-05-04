@@ -7,6 +7,7 @@ export const initialState: ForumState = {
   forumTopics: [],
   isLoading: false,
   error: '',
+  currentTopic: null,
 };
 
 const forumSlice = createSlice({
@@ -46,6 +47,7 @@ const forumSlice = createSlice({
         }
       )
       .addCase(fetchForumTopicGetById.pending, state => {
+        state.currentTopic = null;
         state.isLoading = true;
       })
       .addCase(

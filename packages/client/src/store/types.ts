@@ -30,7 +30,7 @@ export interface ForumState {
   forumTopics: ITopicsForum | [];
   isLoading: boolean;
   error: string;
-  currentTopic?: ITopic;
+  currentTopic: ITopic | null;
 }
 
 export interface ITopic {
@@ -54,5 +54,5 @@ export interface ITopicData {
   name: string;
   total_messages: number;
   user: IUserForum;
-  last_message?: string;
+  last_message: string | null;
 }

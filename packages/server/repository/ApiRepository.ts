@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { addUserData } from '../controllers/user';
+import { forumTopicsList } from '../controllers/forumTopicsList';
 
 const API_ROOT = 'https://ya-praktikum.tech/api/v2/';
 
@@ -14,10 +15,10 @@ export interface IUser {
   avatar: string;
   status?: null;
 }
-export class YandexAPIRepository {
+export class ApiRepository {
   constructor(private _cookieHeader: string | undefined) {}
 
-  async getCurrent(): Promise<IUser | unknown> {
+  async getCurrentUser(): Promise<IUser | unknown> {
     const { data } = await axios.get(`${API_ROOT}/auth/user`, {
       headers: {
         cookie: this._cookieHeader,
@@ -32,5 +33,8 @@ export class YandexAPIRepository {
       }
     }
     return data;
+  }
+  async getForumTopics() {
+    return await forumTopicsList();
   }
 }

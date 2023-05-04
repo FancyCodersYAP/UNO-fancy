@@ -57,6 +57,8 @@ export const forumTopicsList = async () => {
       },
     ],
     order: [[Sequelize.col('last_message_id'), 'DESC']],
+    raw: true,
+    nest: true,
   });
 };
 

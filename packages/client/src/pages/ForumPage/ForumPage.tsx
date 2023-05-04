@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLoaderData } from 'react-router-dom';
 import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
@@ -17,10 +17,7 @@ import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from '../../hooks/redux';
-import {
-  fetchForumTopicPost,
-  fetchForumTopicsGet,
-} from '../../store/Forum/forumActions';
+import { fetchForumTopicsGet } from 'store/Forum/forumActions';
 import { useEffect } from 'react';
 import { useAppSelector } from 'hooks/redux';
 
@@ -37,14 +34,13 @@ const ForumPage = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const dispatch = useAppDispatch();
 
+  const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
+
   useEffect(() => {
-    dispatch(fetchForumTopicsGet());
+    if (!forumTopics.length) dispatch(fetchForumTopicsGet());
   }, []);
 
   const navigate = useNavigate();
-  const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
-  const isLoading = useAppSelector(state => state.FORUM.isLoading);
-
   const interactionWithTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
 
@@ -62,6 +58,7 @@ const ForumPage = () => {
 
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
+  if (!forumTopics.length) return <></>;
 
   return (
     <StBoard css={stBoardStyle}>
@@ -85,10 +82,10 @@ const ForumPage = () => {
         <StBody onClick={interactionWithTopic}>
           {isArrayAndHasItems(forumTopics) ? (
             forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
-          ) : isLoading ? (
+          ) : !forumTopics.length ? (
             <StEmptyTable>Загрузка...</StEmptyTable>
           ) : (
-            <StEmptyTable>...</StEmptyTable>
+            <StEmptyTable>Ни одно тема не была добавлена</StEmptyTable>
           )}
         </StBody>
       </StTable>
