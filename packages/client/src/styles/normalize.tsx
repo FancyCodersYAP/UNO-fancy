@@ -117,15 +117,11 @@ export const resetDefaultStyles = css`
     text-transform: none;
   }
 
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
+  button {
     -webkit-appearance: button;
-    //почему-то стали конфликтовать
-    /* background-color: initial; */
+    background-color: initial;
     border-style: none;
-    /* padding: 0; */
+    padding: 0;
     cursor: pointer;
   }
 
