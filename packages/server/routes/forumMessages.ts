@@ -11,7 +11,11 @@ export const forumMessages = Router()
   .use('/', checkUserAuth)
   .get('/:id', (req: Request, res: Response, next) => {
     messageGetByID(req.params.id)
-      .then(message => res.status(200).json(message))
+      .then(message => {
+        message
+          ? res.status(200).json(message)
+          : res.status(404).json({ reason: 'сообщение не найдено' });
+      })
       .catch(next);
   })
   .post('/', (req: Request, res: Response, next) => {

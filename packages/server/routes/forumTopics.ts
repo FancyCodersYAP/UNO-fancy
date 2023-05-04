@@ -24,7 +24,11 @@ export const forumTopics = Router()
   })
   .get('/:id', (req: Request, res: Response, next) => {
     topicGetById(req.params.id)
-      .then(topic => res.status(200).json(topic))
+      .then(topic => {
+        topic
+          ? res.status(200).json(topic)
+          : res.status(404).json({ reason: 'тема не найдена' });
+      })
       .catch(next);
   })
   .post('/', (req: Request, res: Response, next) => {
@@ -34,11 +38,13 @@ export const forumTopics = Router()
       .catch(next);
   })
   .delete('/:id', (req: Request, res: Response, next) => {
-    topicDel(req.params.id, res.locals.user.id).then(topic => {
-      return topic
-        ? res.status(201).json(`тема id ${req.params.id} успешно удалена`)
-        : topic === null
-        ? res.status(404).json('тема не найдена')
-        : res.status(403).json('тему может удалять только автор');
-    });
+    topicDel(req.params.id, res.locals.user.id)
+      .then(topic => {
+        return topic
+          ? res.status(201).json(`тема id ${req.params.id} успешно удалена`)
+          : topic === null
+          ? res.status(404).json({ reason: 'тема не найдена' })
+          : res.status(403).json({ reason: 'тему может удалять только автор' });
+      })
+      .catch(next);
   });
