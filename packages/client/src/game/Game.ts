@@ -440,6 +440,8 @@ export class Game extends EventBus {
     const pointsForLB = this.players.length === 2 ? points : points * 0.5;
     user.score! = pointsForLB > user.score! ? pointsForLB : user.score!;
 
+    user.total_wins! += 1;
+
     if (this.players.length === 2) {
       user.wins_2! += 1;
     } else {
@@ -451,6 +453,7 @@ export class Game extends EventBus {
       score: user.score,
       wins_2: user.wins_2,
       wins_4: user.wins_4,
+      total_wins: user.total_wins,
     });
   }
 

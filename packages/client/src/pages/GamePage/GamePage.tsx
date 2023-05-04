@@ -145,6 +145,7 @@ export function GamePage() {
         score: player.score,
         wins_2: player.wins_2,
         wins_4: player.wins_4,
+        total_wins: player.total_wins,
       });
       return;
     }
@@ -155,6 +156,7 @@ export function GamePage() {
       score: 0,
       wins_2: 0,
       wins_4: 0,
+      total_wins: 0,
     };
 
     controller.startGame(playerNums, playerData);

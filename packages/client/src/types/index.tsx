@@ -16,6 +16,7 @@ export interface PlayerType {
   score: number;
   wins_2: number;
   wins_4: number;
+  total_wins: number;
 }
 
 export interface SvgIconProps {
