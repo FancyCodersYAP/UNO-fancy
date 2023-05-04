@@ -35,6 +35,8 @@ export class ApiRepository {
     return data;
   }
   async getForumTopics() {
-    return await forumTopicsList();
+    return await forumTopicsList().catch(() => {
+      console.log('  ➜ 📁 topics load DB error ⛔️');
+    }); //TODO обработку ошибок добавить
   }
 }

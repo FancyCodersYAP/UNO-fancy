@@ -37,7 +37,7 @@ const ForumPage = () => {
   const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
 
   useEffect(() => {
-    if (!forumTopics.length) dispatch(fetchForumTopicsGet());
+    if (!forumTopics?.length) dispatch(fetchForumTopicsGet());
   }, []);
 
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const ForumPage = () => {
 
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
-  if (!forumTopics.length) return <></>;
+  if (!forumTopics?.length) return <></>;
 
   return (
     <StBoard css={stBoardStyle}>
