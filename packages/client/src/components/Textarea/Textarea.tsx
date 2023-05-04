@@ -4,6 +4,7 @@ import { StTextarea, StTextareaContainer } from './style';
 import { StError } from 'components/Input/style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
 import { DataType } from '../Form/Form';
+import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
@@ -30,12 +31,24 @@ const Textarea: FC<TextareaProps> = ({
     ...(pattern && { pattern: ValidationPattern[pattern] }),
   };
 
+  function changeTextareaBorderRadius() {
+    const textarea = document.querySelector(
+      `textarea[name="${name}"]`
+    ) as HTMLTextAreaElement;
+
+    if (!(textarea?.scrollHeight === textarea?.offsetHeight)) {
+      textarea.style.borderRadius = `${BORDER_RADIUS_SIZE} 5px 5px ${BORDER_RADIUS_SIZE}`;
+    } else {
+      textarea.style.borderRadius = `${BORDER_RADIUS_SIZE}`;
+    }
+  }
+
   return (
     <StTextareaContainer>
       <StTextarea
         {...register(name, options)}
-        placeholder={placeholder || ''}
-        maxLength={255}></StTextarea>
+        onInput={changeTextareaBorderRadius}
+        placeholder={placeholder || ''}></StTextarea>
       {error && <StError>{errorMessage}</StError>}
     </StTextareaContainer>
   );
