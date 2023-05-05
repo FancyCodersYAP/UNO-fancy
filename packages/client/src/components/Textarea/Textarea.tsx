@@ -5,6 +5,7 @@ import { StError } from 'components/Input/style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
 import { DataType } from '../Form/Form';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
+import { useRef, useCallback } from 'react';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
@@ -55,3 +56,42 @@ const Textarea: FC<TextareaProps> = ({
 };
 
 export default Textarea;
+
+// const textareaField = useRef<HTMLTextAreaElement>(null);
+// const { ref, onBlur, onChange } = register(name, options);
+// const cbref = useCallback(
+//   (element: any) => {
+//     // console.log(element);
+//     // ref = element;
+//     textareaField.current = element;
+//   },
+//   [ref, textareaField]
+// );
+
+// console.log(register(name, options));
+// function changeTextareaBorderRadius() {
+//   const textareaElement = textareaField.current;
+
+//   if (textareaElement) {
+//     if (!(textareaElement.scrollHeight === textareaElement.offsetHeight)) {
+//       textareaElement.style.borderRadius = `${BORDER_RADIUS_SIZE} 5px 5px ${BORDER_RADIUS_SIZE}`;
+//     } else {
+//       textareaElement.style.borderRadius = `${BORDER_RADIUS_SIZE}`;
+//     }
+//   }
+// }
+
+// return (
+//   <StTextareaContainer>
+//     <StTextarea
+//       onInput={changeTextareaBorderRadius}
+//       ref={ref}
+//       onBlur={onBlur}
+//       onChange={onChange}
+//       name={name}
+//       // {...register(name, options)}
+//       placeholder={placeholder || ''}></StTextarea>
+//     {error && <StError>{errorMessage}</StError>}
+//   </StTextareaContainer>
+// );
+// };
