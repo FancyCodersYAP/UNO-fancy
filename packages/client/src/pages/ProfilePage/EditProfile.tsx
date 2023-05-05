@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import { DataType } from 'components/Form/Form';
-import { passwordConfig } from '../configs';
 import {
   StSaveButton,
   StUserName,
@@ -11,32 +10,39 @@ import {
   StButtonBackIcon,
   stFlexStyles,
 } from './style';
-import { useAppDispatch } from '../../hooks/redux';
-import { fetchPassChange } from '../../store/User/profile/actions';
-import { userState } from '../../hooks/userState';
+import { useAppDispatch } from 'hooks/redux';
+import { userState } from 'hooks/userState';
 import ProfileAvatar from './ProfileAvatar';
+import { UserType } from 'types';
+import { profileConfig } from '../configs';
+import { fetchProfileChange } from 'store/User/profile/actions';
 import { StFlex } from 'styles/global';
 import { StButtonBackToProfile } from 'components/Button/style';
 
-const Password: FC = () => {
+const EditProfile: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = userState();
 
   const navigateToProfile = () => {
     navigate(`${AppRoute.PROFILE}`);
   };
 
-  const changePassword = (data: DataType) => {
-    dispatch(fetchPassChange(data)).then(action => {
-      if ('error' in action && action.error) return;
-      navigate(AppRoute.PROFILE);
-    });
-  };
+  const { user } = userState();
 
   const avatar = <ProfileAvatar image={user!.avatar} />;
   const title = <StUserName>{user!.first_name}</StUserName>;
   const footer = <StSaveButton text="Сохранить" type="submit" />;
+
+  const updateData = (data: DataType) => {
+    dispatch(fetchProfileChange(data)).then(action => {
+      if ('error' in action && action.error) return;
+    });
+  };
+
+  const defaultValues: Record<string, string> = profileConfig.reduce(
+    (acc, { name }) => ({ ...acc, [name]: user![name as keyof UserType] }),
+    {}
+  );
 
   return (
     <StFlex css={stFlexStyles}>
@@ -48,8 +54,9 @@ const Password: FC = () => {
       <StyledForm
         title={title}
         avatar={avatar}
-        fields={passwordConfig}
-        handleFormSubmit={changePassword}
+        fields={profileConfig}
+        handleFormSubmit={updateData}
+        defaultValues={defaultValues}
         footer={footer}
         inputCss={inputCss}
       />
@@ -57,4 +64,4 @@ const Password: FC = () => {
   );
 };
 
-export default Password;
+export default EditProfile;

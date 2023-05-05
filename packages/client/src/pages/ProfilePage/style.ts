@@ -77,3 +77,12 @@ export const StSaveButton = styled(StFooterButton)`
 export const inputCss = css`
   text-align: right;
 `;
+
+export const stFlexStyles = css`
+  position: relative;
+`;
+
+export const StButtonBackIcon = styled.svg`
+  width: 36px;
+  height: 113px;
+`;

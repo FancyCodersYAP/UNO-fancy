@@ -185,3 +185,10 @@ export const StAnswer = styled.a`
     text-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
   }
 `;
+
+export const StButtonBackIcon = styled.svg`
+  width: 10px;
+  height: 25px;
+  margin-right: 5px;
+  filter: drop-shadow( 0px 4px 4px rgba(0, 0, 0, 0.25));
+`;
