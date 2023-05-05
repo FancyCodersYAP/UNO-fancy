@@ -41,7 +41,7 @@ export const forumTopics = Router()
     topicDel(req.params.id, res.locals.user.id)
       .then(topic => {
         return topic
-          ? res.status(201).json(`тема id ${req.params.id} успешно удалена`)
+          ? res.status(201).json({ id: Number(req.params.id) })
           : topic === null
           ? res.status(404).json({ reason: 'тема не найдена' })
           : res.status(403).json({ reason: 'тему может удалять только автор' });
