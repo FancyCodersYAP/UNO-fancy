@@ -12,12 +12,11 @@ import { AvatarProps } from './types';
 
 export const StBoard = styled.div`
   width: 100%;
-  max-height: 90%;
   border-radius: 50px;
   background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
   box-shadow: ${DEPTH_CONTAINER};
   padding: 40px 64px;
-  margin-bottom: auto;
+  margin: 0 40px auto;
   overflow: overlay;
   min-height: 200px;
 

@@ -11,9 +11,11 @@ const Card = (props: CardType) => {
   const { src, alt, text } = props;
 
   return (
-    <StCard>
+    <StCard data-testid="card">
       <StCardImg src={src} alt={alt} />
-      <StTextContainer>{text}</StTextContainer>
+      <StTextContainer fontSize={17} lineHeight={24} textAlign="center">
+        {text}
+      </StTextContainer>
     </StCard>
   );
 };

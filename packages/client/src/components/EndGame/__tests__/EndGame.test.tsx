@@ -2,18 +2,13 @@ import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import EndGame from '../EndGame';
 
-const mockNavigate = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
-}));
-
 const initialProps = {
   time: '1:15',
   countPlace: 2,
   points: 1150,
-  result: 2500,
+  result: 'Победа',
+  reactivateGame: jest.fn(),
+  navigateToMain: jest.fn(),
 };
 
 describe('EndGame', () => {
@@ -32,7 +27,7 @@ describe('EndGame', () => {
     expect(timeParagraph).toHaveTextContent('время игры: 1:15');
     expect(playersParagraph).toHaveTextContent('игроков: 2');
     expect(scoreParagraph).toHaveTextContent('очки: 1150');
-    expect(resultParagraph).toHaveTextContent('результат: 2500-е место');
+    expect(resultParagraph).toHaveTextContent('результат: Победа');
 
     expect(buttons).toHaveLength(2);
   });
@@ -49,8 +44,7 @@ describe('EndGame', () => {
 
     expect(mainMenuButton).toBeInTheDocument();
 
-    expect(mockNavigate).toHaveBeenCalledTimes(1);
-    expect(mockNavigate).toHaveBeenCalledWith('/');
+    expect(initialProps.navigateToMain).toHaveBeenCalledTimes(1);
   });
 
   test('useNaigate should be called after clicking "Cыграть снова" button', async () => {
@@ -65,7 +59,6 @@ describe('EndGame', () => {
 
     expect(playAgainButton).toBeInTheDocument();
 
-    expect(mockNavigate).toHaveBeenCalledTimes(1);
-    expect(mockNavigate).toHaveBeenCalledWith('/game');
+    expect(initialProps.reactivateGame).toHaveBeenCalledTimes(1);
   });
 });

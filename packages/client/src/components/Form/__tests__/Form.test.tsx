@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { ValidationType } from 'utils/constants';
 import Form from '../Form';
 import { setupStore } from '../../../store/store';
+import { UserService } from 'api/UserService';
+import { YandexAPIRepository } from '../../../repository/YandexAPIRepository';
 
 const initialProps = {
   fields: [
@@ -26,7 +28,7 @@ const initialProps = {
   footer: <button type="submit">Submit</button>,
 };
 
-const store = setupStore();
+const store = setupStore(new UserService(new YandexAPIRepository()));
 
 describe('Form', () => {
   test('should render form', () => {

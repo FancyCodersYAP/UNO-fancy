@@ -1,7 +1,8 @@
-import path from 'path';
+import path, { resolve } from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 // https://vitejs.dev/config/
@@ -19,7 +20,7 @@ export default defineConfig({
           [
             'babel-plugin-styled-components',
             {
-              ssr: false,
+              ssr: true,
               displayName: true,
               fileName: false,
             },
@@ -28,6 +29,13 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        app: resolve(__dirname, 'index.html'),
+      },
+    },
+  },
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),
@@ -39,6 +47,9 @@ export default defineConfig({
       img: path.resolve(__dirname, './src/img'),
       contexts: path.resolve(__dirname, './src/contexts'),
       assets: path.resolve(__dirname, './src/assets'),
+      hooks: path.resolve(__dirname, './src/hooks'),
+      data: path.resolve(__dirname, './src/data'),
+      game: path.resolve(__dirname, './src/game'),
     },
   },
 });

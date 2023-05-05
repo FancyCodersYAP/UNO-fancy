@@ -21,6 +21,10 @@ export default {
     '^styles(.*)$': '<rootDir>/src/styles$1',
     '^contexts(.*)$': '<rootDir>/src/contexts$1',
     '^assets(.*)$': '<rootDir>/src/assets$1',
+    '^img(.*)$': '<rootDir>/src/img$1',
+    '^hooks(.*)$': '<rootDir>/src/hooks$1',
+    '^data(.*)$': '<rootDir>/src/data$1',
+    '^game(.*)$': '<rootDir>/src/game$1',
   },
   setupFilesAfterEnv: ['./setupTests.ts'],
 };
