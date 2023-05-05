@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ForumState, ITopic, ITopicData } from '../types';
-import { fetchForumTopicPost, fetchForumTopicsGet } from './forumActions';
-import { fetchForumTopicGetById } from './topicActions';
-import { fetchForumMessagePost } from './messageAction';
+import {
+  fetchForumTopicPost,
+  fetchForumTopicsGet,
+  fetchForumTopicGetById,
+  fetchForumMessagePost,
+  fetchForumTopicDel,
+} from './index';
+
 export const initialState: ForumState = {
   forumTopics: [],
   isLoading: false,
@@ -82,6 +87,20 @@ const forumSlice = createSlice({
       })
       .addCase(
         fetchForumMessagePost.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = action.payload;
+        }
+      )
+      .addCase(fetchForumTopicDel.fulfilled, (state, { payload }) => {
+        state.forumTopics = state.forumTopics.filter(
+          topic => topic.id !== payload.id
+        );
+        state.isLoading = false;
+        state.error = '';
+      })
+      .addCase(
+        fetchForumTopicDel.rejected,
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.error = action.payload;

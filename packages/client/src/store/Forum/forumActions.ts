@@ -37,3 +37,20 @@ export const fetchForumTopicsGet = createAsyncThunk(
     }
   }
 );
+
+export const fetchForumTopicDel = createAsyncThunk(
+  'forum/fetchForumTopicDel',
+  async (id: string | undefined, thunkAPI) => {
+    try {
+      const { data } = await axios.delete<Record<any, any>>(
+        `${API_ENDPOINTS.forum}/${id}`
+      );
+      // console.log('data', data);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        errorMessage(error, `Не удалось удалить топик c id: ${id}`)
+      );
+    }
+  }
+);

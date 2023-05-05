@@ -17,7 +17,10 @@ import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from '../../hooks/redux';
-import { fetchForumTopicsGet } from 'store/Forum/forumActions';
+import {
+  fetchForumTopicDel,
+  fetchForumTopicsGet,
+} from 'store/Forum/forumActions';
 import { useEffect } from 'react';
 import { useAppSelector } from 'hooks/redux';
 
@@ -49,6 +52,7 @@ const ForumPage = () => {
     if (basket) {
       const topic = basket.closest('article');
       const topicId = topic?.dataset.topic;
+      dispatch(fetchForumTopicDel(topicId));
       console.log('Удаленная тема: ' + topicId);
       return;
     }
