@@ -1,6 +1,3 @@
-import { Sequelize } from 'sequelize-typescript';
-import { Op } from 'sequelize';
-
 import { ForumMessage } from '../models/ForumMessage';
 import { ForumTopic } from '../models/ForumTopic';
 import { User } from '../models/User';

@@ -5,7 +5,6 @@ import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks/redux';
-import { userState } from 'hooks/userState';
 import { fetchForumTopicPost } from '../../store/Forum/forumActions';
 const buttonStyle = css`
   width: 200px;
@@ -21,6 +20,11 @@ export interface TopicFormParams extends FieldValues {
   description: string;
 }
 
+export interface MessageFormParams extends FieldValues {
+  content: string;
+  topic_id: number;
+}
+
 interface AddTopicType {
   handleCloseModal: () => void;
 }
@@ -30,8 +34,10 @@ const AddTopic = (props: AddTopicType) => {
   const dispatch = useAppDispatch();
 
   const handleLogin = (data: TopicFormParams): void => {
-    dispatch(fetchForumTopicPost(data));
-    console.log(data);
+    dispatch(fetchForumTopicPost(data)).then(action => {
+      if ('error' in action && action.error) return;
+      handleCloseModal();
+    });
   };
 
   const footer = (

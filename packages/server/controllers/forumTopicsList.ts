@@ -1,42 +1,15 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Op } from 'sequelize';
 
 import { ForumMessage } from '../models/ForumMessage';
 import { ForumTopic } from '../models/ForumTopic';
 import { User } from '../models/User';
+import { topicCollectData } from '../database/topicCollectData';
 
 export const forumTopicsList = async () => {
   return await ForumTopic.findAll({
     // offset: 1, //для пагинации
     // limit: 2, //для пагинации
-    attributes: [
-      'name',
-      'id',
-      [
-        Sequelize.literal(`
-             (SELECT Count(*) :: INTEGER
-              FROM   forum_messages AS M
-              WHERE  M.topic_id = "ForumTopic"."id")
-             `),
-        'total_messages',
-      ],
-      [
-        Sequelize.literal(`
-            (SELECT content FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
-             FROM forum_messages AS M
-             WHERE  M.topic_id = "ForumTopic"."id"))
-            `),
-        'last_message',
-      ],
-      [
-        Sequelize.literal(`
-            (SELECT id FROM "forum_messages" WHERE "id" = (SELECT MAX(id)
-             FROM forum_messages AS M
-             WHERE  M.topic_id = "ForumTopic"."id"))
-             `),
-        'last_message_id',
-      ],
-    ],
+    attributes: topicCollectData,
     include: [
       /**запасной вариант*/
       // {
@@ -96,7 +69,19 @@ export const topicGetById = async (id: string) => {
 
 export const topicPost = async (data: Record<any, any>) => {
   //TODO типизировать data
-  return await ForumTopic.create(data);
+  const topic = await ForumTopic.create(data);
+  return await ForumTopic.findByPk(topic.id, {
+    attributes: topicCollectData,
+    include: [
+      {
+        model: User,
+        attributes: ['display_name'],
+      },
+    ],
+    order: [[Sequelize.col('last_message_id'), 'DESC']],
+    raw: true,
+    nest: true,
+  });
 };
 
 export const topicDel = async (id: string, user_id: string) => {

@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ForumState } from '../types';
+import { ForumState, ITopic, ITopicData } from '../types';
 import { fetchForumTopicPost, fetchForumTopicsGet } from './forumActions';
 import { fetchForumTopicGetById } from './topicActions';
-
+import { fetchForumMessagePost } from './messageAction';
 export const initialState: ForumState = {
   forumTopics: [],
   isLoading: false,
@@ -57,18 +57,31 @@ const forumSlice = createSlice({
           state.error = action.payload;
         }
       )
-      .addCase(
-        fetchForumTopicPost.fulfilled,
-        (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.error = '';
-        }
-      )
+      .addCase(fetchForumTopicPost.fulfilled, (state, { payload }) => {
+        state.forumTopics = [payload, ...state.forumTopics];
+        state.isLoading = false;
+        state.error = '';
+      })
       .addCase(fetchForumTopicPost.pending, state => {
         state.isLoading = true;
       })
       .addCase(
         fetchForumTopicPost.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.error = action.payload;
+        }
+      )
+      .addCase(fetchForumMessagePost.fulfilled, (state, { payload }) => {
+        state.currentTopic!.messages = [
+          ...state.currentTopic!.messages,
+          payload,
+        ];
+        state.isLoading = false;
+        state.error = '';
+      })
+      .addCase(
+        fetchForumMessagePost.rejected,
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.error = action.payload;
