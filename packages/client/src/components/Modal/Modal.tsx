@@ -1,25 +1,29 @@
 import { ReactNode } from 'react';
-import { StModal, StModalWrapper, StModalTitle } from './style';
+import {
+  StModal,
+  StModalWrapper,
+  StModalTitle,
+  StModalCloseIcon,
+} from './style';
 import { StButtonCloseModal } from 'components/Button/style';
+import { CSSProp } from 'styled-components';
 
 type ModalType = {
   children?: ReactNode;
   title?: string;
-  isOpen: boolean;
   handleCloseModal?: () => void;
-  width?: number;
-  verticalPaddings?: number;
-  horizontalPaddings?: number;
+  styles?: CSSProp;
+  canBeClosedOutside?: boolean;
+  hasCrossButton?: boolean;
 };
 
 const Modal = (props: ModalType) => {
   const {
-    isOpen,
     title,
     handleCloseModal,
-    width,
-    verticalPaddings,
-    horizontalPaddings,
+    canBeClosedOutside,
+    hasCrossButton,
+    styles,
     children,
   } = props;
 
@@ -27,32 +31,26 @@ const Modal = (props: ModalType) => {
     evt.stopPropagation();
   };
 
-  const checkPossibleToClose = () => {
-    if (handleCloseModal) {
-      return handleCloseModal();
+  const closeModalOutside = () => {
+    if (canBeClosedOutside) {
+      return handleCloseModal?.();
     }
   };
 
   return (
-    <>
-      {isOpen && (
-        <StModal onClick={checkPossibleToClose}>
-          <StModalWrapper
-            width={width}
-            verticalPaddings={verticalPaddings}
-            horizontalPaddings={horizontalPaddings}
-            onClick={stopPropagationEvent}>
-            {title && <StModalTitle>{title}</StModalTitle>}
-            {handleCloseModal && (
-              <StButtonCloseModal onClick={handleCloseModal}>
-                <img src="src/assets/icons/close.svg" alt="close icon" />
-              </StButtonCloseModal>
-            )}
-            {children}
-          </StModalWrapper>
-        </StModal>
-      )}
-    </>
+    <StModal onClick={closeModalOutside}>
+      <StModalWrapper css={styles} onClick={stopPropagationEvent}>
+        {title && <StModalTitle>{title}</StModalTitle>}
+        {hasCrossButton && (
+          <StButtonCloseModal aria-label="close" onClick={handleCloseModal}>
+            <StModalCloseIcon data-testid="close icon">
+              <use href="/assets/icons/icons_sprite.svg#icon-close-modal"></use>
+            </StModalCloseIcon>
+          </StButtonCloseModal>
+        )}
+        {children}
+      </StModalWrapper>
+    </StModal>
   );
 };
 

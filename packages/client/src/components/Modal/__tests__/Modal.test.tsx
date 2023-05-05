@@ -12,11 +12,17 @@ const mockHandleClose = jest.fn();
 
 describe('Modal', () => {
   test('should render component', () => {
-    render(<Modal {...initialProps} handleCloseModal={mockHandleClose} />);
+    render(
+      <Modal
+        {...initialProps}
+        handleCloseModal={mockHandleClose}
+        hasCrossButton={true}
+      />
+    );
 
     const title = screen.getByRole('heading', { name: /modal title/i });
     const closeButton = screen.getByRole('button', { name: /close/i });
-    const buttonIcon = screen.getByRole('img', { name: /close icon/i });
+    const buttonIcon = screen.getByTestId('close icon');
 
     expect(title).toBeInTheDocument();
     expect(closeButton).toBeInTheDocument();
@@ -24,7 +30,7 @@ describe('Modal', () => {
   });
 
   test('should NOT render close button and title', () => {
-    render(<Modal {...initialProps} title="" />);
+    render(<Modal {...initialProps} title="" hasCrossButton={false} />);
 
     const closeButton = screen.queryByRole('button', { name: /close/i });
     const title = screen.queryByRole('heading');
@@ -38,6 +44,7 @@ describe('Modal', () => {
       <Modal
         {...initialProps}
         handleCloseModal={mockHandleClose}
+        hasCrossButton={true}
         data-testid="modal"
       />
     );

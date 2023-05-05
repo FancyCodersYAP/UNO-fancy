@@ -9,8 +9,8 @@ import { StContainer, StLink, StTextGamePreviewContainer } from 'styles/global';
 import Button from 'components/Button';
 import { useAppDispatch } from '../../hooks/redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchRegistration } from '../../store/auth/actions';
-import { authState } from '../../hooks/authState';
+import { fetchRegistration } from '../../store/User/auth/actions';
+import { userState } from '../../hooks/userState';
 import { registrationConfig } from '../configs';
 
 export interface RegFormParams extends FieldValues {
@@ -30,7 +30,7 @@ const RegistrationPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { authError, user } = authState();
+  const { user } = userState();
 
   useEffect(() => {
     if (user) {
@@ -46,13 +46,11 @@ const RegistrationPage: FC = () => {
     <StFormFooter css={gap25}>
       <Button text="Зарегистрироваться" type="submit" block />
       <StLink to={AppRoute.LOGIN}>Есть аккаунт?</StLink>
-      <p style={{ color: 'red', margin: 0, padding: 0 }}>{authError}</p>
-      {/*оставил для теста нужно поменять на компонент ошибки*/}
     </StFormFooter>
   );
 
   return (
-    <StContainer alignItems="center">
+    <StContainer alignItems="center" padding="0 40">
       <Form
         title="Регистрация"
         fields={registrationConfig}

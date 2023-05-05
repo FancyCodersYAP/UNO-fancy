@@ -10,7 +10,7 @@ type PrivateRouteProps = {
 type Props = FC<PrivateRouteProps>;
 
 const PrivateRoute: Props = ({ children }) => {
-  const { user } = useAppSelector(state => state.AUTH);
+  const { user } = useAppSelector(state => state.USER);
 
   return user ? children : <Navigate to={AppRoute.LOGIN} />;
 };

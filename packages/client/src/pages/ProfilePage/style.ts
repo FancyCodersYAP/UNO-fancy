@@ -3,7 +3,6 @@ import Form from 'components/Form';
 import styled, { css } from 'styled-components';
 
 import { AvatarType } from 'types';
-import defaultAvatar from 'assets/icons/default-avatar.svg';
 
 export const StyledForm = styled(Form)`
   width: 928px;
@@ -17,9 +16,9 @@ export const StAvatar = styled.div<AvatarType>`
   border-radius: 50%;
   margin: 0 auto;
   background: ${({ image }) =>
-    `url(${image || defaultAvatar}) center no-repeat`};
+    `url(${image || '/assets/icons/default-avatar.svg'}) center no-repeat`};
   background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
-  background-size: ${({ image }) => (image ? 'contain' : 'auto')};
+  background-size: ${({ image }) => (image ? 'cover' : 'auto')};
 
   &::before {
     content: 'Поменять аватар';

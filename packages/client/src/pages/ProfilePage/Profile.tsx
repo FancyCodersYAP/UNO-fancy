@@ -7,30 +7,23 @@ import { DataType } from 'components/Form/Form';
 
 import { profileConfig } from '../configs';
 
-import {
-  StAvatar,
-  StUserName,
-  StSaveButton,
-  StyledForm,
-  inputCss,
-} from './style';
+import { StUserName, StSaveButton, StyledForm, inputCss } from './style';
 import ProfileFooter from './ProfileFooter';
-
-export const USER: UserType = {
-  avatar: 'https://i.pravatar.cc/300',
-  first_name: 'Ivan',
-  second_name: 'Ivanov',
-  login: 'MyFirestUser',
-  email: 'mail@mail.com',
-  phone: '+79269269696',
-};
+import { useAppDispatch } from '../../hooks/redux';
+import { userState } from '../../hooks/userState';
+import { fetchProfileChange } from '../../store/User/profile/actions';
+import ProfileAvatar from './ProfileAvatar';
+import { fetchLogout } from '../../store/User/auth/actions';
 
 const Profile: FC = () => {
   const [isEditMode, setEditMode] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const avatar = <StAvatar image={USER?.avatar} />;
-  const title = <StUserName>{USER?.first_name}</StUserName>;
+  const { user } = userState();
+
+  const avatar = <ProfileAvatar image={user!.avatar} />;
+  const title = <StUserName>{user?.first_name}</StUserName>;
 
   const handleChangeData = () => {
     setEditMode(true);
@@ -40,13 +33,11 @@ const Profile: FC = () => {
     navigate(`${AppRoute.PROFILE}/password`);
   };
 
-  const updateData = async (data: DataType): Promise<any> => {
-    console.log(data);
-    setEditMode(false);
-  };
-
-  const logout = async () => {
-    console.log('LOGOUT');
+  const updateData = (data: DataType) => {
+    dispatch(fetchProfileChange(data)).then(action => {
+      if ('error' in action && action.error) return;
+      setEditMode(false);
+    });
   };
 
   const fields = profileConfig.map(field => ({
@@ -55,7 +46,7 @@ const Profile: FC = () => {
   }));
 
   const defaultValues: Record<string, string> = fields.reduce(
-    (acc, { name }) => ({ ...acc, [name]: USER[name as keyof UserType] }),
+    (acc, { name }) => ({ ...acc, [name]: user![name as keyof UserType] }),
     {}
   );
 
@@ -73,7 +64,7 @@ const Profile: FC = () => {
       title={title}
       avatar={avatar}
       fields={fields}
-      handleFormSubmit={isEditMode ? updateData : logout}
+      handleFormSubmit={updateData}
       defaultValues={defaultValues}
       footer={footer}
       inputCss={inputCss}

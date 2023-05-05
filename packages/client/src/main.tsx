@@ -4,14 +4,18 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import { setupStore } from './store/store';
+import { UserService } from './api/UserService';
+import { YandexAPIRepository } from './repository/YandexAPIRepository';
+import { ThemeContextProvider } from 'contexts/ThemeContext';
 
-const store = setupStore();
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
+ReactDOM.hydrateRoot(
+  document.getElementById('root') as HTMLElement,
+  <BrowserRouter>
+    <Provider store={setupStore(new UserService(new YandexAPIRepository()))}>
+      <ThemeContextProvider>
+        <App />
+      </ThemeContextProvider>
       <GlobalStyle />
-    </BrowserRouter>
-  </Provider>
+    </Provider>
+  </BrowserRouter>
 );

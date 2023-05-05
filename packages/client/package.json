@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && tsc && vite build --config ssr.config.ts",
+    "build:ssr": "tsc && vite build --config ssr.config.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -37,7 +38,7 @@
     "@typescript-eslint/parser": "5.35.1",
     "@vitejs/plugin-react": "2.0.1",
     "eslint": "8.23.0",
-    "jest": "^28",
+    "jest": "28",
     "jest-environment-jsdom": "29.0.1",
     "lefthook": "1.1.1",
     "prettier": "2.7.1",

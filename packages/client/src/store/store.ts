@@ -1,15 +1,32 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { user } from './user/user';
-import authSlice from './auth/authSlice';
+import userSlice from './User/userSlice';
+import { IUser } from './types';
 
 const rootReducer = combineReducers({
-  USER: user,
-  AUTH: authSlice,
+  USER: userSlice,
 });
 
-export const setupStore = () => {
+interface IUserService {
+  getCurrentUser(): Promise<IUser>;
+}
+
+export const setupStore = (service: IUserService) => {
+  const preloadedState =
+    typeof window !== 'undefined' ? window.__PRELOADED_STATE__ : undefined;
+
+  if (typeof window !== 'undefined') {
+    delete window?.__PRELOADED_STATE__;
+  }
   return configureStore({
     reducer: rootReducer,
+    preloadedState,
+    middleware: getDefaultMiddleware => {
+      return getDefaultMiddleware({
+        thunk: {
+          extraArgument: service,
+        },
+      });
+    },
   });
 };
 

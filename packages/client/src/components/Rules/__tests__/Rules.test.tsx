@@ -1,15 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import user from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import Rules from '../Rules';
-import { CARDS } from '../constants';
-
-const mockNavigate = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate,
-}));
+import { cardsWithRules } from 'data/cardsWithRules';
 
 describe('Rules', () => {
   test('all cards should be rendered', () => {
@@ -19,11 +11,9 @@ describe('Rules', () => {
       </BrowserRouter>
     );
 
-    for (const card of CARDS) {
-      const cardText = screen.getByText(card.text);
+    const cards = screen.getAllByTestId('card');
 
-      expect(cardText).toBeInTheDocument();
-    }
+    expect(cards).toHaveLength(3);
   });
 
   test('check cards amount and attributes', () => {
@@ -36,38 +26,22 @@ describe('Rules', () => {
     const images = screen.getAllByRole('img');
 
     expect(images).toHaveLength(3);
-    expect(images[0]).toHaveAttribute('src', CARDS[0].src);
-    expect(images[1]).toHaveAttribute('src', CARDS[1].src);
-    expect(images[2]).toHaveAttribute('src', CARDS[2].src);
+    expect(images[0]).toHaveAttribute('src', cardsWithRules[0].src);
+    expect(images[1]).toHaveAttribute('src', cardsWithRules[1].src);
+    expect(images[2]).toHaveAttribute('src', cardsWithRules[2].src);
   });
 
-  test('link should be rendered', () => {
+  test('button should be rendered', () => {
     render(
       <BrowserRouter>
         <Rules />
       </BrowserRouter>
     );
 
-    const link = screen.getByRole('link', { name: /подробнее о правилах/i });
+    const buttonNext = screen.getByRole('button', { name: /подробнее/i });
+    const buttonPrev = screen.getByRole('button', { name: /назад/i });
 
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute(
-      'href',
-      'https://inteltoys.ru/articles/cat7/article655.html'
-    );
-  });
-
-  test('mockNavigate should be called', async () => {
-    render(
-      <BrowserRouter>
-        <Rules />
-      </BrowserRouter>
-    );
-
-    const button = screen.getByRole('button', { name: /начать/i });
-
-    await user.click(button);
-
-    expect(mockNavigate).toHaveBeenCalledWith('/game');
+    expect(buttonNext).toBeInTheDocument();
+    expect(buttonPrev).toBeInTheDocument();
   });
 });

@@ -1,5 +1,3 @@
-import medalIcon from 'assets/icons/medal.svg';
-
 import { BoardItemProps } from './types';
 import { StPlayer, StAvatar } from './style';
 
@@ -13,7 +11,10 @@ const BoardItem: React.FC<BoardItemProps> = ({
   <>
     <div>{place}</div>
     <StPlayer>
-      <StAvatar image={avatar} label={place === 1 ? medalIcon : undefined} />
+      <StAvatar
+        image={avatar}
+        label={place === 1 ? 'assets/icons/medal.svg' : undefined}
+      />
       {name}
     </StPlayer>
     <div>{time}</div>
