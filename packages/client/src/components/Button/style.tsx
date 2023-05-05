@@ -100,3 +100,40 @@ export const StButtonNewTopic = styled(StButton)`
   align-items: center;
   justify-content: center;
 `;
+
+export const StButtonBackToProfile = styled(StButton)`
+  position: absolute;
+  left: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background-color: initial;
+  border: none;
+  box-shadow: none;
+
+  &:hover svg {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
+`;
+
+export const StButtonBackToForum = styled(StButton)`
+  position: absolute;
+  top: -42px;
+  left: 0;
+  z-index: 1;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  background-color: initial;
+  border: none;
+  box-shadow: none;
+
+  &:hover {
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 40%);
+  }
+`;
