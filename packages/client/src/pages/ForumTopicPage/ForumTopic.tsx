@@ -2,7 +2,6 @@ import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import Button from 'components/Button/Button';
 import TopicMessage from './TopicMessage';
 import { testTopicData } from 'data/testTopicData';
-import { testTopicDiscussionData } from 'data/testTopicDiscussionData';
 import { css } from 'styled-components';
 import {
   StTopic,
@@ -24,7 +23,7 @@ import useModal from 'hooks/useModal';
 import AddAnswer from 'components/AddAnswer/AddAnswer';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useEffect } from 'react';
+import { ReactComponentElement, useEffect, useRef } from 'react';
 import { fetchForumTopicGetById } from '../../store/Forum/topicActions';
 import { dateStringParse } from 'utils/dateStringParse';
 
@@ -49,8 +48,7 @@ const ForumTopic = () => {
     }
   }, []);
   const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
-  const messages = [];
-
+  const feedRef = useRef<HTMLDivElement>(null);
   if (!TopicContent) return <></>;
   return (
     <StBoard css={stBoardStyle}>
@@ -77,7 +75,7 @@ const ForumTopic = () => {
         </StTopicWrapper>
       </StTopic>
 
-      <StTopicDiscussion>
+      <StTopicDiscussion ref={feedRef}>
         {TopicContent.messages.map(message => (
           <TopicMessage
             key={message.id}
@@ -96,6 +94,7 @@ const ForumTopic = () => {
           handleCloseModal={handleCloseModal}
           canBeClosedOutside>
           <AddAnswer
+            feedRef={feedRef}
             handleCloseModal={handleCloseModal}
             topicId={Number(topicId)}
           />

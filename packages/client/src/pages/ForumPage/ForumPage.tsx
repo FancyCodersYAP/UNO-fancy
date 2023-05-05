@@ -1,4 +1,4 @@
-import { useNavigate, useLoaderData } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';

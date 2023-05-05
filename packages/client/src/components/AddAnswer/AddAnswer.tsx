@@ -6,6 +6,7 @@ import { useAppDispatch } from 'hooks/redux';
 
 interface AddAnswerType {
   topicId: number;
+  feedRef: React.RefObject<HTMLDivElement>;
   handleCloseModal: () => void;
 }
 
@@ -14,16 +15,20 @@ const AddAnswer = (props: AddAnswerType) => {
   const dispatch = useAppDispatch();
 
   const submitNewTopic = (evt: React.FormEvent) => {
-    if (evt.target && evt.target.topic_answer.value) {
+    evt.preventDefault();
+    /**код по определению элемента временный будет замена из другой ветки**/
+    if (evt.target.topic_answer.value) {
       const content = evt.target.topic_answer.value;
       const sendData = {
         content,
         topic_id: topicId,
       };
-      dispatch(fetchForumMessagePost(sendData));
-
-      console.log(sendData);
-      handleCloseModal();
+      dispatch(fetchForumMessagePost(sendData)).then(action => {
+        if ('error' in action && action.error) return;
+        handleCloseModal();
+        const feedScroll = props.feedRef.current!.scrollHeight;
+        props.feedRef.current!.scroll(0, feedScroll);
+      });
     }
   };
 

@@ -1,15 +1,19 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINTS } from '../constants';
 import { errorMessage } from '../../utils/apiErrorMessageCheck';
 import { TopicFormParams } from '../../components/AddTopic/AddTopic';
 import { DataRepository } from '../../api/DataService';
+import { ITopicData } from '../types';
 
 export const fetchForumTopicPost = createAsyncThunk(
   'forum/fetchForumTopicPost',
   async (data: TopicFormParams, thunkAPI) => {
     try {
-      const response = await axios.post<any>(API_ENDPOINTS.forum, data);
+      const response: AxiosResponse<ITopicData> = await axios.post(
+        API_ENDPOINTS.forum,
+        data
+      );
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
