@@ -5,7 +5,7 @@ import { StError } from 'components/Input/style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
 import { DataType } from '../Form/Form';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
-import { useRef, useCallback } from 'react';
+import { useRef } from 'react';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
@@ -32,22 +32,30 @@ const Textarea: FC<TextareaProps> = ({
     ...(pattern && { pattern: ValidationPattern[pattern] }),
   };
 
-  function changeTextareaBorderRadius() {
-    const textarea = document.querySelector(
-      `textarea[name="${name}"]`
-    ) as HTMLTextAreaElement;
+  const { ref, ...rest } = register(name, options);
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const textarea = textAreaRef.current;
 
-    if (!(textarea?.scrollHeight === textarea?.offsetHeight)) {
-      textarea.style.borderRadius = `${BORDER_RADIUS_SIZE} 5px 5px ${BORDER_RADIUS_SIZE}`;
-    } else {
-      textarea.style.borderRadius = `${BORDER_RADIUS_SIZE}`;
+  const combinedRefs = (texteareElement: HTMLTextAreaElement) => {
+    ref(texteareElement);
+    textAreaRef.current = texteareElement;
+  };
+
+  function changeTextareaBorderRadius() {
+    if (textarea) {
+      if (!(textarea?.scrollHeight === textarea?.offsetHeight)) {
+        textarea.style.borderRadius = `${BORDER_RADIUS_SIZE} 5px 5px ${BORDER_RADIUS_SIZE}`;
+      } else {
+        textarea.style.borderRadius = `${BORDER_RADIUS_SIZE}`;
+      }
     }
   }
 
   return (
     <StTextareaContainer>
       <StTextarea
-        {...register(name, options)}
+        {...rest}
+        ref={combinedRefs}
         onInput={changeTextareaBorderRadius}
         placeholder={placeholder || ''}></StTextarea>
       {error && <StError>{errorMessage}</StError>}
@@ -56,42 +64,3 @@ const Textarea: FC<TextareaProps> = ({
 };
 
 export default Textarea;
-
-// const textareaField = useRef<HTMLTextAreaElement>(null);
-// const { ref, onBlur, onChange } = register(name, options);
-// const cbref = useCallback(
-//   (element: any) => {
-//     // console.log(element);
-//     // ref = element;
-//     textareaField.current = element;
-//   },
-//   [ref, textareaField]
-// );
-
-// console.log(register(name, options));
-// function changeTextareaBorderRadius() {
-//   const textareaElement = textareaField.current;
-
-//   if (textareaElement) {
-//     if (!(textareaElement.scrollHeight === textareaElement.offsetHeight)) {
-//       textareaElement.style.borderRadius = `${BORDER_RADIUS_SIZE} 5px 5px ${BORDER_RADIUS_SIZE}`;
-//     } else {
-//       textareaElement.style.borderRadius = `${BORDER_RADIUS_SIZE}`;
-//     }
-//   }
-// }
-
-// return (
-//   <StTextareaContainer>
-//     <StTextarea
-//       onInput={changeTextareaBorderRadius}
-//       ref={ref}
-//       onBlur={onBlur}
-//       onChange={onChange}
-//       name={name}
-//       // {...register(name, options)}
-//       placeholder={placeholder || ''}></StTextarea>
-//     {error && <StError>{errorMessage}</StError>}
-//   </StTextareaContainer>
-// );
-// };
