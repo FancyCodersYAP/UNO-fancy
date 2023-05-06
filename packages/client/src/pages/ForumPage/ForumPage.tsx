@@ -12,6 +12,7 @@ import {
   StHead,
   StBody,
   StEmptyTable,
+  templateHeadWithScroll,
 } from './style';
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
@@ -21,7 +22,7 @@ import {
   fetchForumTopicDel,
   fetchForumTopicsGet,
 } from 'store/Forum/forumActions';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAppSelector } from 'hooks/redux';
 
 const marginBottom58px = css`
@@ -59,17 +60,25 @@ const ForumPage = () => {
       return;
     }
     const topic = target.closest('article');
+    if (!topic) return;
     const topicId = topic?.dataset.topic;
-
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
   if (!forumTopics?.length) return <></>;
+  const tableRef = useRef<HTMLDivElement>(null);
 
   return (
     <StBoard css={stBoardStyle}>
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
-      <StTable>
+      <StTable
+        css={
+          // по идее это можно убрать прям в стили но я по памяти не помню может кто вспомнит поправит
+          tableRef.current &&
+          tableRef.current.scrollHeight > tableRef.current?.clientHeight
+            ? templateHeadWithScroll
+            : ''
+        }>
         <StHead>
           <div>
             <StButtonNewTopic onClick={handleOpenModal}>
@@ -84,7 +93,7 @@ const ForumPage = () => {
           <p>последнее сообщение</p>
         </StHead>
 
-        <StBody onClick={interactionWithTopic}>
+        <StBody ref={tableRef} onClick={interactionWithTopic}>
           {isArrayAndHasItems(forumTopics) ? (
             forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
           ) : !forumTopics.length ? (

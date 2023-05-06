@@ -63,10 +63,18 @@ const ForumTopic = ({
           </StDeleteTopicIcon>
         </StDeleteTopicButton>
       </StTableCell>
-      <StTableCell css={textAlignLeft}>{name}</StTableCell>
-      <StTableCell>{total_messages}</StTableCell>
-      <StTableCell>{user.display_name}</StTableCell>
-      <StTableCell css={fontStyle}>{last_message}</StTableCell>
+      <StTableCell css={textAlignLeft}>
+        <p>{name}</p>
+      </StTableCell>
+      <StTableCell>
+        <p>{total_messages}</p>
+      </StTableCell>
+      <StTableCell>
+        <p>{user.display_name}</p>
+      </StTableCell>
+      <StTableCell css={fontStyle}>
+        <p>{last_message}</p>
+      </StTableCell>
     </StTableTopic>
   );
 };
