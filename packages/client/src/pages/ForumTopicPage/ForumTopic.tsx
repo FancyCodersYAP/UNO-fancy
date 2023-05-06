@@ -18,6 +18,7 @@ import {
   StTopicText,
   StTopicDate,
   StTopicDiscussion,
+  StTopicDiscussionEmpty,
 } from './style';
 import useModal from 'hooks/useModal';
 
@@ -51,15 +52,21 @@ const ForumTopic = () => {
         </StTopicWrapper>
       </StTopic>
 
-      <StTopicDiscussion>
-        {testTopicDiscussionData.map(message => (
-          <TopicMessage
-            key={message.id}
-            {...message}
-            onClick={handleOpenModal}
-          />
-        ))}
-      </StTopicDiscussion>
+      {testTopicDiscussionData.length !== 0 ? (
+        <StTopicDiscussion>
+          {testTopicDiscussionData.map(message => (
+            <TopicMessage
+              key={message.id}
+              {...message}
+              onClick={handleOpenModal}
+            />
+          ))}
+        </StTopicDiscussion>
+      ) : (
+        <StTopicDiscussionEmpty>
+          Пока еще никто не успел ответить на данную тему, будь первым!
+        </StTopicDiscussionEmpty>
+      )}
 
       <Button text="Написать сообщение" onClick={handleOpenModal} />
     </StBoard>

@@ -3,9 +3,9 @@ import { StFlex } from '../../styles/global';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
 import AvatarModalWindow from 'components/AvatarModalWindow';
-import { REDIRECT_URL } from '../../store/constants';
 import { css } from 'styled-components';
 import { StModalTitle } from 'components/Modal/style';
+import { API_ENDPOINTS } from '../../store/constants';
 
 const avatarModalStyles = css`
   width: 586px;
@@ -20,10 +20,8 @@ interface IAvatar {
   image: string | undefined;
 }
 
-const API_RESOURCES = `${REDIRECT_URL}/api/v2/resources`;
-
 const ProfileAvatar = ({ image }: IAvatar) => {
-  const avatar = image && API_RESOURCES + image;
+  const avatar = image && API_ENDPOINTS.resources + image;
 
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
@@ -38,7 +36,10 @@ const ProfileAvatar = ({ image }: IAvatar) => {
           hasCrossButton
           handleCloseModal={handleCloseModal}
           styles={avatarModalStyles}>
-          <AvatarModalWindow handleCloseModal={handleCloseModal} />
+          <AvatarModalWindow
+            handleCloseModal={handleCloseModal}
+            image={avatar}
+          />
         </Modal>
       )}
     </StFlex>
