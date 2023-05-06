@@ -47,7 +47,9 @@ const ForumPage = () => {
   const interactionWithTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
 
-    const basket = target.closest('button');
+    const basket =
+      target.closest('button') ||
+      [...target.children].filter(el => el.closest('button'))[0];
 
     if (basket) {
       const topic = basket.closest('article');
@@ -56,7 +58,6 @@ const ForumPage = () => {
       console.log('Удаленная тема: ' + topicId);
       return;
     }
-
     const topic = target.closest('article');
     const topicId = topic?.dataset.topic;
 
