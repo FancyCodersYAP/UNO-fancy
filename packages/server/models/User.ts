@@ -5,7 +5,16 @@ import {
   Column,
   DataType,
   AllowNull,
+  BelongsTo,
+  HasOne,
+  Unique,
+  Index,
+  BelongsToMany,
+  HasMany,
 } from 'sequelize-typescript';
+import { UserRanks } from './UserRanks';
+import { Ranks } from './Ranks';
+import { UserThemes } from './UserThemes';
 
 @Table({
   tableName: 'users',
@@ -16,6 +25,9 @@ export class User extends Model {
   @PrimaryKey
   @Column(DataType.INTEGER)
   ya_id!: number;
+
+  // @Column(DataType.INTEGER)
+  // rank_id!: number;
 
   @AllowNull(false)
   @Column

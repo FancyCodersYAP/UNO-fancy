@@ -43,6 +43,7 @@ export interface ITopic {
 }
 
 export interface IUserForum {
+  rank: string;
   display_name: string;
   avatar?: string;
 }

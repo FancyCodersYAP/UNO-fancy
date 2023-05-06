@@ -39,9 +39,10 @@ const ForumPage = () => {
   const dispatch = useAppDispatch();
 
   const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
+  const isLoading = useAppSelector(state => state.FORUM.isLoading);
 
   useEffect(() => {
-    if (!forumTopics?.length) dispatch(fetchForumTopicsGet());
+    dispatch(fetchForumTopicsGet());
   }, []);
 
   const navigate = useNavigate();
@@ -56,29 +57,31 @@ const ForumPage = () => {
       const topic = basket.closest('article');
       const topicId = topic?.dataset.topic;
       dispatch(fetchForumTopicDel(topicId));
-      console.log('Удаленная тема: ' + topicId);
       return;
     }
     const topic = target.closest('article');
+
     if (!topic) return;
+
     const topicId = topic?.dataset.topic;
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
-  if (!forumTopics?.length) return <></>;
-  const tableRef = useRef<HTMLDivElement>(null);
+
+  const tableRef = useRef<HTMLDivElement | null>(null);
+
+  const headStyleTemplate = css`
+    ${tableRef.current &&
+    tableRef.current.scrollHeight > tableRef.current?.clientHeight
+      ? templateHeadWithScroll
+      : ''}
+  `;
+  // if (isLoading) return <></>;
 
   return (
     <StBoard css={stBoardStyle}>
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
-      <StTable
-        css={
-          // по идее это можно убрать прям в стили но я по памяти не помню может кто вспомнит поправит
-          tableRef.current &&
-          tableRef.current.scrollHeight > tableRef.current?.clientHeight
-            ? templateHeadWithScroll
-            : ''
-        }>
+      <StTable css={headStyleTemplate}>
         <StHead>
           <div>
             <StButtonNewTopic onClick={handleOpenModal}>
@@ -96,10 +99,10 @@ const ForumPage = () => {
         <StBody ref={tableRef} onClick={interactionWithTopic}>
           {isArrayAndHasItems(forumTopics) ? (
             forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
-          ) : !forumTopics.length ? (
+          ) : isLoading ? (
             <StEmptyTable>Загрузка...</StEmptyTable>
           ) : (
-            <StEmptyTable>Ни одно тема не была добавлена</StEmptyTable>
+            <StEmptyTable>Список тем пока пуст</StEmptyTable>
           )}
         </StBody>
       </StTable>

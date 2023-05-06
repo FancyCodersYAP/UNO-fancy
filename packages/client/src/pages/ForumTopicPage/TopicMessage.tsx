@@ -29,7 +29,6 @@ export interface ITopicMessage {
   id: number;
   topic_id: number;
   user: IUserForum;
-  rank: string;
   answer?: Answer;
   content: string;
   created_at: string;
@@ -44,7 +43,6 @@ const flexStyles = css`
 const TopicMessage = ({
   id,
   user,
-  rank,
   answer,
   content,
   created_at,
@@ -56,7 +54,7 @@ const TopicMessage = ({
         <StMessageAvatar image={user.avatar} />
         <StUserInfo>
           <StUserName>{user.display_name}</StUserName>
-          <StUserRank>{'игрок'}</StUserRank>
+          <StUserRank>{user.rank}</StUserRank>
         </StUserInfo>
       </StUser>
 

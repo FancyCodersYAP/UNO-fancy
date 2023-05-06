@@ -1,11 +1,7 @@
 import express, { type Request, type Response, Router } from 'express';
 
 import { checkUserAuth } from '../middlewares/checkUserAuth';
-import { ForumMessage } from '../models/ForumMessage';
-import { ForumTopic } from '../models/ForumTopic';
-import { User } from '../models/User';
 import { messageGetByID, messagePost } from '../controllers/forumMessages';
-
 export const forumMessages = Router()
   .use(express.json())
   .use('/', checkUserAuth)
