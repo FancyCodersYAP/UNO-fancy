@@ -23,8 +23,8 @@ import useModal from 'hooks/useModal';
 import AddAnswer from 'components/AddAnswer/AddAnswer';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { ReactComponentElement, useEffect, useRef } from 'react';
-import { fetchForumTopicGetById } from '../../store/Forum/topicActions';
+import { useEffect, useRef } from 'react';
+import { fetchForumTopicGetById } from 'store/Forum';
 import { dateStringParse } from 'utils/dateStringParse';
 
 const marginBottom58px = css`
@@ -47,8 +47,9 @@ const ForumTopic = () => {
       dispatch(fetchForumTopicGetById(topicId));
     }
   }, []);
+
   const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
-  const feedRef = useRef<HTMLDivElement>(null);
+  const feedRef = useRef<HTMLDivElement | null>(null);
   if (!TopicContent) return <></>;
   return (
     <StBoard css={stBoardStyle}>
@@ -59,7 +60,7 @@ const ForumTopic = () => {
           <StUserAvatar image={TopicContent.user.avatar} />
           <StUserInfo>
             <StUserName>{TopicContent.user.display_name}</StUserName>
-            <StUserRank>{testTopicData.rank}</StUserRank>
+            <StUserRank>{TopicContent.user.rank}</StUserRank>
           </StUserInfo>
         </StUser>
         <StTopicWrapper>

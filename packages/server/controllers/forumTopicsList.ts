@@ -3,7 +3,10 @@ import { Sequelize } from 'sequelize-typescript';
 import { ForumMessage } from '../models/ForumMessage';
 import { ForumTopic } from '../models/ForumTopic';
 import { User } from '../models/User';
+import { Ranks } from '../models/Ranks';
+
 import { topicCollectData } from '../database/topicCollectData';
+import { UserRanks } from '../models/UserRanks';
 
 export const forumTopicsList = async () => {
   return await ForumTopic.findAll({
@@ -44,23 +47,31 @@ export const topicGetById = async (id: string) => {
         include: [
           {
             model: User,
-            attributes: ['display_name', 'avatar'],
-          },
-          {
-            model: ForumMessage,
-            attributes: ['id', 'content'],
-            include: [
-              {
-                model: User,
-                attributes: ['display_name'],
-              },
+            attributes: [
+              'display_name',
+              'avatar',
+              [
+                Sequelize.literal(`
+            (SELECT rank_name FROM "ranks" WHERE ranks.id = (SELECT rank_id FROM "user_ranks" WHERE user_ranks.user_id = "messages->user"."ya_id" ) )
+            `),
+                'rank',
+              ],
             ],
           },
         ],
       },
       {
         model: User,
-        attributes: ['display_name', 'avatar'],
+        attributes: [
+          'display_name',
+          'avatar',
+          [
+            Sequelize.literal(`
+            (SELECT rank_name FROM "ranks" WHERE ranks.id = (SELECT rank_id FROM "user_ranks" WHERE user_ranks.user_id = "user"."ya_id" ) )
+            `),
+            'rank',
+          ],
+        ],
       },
     ],
     order: [[Sequelize.col('messages.created_at'), 'ASC']],
