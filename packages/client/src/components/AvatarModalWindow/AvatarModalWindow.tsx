@@ -10,12 +10,10 @@ import {
   StAvatarLabel,
   StAvatarError,
 } from './style';
-import { userState } from 'hooks/userState';
-import { REDIRECT_URL } from 'store/constants';
 import formatBytes from 'utils/formatBytes';
 import { css } from 'styled-components';
+import { useRef } from 'react';
 
-const API_RESOURCES = `${REDIRECT_URL}/api/v2/resources`;
 const MAX_FILE_SIZE = 1048576;
 
 const buttontStyles = css`
@@ -27,11 +25,14 @@ const buttontStyles = css`
 
 interface AvatarModal {
   handleCloseModal: () => void;
+  image: string | undefined;
 }
 
-const AvatarModalWindow = ({ handleCloseModal }: AvatarModal) => {
+const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
   const dispatch = useAppDispatch();
-  const { user } = userState();
+
+  const avatarErrorRef = useRef<HTMLDivElement>(null);
+  const userAvatarRef = useRef<HTMLDivElement>(null);
 
   let avatarFile: File;
   const onAvatarChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,17 +42,20 @@ const AvatarModalWindow = ({ handleCloseModal }: AvatarModal) => {
 
     avatarFile = evt.target.files[0];
 
-    const avatarError = document.querySelector('#avatarError') as HTMLElement;
+    const avatarError = avatarErrorRef.current;
 
     const size = avatarFile.size;
-    if (size > MAX_FILE_SIZE) {
-      const sizeKb = formatBytes(size);
-      avatarError.textContent = `размер файла ${sizeKb} допустимый не более 1Мб`;
-      return;
-    }
-    avatarError.textContent = '';
 
-    const avatar = document.querySelector('#userAvatar') as HTMLElement;
+    if (avatarError) {
+      if (size > MAX_FILE_SIZE) {
+        const sizeKb = formatBytes(size);
+        avatarError.textContent = `размер файла ${sizeKb} допустимый не более 1Мб`;
+        return;
+      }
+      avatarError.textContent = '';
+    }
+
+    const avatar = userAvatarRef.current;
     if (avatar) {
       const reader = new FileReader();
       reader.onload = (function (img) {
@@ -67,7 +71,7 @@ const AvatarModalWindow = ({ handleCloseModal }: AvatarModal) => {
     evt.preventDefault();
 
     if (!avatarFile) {
-      return handleCloseModal();
+      return;
     }
 
     const formData = new FormData();
@@ -86,13 +90,9 @@ const AvatarModalWindow = ({ handleCloseModal }: AvatarModal) => {
       />
       <StAvatarInputWrapper>
         <StAvatarLabel htmlFor="avatarFile">Выбрать файл</StAvatarLabel>
-        <StAvatarError id="avatarError"></StAvatarError>
+        <StAvatarError ref={avatarErrorRef}></StAvatarError>
       </StAvatarInputWrapper>
-      <StAvatar
-        id="userAvatar"
-        css={avatarStyles}
-        image={API_RESOURCES + user?.avatar}
-      />
+      <StAvatar ref={userAvatarRef} css={avatarStyles} image={image} />
       <Button css={buttontStyles} type="submit" text="Установить фотографию" />
     </StAvatarContainer>
   );

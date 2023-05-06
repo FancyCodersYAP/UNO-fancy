@@ -8,9 +8,7 @@ import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { AvatarType } from 'types';
 
 export const stBoardStyle = css`
-  overflow: inherit;
-  padding: 35px 70px;
-  min-width: 880px;
+  min-width: 1128px;
 `;
 
 export const lineHeight130Percent = css`
@@ -184,4 +182,12 @@ export const StAnswer = styled.a`
   &:hover {
     text-shadow: 1px 1px 1px rgb(0 0 0 / 20%);
   }
+`;
+
+export const StTopicDiscussionEmpty = styled.p`
+  font-size: 17px;
+  line-height: 15px;
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  margin: 40px 0;
+  text-align: center;
 `;

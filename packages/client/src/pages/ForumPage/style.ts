@@ -3,7 +3,6 @@ import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { customScrollbar } from 'styles/global';
 
 export const stBoardStyle = css`
-  overflow: inherit;
   min-width: 1128px;
 `;
 
