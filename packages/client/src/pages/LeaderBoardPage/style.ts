@@ -10,7 +10,7 @@ import {
   COLUMNS_WIDTH_TABLE,
 } from 'styles/variables/styleConstants';
 
-import { AvatarProps } from './types';
+import { customScrollbar } from 'styles/global';
 
 export const StBoard = styled.div`
   width: 100%;
@@ -63,19 +63,10 @@ export const StHead = styled.div`
 export const StWinsColumnsHead = styled.div`
   ${GRID_TABLE_CONTAINER};
   grid-template-columns: 200px 200px;
-  grid-template-areas:
-    'a a'
-    'b c';
 
   > * {
     &:first-child {
-      grid-area: a;
-    }
-    &:nth-child(2) {
-      grid-area: b;
-    }
-    &:last-child {
-      grid-area: c;
+      grid-column: 1 / -1;
     }
   }
 `;
@@ -92,6 +83,10 @@ export const StHeadChild = styled.div`
 
 export const StBody = styled.div`
   ${GRID_TABLE_CONTAINER};
+  ${customScrollbar}
+
+  overflow-y: auto;
+  max-height: 580px;
   grid-template-columns: ${COLUMNS_WIDTH_TABLE};
   grid-auto-rows: minmax(60px, auto);
 
@@ -109,29 +104,6 @@ export const StBody = styled.div`
     justify-content: left;
   }
 `;
-
-export const StAvatar = styled.div<AvatarProps>(({ image, label }) => ({
-  position: 'relative',
-  minWidth: '50px',
-  minHeight: '50px',
-  background: `url(${
-    image || '/assets/icons/default-avatar.svg'
-  }) center no-repeat`,
-  backgroundSize: 'cover',
-  borderRadius: '50%',
-
-  '&::before': {
-    display: label ? 'block' : 'none',
-    content: '""',
-    position: 'absolute',
-    left: '28px',
-    top: '23px',
-    width: '30px',
-    height: '30px',
-    background: `url(${label}) center no-repeat`,
-    backgroundSize: 'contain',
-  },
-}));
 
 export const StPlaceholder = styled.div`
   display: flex;

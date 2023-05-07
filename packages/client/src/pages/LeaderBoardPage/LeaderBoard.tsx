@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
+import { mockData } from './data';
 
 const marginBottom40px = css`
   margin: 0 0 40px;
@@ -28,7 +29,9 @@ const LeaderBoard: FC = () => {
   const { leaders } = leaderboardList();
 
   const displayedPlayersNum = 20;
-  const topPlayers = leaders.slice(0, displayedPlayersNum);
+  // Для теста. TODO: вернуть строку 33, удалить 34
+  // const topPlayers = leaders.slice(0, displayedPlayersNum);
+  const topPlayers = mockData;
 
   useEffect(() => {
     dispatch(fetchLeaderboard());

@@ -34,3 +34,9 @@ export type LeaderboardState = {
   leaderList: LeaderListType;
   error: string;
 };
+
+export type PutLeaderboardData = {
+  data: PlayerType;
+  ratingFieldName: string;
+  teamName: string;
+};
