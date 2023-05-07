@@ -34,14 +34,12 @@ export class Game extends EventBus {
   private table!: TableEntity;
 
   private clockwiseMovement = true;
-  private gameStatus = 'gameplay' || 'game over';
 
   constructor() {
     super();
   }
 
   startGame(playersNum: number, playerData?: GamePlayerType) {
-    this.gameStatus = 'gameplay';
     /* Если есть данные, добавляем игрока с этими данными */
     if (playerData !== undefined) {
       this.players = addPlayers(playersNum, playerData);
@@ -90,6 +88,7 @@ export class Game extends EventBus {
 
     /* Из стартовой колоды берём одну карту для открытия */
     const lastCard = initialPack.pop();
+    console.log(lastCard);
     if (!lastCard) {
       throw new Error('Куда-то делись все карты');
     }
@@ -101,7 +100,9 @@ export class Game extends EventBus {
     }, ANIMATION_TIME * START_NUM_CARDS_IN_HAND);
 
     this.activePlayerId = 0;
-    this.getActivePlayer().highlight();
+    const activePlayer = this.getActivePlayer();
+    if (!activePlayer) return;
+    activePlayer.highlight();
 
     if (lastCard.action) {
       if (lastCard.action !== 'wild') {
@@ -198,11 +199,9 @@ export class Game extends EventBus {
   }
 
   botMove() {
-    if (this.gameStatus === 'game over') {
-      return;
-    }
-
     const botLayer = this.getActivePlayer();
+    if (!botLayer) return;
+
     const botCards = botLayer.getCards();
 
     for (const card of botCards) {
@@ -225,6 +224,8 @@ export class Game extends EventBus {
 
   async discardCard(movedCard: CardType) {
     const activePlayerLayer = this.getActivePlayer();
+
+    if (!activePlayerLayer) return;
 
     activePlayerLayer.removeCard(movedCard, () => {
       this.emit(GameEvents.CARD_MOVEMENT);
@@ -325,6 +326,8 @@ export class Game extends EventBus {
     const cards = this.table.giveCards(countCards);
     const activePlayer = this.getActivePlayer();
 
+    if (!activePlayer) return;
+
     activePlayer.addCards(cards, () => {
       this.emit(GameEvents.CARD_MOVEMENT);
     });
@@ -368,10 +371,13 @@ export class Game extends EventBus {
 
   /* Переход хода */
   moveLine() {
-    this.getActivePlayer().removeHighlight();
+    const activePlayer = this.getActivePlayer();
+    if (!activePlayer) return;
+
+    activePlayer.removeHighlight();
 
     this.changeActivePlayerId();
-    this.getActivePlayer().highlight();
+    activePlayer.highlight();
 
     const { isBot } = this.players[this.activePlayerId];
 
@@ -384,7 +390,9 @@ export class Game extends EventBus {
 
   /* Пропуск хода (когда на стол выкладывается спец.карта) */
   skipMove() {
-    this.getActivePlayer().removeHighlight();
+    const activePlayer = this.getActivePlayer();
+    if (!activePlayer) return;
+    activePlayer.removeHighlight();
 
     this.changeActivePlayerId();
   }
@@ -408,7 +416,7 @@ export class Game extends EventBus {
     }
   }
 
-  getActivePlayer(): HandEntity {
+  getActivePlayer(): HandEntity | undefined {
     const entityName =
       this.players.length === 2
         ? TwoPlayerLayers[this.activePlayerId]
@@ -489,13 +497,13 @@ export class Game extends EventBus {
 
   /* Генерация клика по кнопке UNO */
   unoClick() {
-    if (this.getActivePlayer().getCards().length === 1) {
+    const activePlayer = this.getActivePlayer();
+    if (activePlayer && activePlayer.getCards().length === 1) {
       this.emit(GameEvents.CLICK_UNO);
     }
   }
 
   unload() {
-    this.gameStatus = 'game over';
     this.resetGame();
     this.players = [];
     this.destroy();

@@ -21,6 +21,7 @@ import { exitMenuModalStyles } from 'components/Modal/style';
 import StatusBar from 'components/StatusBar/StatusBar';
 import { PlayModal } from './PlayModal';
 import { StGameFlex } from './style';
+import { PUT_LEADERBOARD_DATA } from 'store/constants';
 
 const modalWidth = css`
   width: 700px;
@@ -107,7 +108,7 @@ export function GamePage() {
   if (isLoading) return <></>; //TODO здесь нужен лодер либо его нужно будет организовать через роутинг
 
   const updateLeaderboardData = (playerData: PlayerType) => {
-    dispatch(fetchUserDataLB(playerData));
+    dispatch(fetchUserDataLB({ data: playerData, ...PUT_LEADERBOARD_DATA }));
   };
 
   const unloadGame = () => {
