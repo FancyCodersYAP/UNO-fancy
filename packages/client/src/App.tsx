@@ -6,6 +6,7 @@ import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import MainPage from 'pages/MainPage';
 import ProfilePage from 'pages/ProfilePage';
+import NotFoundPage from 'pages/NotFoundPage';
 import ForumTopic from 'pages/ForumTopicPage';
 import ForumPage from 'pages/ForumPage';
 
@@ -53,10 +54,7 @@ function App() {
         <Route path={AppRoute.LEADERBOARD} element={<LeaderBoard />} />
         <Route path={AppRoute.FORUM} element={<ForumPage />} />
         <Route path={`${AppRoute.FORUM}/:id`} element={<ForumTopic />} />
-        <Route
-          path={AppRoute.NOT_FOUND_PAGE}
-          // element={<ErrorPage />}
-        />
+        <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
       </Route>
       <Route element={<GameLayout />}>
         <Route path={AppRoute.GAME} element={<GamePage />} />
