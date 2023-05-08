@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { css } from 'styled-components';
 
 import { isArrayAndHasItems } from 'utils';
@@ -25,6 +25,7 @@ import { fetchLeaderboard } from 'store/Leaderboard/actions';
 
 const LeaderBoard: FC = () => {
   const dispatch = useAppDispatch();
+  const [hasScroll, setScrollPresence] = useState(true);
 
   const { leaders } = leaderboardList();
 
@@ -33,8 +34,18 @@ const LeaderBoard: FC = () => {
   // const topPlayers = leaders.slice(0, displayedPlayersNum);
   const topPlayers = mockData;
 
+  const tableBodyRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     dispatch(fetchLeaderboard());
+
+    const tableBody = tableBodyRef.current;
+
+    if (tableBody?.scrollHeight === tableBody?.offsetHeight) {
+      setScrollPresence(false);
+    } else {
+      setScrollPresence(true);
+    }
   }, []);
 
   return (
@@ -53,7 +64,7 @@ const LeaderBoard: FC = () => {
                 <StHeadChild>4 игрока</StHeadChild>
               </StWinsColumnsHead>
             </StHead>
-            <StBody>
+            <StBody ref={tableBodyRef} hasScroll={hasScroll}>
               {topPlayers.map((player, index) => (
                 <BoardItem
                   key={player.data.game_id}
