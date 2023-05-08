@@ -88,7 +88,6 @@ export class Game extends EventBus {
 
     /* Из стартовой колоды берём одну карту для открытия */
     const lastCard = initialPack.pop();
-    console.log(lastCard);
     if (!lastCard) {
       throw new Error('Куда-то делись все карты');
     }

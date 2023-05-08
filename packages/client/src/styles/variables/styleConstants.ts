@@ -8,9 +8,7 @@ export const BORDER_RADIUS_SIZE = '20px';
 
 export const BORDER_WIDTH_TABLE = '2px';
 
-export const COLUMNS_WIDTH_TABLE = '50px 1fr 200px 200px 190px';
-
-export const COLUMNS_WIDTH_HEAD_TABLE = '50px 1fr 200px 402px';
+export const COLUMNS_WIDTH_HEAD_TABLE = '50px 1.5fr 1fr 1fr';
 
 export const GRID_TABLE_CONTAINER = css`
   display: grid;

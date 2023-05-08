@@ -7,10 +7,10 @@ import {
   BORDER_WIDTH_TABLE,
   BORDER_RADIUS_SIZE,
   COLUMNS_WIDTH_HEAD_TABLE,
-  COLUMNS_WIDTH_TABLE,
 } from 'styles/variables/styleConstants';
 
 import { customScrollbar } from 'styles/global';
+import { LeaderBoardTableBodyType } from './types';
 
 export const StBoard = styled.div`
   width: 100%;
@@ -81,13 +81,14 @@ export const StHeadChild = styled.div`
   height: 100%;
 `;
 
-export const StBody = styled.div`
+export const StBody = styled.div<LeaderBoardTableBodyType>`
   ${GRID_TABLE_CONTAINER};
   ${customScrollbar}
 
   overflow-y: auto;
   max-height: 580px;
-  grid-template-columns: ${COLUMNS_WIDTH_TABLE};
+  grid-template-columns: ${({ hasScroll }) =>
+    hasScroll ? '50px 1.5fr 1fr 200px 190px' : '50px 1.5fr 1fr 200px 200px'};
   grid-auto-rows: minmax(60px, auto);
 
   & > div {

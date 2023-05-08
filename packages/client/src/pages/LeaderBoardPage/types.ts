@@ -9,3 +9,7 @@ export interface AvatarProps {
   avatar?: string;
   styles?: CSSProp;
 }
+
+export interface LeaderBoardTableBodyType {
+  hasScroll: boolean;
+}
