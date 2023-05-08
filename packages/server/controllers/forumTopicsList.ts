@@ -81,7 +81,6 @@ export const topicGetById = async (id: string) => {
 export const topicPost = async (
   data: Optional<ForumTopic, never> | undefined
 ) => {
-  //TODO типизировать data
   const topic = await ForumTopic.create(data);
   return await ForumTopic.findByPk(topic.id, {
     attributes: topicCollectData,

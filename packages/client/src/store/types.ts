@@ -58,3 +58,7 @@ export interface ITopicData {
   user: IUserForum;
   last_message: string | null;
 }
+
+export interface ITopicDelData {
+  id: number;
+}
