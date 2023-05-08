@@ -7,6 +7,8 @@ export interface FormConfigType {
   required: boolean;
   value?: string;
   type: string;
+  placeholder?: string;
+  textarea?: boolean;
 }
 
 export interface PlayerType {
