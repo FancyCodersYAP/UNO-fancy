@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { BACKGROUND_COLOR_TABLE_PRIMARY } from 'styles/variables/colors-const';
 import {
@@ -59,7 +59,9 @@ export const StHead = styled.div`
   grid-template-columns: ${COLUMNS_WIDTH_HEAD_TABLE};
   grid-template-rows: 60px;
 `;
-
+export const templateHeadWithScroll = css`
+  grid-template-columns: 50px 1fr 200px 402px;
+`;
 export const StWinsColumnsHead = styled.div`
   ${GRID_TABLE_CONTAINER};
   grid-template-columns: 200px 200px;

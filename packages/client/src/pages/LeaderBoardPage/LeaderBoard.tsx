@@ -1,5 +1,5 @@
-import { FC, useEffect } from 'react';
-import { css } from 'styled-components';
+import { FC, useEffect, useRef, useState, useCallback } from 'react';
+import styled, { css } from 'styled-components';
 
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
@@ -18,6 +18,7 @@ import {
   StPlaceholder,
   StWinsColumnsHead,
   StHeadChild,
+  templateHeadWithScroll,
 } from './style';
 import BoardItem from './BoardItem';
 import { leaderboardList } from 'hooks/leaderboardState';
@@ -27,23 +28,34 @@ const LeaderBoard: FC = () => {
   const dispatch = useAppDispatch();
 
   const { leaders } = leaderboardList();
-
+  const [state, updateState] = useState(0);
   const displayedPlayersNum = 20;
-  // Для теста. TODO: вернуть строку 33, удалить 34
-  // const topPlayers = leaders.slice(0, displayedPlayersNum);
-  const topPlayers = mockData;
+
+  const topPlayers = leaders.slice(0, displayedPlayersNum);
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
   }, []);
 
+  useEffect(() => {
+    updateState(state + 1); //принудительно меняем состояние компонента
+  }, [topPlayers?.length]);
+
+  const tableRef = useRef<HTMLDivElement | null>(null);
+  const headStyleTemplate = css`
+    ${tableRef.current &&
+    tableRef.current.scrollHeight > tableRef.current?.clientHeight
+      ? templateHeadWithScroll
+      : ''}
+  `;
+
   return (
     <StBoard>
-      {isArrayAndHasItems(topPlayers) ? (
+      {topPlayers?.length ? (
         <>
           <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
           <StTable>
-            <StHead>
+            <StHead css={headStyleTemplate}>
               <StHeadChild>#</StHeadChild>
               <StHeadChild>Игрок</StHeadChild>
               <StHeadChild>Очки</StHeadChild>
@@ -53,7 +65,7 @@ const LeaderBoard: FC = () => {
                 <StHeadChild>4 игрока</StHeadChild>
               </StWinsColumnsHead>
             </StHead>
-            <StBody>
+            <StBody ref={tableRef}>
               {topPlayers.map((player, index) => (
                 <BoardItem
                   key={player.data.game_id}

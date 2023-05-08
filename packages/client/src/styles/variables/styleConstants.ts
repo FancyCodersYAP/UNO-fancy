@@ -10,7 +10,7 @@ export const BORDER_WIDTH_TABLE = '2px';
 
 export const COLUMNS_WIDTH_TABLE = '50px 1fr 200px 200px 190px';
 
-export const COLUMNS_WIDTH_HEAD_TABLE = '50px 1fr 200px 402px';
+export const COLUMNS_WIDTH_HEAD_TABLE = '50px 1fr 200px 392px';
 
 export const GRID_TABLE_CONTAINER = css`
   display: grid;
