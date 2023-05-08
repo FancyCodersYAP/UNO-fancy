@@ -9,5 +9,5 @@ export const addUserData = async (user: User) => {
     avatar: user.avatar,
   });
   /*Проверка и выдача начального звания*/
-  (await userRankGet(user.id)) || (await userRankUpdate(user.id));
+  (await userRankGet(user.id))?.rank_id || (await userRankUpdate(user.id));
 };

@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ForumState, ITopic, ITopicData } from '../types';
+import { createSlice } from '@reduxjs/toolkit';
+import { ForumState } from '../types';
 import {
   fetchForumTopicPost,
   fetchForumTopicsGet,
@@ -7,6 +7,7 @@ import {
   fetchForumMessagePost,
   fetchForumTopicDel,
 } from './index';
+import apiErrorStateHandler from '../../utils/apiErrorStateHandler';
 
 export const initialState: ForumState = {
   forumTopics: [],
@@ -25,43 +26,31 @@ const forumSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(
-        fetchForumTopicsGet.fulfilled,
-        (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.error = '';
-          state.forumTopics = action.payload;
-        }
-      )
+      .addCase(fetchForumTopicsGet.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = '';
+        state.forumTopics = action.payload;
+      })
       .addCase(fetchForumTopicsGet.pending, state => {
         state.isLoading = true;
       })
-      .addCase(
-        fetchForumTopicsGet.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        }
-      )
-      .addCase(
-        fetchForumTopicGetById.fulfilled,
-        (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.error = '';
-          state.currentTopic = action.payload;
-        }
-      )
+      .addCase(fetchForumTopicsGet.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = apiErrorStateHandler(action);
+      })
+      .addCase(fetchForumTopicGetById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = '';
+        state.currentTopic = action.payload;
+      })
       .addCase(fetchForumTopicGetById.pending, state => {
         state.currentTopic = null;
         state.isLoading = true;
       })
-      .addCase(
-        fetchForumTopicGetById.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        }
-      )
+      .addCase(fetchForumTopicGetById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = apiErrorStateHandler(action);
+      })
       .addCase(fetchForumTopicPost.fulfilled, (state, { payload }) => {
         state.forumTopics = [payload, ...state.forumTopics];
         state.isLoading = false;
@@ -70,28 +59,24 @@ const forumSlice = createSlice({
       .addCase(fetchForumTopicPost.pending, state => {
         state.isLoading = true;
       })
-      .addCase(
-        fetchForumTopicPost.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        }
-      )
-      .addCase(fetchForumMessagePost.fulfilled, (state, { payload }) => {
-        state.currentTopic!.messages = [
-          ...state.currentTopic!.messages,
-          payload,
-        ];
+      .addCase(fetchForumTopicPost.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = '';
+        state.error = apiErrorStateHandler(action);
       })
-      .addCase(
-        fetchForumMessagePost.rejected,
-        (state, action: PayloadAction<any>) => {
+      .addCase(fetchForumMessagePost.fulfilled, (state, { payload }) => {
+        if (state.currentTopic) {
+          state.currentTopic.messages = [
+            ...state.currentTopic.messages,
+            payload,
+          ];
           state.isLoading = false;
-          state.error = action.payload;
+          state.error = '';
         }
-      )
+      })
+      .addCase(fetchForumMessagePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = apiErrorStateHandler(action);
+      })
       .addCase(fetchForumTopicDel.fulfilled, (state, { payload }) => {
         state.forumTopics = state.forumTopics.filter(
           topic => topic.id !== payload.id
@@ -99,13 +84,10 @@ const forumSlice = createSlice({
         state.isLoading = false;
         state.error = '';
       })
-      .addCase(
-        fetchForumTopicDel.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.error = action.payload;
-        }
-      );
+      .addCase(fetchForumTopicDel.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = apiErrorStateHandler(action);
+      });
   },
 });
 

@@ -26,8 +26,9 @@ const AddAnswer = (props: AddAnswerType) => {
       dispatch(fetchForumMessagePost(sendData)).then(action => {
         if ('error' in action && action.error) return;
         handleCloseModal();
-        const feedScroll = props.feedRef.current!.scrollHeight;
-        props.feedRef.current!.scroll(0, feedScroll);
+        //после отправки сообщения мы получаем его в отвтвете и прокручивает скрол вниз
+        const feedScroll = props.feedRef.current?.scrollHeight || 0;
+        props.feedRef.current?.scroll(0, feedScroll);
       });
     }
   };
