@@ -26,10 +26,10 @@ const forumSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchForumTopicsGet.fulfilled, (state, action) => {
+      .addCase(fetchForumTopicsGet.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = '';
-        state.forumTopics = action.payload;
+        state.forumTopics = payload;
       })
       .addCase(fetchForumTopicsGet.pending, state => {
         state.isLoading = true;
@@ -38,10 +38,10 @@ const forumSlice = createSlice({
         state.isLoading = false;
         state.error = apiErrorStateHandler(action);
       })
-      .addCase(fetchForumTopicGetById.fulfilled, (state, action) => {
+      .addCase(fetchForumTopicGetById.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = '';
-        state.currentTopic = action.payload;
+        state.currentTopic = payload;
       })
       .addCase(fetchForumTopicGetById.pending, state => {
         state.currentTopic = null;
@@ -90,7 +90,7 @@ const forumSlice = createSlice({
       });
   },
 });
-
+//forumErrorReset оставил для будущей разработки для снятия ошибки в модальном окне
 export const { forumErrorReset } = forumSlice.actions;
 
 export default forumSlice.reducer;

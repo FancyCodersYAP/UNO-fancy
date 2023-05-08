@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from '../constants';
 import { errorMessage } from '../../utils/apiErrorMessageCheck';
 import { TopicFormParams } from '../../components/AddTopic/AddTopic';
 import { DataRepository } from '../../api/DataService';
-import { ITopicData } from '../types';
+import { ITopicData, ITopicDelData } from '../types';
 
 export const fetchForumTopicPost = createAsyncThunk(
   'forum/fetchForumTopicPost',
@@ -42,10 +42,9 @@ export const fetchForumTopicDel = createAsyncThunk(
   'forum/fetchForumTopicDel',
   async (id: string | undefined, thunkAPI) => {
     try {
-      const { data } = await axios.delete<Record<any, any>>(
+      const { data } = await axios.delete<ITopicDelData>(
         `${API_ENDPOINTS.forum}/${id}`
       );
-      // console.log('data', data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(

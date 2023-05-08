@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINTS } from '../constants';
 import { errorMessage } from '../../utils/apiErrorMessageCheck';
 import axios from 'axios';
-import { ITopic, ITopicData } from '../types';
+import { ITopic } from '../types';
 
 export const fetchForumTopicGetById = createAsyncThunk(
   'forum/fetchForumTopicGetById',

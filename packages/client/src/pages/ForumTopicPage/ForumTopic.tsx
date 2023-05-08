@@ -1,7 +1,6 @@
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import Button from 'components/Button/Button';
 import TopicMessage from './TopicMessage';
-import { testTopicData } from 'data/testTopicData';
 import { css } from 'styled-components';
 import {
   StTopic,
