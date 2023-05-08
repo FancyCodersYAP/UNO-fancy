@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINTS } from '../constants';
 import { errorMessage } from '../../utils/apiErrorMessageCheck';

@@ -10,10 +10,8 @@ import {
   Table,
   Unique,
   UpdatedAt,
-  BelongsToMany,
 } from 'sequelize-typescript';
 
-import { UserRanks } from './UserRanks';
 import { User } from './User';
 
 @Table({
@@ -26,8 +24,8 @@ export class Ranks extends Model {
   @Column(DataType.STRING)
   rank_name!: string;
 
-  @HasMany(() => UserRanks, 'id')
-  user_ranks!: UserRanks;
+  @HasMany(() => User, 'rank_id')
+  user!: User;
 
   @CreatedAt
   @Column(DataType.DATE)

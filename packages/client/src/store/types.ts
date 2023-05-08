@@ -24,10 +24,11 @@ export interface IServiceId {
 
 export interface IErrorReason {
   reason: string;
+  [key: string]: string;
 }
 
 export interface ForumState {
-  forumTopics: ITopicsForum | [];
+  forumTopics: ITopicsForum;
   isLoading: boolean;
   error: string;
   currentTopic: ITopic | null;
@@ -48,7 +49,7 @@ export interface IUserForum {
   avatar?: string;
 }
 
-export type ITopicsForum = Array<ITopicData>;
+export type ITopicsForum = ITopicData[] | [];
 
 export interface ITopicData {
   id: number;

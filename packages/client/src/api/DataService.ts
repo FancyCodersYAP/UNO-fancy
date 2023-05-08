@@ -2,7 +2,7 @@ import { ITopicsForum, IUser } from '../store/types';
 
 export interface DataRepository {
   getCurrentUser(): Promise<IUser>;
-  getForumTopics(): Promise<ITopicsForum[]>;
+  getForumTopics(): Promise<ITopicsForum>;
 }
 
 export class DataService {

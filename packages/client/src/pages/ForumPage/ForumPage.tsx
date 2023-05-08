@@ -61,7 +61,7 @@ const ForumPage = () => {
     }
     const topic = target.closest('article');
 
-    if (!topic) return;
+    if (!topic) return; //так как я отключил события на article то таргетом будет body и при попадании мимо текстового узла выходим
 
     const topicId = topic?.dataset.topic;
     navigate(`${AppRoute.FORUM}/${topicId}`);
@@ -75,7 +75,8 @@ const ForumPage = () => {
       ? templateHeadWithScroll
       : ''}
   `;
-  // if (isLoading) return <></>;
+  //для первого рендера при роутинге с другой страницы
+  if (!forumTopics?.length && isLoading) return <></>;
 
   return (
     <StBoard css={stBoardStyle}>
