@@ -17,7 +17,7 @@ app.use('/theme-service', themeRoutes);
 app.use('/api/forum/message', forumMessages);
 app.use('/api/forum', forumTopics);
 app.use('/api/v2/*', proxy);
-app.use((err: Errback, req: Request, res: Response) => {
+app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
   console.log(err);
   res.status(500).end('Something broke!');
 });

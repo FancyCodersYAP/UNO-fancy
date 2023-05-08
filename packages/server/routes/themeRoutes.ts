@@ -1,17 +1,13 @@
 import express, { type Request, type Response, Router } from 'express';
-import { Themes } from '../models/Themes';
-import { UserThemes } from '../models/UserThemes';
 import { checkUserAuth } from '../middlewares/checkUserAuth';
+import { themeGet, themePost } from '../controllers/userThemes';
 
 export const themeRoutes = Router()
   .use(express.json())
   .use('/', checkUserAuth)
   .get('/', async (req: Request, res: Response) => {
     const userId = res.locals.user.id;
-    const userTheme: UserThemes | null = await UserThemes.findOne({
-      where: { user_id: userId },
-      include: [{ model: Themes, attributes: ['theme_name'] }],
-    });
+    const userTheme = await themeGet(userId);
 
     if (userTheme && userTheme.theme.theme_name) {
       return res.status(200).json(userTheme.theme.theme_name);
@@ -26,19 +22,10 @@ export const themeRoutes = Router()
 
     const userId = res.locals.user.id;
 
-    const theme: Themes | null = await Themes.findOne({
-      where: { theme_name },
-    });
+    const userTheme = await themePost(theme_name, userId);
 
-    if (theme) {
-      const userTheme: [UserThemes, null | boolean] = await UserThemes.upsert({
-        theme_id: theme.id,
-        user_id: userId,
-      });
-
-      if (userTheme) {
-        return res.status(201).json(userTheme);
-      }
+    if (userTheme) {
+      return res.status(201).json(userTheme);
     }
 
     return res.status(422).json('unknown data');
