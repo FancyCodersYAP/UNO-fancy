@@ -35,7 +35,8 @@ const LeaderBoard: FC = () => {
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
-  }, []);
+  }, []); //можно поставить зависимость сюда но тогда будет повторный запрос а это на мой взгляд плохо поэтому
+  // пока нет лучшего решения ниже меняем состояние принудительно
 
   useEffect(() => {
     updateState(state + 1); //принудительно меняем состояние компонента
@@ -51,7 +52,7 @@ const LeaderBoard: FC = () => {
 
   return (
     <StBoard>
-      {topPlayers?.length ? (
+      {isArrayAndHasItems(topPlayers) ? (
         <>
           <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
           <StTable>
