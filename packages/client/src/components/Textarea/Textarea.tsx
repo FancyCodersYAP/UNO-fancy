@@ -34,7 +34,6 @@ const Textarea: FC<TextareaProps> = ({
 
   const { ref, ...rest } = register(name, options);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-  const textarea = textAreaRef.current;
 
   const combinedRefs = (texteareElement: HTMLTextAreaElement) => {
     ref(texteareElement);
@@ -42,6 +41,7 @@ const Textarea: FC<TextareaProps> = ({
   };
 
   function changeTextareaBorderRadius() {
+    const textarea = textAreaRef.current;
     if (textarea) {
       if (!(textarea?.scrollHeight === textarea?.offsetHeight)) {
         textarea.style.borderRadius = `${BORDER_RADIUS_SIZE} 5px 5px ${BORDER_RADIUS_SIZE}`;

@@ -1,43 +1,53 @@
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
-import { StTopicLabel, StTopicTextarea } from './style';
+import { StMessageForm } from './style';
+import { css } from 'styled-components';
+import { addMessageConfig } from 'pages/configs';
+import { FieldValues } from 'react-hook-form';
+import { buttonStyle } from 'components/AddTopic/AddTopic';
 
 interface AddAnswerType {
   handleCloseModal: () => void;
 }
 
-const AddAnswer = (props: AddAnswerType) => {
-  const { handleCloseModal } = props;
+const buttonsWrapperStyle = css`
+  margin-top: 90px;
+`;
 
-  const submitNewTopic = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    const topicAnswer = document.querySelector(
-      '[name="topic_answer"]'
-    ) as HTMLTextAreaElement;
+export interface MessageFormParams extends FieldValues {
+  content: string;
+}
 
-    // временный код для проверки
-    console.log(`Текст сообщения: ${topicAnswer.value}`);
-    handleCloseModal();
+const AddAnswer = ({ handleCloseModal }: AddAnswerType) => {
+  const submitNewTopicMessage = (data: MessageFormParams): void => {
+    // временный код для проверки данных
+    console.log(data);
   };
+
+  const footer = (
+    <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
+      <Button
+        css={buttonStyle}
+        text="Отправить"
+        type="submit"
+        disignType="primary"
+      />
+      <Button
+        css={buttonStyle}
+        text="Отмена"
+        disignType="alternate"
+        onClick={handleCloseModal}
+      />
+    </StFlex>
+  );
 
   return (
     <>
-      <form onSubmit={submitNewTopic}>
-        <StTopicLabel htmlFor="topic_answer">Текст сообщения</StTopicLabel>
-        <StTopicTextarea
-          name="topic_answer"
-          id="topic_answer"
-          placeholder="Текст сообщения"
-          required></StTopicTextarea>
-        <StFlex>
-          <Button text="Отправить" />
-          <Button
-            text="Отмена"
-            disignType="alternate"
-            onClick={handleCloseModal}
-          />
-        </StFlex>
-      </form>
+      <StMessageForm
+        fields={addMessageConfig}
+        handleFormSubmit={submitNewTopicMessage}
+        footer={footer}
+      />
     </>
   );
 };

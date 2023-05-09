@@ -151,3 +151,15 @@ export const addTopicConfig: FormConfigType[] = [
     textarea: true,
   },
 ];
+
+export const addMessageConfig: FormConfigType[] = [
+  {
+    name: 'content',
+    label: 'Текст сообщения',
+    pattern: ValidationType.ToopicDescription,
+    required: true,
+    type: 'text',
+    placeholder: 'Текст сообщения',
+    textarea: true,
+  },
+];

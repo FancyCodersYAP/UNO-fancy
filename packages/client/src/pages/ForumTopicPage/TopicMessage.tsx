@@ -13,6 +13,10 @@ import {
   StMessageText,
   StAnswer,
 } from './style';
+import Modal from 'components/Modal';
+import useModal from 'hooks/useModal';
+import AddAnswer from 'components/AddAnswer/AddAnswer';
+import { addAnswerModalStyles } from './ForumTopic';
 
 const MAX_ANSWER_LENGTH = 20;
 
@@ -30,7 +34,6 @@ interface TopicMessage {
   answer?: Answer;
   messages: string;
   date: string;
-  onClick?: () => void;
 }
 
 const flexStyles = css`
@@ -46,8 +49,9 @@ const TopicMessage = ({
   answer,
   messages,
   date,
-  onClick,
 }: TopicMessage) => {
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+
   return (
     <StMessage id={String(id)} data-message={id}>
       <StUser css={flexStyles}>
@@ -69,11 +73,17 @@ const TopicMessage = ({
           <StMessageText>{messages}</StMessageText>
         </div>
 
-        <StButtonReply onClick={onClick} disignType="secondary">
+        <StButtonReply onClick={handleOpenModal} disignType="secondary">
           ответить
         </StButtonReply>
         <StTopicDate>тема создана: {date}</StTopicDate>
       </StMessageWrapper>
+
+      {isOpen && (
+        <Modal title={`Ответ ${author}`} styles={addAnswerModalStyles}>
+          <AddAnswer handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
     </StMessage>
   );
 };

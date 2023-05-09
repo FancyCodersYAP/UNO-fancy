@@ -5,7 +5,7 @@ import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
 
-const buttonStyle = css`
+export const buttonStyle = css`
   width: 200px;
   margin: 0;
 `;
@@ -23,9 +23,7 @@ interface AddTopicType {
   handleCloseModal: () => void;
 }
 
-const AddTopic = (props: AddTopicType) => {
-  const { handleCloseModal } = props;
-
+const AddTopic = ({ handleCloseModal }: AddTopicType) => {
   const submitNewTopic = (data: TopicFormParams): void => {
     // временный код для проверки данных
     console.log(data);
