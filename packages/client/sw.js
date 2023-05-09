@@ -1,4 +1,4 @@
-const CACHE_NAME = 'uno-v5';
+const CACHE_NAME = 'uno-v1';
 
 const URLS = ['/'];
 
@@ -26,9 +26,12 @@ self.addEventListener('activate', async event => {
 
 self.addEventListener('fetch', event => {
   const { request } = event;
-  console.log('SW: fetch', event.request.destination, event);
 
   const url = new URL(request.url);
+
+  if (request.method !== 'GET') {
+    return;
+  }
 
   if (url.origin !== location.origin) {
     event.respondWith(cacheFirst(request));
