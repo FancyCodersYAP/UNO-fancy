@@ -22,14 +22,19 @@ import {
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
 import AddAnswer from 'components/AddAnswer/AddAnswer';
+import { StModalTitle } from 'components/Modal/style';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
 `;
 
-const addAnswerModalStyles = css`
+export const addAnswerModalStyles = css`
   width: 700px;
   padding: 56px 90px 70px;
+
+  ${StModalTitle} {
+    margin-bottom: 37px;
+  }
 `;
 
 const ForumTopic = () => {
@@ -60,22 +65,14 @@ const ForumTopic = () => {
 
       <StTopicDiscussion>
         {testTopicDiscussionData.map(message => (
-          <TopicMessage
-            key={message.id}
-            {...message}
-            onClick={handleOpenModal}
-          />
+          <TopicMessage key={message.id} {...message} />
         ))}
       </StTopicDiscussion>
 
       <Button text="Написать сообщение" onClick={handleOpenModal} />
 
       {isOpen && (
-        <Modal
-          title="Сообщение"
-          styles={addAnswerModalStyles}
-          handleCloseModal={handleCloseModal}
-          canBeClosedOutside>
+        <Modal title="Сообщение" styles={addAnswerModalStyles}>
           <AddAnswer handleCloseModal={handleCloseModal} />
         </Modal>
       )}
