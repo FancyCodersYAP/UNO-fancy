@@ -87,6 +87,7 @@ const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
         type="file"
         id="avatarFile"
         onChange={onAvatarChange}
+        accept="image/png, image/gif, image/jpeg"
       />
       <StAvatarInputWrapper>
         <StAvatarLabel htmlFor="avatarFile">Выбрать файл</StAvatarLabel>

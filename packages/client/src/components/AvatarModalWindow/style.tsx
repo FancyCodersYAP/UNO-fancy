@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { BORDER_COLOR_BUTTON } from 'styles/variables/colors-const';
+import { BOX_SHADOW_BUTTON } from 'styles/variables/styleConstants';
+import { ButtonProps } from 'components/Button/Button';
 
 export const StAvatarContainer = styled.form`
   display: flex;
@@ -38,12 +40,20 @@ export const StAvatarLabel = styled.label`
   text-align: center;
   color: ${props => props.theme?.COLOR_ELEMENT_SECONDARY};
   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
-  border: 2px solid ${BORDER_COLOR_BUTTON};
-  box-shadow: inset 4px 4px 4px rgba(130, 128, 128, 0.25);
+  box-shadow: ${BOX_SHADOW_BUTTON};
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-radius: ${BORDER_RADIUS_SIZE};
   padding: 10px 80px;
   cursor: pointer;
+  background: ${props => {
+    return `linear-gradient(180deg, ${props.theme?.COLOR_PREVIEW_PRIMARY} 0%, rgba(255, 255, 255, 0.3) 50%, ${props.theme?.COLOR_PREVIEW_PRIMARY} 100%);`;
+  }};
+  border: 1px solid ${BORDER_COLOR_BUTTON};
+  box-shadow: ${BOX_SHADOW_BUTTON};
+
+  &&:hover {
+    filter: saturate(1.3);
+  }
 `;
 
 export const StAvatarError = styled.div`
