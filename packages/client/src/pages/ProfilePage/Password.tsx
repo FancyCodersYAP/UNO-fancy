@@ -10,13 +10,13 @@ import {
   inputCss,
   StButtonBackIcon,
   stFlexStyles,
+  StButtonBackToProfile,
 } from './style';
 import { useAppDispatch } from '../../hooks/redux';
 import { fetchPassChange } from '../../store/User/profile/actions';
 import { userState } from '../../hooks/userState';
 import ProfileAvatar from './ProfileAvatar';
 import { StFlex } from 'styles/global';
-import { StButtonBackToProfile } from 'components/Button/style';
 
 const Password: FC = () => {
   const navigate = useNavigate();

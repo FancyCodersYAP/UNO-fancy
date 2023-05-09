@@ -6,6 +6,8 @@ import {
 } from 'styles/variables/colors-const';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { AvatarType } from 'types';
+import { StButton } from 'components/Button/style';
+import { BOX_SHADOW } from 'styles/variables/styleConstants';
 
 export const stBoardStyle = css`
   overflow: inherit;
@@ -22,7 +24,7 @@ const containerStyle = css`
   border-radius: ${BORDER_RADIUS_SIZE};
   margin-bottom: 12px;
   background: ${props => props.theme?.BACKGROUND_COLOR_TOPIC_MESSAGE};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: ${BOX_SHADOW};
 `;
 
 export const StTopic = styled.div`
@@ -190,5 +192,35 @@ export const StButtonBackIcon = styled.svg`
   width: 10px;
   height: 25px;
   margin-right: 5px;
-  filter: drop-shadow( 0px 4px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(${BOX_SHADOW});
+`;
+
+export const StButtonBackToForum = styled(StButton)`
+  position: absolute;
+  top: -42px;
+  left: 0;
+  z-index: 100;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-shadow: ${BOX_SHADOW};
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  background-color: initial;
+  border: none;
+  box-shadow: none;
+
+  svg {
+    filter: drop-shadow(${BOX_SHADOW});
+  }
+
+  &:hover {
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 40%);
+
+    svg {
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.4));
+    }
+  }
 `;
