@@ -14,7 +14,7 @@ import {
 } from './profile/actions';
 import { fetchOauthCodePost, fetchOauthServiceIdGet } from './oauth/actions';
 
-const initialState: UserState = {
+export const initialState: UserState = {
   user: null,
   isLoading: false,
   error: '',
@@ -45,7 +45,10 @@ const userSlice = createSlice({
         fetchAuthUserGet.rejected,
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
-          if ('reason' in action.payload) {
+          if (
+            typeof action.payload === 'object' &&
+            'reason' in action.payload
+          ) {
             state.user = null;
           } else {
             state.error = action.payload;
