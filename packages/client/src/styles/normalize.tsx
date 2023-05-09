@@ -40,7 +40,6 @@ export const resetDefaultStyles = css`
 
   h1 {
     font-size: 2em;
-    margin: 0.67em 0;
   }
 
   hr {
@@ -105,6 +104,7 @@ export const resetDefaultStyles = css`
     font-size: 100%;
     line-height: 1.15;
     margin: 0;
+    border: none;
   }
 
   button,
@@ -117,11 +117,12 @@ export const resetDefaultStyles = css`
     text-transform: none;
   }
 
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
+  button {
     -webkit-appearance: button;
+    background-color: initial;
+    border-style: none;
+    padding: 0;
+    cursor: pointer;
   }
 
   button::-moz-focus-inner,
