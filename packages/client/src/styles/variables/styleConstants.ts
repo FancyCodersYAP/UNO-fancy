@@ -17,5 +17,5 @@ export const GRID_TABLE_CONTAINER = css`
 `;
 
 export const BORDER_BUTTON = `2px solid ${BORDER_COLOR_BUTTON}`;
-
-export const BOX_SHADOW_BUTTON = '0 4px 4px rgba(0, 0, 0, 0.25), inset 4px 4px 4px rgba(130, 128, 128, 0.25)'
+export const BOX_SHADOW = '0 4px 4px rgba(0, 0, 0, 0.25)'
+export const BOX_SHADOW_BUTTON = `${BOX_SHADOW}, inset 4px 4px 4px rgba(130, 128, 128, 0.25)`

@@ -19,11 +19,11 @@ import {
   StTopicDate,
   StTopicDiscussion,
   StButtonBackIcon,
+  StButtonBackToForum,
 } from './style';
 import useModal from 'hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
-import { StButtonBackToForum } from 'components/Button/style';
 
 const marginBottom58px = css`
   margin: 0 0 58px;

@@ -9,6 +9,7 @@ import {
   inputCss,
   StButtonBackIcon,
   stFlexStyles,
+  StButtonBackToProfile,
 } from './style';
 import { useAppDispatch } from 'hooks/redux';
 import { userState } from 'hooks/userState';
@@ -17,7 +18,6 @@ import { UserType } from 'types';
 import { profileConfig } from '../configs';
 import { fetchProfileChange } from 'store/User/profile/actions';
 import { StFlex } from 'styles/global';
-import { StButtonBackToProfile } from 'components/Button/style';
 
 const EditProfile: FC = () => {
   const navigate = useNavigate();
