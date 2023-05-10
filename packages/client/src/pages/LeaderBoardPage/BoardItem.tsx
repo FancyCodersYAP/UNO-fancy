@@ -1,24 +1,28 @@
 import { BoardItemProps } from './types';
-import { StPlayer, StAvatar } from './style';
+import { StPlayer } from './style';
+import Avatar from './Avatar';
+import { LeaderboardAvatarStyles } from './Avatar';
 
 const BoardItem: React.FC<BoardItemProps> = ({
   place,
-  name,
+  username,
   avatar,
   score,
-  time,
+  wins_2,
+  wins_4,
 }) => (
   <>
     <div>{place}</div>
     <StPlayer>
-      <StAvatar
-        image={avatar}
-        label={place === 1 ? 'assets/icons/medal.svg' : undefined}
+      <Avatar
+        avatar={avatar}
+        styles={place === 1 ? LeaderboardAvatarStyles : undefined}
       />
-      {name}
+      {username}
     </StPlayer>
-    <div>{time}</div>
     <div>{score}</div>
+    <div>{wins_2}</div>
+    <div>{wins_4}</div>
   </>
 );
 
