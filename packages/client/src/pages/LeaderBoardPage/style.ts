@@ -6,9 +6,11 @@ import {
   GRID_TABLE_CONTAINER,
   BORDER_WIDTH_TABLE,
   BORDER_RADIUS_SIZE,
+  COLUMNS_WIDTH_HEAD_TABLE,
 } from 'styles/variables/styleConstants';
 
-import { AvatarProps } from './types';
+import { customScrollbar } from 'styles/global';
+import { LeaderBoardTableBodyType } from './types';
 
 export const StBoard = styled.div`
   width: 100%;
@@ -33,14 +35,17 @@ export const StTitle = styled.h1`
   font-weight: 500;
 `;
 
-export const StTable = styled.div`
+export const StTable = styled.div<LeaderBoardTableBodyType>`
   display: grid;
   gap: ${BORDER_WIDTH_TABLE};
 
   background-color: ${BACKGROUND_COLOR_TABLE_PRIMARY};
 
-  border: ${BORDER_WIDTH_TABLE} solid rgba(91, 91, 91, 0.5);
-  border-radius: ${BORDER_RADIUS_SIZE};
+  outline: ${BORDER_WIDTH_TABLE} solid ${BACKGROUND_COLOR_TABLE_PRIMARY};
+  border-radius: ${({ hasScroll }) =>
+    hasScroll
+      ? `${BORDER_RADIUS_SIZE} ${BORDER_RADIUS_SIZE} 5px 5px`
+      : BORDER_RADIUS_SIZE};
   overflow: hidden;
 
   color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
@@ -54,19 +59,39 @@ export const StPlayer = styled.div`
 
 export const StHead = styled.div`
   ${GRID_TABLE_CONTAINER};
+  grid-template-columns: ${COLUMNS_WIDTH_HEAD_TABLE};
   grid-template-rows: 60px;
+`;
 
-  & > div {
-    background-color: ${props => props?.theme.BACKGROUND_COLOR_TABLE_PRIMARY};
-    text-transform: uppercase;
-    color: ${props => props?.theme.COLOR_TABLE_TEXT_PRIMARY};
-    height: 100%;
-    padding: 20px;
+export const StWinsColumnsHead = styled.div`
+  ${GRID_TABLE_CONTAINER};
+  grid-template-columns: 200px 200px;
+
+  > * {
+    &:first-child {
+      grid-column: 1 / -1;
+    }
   }
 `;
 
-export const StBody = styled.div`
+export const StHeadChild = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${props => props?.theme.BACKGROUND_COLOR_TABLE_PRIMARY};
+  text-transform: uppercase;
+  color: ${props => props?.theme.COLOR_TABLE_TEXT_PRIMARY};
+  height: 100%;
+`;
+
+export const StBody = styled.div<LeaderBoardTableBodyType>`
   ${GRID_TABLE_CONTAINER};
+  ${customScrollbar}
+
+  overflow-y: auto;
+  max-height: 580px;
+  grid-template-columns: ${({ hasScroll }) =>
+    hasScroll ? '50px 1.5fr 1fr 200px 190px' : '50px 1.5fr 1fr 200px 200px'};
   grid-auto-rows: minmax(60px, auto);
 
   & > div {
@@ -83,27 +108,6 @@ export const StBody = styled.div`
     justify-content: left;
   }
 `;
-
-export const StAvatar = styled.div<AvatarProps>(({ image, label }) => ({
-  position: 'relative',
-  minWidth: '50px',
-  minHeight: '50px',
-  background: `url(${image}) center no-repeat`,
-  backgroundSize: 'cover',
-  borderRadius: '50%',
-
-  '&::before': {
-    display: label ? 'block' : 'none',
-    content: '""',
-    position: 'absolute',
-    left: '28px',
-    top: '23px',
-    width: '30px',
-    height: '30px',
-    background: `url(${label}) center no-repeat`,
-    backgroundSize: 'contain',
-  },
-}));
 
 export const StPlaceholder = styled.div`
   display: flex;

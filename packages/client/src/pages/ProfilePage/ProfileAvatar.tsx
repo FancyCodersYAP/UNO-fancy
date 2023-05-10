@@ -16,6 +16,7 @@ const avatarModalStyles = css`
   }
 `;
 
+
 interface IAvatar {
   image: string | undefined;
 }
@@ -24,6 +25,7 @@ const ProfileAvatar = ({ image }: IAvatar) => {
   const avatar = image && API_ENDPOINTS.resources + image;
 
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+
 
   return (
     <StFlex flexDirection="column" alignItems="center">
