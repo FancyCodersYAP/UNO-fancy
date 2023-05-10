@@ -8,7 +8,6 @@ import {
   drawCardBack,
   drawCardFront,
   moveCard,
-  cardColors,
   cardBackColor,
 } from '../utils';
 import { Entity } from './Entity';
@@ -50,7 +49,7 @@ export class TableEntity extends Entity<EntityTypes> {
   renewClosePack() {
     if (this.closePack.length <= 4) {
       const upcard = this.openPack.pop();
-      const renewPack = shuffle(this.openPack);
+      const renewPack = shuffle([...this.openPack]);
       this.openPack.length = 0;
       this.openPack.push(upcard!);
 
@@ -90,8 +89,14 @@ export class TableEntity extends Entity<EntityTypes> {
 
   giveCards(countCards: number): CardType[] {
     return this.closePack.splice(
-      this.closePack.length - 1 - countCards,
+      this.closePack.length - countCards,
       countCards
     );
+  }
+
+  reset() {
+    this.activeColor = '#009F66';
+    this.openPack = [];
+    this.closePack = [];
   }
 }
