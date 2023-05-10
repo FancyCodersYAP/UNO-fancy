@@ -62,7 +62,7 @@ export const StAvatarError = styled.div`
   transform: translateX(-50%);
   width: 100%;
   bottom: -25px;
-  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  color: ${props => props.theme?.COLOR_ELEMENT_WARN};
   font-size: 12px;
   line-height: 1.2;
 `;
