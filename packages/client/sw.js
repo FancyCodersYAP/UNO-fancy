@@ -1,6 +1,13 @@
 const CACHE_NAME = 'uno-v1';
 
-const URLS = ['/'];
+const URLS = [
+  '/',
+  '/assets/sounds/card-movement.mp3',
+  '/assets/sounds/finish.mp3',
+  '/assets/sounds/music.mp3',
+  '/assets/sounds/skip-uno.mp3',
+  '/assets/sounds/uno.mp3',
+];
 
 const responseBody = `<h3>Проверьте подключение к интернету и повторите попытку</h3>`;
 const offlineResponse = new Response(responseBody, {
@@ -27,28 +34,16 @@ self.addEventListener('activate', async event => {
 self.addEventListener('fetch', event => {
   const { request } = event;
 
-  const url = new URL(request.url);
-
   if (request.method !== 'GET') {
     return;
   }
 
-  if (url.origin !== location.origin) {
-    event.respondWith(cacheFirst(request));
-    return;
-  }
-
-  if (!request.url.match('^(http|https)://')) {
+  if (!request.url.startsWith('http')) {
     return;
   }
 
   event.respondWith(networkFirst(request));
 });
-
-async function cacheFirst(request) {
-  const cached = await caches.match(request);
-  return cached ?? (await fetch(request));
-}
 
 async function networkFirst(request) {
   const cache = await caches.open(CACHE_NAME);
