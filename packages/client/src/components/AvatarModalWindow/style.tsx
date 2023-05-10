@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { BORDER_COLOR_BUTTON } from 'styles/variables/colors-const';
 import { BOX_SHADOW_BUTTON } from 'styles/variables/styleConstants';
-import { ButtonProps } from 'components/Button/Button';
 
 export const StAvatarContainer = styled.form`
   display: flex;
