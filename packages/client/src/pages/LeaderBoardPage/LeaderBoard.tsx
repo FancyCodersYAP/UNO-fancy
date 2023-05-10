@@ -3,7 +3,6 @@ import { css } from 'styled-components';
 
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
-import { mockData } from './data';
 
 const marginBottom40px = css`
   margin: 0 0 40px;
@@ -30,15 +29,15 @@ const LeaderBoard: FC = () => {
   const { leaders } = leaderboardList();
 
   const displayedPlayersNum = 20;
-  // Для теста. TODO: вернуть строку 33, удалить 34
-  // const topPlayers = leaders.slice(0, displayedPlayersNum);
-  const topPlayers = mockData;
+  const topPlayers = leaders.slice(0, displayedPlayersNum);
 
   const tableBodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     dispatch(fetchLeaderboard());
+  }, []);
 
+  useEffect(() => {
     const tableBody = tableBodyRef.current;
 
     if (tableBody?.scrollHeight === tableBody?.offsetHeight) {
@@ -46,14 +45,14 @@ const LeaderBoard: FC = () => {
     } else {
       setScrollPresence(true);
     }
-  }, []);
+  }, [topPlayers.length]);
 
   return (
     <StBoard>
       {isArrayAndHasItems(topPlayers) ? (
         <>
           <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
-          <StTable>
+          <StTable hasScroll={hasScroll}>
             <StHead>
               <StHeadChild>#</StHeadChild>
               <StHeadChild>Игрок</StHeadChild>

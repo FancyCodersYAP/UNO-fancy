@@ -35,14 +35,17 @@ export const StTitle = styled.h1`
   font-weight: 500;
 `;
 
-export const StTable = styled.div`
+export const StTable = styled.div<LeaderBoardTableBodyType>`
   display: grid;
   gap: ${BORDER_WIDTH_TABLE};
 
   background-color: ${BACKGROUND_COLOR_TABLE_PRIMARY};
 
-  border: ${BORDER_WIDTH_TABLE} solid rgba(91, 91, 91, 0.5);
-  border-radius: ${BORDER_RADIUS_SIZE};
+  outline: ${BORDER_WIDTH_TABLE} solid ${BACKGROUND_COLOR_TABLE_PRIMARY};
+  border-radius: ${({ hasScroll }) =>
+    hasScroll
+      ? `${BORDER_RADIUS_SIZE} ${BORDER_RADIUS_SIZE} 5px 5px`
+      : BORDER_RADIUS_SIZE};
   overflow: hidden;
 
   color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
