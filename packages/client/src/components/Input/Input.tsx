@@ -14,6 +14,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
   pattern?: ValidationType;
   inputCss?: CSSProp;
+  placeholder?: string;
 }
 
 const Input: FC<InputProps> = ({
@@ -25,6 +26,7 @@ const Input: FC<InputProps> = ({
   errorMessage,
   pattern,
   inputCss,
+  placeholder,
   ...rest
 }) => {
   const options = {
@@ -36,7 +38,7 @@ const Input: FC<InputProps> = ({
     <StInputContainer>
       <StInput
         {...register(name, options)}
-        placeholder=" "
+        placeholder={placeholder || ''}
         css={inputCss}
         {...rest}
       />
