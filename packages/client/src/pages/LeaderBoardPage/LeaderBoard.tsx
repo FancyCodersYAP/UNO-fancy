@@ -28,7 +28,7 @@ const LeaderBoard: FC = () => {
 
   const { leaders } = leaderboardList();
 
-  const displayedPlayersNum = 20;
+  const displayedPlayersNum = 50;
   const topPlayers = leaders.slice(0, displayedPlayersNum);
 
   const tableBodyRef = useRef<HTMLDivElement>(null);
