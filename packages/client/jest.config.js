@@ -25,6 +25,7 @@ export default {
     '^hooks(.*)$': '<rootDir>/src/hooks$1',
     '^data(.*)$': '<rootDir>/src/data$1',
     '^game(.*)$': '<rootDir>/src/game$1',
+    '^store(.*)$': '<rootDir>/src/store$1',
   },
   setupFilesAfterEnv: ['./setupTests.ts'],
 };
