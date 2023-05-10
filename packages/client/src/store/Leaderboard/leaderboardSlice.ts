@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchLeaderboard, fetchUserDataLB } from './actions';
 import { LeaderboardState } from 'store/types';
 import apiErrorStateHandler from 'utils/apiErrorStateHandler';
-import { mockData } from 'pages/LeaderBoardPage/data';
 
 const initialState: LeaderboardState = {
   leaderList: [],
@@ -23,7 +22,6 @@ export const leaderboardSlice = createSlice({
         state.isLoading = false;
         if (payload) {
           state.leaderList = payload.filter(user => user.data.game_id);
-          state.leaderList = [...state.leaderList, ...mockData]; // Для теста. TODO: удалить
         }
       })
       .addCase(
