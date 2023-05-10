@@ -1,3 +1,4 @@
+import { CSSProp } from 'styled-components';
 import { PlayerType } from 'types';
 
 export interface BoardItemProps extends PlayerType {
@@ -5,6 +6,10 @@ export interface BoardItemProps extends PlayerType {
 }
 
 export interface AvatarProps {
-  image?: string;
-  label?: string;
+  avatar?: string;
+  styles?: CSSProp;
+}
+
+export interface LeaderBoardTableBodyType {
+  hasScroll: boolean;
 }
