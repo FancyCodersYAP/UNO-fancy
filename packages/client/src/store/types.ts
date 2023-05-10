@@ -1,3 +1,5 @@
+import { PlayerType } from 'types';
+
 export interface IUser {
   id: number;
   first_name: string;
@@ -23,3 +25,18 @@ export interface IServiceId {
 export interface IErrorReason {
   reason: string;
 }
+
+export type LeaderboardRecord = { data: PlayerType };
+export type LeaderListType = Array<LeaderboardRecord>;
+
+export type LeaderboardState = {
+  isLoading: boolean;
+  leaderList: LeaderListType;
+  error: string;
+};
+
+export type PutLeaderboardData = {
+  data: PlayerType;
+  ratingFieldName: string;
+  teamName: string;
+};
