@@ -20,16 +20,18 @@ export enum ValidationType {
   Email = 'email',
   Phone = 'phone',
   Name = 'name',
+  TopicName = 'topicName',
+  ToopicDescription = 'topicDescription',
 }
 
 export const ValidationPattern = {
   login: {
-    value: /(?=.*[\D])[\w-]{3,20}$/g,
+    value: /^(?=.*[\D])[\w-]{3,20}$/g,
     message:
       '3-20 символов, допустимые символы: латин. буквы, цифры, дефис, подчеркивание _',
   },
   password: {
-    value: /(?=.*[A-Z])(?=.*[0-9]){8,40}/g,
+    value: /^(?=.*[A-Z])(?=.*[0-9])[0-9a-zA-Z!@#-$%^_&*]{8,40}$/g,
     message: '8-40 символов, обязательно хотя бы одна заглавная буква и цифра',
   },
   email: {
@@ -44,6 +46,16 @@ export const ValidationPattern = {
   phone: {
     value: /^[\d|+][\d]{10,15}$/i,
     message: '10-15 цифр, может начинаться с плюса',
+  },
+  topicName: {
+    value: /^(?=.*[\D])[_0-9A-ZА-ЯËa-zа-яё-]{3,50}$/g,
+    message:
+      '3-50 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',
+  },
+  topicDescription: {
+    value: /^(?=.*[\D])[_0-9A-ZА-ЯËa-zа-яё-]{1,255}$/g,
+    message:
+      '1-255 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',
   },
 };
 
