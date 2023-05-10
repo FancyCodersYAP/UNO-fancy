@@ -1,15 +1,13 @@
 import { StAvatar } from './style';
 import styled from 'styled-components';
-import { fetchAvatarChange } from '../../store/User/profile/actions';
-import { useAppDispatch } from '../../hooks/redux';
+import { fetchAvatarChange } from 'store/User/profile/actions';
+import { useAppDispatch } from 'hooks/redux';
 import { StFlex } from '../../styles/global';
-import { REDIRECT_URL } from '../../store/constants';
+import { API_ENDPOINTS } from 'store/constants';
 
 interface IAvatar {
   image: string | undefined;
 }
-
-const API_RESOURCES = `${REDIRECT_URL}/api/v2/resources`;
 
 const StImageInput = styled.input`
   position: absolute;
@@ -29,7 +27,7 @@ const ProfileAvatar = ({ image }: IAvatar) => {
       dispatch(fetchAvatarChange(formData));
     }
   };
-  const avatar = image && API_RESOURCES + image;
+  const avatar = image && API_ENDPOINTS.resources + image;
 
   return (
     <StFlex flexDirection="column" alignItems="center">
