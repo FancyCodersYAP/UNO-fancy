@@ -38,9 +38,6 @@ const ForumPage = () => {
     const basket = target.closest('button');
 
     if (basket) {
-      const topic = basket.closest('article');
-      const topicId = topic?.dataset.topic;
-      console.log('Удаленная тема: ' + topicId);
       return;
     }
 
