@@ -40,7 +40,7 @@ export const fetchForumTopicsGet = createAsyncThunk(
 
 export const fetchForumTopicDel = createAsyncThunk(
   'forum/fetchForumTopicDel',
-  async (id: string | undefined, thunkAPI) => {
+  async (id: string, thunkAPI) => {
     try {
       const { data } = await axios.delete<ITopicDelData>(
         `${API_ENDPOINTS.forum}/${id}`

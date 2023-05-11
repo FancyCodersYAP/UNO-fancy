@@ -56,7 +56,7 @@ const ForumPage = () => {
     if (basket) {
       const topic = basket.closest('article');
       const topicId = topic?.dataset.topic;
-      dispatch(fetchForumTopicDel(topicId));
+      topicId && dispatch(fetchForumTopicDel(topicId));
       return;
     }
     const topic = target.closest('article');
