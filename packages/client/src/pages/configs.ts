@@ -131,3 +131,23 @@ export const registrationConfig: FormConfigType[] = [
     type: 'password',
   },
 ];
+
+export const addTopicConfig: FormConfigType[] = [
+  {
+    name: 'name',
+    label: 'Название темы',
+    pattern: ValidationType.TopicName,
+    required: true,
+    type: 'text',
+    placeholder: 'Название темы',
+  },
+  {
+    name: 'description',
+    label: 'Описание темы',
+    pattern: ValidationType.ToopicDescription,
+    required: true,
+    type: 'text',
+    placeholder: 'Описание темы',
+    textarea: true,
+  },
+];
