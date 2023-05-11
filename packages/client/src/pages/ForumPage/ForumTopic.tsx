@@ -6,6 +6,10 @@ import {
   StDeleteTopicIcon,
 } from './style';
 import { css } from 'styled-components';
+import Modal from 'components/Modal';
+import useModal from 'hooks/useModal';
+import DeleteTopic from 'components/DeleteTopic';
+import { StModalTitle } from 'components/Modal/style';
 
 interface ForumTopicType {
   id: number;
@@ -29,6 +33,15 @@ const fontStyle = css`
   line-height: 130%;
 `;
 
+const addTopicModalStyles = css`
+  width: 700px;
+  padding: 55px 101px 77px;
+
+  ${StModalTitle} {
+    margin-bottom: 62px;
+  }
+`;
+
 const hoverStyle = css`
   button {
     cursor: pointer;
@@ -50,23 +63,42 @@ const ForumTopic = ({
   author,
   last_message,
 }: ForumTopicType) => {
-  topic = stringShorten(topic, MAX_TOPIC_LENGTH);
-  last_message = stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH);
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+
+  const topicInfo = {
+    id,
+    topic,
+  };
 
   return (
-    <StTableTopic data-topic={id}>
-      <StTableCell css={hoverStyle}>
-        <StDeleteTopicButton>
-          <StDeleteTopicIcon>
-            <use href="/assets/icons/icons_sprite.svg#icon-basket"></use>
-          </StDeleteTopicIcon>
-        </StDeleteTopicButton>
-      </StTableCell>
-      <StTableCell css={textAlignLeft}>{topic}</StTableCell>
-      <StTableCell>{total_messages}</StTableCell>
-      <StTableCell>{author}</StTableCell>
-      <StTableCell css={fontStyle}>{last_message}</StTableCell>
-    </StTableTopic>
+    <>
+      <StTableTopic data-topic={id}>
+        <StTableCell css={hoverStyle}>
+          <StDeleteTopicButton onClick={handleOpenModal}>
+            <StDeleteTopicIcon>
+              <use href="/assets/icons/icons_sprite.svg#icon-basket"></use>
+            </StDeleteTopicIcon>
+          </StDeleteTopicButton>
+        </StTableCell>
+        <StTableCell css={textAlignLeft}>
+          {stringShorten(topic, MAX_TOPIC_LENGTH)}
+        </StTableCell>
+        <StTableCell>{total_messages}</StTableCell>
+        <StTableCell>{author}</StTableCell>
+        <StTableCell css={fontStyle}>
+          {stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)}
+        </StTableCell>
+      </StTableTopic>
+
+      {isOpen && (
+        <Modal title="Удалить тему?" styles={addTopicModalStyles}>
+          <DeleteTopic
+            topicInfo={topicInfo}
+            handleCloseModal={handleCloseModal}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 
