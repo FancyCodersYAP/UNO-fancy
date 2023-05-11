@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from './User/userSlice';
 import { IUser } from './types';
+import leaderboardSlice from './Leaderboard/leaderboardSlice';
 
 const rootReducer = combineReducers({
   USER: userSlice,
+  LEADERBOARD: leaderboardSlice,
 });
 
 interface IUserService {
