@@ -13,10 +13,6 @@ import {
   StMessageText,
   StAnswer,
 } from './style';
-import Modal from 'components/Modal';
-import useModal from 'hooks/useModal';
-import AddAnswer from 'components/AddAnswer/AddAnswer';
-import { addAnswerModalStyles } from './ForumTopic';
 
 const MAX_ANSWER_LENGTH = 20;
 
@@ -32,8 +28,9 @@ interface TopicMessage {
   author: string;
   rank: string;
   answer?: Answer;
-  messages: string;
+  message: string;
   date: string;
+  clickOnMessageButon: (evt: React.SyntheticEvent<HTMLElement>) => void;
 }
 
 const flexStyles = css`
@@ -47,13 +44,12 @@ const TopicMessage = ({
   author,
   rank,
   answer,
-  messages,
+  message,
   date,
+  clickOnMessageButon,
 }: TopicMessage) => {
-  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-
   return (
-    <StMessage id={String(id)} data-message={id}>
+    <StMessage id={String(id)} data-message={id} onClick={clickOnMessageButon}>
       <StUser css={flexStyles}>
         <StMessageAvatar image={avatar} />
         <StUserInfo>
@@ -70,20 +66,12 @@ const TopicMessage = ({
               "
             </StAnswer>
           )}
-          <StMessageText>{messages}</StMessageText>
+          <StMessageText>{message}</StMessageText>
         </div>
 
-        <StButtonReply onClick={handleOpenModal} disignType="secondary">
-          ответить
-        </StButtonReply>
+        <StButtonReply disignType="secondary">ответить</StButtonReply>
         <StTopicDate>тема создана: {date}</StTopicDate>
       </StMessageWrapper>
-
-      {isOpen && (
-        <Modal title={`Ответ ${author}`} styles={addAnswerModalStyles}>
-          <AddAnswer handleCloseModal={handleCloseModal} />
-        </Modal>
-      )}
     </StMessage>
   );
 };
