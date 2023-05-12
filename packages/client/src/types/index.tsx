@@ -7,14 +7,18 @@ export interface FormConfigType {
   required: boolean;
   value?: string;
   type: string;
+  placeholder?: string;
+  textarea?: boolean;
 }
 
 export interface PlayerType {
-  id: string;
-  name: string;
+  game_id: number;
+  username: string;
   avatar?: string;
   score: number;
-  time: string;
+  wins_2: number;
+  wins_4: number;
+  total_wins: number;
 }
 
 export interface SvgIconProps {
