@@ -32,7 +32,10 @@ jobs:
           POSTGRES_PORT: 5432
           APP_HOSTNAME: uno-fancy
           POSTGRES_HOST: localhost
+
         run: |
+          pwd 
+          ls -lha
           docker compose build
           docker tag prackicum-server:latest cr.yandex/$CR_REGISTRY/prackicum-server
           docker push cr.yandex/$CR_REGISTRY/prackicum-server
