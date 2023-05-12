@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchRegistration } from '../../store/User/auth/actions';
 import { userState } from '../../hooks/userState';
 import { registrationConfig } from '../configs';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 export interface RegFormParams extends FieldValues {
   first_name: string;
@@ -27,6 +28,7 @@ export const gap25 = css`
 `;
 
 const RegistrationPage: FC = () => {
+  useTitle(TITLES.registration);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -22,6 +22,7 @@ import StatusBar from 'components/StatusBar/StatusBar';
 import { PlayModal } from './PlayModal';
 import { StGameFlex } from './style';
 import { PUT_LEADERBOARD_DATA } from 'store/constants';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const modalWidth = css`
   width: 700px;
@@ -32,6 +33,7 @@ const modalPadding = css`
 `;
 
 export function GamePage() {
+  useTitle(TITLES.game);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

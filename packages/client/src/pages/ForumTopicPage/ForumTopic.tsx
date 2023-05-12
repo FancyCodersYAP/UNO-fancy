@@ -20,12 +20,15 @@ import {
   StTopicDiscussion,
 } from './style';
 import useModal from 'hooks/useModal';
+import { useTitle } from 'utils/useTitle';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
 `;
 
 const ForumTopic = () => {
+  // TODO: заменить тестовые данные на данные с сервера
+  useTitle(testTopicData.topicName);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   return (
