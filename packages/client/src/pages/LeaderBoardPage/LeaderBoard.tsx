@@ -21,8 +21,10 @@ import {
 import BoardItem from './BoardItem';
 import { leaderboardList } from 'hooks/leaderboardState';
 import { fetchLeaderboard } from 'store/Leaderboard/actions';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const LeaderBoard: FC = () => {
+  useTitle(TITLES.leaderboard);
   const dispatch = useAppDispatch();
   const [hasScroll, setScrollPresence] = useState(true);
 

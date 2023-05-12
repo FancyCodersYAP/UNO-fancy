@@ -17,6 +17,7 @@ import {
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
+import { useTitle, TITLES } from 'utils/useTitle';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -28,6 +29,7 @@ const addTopicModalStyles = css`
 `;
 
 const ForumPage = () => {
+  useTitle(TITLES.forum);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   const navigate = useNavigate();

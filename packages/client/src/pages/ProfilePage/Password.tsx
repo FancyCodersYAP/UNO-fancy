@@ -11,8 +11,10 @@ import { useAppDispatch } from '../../hooks/redux';
 import { fetchPassChange } from '../../store/User/profile/actions';
 import { userState } from '../../hooks/userState';
 import ProfileAvatar from './ProfileAvatar';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const Password: FC = () => {
+  useTitle(TITLES.password);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = userState();

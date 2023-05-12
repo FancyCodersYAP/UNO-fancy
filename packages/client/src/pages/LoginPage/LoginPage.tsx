@@ -13,6 +13,7 @@ import { userState } from '../../hooks/userState';
 
 import { loginConfig } from '../configs';
 import { fetchOauthServiceIdGet } from '../../store/User/oauth/actions';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 export interface LoginFormParams extends FieldValues {
   first_name: string;
@@ -20,6 +21,7 @@ export interface LoginFormParams extends FieldValues {
 }
 
 const LoginPage: FC = () => {
+  useTitle(TITLES.login);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
