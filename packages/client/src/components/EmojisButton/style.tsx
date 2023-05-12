@@ -3,9 +3,11 @@ import { StButton } from 'components/Button/style';
 
 export const StEmojiWrapper = styled.div`
   position: absolute;
-  bottom: 36%;
+  bottom: 9px;
   z-index: 100;
-  right: 14%;
+  right: 15px;
+  background-color: ${props => props.theme?.COLOR_BACKGROUND_SECONDARY};
+  border-radius: 50%;
 `;
 
 export const StButtonEmoji = styled(StButton)`
@@ -16,8 +18,11 @@ export const StButtonEmoji = styled(StButton)`
 export const StSmileIcon = styled.svg`
   width: 36px;
   height: 36px;
-  color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
   filter: opacity(50%);
+
+  &:hover {
+    color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
+  }
 `;
 
 export const StEmojiContainer = styled.ul`
