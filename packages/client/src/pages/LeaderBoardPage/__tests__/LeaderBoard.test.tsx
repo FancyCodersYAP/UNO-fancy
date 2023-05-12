@@ -1,84 +1,35 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import LeaderBoard from '../LeaderBoard';
-import { setupStore } from '../../../store/store';
-import { UserService } from 'api/UserService';
-import { YandexAPIRepository } from '../../../repository/YandexAPIRepository';
-import { Provider } from 'react-redux';
+import { renderWithProviders } from 'utils/test-utils';
 
-const store = setupStore(new UserService(new YandexAPIRepository()));
+const players = [
+  {
+    data: {
+      game_id: 112568,
+      username: 'Player1',
+      avatar: undefined,
+      score: 16,
+      wins_2: 3,
+      wins_4: 4,
+      total_wins: 7,
+    },
+  },
+  {
+    data: {
+      game_id: 285398,
+      username: 'Player2',
+      avatar:
+        '/0017fa8c-2b6f-4f70-9c94-11a70362be4c/c57d9e3d-33d2-41de-b529-9c52c55852c8_icons8-фламинго-96.png',
+      score: 70,
+      wins_2: 6,
+      wins_4: 5,
+      total_wins: 11,
+    },
+  },
+];
 
-// const players = [
-//   {
-//     id: '1',
-//     name: 'Ivan',
-//     score: 115,
-//     time: '1:15',
-//   },
-//   {
-//     id: '2',
-//     name: 'Roman',
-//     score: 318,
-//     time: '2:45',
-//   },
-//   {
-//     id: '3',
-//     name: 'Ksenia',
-//     score: 760,
-//     time: '3:05',
-//   },
-// ];
-
-// jest.mock('lodash/orderBy', () => ({
-//   default: jest.fn(fn => fn),
-// }));
-
-// jest.mock('react', () => ({
-//   ...jest.requireActual('react'),
-//   useState: jest
-//     .fn()
-//     .mockReturnValueOnce([[], jest.fn()])
-//     .mockReturnValueOnce([
-//       [
-//         {
-//           id: '1',
-//           name: 'Ivan',
-//           score: 115,
-//           time: '1:15',
-//         },
-//       ],
-//       jest.fn(),
-//     ])
-//     .mockReturnValueOnce([
-//       [
-//         {
-//           id: '1',
-//           name: 'Ivan',
-//           score: 115,
-//           time: '1:15',
-//         },
-//         {
-//           id: '2',
-//           name: 'Roman',
-//           score: 318,
-//           time: '2:45',
-//         },
-//         {
-//           id: '3',
-//           name: 'Ksenia',
-//           score: 760,
-//           time: '3:05',
-//         },
-//       ],
-//       jest.fn(),
-//     ]),
-// }));
-
-test('should render placeholder', () => {
-  render(
-    <Provider store={store}>
-      <LeaderBoard />
-    </Provider>
-  );
+test('should render placeholder', async () => {
+  renderWithProviders(<LeaderBoard />);
 
   const placeholder = screen.getByText(
     /данных для рейтинга пока недостаточно/i
@@ -87,24 +38,34 @@ test('should render placeholder', () => {
   expect(placeholder).toBeInTheDocument();
 });
 
-// test('should render leaderboard', () => {
-//   render(<LeaderBoard />);
+test('should render leaderboard', () => {
+  renderWithProviders(<LeaderBoard />, {
+    preloadedState: {
+      LEADERBOARD: { leaderList: players, isLoading: false, error: '' },
+    },
+  });
 
-//   const heading = screen.getByRole('heading', { name: /рейтинг игроков/i });
+  const heading = screen.getByRole('heading', { name: /рейтинг игроков/i });
 
-//   expect(heading).toBeInTheDocument();
-// });
+  expect(heading).toBeInTheDocument();
+});
 
-// test('should render all players', () => {
-//   render(<LeaderBoard />);
+test('should render all players', () => {
+  renderWithProviders(<LeaderBoard />, {
+    preloadedState: {
+      LEADERBOARD: { leaderList: players, isLoading: false, error: '' },
+    },
+  });
 
-//   for (const player of players) {
-//     const name = screen.getByText(player.name);
-//     const score = screen.getByText(player.score);
-//     const time = screen.getByText(player.time);
+  for (const player of players) {
+    const name = screen.getByText(player.data.username);
+    const score = screen.getByText(player.data.score);
+    const wins2 = screen.getByText(player.data.wins_2);
+    const wins4 = screen.getByText(player.data.wins_4);
 
-//     expect(name).toBeInTheDocument();
-//     expect(score).toBeInTheDocument();
-//     expect(time).toBeInTheDocument();
-//   }
-// });
+    expect(name).toBeInTheDocument();
+    expect(score).toBeInTheDocument();
+    expect(wins2).toBeInTheDocument();
+    expect(wins4).toBeInTheDocument();
+  }
+});

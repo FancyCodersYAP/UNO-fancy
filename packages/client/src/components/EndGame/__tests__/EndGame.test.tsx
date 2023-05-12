@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import EndGame from '../EndGame';
+import { EndGameType } from '../types';
 
-const initialProps = {
+const initialProps: EndGameType = {
   time: '1:15',
   countPlace: 2,
   points: 1150,
@@ -15,7 +16,7 @@ describe('EndGame', () => {
   test('should render EndGame component', () => {
     render(<EndGame {...initialProps} />);
 
-    const image = screen.getByRole('img', { name: /медаль/i });
+    const image = screen.getByTestId('medal icon');
     const timeParagraph = screen.getByText(/время игры: 1:15/i);
     const playersParagraph = screen.getByText(/игроков/i);
     const scoreParagraph = screen.getByText(/очки/i);
