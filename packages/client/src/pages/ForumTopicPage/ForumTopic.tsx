@@ -107,7 +107,7 @@ const ForumTopic = () => {
 
       {isOpen && (
         <Modal title="Сообщение" styles={addAnswerModalStyles}>
-          <AddAnswer handleCloseTopic={handleCloseModal} userInfo={userInfo} />
+          <AddAnswer handleCloseModal={handleCloseModal} userInfo={userInfo} />
         </Modal>
       )}
     </StBoard>

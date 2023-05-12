@@ -7,24 +7,35 @@ import {
 } from './style';
 import { SetStateAction, Dispatch } from 'react';
 import { emojiArray } from 'data/emojis';
+import { MutableRefObject } from 'react';
 
 interface EmojisButtonType {
   handleEmoji: () => void;
   isOpen: boolean;
-  setText: Dispatch<SetStateAction<string>>;
+  textAreaRef: MutableRefObject<HTMLTextAreaElement | null>;
+  setTextareaLength: Dispatch<SetStateAction<number>>;
 }
 
-const EmojisButton = ({ handleEmoji, isOpen, setText }: EmojisButtonType) => {
+const EmojisButton = ({
+  handleEmoji,
+  isOpen,
+  textAreaRef,
+  setTextareaLength,
+}: EmojisButtonType) => {
   const clickOnEmoji = (evt: React.SyntheticEvent<HTMLElement>) => {
-    const target = evt.target as HTMLElement;
-    const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
-    textarea.value = textarea.value + target.textContent;
-    setText(textarea.value);
+    if (textAreaRef.current) {
+      if (textAreaRef.current.value.length >= 255) return;
+      const target = evt.target as HTMLElement;
+      textAreaRef.current.value =
+        textAreaRef.current.value + target.textContent;
+      localStorage.setItem('textareaValue', textAreaRef.current.value);
+      setTextareaLength(textAreaRef.current.value.length);
+    }
   };
 
   return (
     <StEmojiWrapper>
-      <StButtonEmoji onClick={handleEmoji}>
+      <StButtonEmoji type="button" onClick={handleEmoji}>
         <StSmileIcon>
           <use href="/assets/icons/icons_sprite.svg#icon-smile"></use>
         </StSmileIcon>
