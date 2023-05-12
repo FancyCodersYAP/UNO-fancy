@@ -49,6 +49,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
           POSTGRES_PORT: 5432
+          APP_HOSTNAME: uno-fancy
         # Всё описание выше было лишь подготовкой
         # Тем не менее, оставшиеся шаги более не должны вызывать вопросы
         run: |
