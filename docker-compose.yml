@@ -10,8 +10,6 @@ services:
             dockerfile: Dockerfile.server
             args:
               SERVER_PORT: ${SERVER_PORT}
-        env_file:
-          - .env
         ports:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
