@@ -1,20 +1,6 @@
 version: "3.9"
 
 services:
-#    client:
-#        image: prakticum-client
-#        tty: true
-#        build:
-#            context: .
-#            dockerfile: Dockerfile.client
-#        restart: always
-#        ports:
-#        - "80:80"
-#        - "443:443"
-#        networks:
-#          - mynet
-#        depends_on:
-#          - server
 
     server:
         restart: always
