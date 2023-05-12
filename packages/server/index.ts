@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import app from './app/app';
 import { startSSR } from './ssr';
 import { initPostgresDBConnection } from './database/dataBaseConnect';
+import { Logger } from 'sequelize/types/utils/logger';
 
 dotenv.config();
 
@@ -11,3 +12,4 @@ app.listen(port, () => {
 });
 initPostgresDBConnection();
 startSSR();
+console.log('test');
