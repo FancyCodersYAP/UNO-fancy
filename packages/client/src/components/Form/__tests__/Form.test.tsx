@@ -1,11 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
-import { Provider } from 'react-redux';
 import { ValidationType } from 'utils/constants';
 import Form from '../Form';
-import { setupStore } from '../../../store/store';
-import { UserService } from 'api/UserService';
-import { YandexAPIRepository } from '../../../repository/YandexAPIRepository';
+import { renderWithProviders } from 'utils/test-utils';
 
 const initialProps = {
   fields: [
@@ -28,15 +25,9 @@ const initialProps = {
   footer: <button type="submit">Submit</button>,
 };
 
-const store = setupStore(new UserService(new YandexAPIRepository()));
-
 describe('Form', () => {
   test('should render form', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <Form {...initialProps} />
-      </Provider>
-    );
+    const { container } = renderWithProviders(<Form {...initialProps} />);
 
     const form = container.querySelector('form');
 
@@ -44,11 +35,7 @@ describe('Form', () => {
   });
 
   test('should render title', () => {
-    render(
-      <Provider store={store}>
-        <Form {...initialProps} title="Регистрация" />
-      </Provider>
-    );
+    renderWithProviders(<Form {...initialProps} title="Регистрация" />);
 
     const title = screen.getByText(/регистрация/i);
 
@@ -56,11 +43,7 @@ describe('Form', () => {
   });
 
   test('should NOT render title', () => {
-    render(
-      <Provider store={store}>
-        <Form {...initialProps} />
-      </Provider>
-    );
+    renderWithProviders(<Form {...initialProps} />);
 
     const title = screen.queryByText(/регистрация/i);
 
@@ -68,11 +51,7 @@ describe('Form', () => {
   });
 
   test('should call handleSubmit function', async () => {
-    render(
-      <Provider store={store}>
-        <Form {...initialProps} />
-      </Provider>
-    );
+    renderWithProviders(<Form {...initialProps} />);
 
     const loginInput = screen.getByRole('textbox', { name: /login/i });
     const emailInput = screen.getByRole('textbox', { name: /email/i });
