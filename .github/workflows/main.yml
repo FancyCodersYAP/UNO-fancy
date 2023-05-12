@@ -28,11 +28,8 @@ jobs:
         env:
 
           CR_REGISTRY: crp6fnmeivmbct5c1gi5
-				
           CR_REPOSITORY: UNO-fancy
-					
-          IMAGE_TAG: ${{ github.sha }}
-					
+          IMAGE_TAG: ${{ github.sha }}	
           CLIENT_PORT: 3001
           SERVER_PORT: 3000
           POSTGRES_USER: postgres
