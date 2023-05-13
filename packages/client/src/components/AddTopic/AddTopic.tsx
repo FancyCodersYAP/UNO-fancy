@@ -5,7 +5,8 @@ import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks/redux';
-import { fetchForumTopicPost } from '../../store/Forum/forumActions';
+import { fetchForumTopicPost } from 'store/Forum/forumActions';
+
 const buttonStyle = css`
   width: 200px;
   margin: 0;
@@ -33,7 +34,7 @@ const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
   const dispatch = useAppDispatch();
 
-  const handleLogin = (data: TopicFormParams): void => {
+  const submitNewTopic = (data: TopicFormParams): void => {
     dispatch(fetchForumTopicPost(data)).then(action => {
       if ('error' in action && action.error) return;
       handleCloseModal();
@@ -42,7 +43,12 @@ const AddTopic = (props: AddTopicType) => {
 
   const footer = (
     <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
-      <Button css={buttonStyle} text="Создать" type="submit" />
+      <Button
+        css={buttonStyle}
+        text="Создать"
+        type="submit"
+        disignType="primary"
+      />
       <Button
         css={buttonStyle}
         text="Отмена"
@@ -53,13 +59,11 @@ const AddTopic = (props: AddTopicType) => {
   );
 
   return (
-    <>
-      <StTopicForm
-        fields={addTopicConfig}
-        handleFormSubmit={handleLogin}
-        footer={footer}
-      />
-    </>
+    <StTopicForm
+      fields={addTopicConfig}
+      handleFormSubmit={submitNewTopic}
+      footer={footer}
+    />
   );
 };
 

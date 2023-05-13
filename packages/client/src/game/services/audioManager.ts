@@ -97,8 +97,10 @@ export const audioManager = () => {
       }
     }
 
-    play(audioList['finish'].audio);
-    audioList['finish'].isPlaying = true;
+    if (audioList['finish']) {
+      play(audioList['finish'].audio);
+      audioList['finish'].isPlaying = true;
+    }
   };
 
   return {

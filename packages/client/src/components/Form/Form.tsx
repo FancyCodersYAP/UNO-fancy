@@ -5,6 +5,7 @@ import { CSSProp } from 'styled-components';
 import { StFormContainer } from 'styles/global';
 
 import Input from 'components/Input';
+import Textarea from 'components/Textarea/Textarea';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
 import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
@@ -68,17 +69,27 @@ const Form: FC<FormProps> = ({
 
       <form onSubmit={handleSubmit(handleFormSubmit)} onClick={errorCancel}>
         <StFieldList css={fieldListCss}>
-          {fields.map(({ name, ...rest }) => (
-            <Input
-              key={`input-${name}`}
-              register={register}
-              error={!!errors[name]?.message}
-              errorMessage={errors[name]?.message?.toString()}
-              inputCss={inputCss}
-              name={name}
-              {...rest}
-            />
-          ))}
+          {fields.map(({ name, textarea, ...rest }) =>
+            textarea ? (
+              <Textarea
+                key={`textarea-${name}`}
+                register={register}
+                error={!!errors[name]?.message}
+                errorMessage={errors[name]?.message?.toString()}
+                name={name}
+                {...rest}></Textarea>
+            ) : (
+              <Input
+                key={`input-${name}`}
+                register={register}
+                error={!!errors[name]?.message}
+                errorMessage={errors[name]?.message?.toString()}
+                inputCss={inputCss}
+                name={name}
+                {...rest}
+              />
+            )
+          )}
         </StFieldList>
         {footer}
         <FormError>{userError}</FormError>

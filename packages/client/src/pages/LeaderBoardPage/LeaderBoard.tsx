@@ -1,8 +1,12 @@
-import { FC } from 'react';
-import orderBy from 'lodash/orderBy';
+import { FC, useEffect, useRef, useState } from 'react';
+import { css } from 'styled-components';
 
 import { isArrayAndHasItems } from 'utils';
-import { PlayerType } from 'types';
+import { useAppDispatch } from 'hooks/redux';
+
+const marginBottom40px = css`
+  margin: 0 0 40px;
+`;
 
 import {
   StBoard,
@@ -11,29 +15,61 @@ import {
   StHead,
   StBody,
   StPlaceholder,
+  StWinsColumnsHead,
+  StHeadChild,
 } from './style';
 import BoardItem from './BoardItem';
+import { leaderboardList } from 'hooks/leaderboardState';
+import { fetchLeaderboard } from 'store/Leaderboard/actions';
 
 const LeaderBoard: FC = () => {
-  const players: PlayerType[] = [];
+  const dispatch = useAppDispatch();
+  const [hasScroll, setScrollPresence] = useState(true);
 
-  const sortedPlayers = orderBy(players, 'score', 'desc');
+  const { leaders } = leaderboardList();
+
+  const displayedPlayersNum = 50;
+  const topPlayers = leaders.slice(0, displayedPlayersNum);
+
+  const tableBodyRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    dispatch(fetchLeaderboard());
+  }, []);
+
+  useEffect(() => {
+    const tableBody = tableBodyRef.current;
+
+    if (tableBody?.scrollHeight === tableBody?.offsetHeight) {
+      setScrollPresence(false);
+    } else {
+      setScrollPresence(true);
+    }
+  }, [topPlayers.length]);
 
   return (
     <StBoard>
-      {isArrayAndHasItems(sortedPlayers) ? (
+      {isArrayAndHasItems(topPlayers) ? (
         <>
-          <StTitle>Рейтинг игроков</StTitle>
-          <StTable>
+          <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
+          <StTable hasScroll={hasScroll}>
             <StHead>
-              <div>#</div>
-              <div>Игрок</div>
-              <div>Время</div>
-              <div>Очки</div>
+              <StHeadChild>#</StHeadChild>
+              <StHeadChild>Игрок</StHeadChild>
+              <StHeadChild>Очки</StHeadChild>
+              <StWinsColumnsHead>
+                <StHeadChild>Победы</StHeadChild>
+                <StHeadChild>2 игрока</StHeadChild>
+                <StHeadChild>4 игрока</StHeadChild>
+              </StWinsColumnsHead>
             </StHead>
-            <StBody>
-              {sortedPlayers.map((player, index) => (
-                <BoardItem key={player.id} place={index + 1} {...player} />
+            <StBody ref={tableBodyRef} hasScroll={hasScroll}>
+              {topPlayers.map((player, index) => (
+                <BoardItem
+                  key={player.data.game_id}
+                  place={index + 1}
+                  {...player.data}
+                />
               ))}
             </StBody>
           </StTable>

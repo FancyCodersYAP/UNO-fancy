@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from './User/userSlice';
 import { IUser } from './types';
 import forumSlice from './Forum/forumSlice';
+import leaderboardSlice from './Leaderboard/leaderboardSlice';
 
 const rootReducer = combineReducers({
   USER: userSlice,
   FORUM: forumSlice,
+  LEADERBOARD: leaderboardSlice,
 });
 
 interface IUserService {
