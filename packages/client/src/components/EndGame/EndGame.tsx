@@ -1,17 +1,8 @@
 import Button from 'components/Button';
-import medalIcon from '/assets/icons/medal.svg';
 import { StFlex, StFlexBg } from 'styles/global';
-import { StEndGameTextWrapper } from './style';
+import { StEndGameTextWrapper, StMedalIcon } from './style';
 import EndGameText from './EndGameText';
-
-interface EndGameType {
-  time: string;
-  countPlace: number;
-  points: number;
-  result: string;
-  reactivateGame: () => void;
-  navigateToMain: () => void;
-}
+import { EndGameType } from './types';
 
 const EndGame = ({
   time,
@@ -28,7 +19,11 @@ const EndGame = ({
       borderRadius={20}
       padding={25}
       marginBottom={50}>
-      <img src={medalIcon} alt="Медаль" width={152} height={216} />
+      <StMedalIcon
+        data-testid="medal icon"
+        isWin={result === 'Победа' ? true : false}>
+        <use href="/assets/icons/icons_sprite.svg#medal"></use>
+      </StMedalIcon>
       <StEndGameTextWrapper>
         <EndGameText text={`время игры: ${time}`} />
         <EndGameText text={`игроков: ${countPlace}`} />
