@@ -1,4 +1,4 @@
-import { FC, TextareaHTMLAttributes } from 'react';
+import { FC, TextareaHTMLAttributes, useCallback, FormEvent } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import {
   StTextarea,
@@ -52,7 +52,6 @@ const Textarea: FC<TextareaProps> = ({
     const textarea = textAreaRef.current;
     handleCloseModal();
     if (textarea) {
-      localStorage.setItem('textareaValue', textarea.value);
       setTextareaLength(textarea.value.length);
       if (!(textarea?.scrollHeight === textarea?.offsetHeight)) {
         textarea.style.borderRadius = `${BORDER_RADIUS_SIZE} 5px 5px ${BORDER_RADIUS_SIZE}`;
@@ -63,10 +62,6 @@ const Textarea: FC<TextareaProps> = ({
   };
 
   const handleEmoji = () => {
-    if (textAreaRef.current) {
-      localStorage.setItem('textareaValue', textAreaRef.current.value);
-    }
-
     if (isOpen) {
       handleCloseModal();
     } else {
@@ -74,8 +69,19 @@ const Textarea: FC<TextareaProps> = ({
     }
   };
 
+  const messageChange = useCallback(
+    (event: FormEvent<HTMLDivElement>): void => {
+      const target = event.target as HTMLElement;
+      const textarea = target.closest('textarea');
+      if (textAreaRef.current && textarea) {
+        textAreaRef.current.value = textarea.value;
+      }
+    },
+    [textAreaRef]
+  );
+
   return (
-    <StTextareaContainer>
+    <StTextareaContainer onChange={messageChange}>
       <StTextareaLengthMessage>{textareaLength}/255</StTextareaLengthMessage>
       <EmojisButton
         handleEmoji={handleEmoji}
