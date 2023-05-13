@@ -18,11 +18,14 @@ export class YandexAPIRepository {
   constructor(private _cookieHeader: string | undefined) {}
 
   async getCurrent(): Promise<IUser | unknown> {
-    const { data } = await axios.get(`${API_ROOT}/auth/user`, {
+    const res = await axios.get(`${API_ROOT}/auth/user`, {
       headers: {
         cookie: this._cookieHeader,
       },
     });
+    const { data } = res;
+    console.log('auth data', res);
+
     if (data?.id) {
       //TODO подумать над проверкой
       try {
