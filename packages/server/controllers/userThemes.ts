@@ -2,7 +2,7 @@ import { UserThemes } from '../models/UserThemes';
 import { Themes } from '../models/Themes';
 
 export const themeGet = async (user_id: string) => {
-  return await UserThemes.findOne({
+  return UserThemes.findOne({
     where: { user_id },
     include: [{ model: Themes, attributes: ['theme_name'] }],
   });
