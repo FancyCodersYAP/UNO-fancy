@@ -6,6 +6,7 @@ import {
 } from 'styles/variables/colors-const';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { AvatarType } from 'types';
+import { API_ENDPOINTS } from '../../store/constants';
 
 export const stBoardStyle = css`
   min-width: 1128px;
@@ -43,10 +44,13 @@ export const StUser = styled.div`
 
 export const StUserAvatar = styled.div<AvatarType>`
   position: relative;
-  width: 90px;
-  height: 90px;
+  padding: 45px;
+  //height: 90px;
   background: ${({ image }) =>
-    `url(${image || '/assets/icons/default-avatar.svg'}) center no-repeat`};
+    `url(${
+      (image && API_ENDPOINTS.resources + image) ||
+      '/assets/icons/default-avatar.svg'
+    }) center no-repeat`};
   background-color: ${props => props?.theme.COLOR_BACKGROUND_SECONDARY};
   background-size: ${({ image }) => (image ? 'cover' : 'auto')};
   border-radius: 50%;
@@ -56,6 +60,7 @@ export const StUserAvatar = styled.div<AvatarType>`
 
 export const StUserInfo = styled.div`
   width: min-content;
+  margin-left: 10px;
 `;
 
 export const StUserName = styled.p`
@@ -146,11 +151,12 @@ export const StMessage = styled.div`
 `;
 
 export const StMessageAvatar = styled(StUserAvatar)`
-  width: 50px;
-  height: 50px;
-  margin-right: 12px;
+  padding: 25px;
+  //width: 50px;
+  //height: 50px;
+  //margin-right: 12px;
   margin-bottom: 0;
-  background-size: 20px;
+  //background-size: 20px;
 `;
 
 export const StMessageWrapper = styled.div`
