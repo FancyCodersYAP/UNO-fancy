@@ -90,15 +90,20 @@ export const StButtonBackIcon = styled.svg`
 
 export const StButtonBackToProfile = styled(StButton)`
   position: absolute;
-  left: 36px;
+  left: 26px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
   background-color: initial;
   border: none;
   box-shadow: none;
+  padding: 10px;
 
   &:hover svg {
     filter: drop-shadow(${BOX_SHADOW});
+  }
+
+  &&:active {
+    transform: translateY(-50%);
   }
 `;
