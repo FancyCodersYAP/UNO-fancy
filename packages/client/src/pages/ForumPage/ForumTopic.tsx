@@ -6,13 +6,14 @@ import {
   StDeleteTopicIcon,
 } from './style';
 import { css } from 'styled-components';
+import { IUserForum } from '../../store/types';
 
 interface ForumTopicType {
   id: number;
-  topic: string;
+  name: string;
   total_messages: number;
-  author: string;
-  last_message: string;
+  user: IUserForum;
+  last_message: string | null;
 }
 
 const MAX_TOPIC_LENGTH = 35;
@@ -45,14 +46,15 @@ const hoverStyle = css`
 
 const ForumTopic = ({
   id,
-  topic,
+  name,
+  user,
   total_messages,
-  author,
   last_message,
 }: ForumTopicType) => {
-  topic = stringShorten(topic, MAX_TOPIC_LENGTH);
-  last_message = stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH);
-
+  name = stringShorten(name, MAX_TOPIC_LENGTH);
+  last_message = last_message
+    ? stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)
+    : '...';
   return (
     <StTableTopic data-topic={id}>
       <StTableCell css={hoverStyle}>
@@ -62,10 +64,18 @@ const ForumTopic = ({
           </StDeleteTopicIcon>
         </StDeleteTopicButton>
       </StTableCell>
-      <StTableCell css={textAlignLeft}>{topic}</StTableCell>
-      <StTableCell>{total_messages}</StTableCell>
-      <StTableCell>{author}</StTableCell>
-      <StTableCell css={fontStyle}>{last_message}</StTableCell>
+      <StTableCell css={textAlignLeft}>
+        <p>{name}</p>
+      </StTableCell>
+      <StTableCell>
+        <p>{total_messages}</p>
+      </StTableCell>
+      <StTableCell>
+        <p>{user.display_name}</p>
+      </StTableCell>
+      <StTableCell css={fontStyle}>
+        <p>{last_message}</p>
+      </StTableCell>
     </StTableTopic>
   );
 };
