@@ -144,7 +144,7 @@ export const addTopicConfig: FormConfigType[] = [
   {
     name: 'description',
     label: 'Описание темы',
-    pattern: ValidationType.ToopicMessage,
+    pattern: ValidationType.ToopicDescription,
     required: true,
     type: 'text',
     placeholder: 'Описание темы',

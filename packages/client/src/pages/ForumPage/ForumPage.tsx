@@ -109,11 +109,7 @@ const ForumPage = () => {
       </StTable>
 
       {isOpen && (
-        <Modal
-          title="Создание темы"
-          styles={addTopicModalStyles}
-          handleCloseModal={handleCloseModal}
-          canBeClosedOutside>
+        <Modal title="Создание темы" styles={addTopicModalStyles}>
           <AddTopic handleCloseModal={handleCloseModal} />
         </Modal>
       )}

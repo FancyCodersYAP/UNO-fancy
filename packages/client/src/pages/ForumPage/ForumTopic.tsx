@@ -52,8 +52,9 @@ const ForumTopic = ({
   last_message,
 }: ForumTopicType) => {
   name = stringShorten(name, MAX_TOPIC_LENGTH);
-  last_message = stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH);
-
+  last_message = last_message
+    ? stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)
+    : '...';
   return (
     <StTableTopic data-topic={id}>
       <StTableCell css={hoverStyle}>
