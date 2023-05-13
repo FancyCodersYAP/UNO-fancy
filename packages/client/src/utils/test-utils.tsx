@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import type { AppStore, RootState } from 'store/store';
 import userSlice from 'store/User/userSlice';
 import leaderboardSlice from 'store/Leaderboard/leaderboardSlice';
+import forumSlice from 'store/Forum/forumSlice';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>;
@@ -17,7 +18,11 @@ export function renderWithProviders(
   {
     preloadedState = {},
     store = configureStore({
-      reducer: { USER: userSlice, LEADERBOARD: leaderboardSlice },
+      reducer: {
+        USER: userSlice,
+        FORUM: forumSlice,
+        LEADERBOARD: leaderboardSlice,
+      },
       preloadedState,
     }),
     ...renderOptions

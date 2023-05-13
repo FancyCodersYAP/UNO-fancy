@@ -53,7 +53,7 @@ function App() {
         />
         <Route path={AppRoute.LEADERBOARD} element={<LeaderBoard />} />
         <Route path={AppRoute.FORUM} element={<ForumPage />} />
-        <Route path={`${AppRoute.FORUM}/:id`} element={<ForumTopic />} />
+        <Route path={`${AppRoute.FORUM}/:topicId`} element={<ForumTopic />} />
         <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
       </Route>
       <Route element={<GameLayout />}>
