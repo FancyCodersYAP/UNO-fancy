@@ -8,14 +8,14 @@ import {
 import { StButtonCloseModal } from 'components/Button/style';
 import { CSSProp } from 'styled-components';
 
-interface ModalType {
+type ModalType = {
   children?: ReactNode;
   title?: string;
   handleCloseModal?: () => void;
   styles?: CSSProp;
   canBeClosedOutside?: boolean;
   hasCrossButton?: boolean;
-}
+};
 
 const Modal = (props: ModalType) => {
   const {
@@ -42,8 +42,8 @@ const Modal = (props: ModalType) => {
       <StModalWrapper css={styles} onClick={stopPropagationEvent}>
         {title && <StModalTitle>{title}</StModalTitle>}
         {hasCrossButton && (
-          <StButtonCloseModal onClick={handleCloseModal}>
-            <StModalCloseIcon>
+          <StButtonCloseModal aria-label="close" onClick={handleCloseModal}>
+            <StModalCloseIcon data-testid="close icon">
               <use href="/assets/icons/icons_sprite.svg#icon-close-modal"></use>
             </StModalCloseIcon>
           </StButtonCloseModal>
