@@ -50,7 +50,7 @@ const Textarea: FC<TextareaProps> = ({
     textAreaRef.current = texteareElement;
   };
 
-  function changeTextareaBorderRadius() {
+  const changeTextareaBorderRadius = () => {
     const textarea = textAreaRef.current;
     handleCloseModal();
     if (textarea) {
@@ -62,7 +62,7 @@ const Textarea: FC<TextareaProps> = ({
         textarea.style.borderRadius = `${BORDER_RADIUS_SIZE}`;
       }
     }
-  }
+  };
 
   const handleEmoji = () => {
     if (textAreaRef.current) {

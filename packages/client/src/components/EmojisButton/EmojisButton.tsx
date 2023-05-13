@@ -24,6 +24,7 @@ const EmojisButton = ({
 }: EmojisButtonType) => {
   const clickOnEmoji = (evt: React.SyntheticEvent<HTMLElement>) => {
     if (textAreaRef.current) {
+      textAreaRef.current.focus();
       if (textAreaRef.current.value.length >= 255) return;
       const target = evt.target as HTMLElement;
       textAreaRef.current.value =
