@@ -1,4 +1,5 @@
 type TestTopic = {
+  topicId: number;
   avatar?: string;
   author: string;
   rank: string;
@@ -8,6 +9,7 @@ type TestTopic = {
 };
 
 export const testTopicData: TestTopic = {
+  topicId: 1,
   author: 'Алексей',
   rank: 'игрок',
   topicName: 'Стратегии в UNO',

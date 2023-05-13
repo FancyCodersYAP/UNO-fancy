@@ -27,6 +27,7 @@ const AddTopic = ({ handleCloseModal }: AddTopicType) => {
   const submitNewTopic = (data: TopicFormParams): void => {
     // временный код для проверки данных
     console.log(data);
+    handleCloseModal();
   };
 
   const footer = (
@@ -39,6 +40,7 @@ const AddTopic = ({ handleCloseModal }: AddTopicType) => {
       />
       <Button
         css={buttonStyle}
+        type="reset"
         text="Отмена"
         disignType="alternate"
         onClick={handleCloseModal}

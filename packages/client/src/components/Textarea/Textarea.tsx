@@ -6,7 +6,7 @@ import {
   StTextareaLengthMessage,
 } from './style';
 import { StError } from 'components/Input/style';
-import { ValidationPattern, ValidationType } from 'utils/constants';
+import { ValidationType } from 'utils/constants';
 import { DataType } from '../Form/Form';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { useRef } from 'react';
@@ -31,7 +31,6 @@ const Textarea: FC<TextareaProps> = ({
   required,
   error,
   errorMessage,
-  pattern,
   placeholder,
 }) => {
   const [textareaLength, setTextareaLength] = useState(0);
@@ -39,7 +38,6 @@ const Textarea: FC<TextareaProps> = ({
 
   const options = {
     ...(required && { required: 'Поле не может быть пустым' }),
-    ...(pattern && { pattern: ValidationPattern[pattern] }),
   };
 
   const { ref, ...rest } = register(name, options);
