@@ -35,5 +35,5 @@ export class User extends Model {
   avatar!: string;
 
   @BelongsTo(() => Ranks, 'rank_id')
-  rank: Ranks | undefined;
+  rank?: Ranks;
 }
