@@ -6,19 +6,22 @@ import { addMessageConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
 import { buttonStyle } from 'components/AddTopic/AddTopic';
 import stringShorten from 'utils/stringShorten';
+import { fetchForumMessagePost } from 'store/Forum/messageAction';
+import { useAppDispatch } from 'hooks/redux';
 
 const MAX_ANSWER_LENGTH = 20;
 
 export type UserInfo = {
   id: number;
-  author: string;
+  user: string;
   message: string;
 };
 
 interface AddAnswerType {
+  topicId: number;
+  feedRef: React.RefObject<HTMLDivElement>;
   handleCloseModal: () => void;
   userInfo?: UserInfo;
-  topicId: number;
 }
 
 const buttonsWrapperStyle = css`
@@ -27,19 +30,29 @@ const buttonsWrapperStyle = css`
 
 export interface MessageFormParams extends FieldValues {
   content: string;
+  topic_id: number;
 }
 
-const AddAnswer = ({ handleCloseModal, userInfo, topicId }: AddAnswerType) => {
+const AddAnswer = ({
+  handleCloseModal,
+  userInfo,
+  topicId,
+  feedRef,
+}: AddAnswerType) => {
+  const dispatch = useAppDispatch();
+
   const submitNewTopicMessage = (data: MessageFormParams): void => {
     if (userInfo) {
       data.message_id = userInfo.id;
     }
     data.topic_id = topicId;
 
-    // временный код для проверки данных
-    console.log(data);
-
-    handleCloseModal();
+    dispatch(fetchForumMessagePost(data)).then(action => {
+      if ('error' in action && action.error) return;
+      handleCloseModal();
+      const feedScroll = feedRef.current?.scrollHeight || 0;
+      feedRef.current?.scroll(0, feedScroll);
+    });
   };
 
   const footer = (
@@ -65,7 +78,7 @@ const AddAnswer = ({ handleCloseModal, userInfo, topicId }: AddAnswerType) => {
       <StAnswerWrapper>
         {userInfo ? (
           <StAnswer>
-            {userInfo.author}: "
+            {userInfo.user}: "
             {stringShorten(userInfo.message, MAX_ANSWER_LENGTH)}"
           </StAnswer>
         ) : (

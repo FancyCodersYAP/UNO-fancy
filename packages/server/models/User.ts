@@ -5,7 +5,10 @@ import {
   Column,
   DataType,
   AllowNull,
+  BelongsTo,
+  Index,
 } from 'sequelize-typescript';
+import { Ranks } from './Ranks';
 
 @Table({
   tableName: 'users',
@@ -17,6 +20,10 @@ export class User extends Model {
   @Column(DataType.INTEGER)
   ya_id!: number;
 
+  @Column(DataType.INTEGER)
+  @Index
+  rank_id!: number;
+
   @AllowNull(false)
   @Column
   login!: string;
@@ -26,13 +33,7 @@ export class User extends Model {
 
   @Column
   avatar!: string;
-}
 
-export const addUserData = async (user: User) => {
-  await User.upsert({
-    ya_id: user.id,
-    login: user.login,
-    display_name: user.display_name,
-    avatar: user.avatar,
-  });
-};
+  @BelongsTo(() => Ranks, 'rank_id')
+  rank?: Ranks;
+}

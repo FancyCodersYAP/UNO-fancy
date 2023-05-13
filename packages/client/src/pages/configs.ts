@@ -43,7 +43,7 @@ export const profileConfig: FormConfigType[] = [
     pattern: ValidationType.Phone,
     required: true,
     type: 'tel',
-  }
+  },
 ];
 
 export const passwordConfig: FormConfigType[] = [
@@ -67,7 +67,7 @@ export const passwordConfig: FormConfigType[] = [
     pattern: ValidationType.Password,
     required: true,
     type: 'password',
-  }
+  },
 ];
 
 export const loginConfig: FormConfigType[] = [
