@@ -18,6 +18,7 @@ export type UserInfo = {
 interface AddAnswerType {
   handleCloseModal: () => void;
   userInfo?: UserInfo;
+  topicId: number;
 }
 
 const buttonsWrapperStyle = css`
@@ -28,7 +29,7 @@ export interface MessageFormParams extends FieldValues {
   content: string;
 }
 
-const AddAnswer = ({ handleCloseModal, userInfo }: AddAnswerType) => {
+const AddAnswer = ({ handleCloseModal, userInfo, topicId }: AddAnswerType) => {
   const submitNewTopicMessage = (data: MessageFormParams): void => {
     if (userInfo) {
       data.message_id = userInfo.id;
@@ -38,6 +39,8 @@ const AddAnswer = ({ handleCloseModal, userInfo }: AddAnswerType) => {
     if (textValue) {
       data.content = textValue;
     }
+
+    data.topic_id = topicId;
 
     // временный код для проверки данных
     console.log(data);
@@ -57,6 +60,7 @@ const AddAnswer = ({ handleCloseModal, userInfo }: AddAnswerType) => {
       <Button
         css={buttonStyle}
         text="Отмена"
+        type="reset"
         disignType="alternate"
         onClick={handleCloseModal}
       />

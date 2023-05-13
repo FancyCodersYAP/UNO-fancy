@@ -30,7 +30,6 @@ export const StEmojiContainer = styled.ul`
   top: -70px;
   left: -111px;
   width: 150px;
-  padding: 0;
   margin: 0;
   list-style: none;
   display: grid;

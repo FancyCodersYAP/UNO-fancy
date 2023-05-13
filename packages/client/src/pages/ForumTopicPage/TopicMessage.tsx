@@ -30,7 +30,7 @@ interface TopicMessage {
   answer?: Answer;
   message: string;
   date: string;
-  clickOnMessageButon: (evt: React.SyntheticEvent<HTMLElement>) => void;
+  clickOnMessageButton: (evt: React.SyntheticEvent<HTMLElement>) => void;
 }
 
 const flexStyles = css`
@@ -46,10 +46,10 @@ const TopicMessage = ({
   answer,
   message,
   date,
-  clickOnMessageButon,
+  clickOnMessageButton,
 }: TopicMessage) => {
   return (
-    <StMessage id={String(id)} data-message={id} onClick={clickOnMessageButon}>
+    <StMessage id={String(id)} data-message={id} onClick={clickOnMessageButton}>
       <StUser css={flexStyles}>
         <StMessageAvatar image={avatar} />
         <StUserInfo>

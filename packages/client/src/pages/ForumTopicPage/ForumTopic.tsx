@@ -43,7 +43,7 @@ const ForumTopic = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
-  const clickOnMessageButon = (evt: React.SyntheticEvent<HTMLElement>) => {
+  const clickOnMessageButton = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
     const answerButton = target.closest('button');
 
@@ -98,7 +98,7 @@ const ForumTopic = () => {
           <TopicMessage
             key={message.id}
             {...message}
-            clickOnMessageButon={clickOnMessageButon}
+            clickOnMessageButton={clickOnMessageButton}
           />
         ))}
       </StTopicDiscussion>
@@ -107,7 +107,11 @@ const ForumTopic = () => {
 
       {isOpen && (
         <Modal title="Сообщение" styles={addAnswerModalStyles}>
-          <AddAnswer handleCloseModal={handleCloseModal} userInfo={userInfo} />
+          <AddAnswer
+            handleCloseModal={handleCloseModal}
+            userInfo={userInfo}
+            topicId={testTopicData.topicId}
+          />
         </Modal>
       )}
     </StBoard>
