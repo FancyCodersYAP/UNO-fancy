@@ -1,8 +1,6 @@
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import Button from 'components/Button/Button';
 import TopicMessage from './TopicMessage';
-import { testTopicData } from 'data/testTopicData';
-import { testTopicDiscussionData } from 'data/testTopicDiscussionData';
 import { css } from 'styled-components';
 import {
   StTopic,
@@ -25,6 +23,11 @@ import AddAnswer from 'components/AddAnswer/AddAnswer';
 import { StModalTitle } from 'components/Modal/style';
 import { useState } from 'react';
 import { UserInfo } from 'components/AddAnswer/AddAnswer';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useEffect, useRef } from 'react';
+import { fetchForumTopicGetById } from 'store/Forum';
+import { dateStringParse } from 'utils/dateStringParse';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -42,6 +45,8 @@ export const addAnswerModalStyles = css`
 const ForumTopic = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [userInfo, setUserInfo] = useState<UserInfo>();
+  const { topicId } = useParams();
+  const dispatch = useAppDispatch();
 
   const clickOnMessageButton = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
@@ -50,17 +55,21 @@ const ForumTopic = () => {
     if (answerButton) {
       const messageElement = answerButton.closest('article');
       const messageId = messageElement?.dataset.message;
-      const messageInfo = testTopicDiscussionData.filter(
-        el => el.id === Number(messageId)
-      )[0];
 
-      const info = {
-        id: messageInfo.id,
-        author: messageInfo.author,
-        message: messageInfo.message,
-      };
+      if (TopicContent) {
+        const messageInfo = TopicContent.messages.filter(
+          el => el.id === Number(messageId)
+        )[0];
 
-      setUserInfo(info);
+        const info = {
+          id: messageInfo.id,
+          user: messageInfo.user.display_name,
+          message: messageInfo.content,
+        };
+
+        setUserInfo(info);
+      }
+
       handleOpenModal();
     }
   };
@@ -70,31 +79,43 @@ const ForumTopic = () => {
     handleOpenModal();
   };
 
+  useEffect(() => {
+    if (topicId) {
+      dispatch(fetchForumTopicGetById(topicId));
+    }
+  }, []);
+
+  const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
+  const feedRef = useRef<HTMLDivElement | null>(null);
+  if (!TopicContent) return <></>;
+
   return (
     <StBoard css={stBoardStyle}>
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
       <StTopic>
         <StUser>
-          <StUserAvatar image={testTopicData.avatar} />
+          <StUserAvatar image={TopicContent.user.avatar} />
           <StUserInfo>
-            <StUserName>{testTopicData.author}</StUserName>
-            <StUserRank>{testTopicData.rank}</StUserRank>
+            <StUserName>{TopicContent.user.display_name}</StUserName>
+            <StUserRank>{TopicContent.user.rank}</StUserRank>
           </StUserInfo>
         </StUser>
         <StTopicWrapper>
           <StTopicNameContainer>
-            <StTopicName>{testTopicData.topicName}</StTopicName>
+            <StTopicName>{TopicContent.name}</StTopicName>
           </StTopicNameContainer>
           <StTopicText>
-            {testTopicData.messages}
-            <StTopicDate>тема создана: {testTopicData.date}</StTopicDate>
+            {TopicContent.description}
+            <StTopicDate>
+              тема создана: {dateStringParse(TopicContent.created_at)}
+            </StTopicDate>
           </StTopicText>
         </StTopicWrapper>
       </StTopic>
 
-      <StTopicDiscussion>
-        {testTopicDiscussionData.map(message => (
+      <StTopicDiscussion ref={feedRef}>
+        {TopicContent.messages.map(message => (
           <TopicMessage
             key={message.id}
             {...message}
@@ -108,9 +129,10 @@ const ForumTopic = () => {
       {isOpen && (
         <Modal title="Сообщение" styles={addAnswerModalStyles}>
           <AddAnswer
+            feedRef={feedRef}
             handleCloseModal={handleCloseModal}
+            topicId={Number(topicId)}
             userInfo={userInfo}
-            topicId={testTopicData.topicId}
           />
         </Modal>
       )}
