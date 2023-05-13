@@ -17,7 +17,9 @@ const AddAnswer = (props: AddAnswerType) => {
   const submitNewTopic = (evt: React.FormEvent) => {
     evt.preventDefault();
     /**код по определению элемента временный будет замена из другой ветки**/
+    //@ts-ignore
     if (evt.target.topic_answer.value) {
+      //@ts-ignore
       const content = evt.target.topic_answer.value;
       const sendData = {
         content,
