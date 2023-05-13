@@ -34,19 +34,12 @@ const AddAnswer = ({ handleCloseModal, userInfo, topicId }: AddAnswerType) => {
     if (userInfo) {
       data.message_id = userInfo.id;
     }
-
-    const textValue = localStorage.getItem('textareaValue');
-    if (textValue) {
-      data.content = textValue;
-    }
-
     data.topic_id = topicId;
 
     // временный код для проверки данных
     console.log(data);
 
     handleCloseModal();
-    localStorage.removeItem('textareaValue');
   };
 
   const footer = (

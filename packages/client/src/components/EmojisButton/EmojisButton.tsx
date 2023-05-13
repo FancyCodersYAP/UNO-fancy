@@ -29,7 +29,6 @@ const EmojisButton = ({
       const target = evt.target as HTMLElement;
       textAreaRef.current.value =
         textAreaRef.current.value + target.textContent;
-      localStorage.setItem('textareaValue', textAreaRef.current.value);
       setTextareaLength(textAreaRef.current.value.length);
     }
   };
