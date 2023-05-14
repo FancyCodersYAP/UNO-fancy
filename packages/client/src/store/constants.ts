@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { PutLeaderboardData } from './types';
-export const REDIRECT_URL = 'http://localhost:3000';
+export const REDIRECT_URL = ''; //TODO удалить совсем
 
 const API_MAIN_ENDPOINT = `${REDIRECT_URL}/api/v2`;
 
