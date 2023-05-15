@@ -77,13 +77,6 @@ export class HandEntity extends Entity<HandEntityTypes> {
       setTimeout(() => {
         if (this.player && this.player.isBot) {
           drawCardBack(this.context, cards[i].x!, cards[i].y!);
-          // drawCardFront(
-          //   this.context,
-          //   cards[i].x!,
-          //   cards[i].y!,
-          //   cards[i].color,
-          //   cards[i].sign
-          // );
         } else {
           drawCardFront(
             this.context,
@@ -151,7 +144,6 @@ export class HandEntity extends Entity<HandEntityTypes> {
       if (color !== undefined && sign !== undefined) {
         if (this.player && this.player.isBot) {
           drawCardBack(this.context, x, y);
-          // drawCardFront(this.context, x, y, color, sign);
         } else {
           drawCardFront(this.context, x, y, color, sign);
         }

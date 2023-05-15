@@ -111,7 +111,6 @@ export const animateCardFlipping = (
         : x + xLength - xLength * multiply;
 
     context.clearRect(0, 0, 5000, 5000);
-    // context.transform(scale, 0, 0, 1, newX, y);
     if (cardView === 'close') {
       context.transform(scale, 0, 0, 1, newX, y);
       drawCardBack(context, 0, 0);

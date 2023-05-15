@@ -29,7 +29,7 @@ export const calcCanvasMaxSizes = (
       break;
     case 'table':
       width = BASE_WIDTH_CARD * 2 + margin;
-      height = BASE_HEIGHT_CARD + 1;
+      height = +BASE_HEIGHT_CARD;
       break;
     case 'animation':
       width = window.innerWidth;

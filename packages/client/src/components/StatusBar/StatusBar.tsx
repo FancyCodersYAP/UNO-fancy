@@ -51,10 +51,7 @@ const StatusBar = ({
   useEffect(() => {
     document.addEventListener('fullscreenchange', setFullScreenState);
     return () => {
-      document.removeEventListener(
-        'fullscreenchange',
-        () => setFullScreenState
-      );
+      document.removeEventListener('fullscreenchange', setFullScreenState);
     };
   }, []);
 
