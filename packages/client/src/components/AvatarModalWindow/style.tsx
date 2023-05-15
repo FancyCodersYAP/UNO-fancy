@@ -65,3 +65,13 @@ export const StAvatarError = styled.div`
   font-size: 12px;
   line-height: 1.2;
 `;
+
+export const StButtonWrapper = styled.div`
+  position: relative;
+`;
+
+export const errorStyle = css`
+  font-size: 22px;
+  bottom: -40px;
+  transform: translateX(-50%);
+`;

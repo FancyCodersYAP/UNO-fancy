@@ -9,10 +9,15 @@ import {
   StAvatarInput,
   StAvatarLabel,
   StAvatarError,
+  StButtonWrapper,
+  errorStyle,
 } from './style';
 import formatBytes from 'utils/formatBytes';
 import { css } from 'styled-components';
 import { useRef } from 'react';
+import { errorReset } from 'store/User/userSlice';
+import { userState } from 'hooks/userState';
+import { FormError } from 'components/Form/style';
 
 const MAX_FILE_SIZE = 1048576;
 
@@ -30,6 +35,12 @@ interface AvatarModal {
 
 const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
   const dispatch = useAppDispatch();
+
+  const { userError } = userState();
+
+  const errorCancel = () => {
+    if (userError) dispatch(errorReset());
+  };
 
   const avatarErrorRef = useRef<HTMLDivElement>(null);
   const userAvatarRef = useRef<HTMLDivElement>(null);
@@ -76,12 +87,14 @@ const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
 
     const formData = new FormData();
     formData.append('avatar', avatarFile);
-    dispatch(fetchAvatarChange(formData));
-    handleCloseModal();
+    dispatch(fetchAvatarChange(formData)).then(action => {
+      if ('error' in action && action.error) return;
+      handleCloseModal();
+    });
   };
 
   return (
-    <StAvatarContainer onSubmit={onSubmit}>
+    <StAvatarContainer onSubmit={onSubmit} onClick={errorCancel}>
       <StAvatarInput
         name="avatarFile"
         type="file"
@@ -94,7 +107,14 @@ const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
         <StAvatarError ref={avatarErrorRef}></StAvatarError>
       </StAvatarInputWrapper>
       <StAvatar ref={userAvatarRef} css={avatarStyles} image={image} />
-      <Button css={buttontStyles} type="submit" text="Установить фотографию" />
+      <StButtonWrapper>
+        <Button
+          css={buttontStyles}
+          type="submit"
+          text="Установить фотографию"
+        />
+        <FormError css={errorStyle}>{userError}</FormError>
+      </StButtonWrapper>
     </StAvatarContainer>
   );
 };
