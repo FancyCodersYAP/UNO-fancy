@@ -17,7 +17,7 @@ export const addPlayers = (
       const botName = namesForBots[i - 1];
 
       players.push({
-        name: botName,
+        username: botName,
         playerId: playerId,
         isBot: true,
       });
