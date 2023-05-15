@@ -1,7 +1,10 @@
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
-import { StTopicName } from './style';
+import { StDeleteTopicWrapper, StTopicName, StDeleteError } from './style';
 import { css } from 'styled-components';
+import { fetchForumTopicDel } from 'store/Forum/forumActions';
+import { useAppDispatch } from 'hooks/redux';
+import { useState } from 'react';
 
 const buttonStyle = css`
   width: 200px;
@@ -10,7 +13,7 @@ const buttonStyle = css`
 
 type topicInfoType = {
   id: number;
-  topic: string;
+  name: string;
 };
 
 interface DeleteTopicType {
@@ -19,13 +22,32 @@ interface DeleteTopicType {
 }
 
 const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
+  const dispatch = useAppDispatch();
+
+  const [deleteError, setDeleteError] = useState(false);
+
   const handelDeleteTopic = () => {
-    console.log('Удаленная тема: ' + topicInfo.id);
+    dispatch(fetchForumTopicDel(String(topicInfo.id))).then(action => {
+      if ('error' in action && action.error) {
+        setDeleteError(true);
+        return;
+      }
+      handleCloseModal();
+    });
   };
 
   return (
     <>
-      <StTopicName>{topicInfo.topic}</StTopicName>
+      <StDeleteTopicWrapper>
+        <StTopicName>{topicInfo.name}</StTopicName>
+
+        {deleteError && (
+          <StDeleteError>
+            Вы не можете удалить эту тему, т.к. она Вам не пренадлежит!
+          </StDeleteError>
+        )}
+      </StDeleteTopicWrapper>
+
       <StFlex justifyContent="space-between">
         <Button
           onClick={handelDeleteTopic}

@@ -1,27 +1,22 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoginFormParams } from '../../../pages/LoginPage/LoginPage';
-import { RegFormParams } from '../../../pages/RegistrationPage/RegistrationPage';
-import { IUser } from '../../types';
+import { LoginFormParams } from 'pages/LoginPage/LoginPage';
+import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
 import { API_ENDPOINTS } from '../../constants';
-import { errorMessage } from '../../../utils/apiErrorMessageCheck';
-
-interface IUserService {
-  getCurrentUser(): Promise<IUser>;
-}
+import { errorMessage } from 'utils/apiErrorMessageCheck';
+import { DataRepository } from 'api/DataService';
 
 export const fetchAuthUserGet = createAsyncThunk(
   'auth/fetchAuth',
   async (_, thunkAPI) => {
     try {
-      const service: IUserService = thunkAPI.extra as IUserService;
+      const service = thunkAPI.extra as DataRepository;
 
       return await service.getCurrentUser();
     } catch (error) {
       return thunkAPI.rejectWithValue(
         errorMessage(error, 'Не удалось загрузить пользователя')
       );
-      // return thunkAPI.rejectWithValue(error);
     }
   }
 );

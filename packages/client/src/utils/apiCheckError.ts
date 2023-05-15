@@ -5,8 +5,8 @@ export interface IApiErrorReason {
 }
 
 export const apiErrorCheck = (
-  res: AxiosResponse<any, any> | undefined
-): IApiErrorReason | unknown => {
+  res: AxiosResponse | undefined
+): IApiErrorReason | undefined => {
   if (res && res.status.toString().startsWith('40') && 'reason' in res.data) {
     // на будущее надо расширить область проверки пока в виде заглушки
     return { reason: res.data.reason };

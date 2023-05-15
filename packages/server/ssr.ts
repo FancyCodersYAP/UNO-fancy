@@ -9,7 +9,7 @@ import express from 'express';
 import * as fs from 'fs';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import { YandexAPIRepository } from './repository/YandexAPIRepository';
+import { ApiRepository } from './repository/ApiRepository';
 
 interface SSRModule {
   render: (
@@ -74,7 +74,7 @@ export const startSSR = async () => {
       const { render } = mod;
       const [initialState, appHtml, css] = await render(
         url,
-        new YandexAPIRepository(req.headers['cookie']),
+        new ApiRepository(req.headers['cookie']),
         req.headers['cookie']
       );
 
