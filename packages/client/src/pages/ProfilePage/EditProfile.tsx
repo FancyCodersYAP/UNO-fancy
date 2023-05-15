@@ -34,13 +34,15 @@ const EditProfile: FC = () => {
   const footer = <StSaveButton text="Сохранить" type="submit" />;
 
   const updateData = (data: DataType) => {
-    dispatch(fetchProfileChange(data));
+    dispatch(fetchProfileChange(data)).then(action => {
+      if ('error' in action && action.error) return;
+    });
   };
 
-  const defaultValues: Record<string, string> = profileConfig.reduce(
-    (acc, { name }) => ({ ...acc, [name]: user![name as keyof UserType] }),
-    {}
-  );
+  const defaultValues: Record<string, string> = {};
+  profileConfig.map(el => {
+    return (defaultValues[el.name] = user![el.name as keyof UserType]);
+  });
 
   return (
     <StFlex css={stFlexStyles}>
