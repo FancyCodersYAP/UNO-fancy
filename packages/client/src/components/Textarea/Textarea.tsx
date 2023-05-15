@@ -1,4 +1,4 @@
-import { FC, TextareaHTMLAttributes, useCallback, FormEvent } from 'react';
+import { FC, TextareaHTMLAttributes } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import {
   StTextarea,
