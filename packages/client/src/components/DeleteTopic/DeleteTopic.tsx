@@ -1,10 +1,16 @@
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
-import { StDeleteTopicWrapper, StTopicName, StDeleteError } from './style';
+import {
+  StDeleteTopicContainer,
+  StDeleteTopicWrapper,
+  StTopicName,
+  StDeleteError,
+} from './style';
 import { css } from 'styled-components';
 import { fetchForumTopicDel } from 'store/Forum/forumActions';
 import { useAppDispatch } from 'hooks/redux';
-import { useState } from 'react';
+import { errorReset } from 'store/User/userSlice';
+import { userState } from 'hooks/userState';
 
 const buttonStyle = css`
   width: 200px;
@@ -24,37 +30,31 @@ interface DeleteTopicType {
 const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
   const dispatch = useAppDispatch();
 
-  const [deleteError, setDeleteError] = useState(false);
+  const { userError } = userState();
 
-  const handelDeleteTopic = () => {
+  const errorCancel = () => {
+    if (userError) dispatch(errorReset());
+  };
+
+  const handelDeleteTopic = (evt: React.SyntheticEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
     dispatch(fetchForumTopicDel(String(topicInfo.id))).then(action => {
-      if ('error' in action && action.error) {
-        setDeleteError(true);
-        return;
-      }
+      if ('error' in action && action.error) return;
       handleCloseModal();
     });
   };
 
   return (
-    <>
+    <StDeleteTopicContainer onSubmit={handelDeleteTopic} onClick={errorCancel}>
       <StDeleteTopicWrapper>
         <StTopicName>{topicInfo.name}</StTopicName>
 
-        {deleteError && (
-          <StDeleteError>
-            Вы не можете удалить эту тему, т.к. она Вам не пренадлежит!
-          </StDeleteError>
-        )}
+        <StDeleteError>{userError}</StDeleteError>
       </StDeleteTopicWrapper>
 
       <StFlex justifyContent="space-between">
-        <Button
-          onClick={handelDeleteTopic}
-          css={buttonStyle}
-          text="Удалить"
-          disignType="primary"
-        />
+        <Button css={buttonStyle} text="Удалить" type="submit" />
         <Button
           onClick={handleCloseModal}
           css={buttonStyle}
@@ -62,7 +62,7 @@ const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
           disignType="alternate"
         />
       </StFlex>
-    </>
+    </StDeleteTopicContainer>
   );
 };
 
