@@ -17,7 +17,7 @@ export const initPostgresDBConnection = async (): Promise<
 
   try {
     const sequelizeOptions: SequelizeOptions = {
-      host: POSTGRES_HOST || 'localhost',
+      host: POSTGRES_HOST || 'postgres',
       port: Number(POSTGRES_PORT),
       username: POSTGRES_USER,
       password: POSTGRES_PASSWORD,
