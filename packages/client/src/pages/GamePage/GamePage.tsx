@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import { userState } from 'hooks/userState';
 import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
@@ -23,7 +22,6 @@ import StatusBar from 'components/StatusBar/StatusBar';
 import { PlayModal } from './PlayModal';
 import { StGameFlex } from './style';
 import { PUT_LEADERBOARD_DATA } from 'store/constants';
-import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 const modalWidth = css`
   width: 700px;
@@ -212,46 +210,44 @@ export function GamePage() {
   const isGameOn = !isStart && !isFinish && !isOpenExitMenu && !isPause;
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <StGameFlex id="game-page">
-        <StatusBar
-          isGameOn={isGameOn}
-          timer={timer}
-          pauseGame={pauseGame}
-          exitGame={exitGame}
-          audioMute={audioMute}
-          switchSoundMode={switchSoundMode}
-        />
-        {isStart && isOpen && (
-          <Modal title="Выбор режима игры" styles={modalWidth}>
-            <GameSettings
-              handleCloseModal={handleCloseModal}
-              startGame={startGame}
-            />
-          </Modal>
-        )}
-        {isPause && isOpen && <PlayModal resumeGame={resumeGame} />}
-        {isOpenExitMenu && isOpen && (
-          <Modal
-            styles={exitMenuModalStyles}
-            handleCloseModal={resumeGame}
-            canBeClosedOutside>
-            <ExitMenu resumeGame={resumeGame} navigateToMain={navigateToMain} />
-          </Modal>
-        )}
-        {isFinish && isOpen && (
-          <Modal title="Игра завершена" styles={modalPadding}>
-            <EndGame
-              time={formatTime(timer).toString()}
-              countPlace={countPlayers}
-              points={points}
-              result={points ? 'Победа' : 'Проигрыш'}
-              reactivateGame={reactivateGame}
-              navigateToMain={navigateToMain}
-            />
-          </Modal>
-        )}
-      </StGameFlex>
-    </ErrorBoundary>
+    <StGameFlex id="game-page">
+      <StatusBar
+        isGameOn={isGameOn}
+        timer={timer}
+        pauseGame={pauseGame}
+        exitGame={exitGame}
+        audioMute={audioMute}
+        switchSoundMode={switchSoundMode}
+      />
+      {isStart && isOpen && (
+        <Modal title="Выбор режима игры" styles={modalWidth}>
+          <GameSettings
+            handleCloseModal={handleCloseModal}
+            startGame={startGame}
+          />
+        </Modal>
+      )}
+      {isPause && isOpen && <PlayModal resumeGame={resumeGame} />}
+      {isOpenExitMenu && isOpen && (
+        <Modal
+          styles={exitMenuModalStyles}
+          handleCloseModal={resumeGame}
+          canBeClosedOutside>
+          <ExitMenu resumeGame={resumeGame} navigateToMain={navigateToMain} />
+        </Modal>
+      )}
+      {isFinish && isOpen && (
+        <Modal title="Игра завершена" styles={modalPadding}>
+          <EndGame
+            time={formatTime(timer).toString()}
+            countPlace={countPlayers}
+            points={points}
+            result={points ? 'Победа' : 'Проигрыш'}
+            reactivateGame={reactivateGame}
+            navigateToMain={navigateToMain}
+          />
+        </Modal>
+      )}
+    </StGameFlex>
   );
 }

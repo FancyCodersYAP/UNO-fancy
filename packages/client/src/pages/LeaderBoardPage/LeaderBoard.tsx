@@ -1,10 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { css } from 'styled-components';
-import { ErrorBoundary } from 'react-error-boundary';
 
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
-import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 import {
   StBoard,
@@ -50,42 +48,40 @@ const LeaderBoard: FC = () => {
   }, [topPlayers.length]);
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <StBoard>
-        {isArrayAndHasItems(topPlayers) ? (
-          <>
-            <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
-            <StTable hasScroll={hasScroll}>
-              <StHead>
-                <StHeadChild>#</StHeadChild>
-                <StHeadChild>Игрок</StHeadChild>
-                <StHeadChild>Очки</StHeadChild>
-                <StWinsColumnsHead>
-                  <StHeadChild>Победы</StHeadChild>
-                  <StHeadChild>2 игрока</StHeadChild>
-                  <StHeadChild>4 игрока</StHeadChild>
-                </StWinsColumnsHead>
-              </StHead>
-              <StBody ref={tableBodyRef} hasScroll={hasScroll}>
-                {topPlayers.map((player, index) => (
-                  <BoardItem
-                    key={player.data.game_id}
-                    place={index + 1}
-                    {...player.data}
-                  />
-                ))}
-              </StBody>
-            </StTable>
-          </>
-        ) : (
-          <StPlaceholder>
-            Данных для рейтинга пока недостаточно.
-            <br />
-            Сыграй и стань лидером!
-          </StPlaceholder>
-        )}
-      </StBoard>
-    </ErrorBoundary>
+    <StBoard>
+      {isArrayAndHasItems(topPlayers) ? (
+        <>
+          <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
+          <StTable hasScroll={hasScroll}>
+            <StHead>
+              <StHeadChild>#</StHeadChild>
+              <StHeadChild>Игрок</StHeadChild>
+              <StHeadChild>Очки</StHeadChild>
+              <StWinsColumnsHead>
+                <StHeadChild>Победы</StHeadChild>
+                <StHeadChild>2 игрока</StHeadChild>
+                <StHeadChild>4 игрока</StHeadChild>
+              </StWinsColumnsHead>
+            </StHead>
+            <StBody ref={tableBodyRef} hasScroll={hasScroll}>
+              {topPlayers.map((player, index) => (
+                <BoardItem
+                  key={player.data.game_id}
+                  place={index + 1}
+                  {...player.data}
+                />
+              ))}
+            </StBody>
+          </StTable>
+        </>
+      ) : (
+        <StPlaceholder>
+          Данных для рейтинга пока недостаточно.
+          <br />
+          Сыграй и стань лидером!
+        </StPlaceholder>
+      )}
+    </StBoard>
   );
 };
 

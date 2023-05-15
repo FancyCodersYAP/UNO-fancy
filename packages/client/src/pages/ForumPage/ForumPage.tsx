@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
-import { ErrorBoundary } from 'react-error-boundary';
 import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
@@ -25,7 +24,6 @@ import {
 } from 'store/Forum/forumActions';
 import { useEffect, useRef } from 'react';
 import { useAppSelector } from 'hooks/redux';
-import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -81,43 +79,41 @@ const ForumPage = () => {
   if (!forumTopics?.length && isLoading) return <></>;
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <StBoard css={stBoardStyle}>
-        <StTitle css={marginBottom58px}>Форум</StTitle>
+    <StBoard css={stBoardStyle}>
+      <StTitle css={marginBottom58px}>Форум</StTitle>
 
-        <StTable css={headStyleTemplate}>
-          <StHead>
-            <div>
-              <StButtonNewTopic onClick={handleOpenModal}>
-                <StNewTopicIcon>
-                  <use href="/assets/icons/icons_sprite.svg#icon-plus"></use>
-                </StNewTopicIcon>
-              </StButtonNewTopic>
-            </div>
-            <p>тема</p>
-            <p>всего сообщений</p>
-            <p>автор</p>
-            <p>последнее сообщение</p>
-          </StHead>
+      <StTable css={headStyleTemplate}>
+        <StHead>
+          <div>
+            <StButtonNewTopic onClick={handleOpenModal}>
+              <StNewTopicIcon>
+                <use href="/assets/icons/icons_sprite.svg#icon-plus"></use>
+              </StNewTopicIcon>
+            </StButtonNewTopic>
+          </div>
+          <p>тема</p>
+          <p>всего сообщений</p>
+          <p>автор</p>
+          <p>последнее сообщение</p>
+        </StHead>
 
-          <StBody ref={tableRef} onClick={interactionWithTopic}>
-            {isArrayAndHasItems(forumTopics) ? (
-              forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
-            ) : isLoading ? (
-              <StEmptyTable>Загрузка...</StEmptyTable>
-            ) : (
-              <StEmptyTable>Список тем пока пуст</StEmptyTable>
-            )}
-          </StBody>
-        </StTable>
+        <StBody ref={tableRef} onClick={interactionWithTopic}>
+          {isArrayAndHasItems(forumTopics) ? (
+            forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
+          ) : isLoading ? (
+            <StEmptyTable>Загрузка...</StEmptyTable>
+          ) : (
+            <StEmptyTable>Список тем пока пуст</StEmptyTable>
+          )}
+        </StBody>
+      </StTable>
 
-        {isOpen && (
-          <Modal title="Создание темы" styles={addTopicModalStyles}>
-            <AddTopic handleCloseModal={handleCloseModal} />
-          </Modal>
-        )}
-      </StBoard>
-    </ErrorBoundary>
+      {isOpen && (
+        <Modal title="Создание темы" styles={addTopicModalStyles}>
+          <AddTopic handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
+    </StBoard>
   );
 };
 
