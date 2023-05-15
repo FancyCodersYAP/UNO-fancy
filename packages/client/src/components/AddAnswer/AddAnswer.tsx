@@ -8,20 +8,15 @@ import { buttonStyle } from 'components/AddTopic/AddTopic';
 import stringShorten from 'utils/stringShorten';
 import { fetchForumMessagePost } from 'store/Forum/messageAction';
 import { useAppDispatch } from 'hooks/redux';
+import { AddAnswerModalUserInfo } from 'types';
 
 const MAX_ANSWER_LENGTH = 20;
-
-export type UserInfo = {
-  id: number;
-  user: string;
-  message: string;
-};
 
 interface AddAnswerType {
   topicId: number;
   feedRef: React.RefObject<HTMLDivElement>;
   handleCloseModal: () => void;
-  userInfo?: UserInfo;
+  userInfo?: AddAnswerModalUserInfo;
 }
 
 const buttonsWrapperStyle = css`
@@ -43,7 +38,7 @@ const AddAnswer = ({
 
   const submitNewTopicMessage = (data: MessageFormParams): void => {
     if (userInfo) {
-      data.message_id = userInfo.id;
+      data.id_head_answer = userInfo.id;
     }
     data.topic_id = topicId;
 

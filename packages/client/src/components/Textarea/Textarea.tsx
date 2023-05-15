@@ -69,19 +69,8 @@ const Textarea: FC<TextareaProps> = ({
     }
   };
 
-  const messageChange = useCallback(
-    (event: FormEvent<HTMLDivElement>): void => {
-      const target = event.target as HTMLElement;
-      const textarea = target.closest('textarea');
-      if (textAreaRef.current && textarea) {
-        textAreaRef.current.value = textarea.value;
-      }
-    },
-    [textAreaRef]
-  );
-
   return (
-    <StTextareaContainer onChange={messageChange}>
+    <StTextareaContainer>
       <StTextareaLengthMessage>{textareaLength}/255</StTextareaLengthMessage>
       <EmojisButton
         handleEmoji={handleEmoji}
