@@ -22,12 +22,12 @@ import useModal from 'hooks/useModal';
 import AddAnswer from 'components/AddAnswer/AddAnswer';
 import { StModalTitle } from 'components/Modal/style';
 import { useState } from 'react';
-import { UserInfo } from 'components/AddAnswer/AddAnswer';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { useEffect, useRef } from 'react';
 import { fetchForumTopicGetById } from 'store/Forum';
 import { dateStringParse } from 'utils/dateStringParse';
+import { AddAnswerModalUserInfo } from 'types';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -44,9 +44,12 @@ export const addAnswerModalStyles = css`
 
 const ForumTopic = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-  const [userInfo, setUserInfo] = useState<UserInfo>();
+  const [userInfo, setUserInfo] = useState<AddAnswerModalUserInfo>();
   const { topicId } = useParams();
   const dispatch = useAppDispatch();
+
+  const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
+  console.log(TopicContent?.messages);
 
   const clickOnMessageButton = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
@@ -85,7 +88,6 @@ const ForumTopic = () => {
     }
   }, []);
 
-  const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
   const feedRef = useRef<HTMLDivElement | null>(null);
   if (!TopicContent) return <></>;
 
