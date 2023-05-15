@@ -34,9 +34,7 @@ const EditProfile: FC = () => {
   const footer = <StSaveButton text="Сохранить" type="submit" />;
 
   const updateData = (data: DataType) => {
-    dispatch(fetchProfileChange(data)).then(action => {
-      if ('error' in action && action.error) return;
-    });
+    dispatch(fetchProfileChange(data));
   };
 
   const defaultValues: Record<string, string> = profileConfig.reduce(
