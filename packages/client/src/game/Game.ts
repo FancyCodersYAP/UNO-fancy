@@ -39,11 +39,27 @@ export class Game extends EventBus {
     super();
   }
 
-  startGame(playersNum: number, playerData: GamePlayerType) {
-    this.players = addPlayers(playersNum, playerData);
+  startGame(playersNum: number, playerData?: GamePlayerType) {
+    /* Если есть данные, добавляем игрока с этими данными */
+    if (playerData !== undefined) {
+      this.players = addPlayers(playersNum, playerData);
+    }
+
+    /* Если ранее игроки были добавлены и количество игроков изменилось */
+    /* Добавляем игроков заново с данными юзера, используемыми ранее */
+    if (this.players.length !== playersNum) {
+      this.players = addPlayers(playersNum, this.players[0]);
+    }
+
+    /* Если нет данных и игроков ранее не добавляли */
+    /* Юзер не авторизован, добавляем его без данных */
+    if (playerData === undefined && !this.players.length) {
+      this.players = addPlayers(playersNum, { username: 'Игрок' });
+    }
+    /* Если игроки ранее были добавлены и в новой игре режим не поменялся, оставляем players */
 
     /* Перемешиваем массив карт. Это стартовая колода */
-    const initialPack = shuffle(allCards);
+    const initialPack = shuffle([...allCards]);
 
     this.table = new TableEntity();
     this.table.start();
@@ -83,7 +99,9 @@ export class Game extends EventBus {
     }, (ANIMATION_TIME / 2) * START_NUM_CARDS_IN_HAND);
 
     this.activePlayerId = 0;
-    this.getActivePlayer().highlight();
+    const activePlayer = this.getActivePlayer();
+    if (!activePlayer) return;
+    activePlayer.highlight();
 
     if (lastCard.action) {
       if (lastCard.action !== 'wild') {
@@ -181,6 +199,8 @@ export class Game extends EventBus {
 
   botMove() {
     const botLayer = this.getActivePlayer();
+    if (!botLayer) return;
+
     const botCards = botLayer.getCards();
 
     for (const card of botCards) {
@@ -203,6 +223,8 @@ export class Game extends EventBus {
 
   async discardCard(movedCard: CardType) {
     const activePlayerLayer = this.getActivePlayer();
+
+    if (!activePlayerLayer) return;
 
     activePlayerLayer.removeCard(movedCard, () => {
       this.emit(GameEvents.CARD_MOVEMENT);
@@ -263,6 +285,7 @@ export class Game extends EventBus {
         this.skipMove();
         this.takeCard(2);
         return true;
+
       case 'wild': {
         /* Игрок выбирает новый цвет */
         const newColor =
@@ -270,6 +293,7 @@ export class Game extends EventBus {
         this.table.setColor(newColor);
         return true;
       }
+
       case 'wild draw four': {
         /* Игрок выбирает новый цвет, а следующий игрок берёт 4 карты */
         const newColor =
@@ -279,6 +303,7 @@ export class Game extends EventBus {
         this.takeCard(4);
         return true;
       }
+
       case 'reverse':
         /* Очёрёдность хода меняется в обратную сторону */
         /* Но если два игрока, то второй игрок пропускает ход */
@@ -288,6 +313,7 @@ export class Game extends EventBus {
           this.clockwiseMovement = !this.clockwiseMovement;
         }
         return true;
+
       case 'skip':
         /* Следующий игрок пропускает ход */
         this.skipMove();
@@ -301,6 +327,8 @@ export class Game extends EventBus {
 
     const cards = this.table.giveCards(countCards);
     const activePlayer = this.getActivePlayer();
+
+    if (!activePlayer) return;
 
     if (countCards > 1) {
       sleep(ANIMATION_TIME, () => {
@@ -353,10 +381,13 @@ export class Game extends EventBus {
 
   /* Переход хода */
   moveLine() {
-    this.getActivePlayer().removeHighlight();
+    const activePlayer = this.getActivePlayer();
+    if (!activePlayer) return;
+
+    activePlayer.removeHighlight();
 
     this.changeActivePlayerId();
-    this.getActivePlayer().highlight();
+    activePlayer.highlight();
 
     const { isBot } = this.players[this.activePlayerId];
 
@@ -369,7 +400,9 @@ export class Game extends EventBus {
 
   /* Пропуск хода (когда на стол выкладывается спец.карта) */
   skipMove() {
-    this.getActivePlayer().removeHighlight();
+    const activePlayer = this.getActivePlayer();
+    if (!activePlayer) return;
+    activePlayer.removeHighlight();
 
     this.changeActivePlayerId();
   }
@@ -393,7 +426,7 @@ export class Game extends EventBus {
     }
   }
 
-  getActivePlayer(): HandEntity {
+  getActivePlayer(): HandEntity | undefined {
     const entityName =
       this.players.length === 2
         ? TwoPlayerLayers[this.activePlayerId]
@@ -403,18 +436,43 @@ export class Game extends EventBus {
   }
 
   finishGame() {
-    const elements = [this.table.getLayer()];
+    const isBot = this.players[this.activePlayerId].isBot;
+    const points = isBot ? 0 : this.countPoints();
+    const user = this.players.find(player => !player.isBot);
 
-    for (const layer in this.handEntities) {
-      elements.push(this.handEntities[layer].getLayer());
+    this.resetGame();
+
+    /* Если победил бот или юзер не авторизован, данные для обновления лидерборда не нужны */
+    if (
+      !points ||
+      (user?.score === undefined &&
+        user?.wins_2 === undefined &&
+        user?.wins_4 === undefined)
+    ) {
+      /* Вызов события завершения игры */
+      this.emit('finish', points);
+      return;
     }
-    clearGamePage(elements);
 
-    const points = this.players[this.activePlayerId].isBot
-      ? 0
-      : this.countPoints();
+    /* Если юзер авторизован и победил, обновляем данные для лидерборда */
+    const pointsForLB = this.players.length === 2 ? points : points * 0.5;
+    user.score! = pointsForLB > user.score! ? pointsForLB : user.score!;
+
+    user.total_wins! += 1;
+
+    if (this.players.length === 2) {
+      user.wins_2! += 1;
+    } else {
+      user.wins_4! += 1;
+    }
+
     /* Вызов события завершения игры */
-    this.emit(GameEvents.FINISH_GAME, points);
+    this.emit('finish', points, {
+      score: user.score,
+      wins_2: user.wins_2,
+      wins_4: user.wins_4,
+      total_wins: user.total_wins,
+    });
   }
 
   countPoints() {
@@ -427,11 +485,38 @@ export class Game extends EventBus {
     return points;
   }
 
+  resetGame() {
+    const elements: HTMLDivElement[] = [];
+
+    if (this.table) {
+      elements.push(this.table.getLayer());
+      this.table.reset();
+    }
+
+    for (const layer in this.handEntities) {
+      elements.push(this.handEntities[layer].getLayer());
+    }
+    if (elements.length) {
+      clearGamePage(elements);
+    }
+
+    this.activePlayerId = -1;
+    this.handEntities = {};
+    this.clockwiseMovement = true;
+  }
+
   /* Генерация клика по кнопке UNO */
   unoClick() {
-    if (this.getActivePlayer().getCards().length === 1) {
+    const activePlayer = this.getActivePlayer();
+    if (activePlayer && activePlayer.getCards().length === 1) {
       this.emit(GameEvents.CLICK_UNO);
-      this.getActivePlayer().showTooltip();
+      this.getActivePlayer()?.showTooltip();
     }
+  }
+
+  unload() {
+    this.resetGame();
+    this.players = [];
+    this.destroy();
   }
 }

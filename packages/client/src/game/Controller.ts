@@ -1,5 +1,10 @@
 import { Game } from 'game';
-import { GameEvents, GamePlayerType, PlayerClickPosition } from 'game/types';
+import {
+  GameEvents,
+  GamePlayerType,
+  PlayerClickPosition,
+  ResultData,
+} from 'game/types';
 
 class Controller {
   game!: Game;
@@ -8,7 +13,7 @@ class Controller {
     this.game = new Game();
   }
 
-  startGame(playersNum: number, playerData: GamePlayerType) {
+  startGame(playersNum: number, playerData?: GamePlayerType) {
     this.game.startGame(playersNum, playerData);
   }
 
@@ -43,9 +48,13 @@ class Controller {
     return () => this.game.off(GameEvents.SKIP_CLICK_UNO, callback);
   }
 
-  onFinish(callback: (points: number) => void) {
+  onFinish(callback: (points: number, playerData?: ResultData) => void) {
     this.game.on(GameEvents.FINISH_GAME, callback);
     return () => this.game.off(GameEvents.FINISH_GAME, callback);
+  }
+
+  unloadGame() {
+    this.game.unload();
   }
 }
 

@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
 import { AppRoute } from 'utils/constants';
+import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
+import AddTopic from 'components/AddTopic';
 import ForumTopic from './ForumTopic';
-import { testForumData } from 'data/testForumData';
 import {
   stBoardStyle,
   StNewTopicIcon,
@@ -11,44 +12,77 @@ import {
   StHead,
   StBody,
   StEmptyTable,
+  templateHeadWithScroll,
 } from './style';
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
+import { useAppDispatch } from '../../hooks/redux';
+import {
+  fetchForumTopicDel,
+  fetchForumTopicsGet,
+} from 'store/Forum/forumActions';
+import { useEffect, useRef } from 'react';
+import { useAppSelector } from 'hooks/redux';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
 `;
 
+const addTopicModalStyles = css`
+  width: 700px;
+  padding: 60px 100px 70px;
+`;
+
 const ForumPage = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const dispatch = useAppDispatch();
+
+  const forumTopics = useAppSelector(state => state.FORUM.forumTopics);
+  const isLoading = useAppSelector(state => state.FORUM.isLoading);
+
+  useEffect(() => {
+    dispatch(fetchForumTopicsGet());
+  }, []);
 
   const navigate = useNavigate();
-
   const interactionWithTopic = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
 
-    const basket = target.closest('button');
+    const basket =
+      target.closest('button') ||
+      [...target.children].filter(el => el.closest('button'))[0];
 
     if (basket) {
       const topic = basket.closest('article');
       const topicId = topic?.dataset.topic;
-      console.log('Удаленная тема: ' + topicId);
+      topicId && dispatch(fetchForumTopicDel(topicId));
       return;
     }
-
     const topic = target.closest('article');
+
+    if (!topic) return; //так как я отключил события на article то таргетом будет body и при попадании мимо текстового узла выходим
+
     const topicId = topic?.dataset.topic;
-    // временный код
-    console.log('Выбранная тема: ' + topicId);
     navigate(`${AppRoute.FORUM}/${topicId}`);
   };
+
+  const tableRef = useRef<HTMLDivElement | null>(null);
+
+  const headStyleTemplate = css`
+    ${tableRef.current &&
+    tableRef.current.scrollHeight > tableRef.current?.clientHeight
+      ? templateHeadWithScroll
+      : ''}
+  `;
+  //для первого рендера при роутинге с другой страницы
+  if (!forumTopics?.length && isLoading) return <></>;
 
   return (
     <StBoard css={stBoardStyle}>
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
-      <StTable>
+      <StTable css={headStyleTemplate}>
         <StHead>
           <div>
             <StButtonNewTopic onClick={handleOpenModal}>
@@ -63,14 +97,22 @@ const ForumPage = () => {
           <p>последнее сообщение</p>
         </StHead>
 
-        <StBody onClick={interactionWithTopic}>
-          {isArrayAndHasItems(testForumData) ? (
-            testForumData.map(topic => <ForumTopic key={topic.id} {...topic} />)
+        <StBody ref={tableRef} onClick={interactionWithTopic}>
+          {isArrayAndHasItems(forumTopics) ? (
+            forumTopics.map(topic => <ForumTopic key={topic.id} {...topic} />)
+          ) : isLoading ? (
+            <StEmptyTable>Загрузка...</StEmptyTable>
           ) : (
-            <StEmptyTable>Форум пока пуст</StEmptyTable>
+            <StEmptyTable>Список тем пока пуст</StEmptyTable>
           )}
         </StBody>
       </StTable>
+
+      {isOpen && (
+        <Modal title="Создание темы" styles={addTopicModalStyles}>
+          <AddTopic handleCloseModal={handleCloseModal} />
+        </Modal>
+      )}
     </StBoard>
   );
 };
