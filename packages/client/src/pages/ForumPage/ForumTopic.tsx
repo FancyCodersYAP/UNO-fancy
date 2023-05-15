@@ -10,13 +10,14 @@ import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
 import DeleteTopic from 'components/DeleteTopic';
 import { StModalTitle } from 'components/Modal/style';
+import { IUserForum } from 'store/types';
 
 interface ForumTopicType {
   id: number;
-  topic: string;
+  name: string;
   total_messages: number;
-  author: string;
-  last_message: string;
+  user: IUserForum;
+  last_message: string | null;
 }
 
 const MAX_TOPIC_LENGTH = 35;
@@ -58,16 +59,18 @@ const hoverStyle = css`
 
 const ForumTopic = ({
   id,
-  topic,
+  name,
+  user,
   total_messages,
-  author,
   last_message,
 }: ForumTopicType) => {
+  last_message = last_message || '...';
+
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   const topicInfo = {
     id,
-    topic,
+    name,
   };
 
   return (
@@ -81,15 +84,18 @@ const ForumTopic = ({
           </StDeleteTopicButton>
         </StTableCell>
         <StTableCell css={textAlignLeft}>
-          {stringShorten(topic, MAX_TOPIC_LENGTH)}
+          <p>{stringShorten(name, MAX_TOPIC_LENGTH)}</p>
         </StTableCell>
-        <StTableCell>{total_messages}</StTableCell>
-        <StTableCell>{author}</StTableCell>
+        <StTableCell>
+          <p>{total_messages}</p>
+        </StTableCell>
+        <StTableCell>
+          <p>{user.display_name}</p>
+        </StTableCell>
         <StTableCell css={fontStyle}>
-          {stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)}
+          <p>{stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)}</p>
         </StTableCell>
       </StTableTopic>
-
       {isOpen && (
         <Modal title="Удалить тему?" styles={addTopicModalStyles}>
           <DeleteTopic

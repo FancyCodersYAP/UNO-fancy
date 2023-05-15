@@ -72,6 +72,9 @@ export const StButton = styled.button`
   &&:hover {
     filter: saturate(1.3);
   }
+  &&:active {
+    transform: translate(1%, 1%);
+  }
 `;
 
 export const StButtonCloseModal = styled(StButton)`
@@ -88,6 +91,7 @@ export const StButtonReply = styled(StButton)`
   padding: 5px 7px;
   height: min-content;
   margin: 0;
+  font-size: 13px;
 `;
 
 export const StButtonNewTopic = styled(StButton)`

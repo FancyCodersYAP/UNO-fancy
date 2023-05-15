@@ -1,10 +1,10 @@
 import type { RequestHandler } from 'express';
-import { IUser, YandexAPIRepository } from '../repository/YandexAPIRepository';
+import { IUser, ApiRepository } from '../repository/ApiRepository';
 
 export const checkUserAuth: RequestHandler = async (req, res, next) => {
   const cookie = req.headers['cookie'];
-  const yandexAPIRepository = new YandexAPIRepository(cookie);
-  const user = (await yandexAPIRepository.getCurrent()) as IUser;
+  const apiRepository = new ApiRepository(cookie);
+  const user = (await apiRepository.getCurrentUser().catch(e => e)) as IUser; //при error ловим режект
 
   if (user?.id) {
     res.locals.user = user;
