@@ -7,6 +7,9 @@ const StGameScreen = styled.div`
   background: ${BACKGROUND_COLOR_GAME_PRIMARY};
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 type LayoutProps = {
