@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 import { css } from 'styled-components';
 import { FieldValues } from 'react-hook-form';
-import { ErrorBoundary } from 'react-error-boundary';
 
 import Form from 'components/Form';
 import { AppRoute, GAME_DESCRIPTION } from 'utils/constants';
@@ -13,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 import { fetchRegistration } from '../../store/User/auth/actions';
 import { userState } from '../../hooks/userState';
 import { registrationConfig } from '../configs';
-import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 export interface RegFormParams extends FieldValues {
   first_name: string;
@@ -52,19 +50,17 @@ const RegistrationPage: FC = () => {
   );
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <StContainer alignItems="center" padding="0 40">
-        <Form
-          title="Регистрация"
-          fields={registrationConfig}
-          handleFormSubmit={handleLogin}
-          footer={footer}
-        />
-        <StTextGamePreviewContainer>
-          {GAME_DESCRIPTION}
-        </StTextGamePreviewContainer>
-      </StContainer>
-    </ErrorBoundary>
+    <StContainer alignItems="center" padding="0 40">
+      <Form
+        title="Регистрация"
+        fields={registrationConfig}
+        handleFormSubmit={handleLogin}
+        footer={footer}
+      />
+      <StTextGamePreviewContainer>
+        {GAME_DESCRIPTION}
+      </StTextGamePreviewContainer>
+    </StContainer>
   );
 };
 export default RegistrationPage;

@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import { BACKGROUND_COLOR_GAME_PRIMARY } from 'styles/variables/colors-const';
+import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 const StGameScreen = styled.div`
   background: ${BACKGROUND_COLOR_GAME_PRIMARY};
@@ -17,7 +19,11 @@ type LayoutProps = {
 };
 
 const GameLayout: FC<LayoutProps> = ({ children }) => (
-  <StGameScreen>{children ?? <Outlet />}</StGameScreen>
+  <StGameScreen>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      {children ?? <Outlet />}
+    </ErrorBoundary>
+  </StGameScreen>
 );
 
 export default GameLayout;

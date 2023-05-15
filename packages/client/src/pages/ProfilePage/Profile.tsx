@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
 
 import { UserType } from 'types';
 import { AppRoute } from 'utils/constants';
@@ -15,7 +14,6 @@ import { userState } from '../../hooks/userState';
 import { fetchProfileChange } from '../../store/User/profile/actions';
 import ProfileAvatar from './ProfileAvatar';
 import { fetchLogout } from '../../store/User/auth/actions';
-import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 const Profile: FC = () => {
   const [isEditMode, setEditMode] = useState(false);
@@ -62,17 +60,15 @@ const Profile: FC = () => {
   );
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <StyledForm
-        title={title}
-        avatar={avatar}
-        fields={fields}
-        handleFormSubmit={updateData}
-        defaultValues={defaultValues}
-        footer={footer}
-        inputCss={inputCss}
-      />
-    </ErrorBoundary>
+    <StyledForm
+      title={title}
+      avatar={avatar}
+      fields={fields}
+      handleFormSubmit={updateData}
+      defaultValues={defaultValues}
+      footer={footer}
+      inputCss={inputCss}
+    />
   );
 };
 
