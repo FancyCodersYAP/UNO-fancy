@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { AppRoute } from 'utils/constants';
 import { DataType } from 'components/Form/Form';
@@ -11,6 +12,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { fetchPassChange } from '../../store/User/profile/actions';
 import { userState } from '../../hooks/userState';
 import ProfileAvatar from './ProfileAvatar';
+import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 const Password: FC = () => {
   const navigate = useNavigate();
@@ -29,14 +31,16 @@ const Password: FC = () => {
   const footer = <StSaveButton text="Сохранить" type="submit" />;
 
   return (
-    <StyledForm
-      title={title}
-      avatar={avatar}
-      fields={passwordConfig}
-      handleFormSubmit={changePassword}
-      footer={footer}
-      inputCss={inputCss}
-    />
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <StyledForm
+        title={title}
+        avatar={avatar}
+        fields={passwordConfig}
+        handleFormSubmit={changePassword}
+        footer={footer}
+        inputCss={inputCss}
+      />
+    </ErrorBoundary>
   );
 };
 
