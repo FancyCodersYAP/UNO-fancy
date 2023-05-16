@@ -46,5 +46,5 @@ export const BUBBLE_STYLES = {
   WIDTH: `${buttonWidth - 10}px`,
   FONT_SIZE: `${Math.floor(BASE_HEIGHT_CARD / 10)}px`,
   LINE_HEIGHT: `${buttonHeight - 10}px`,
-  MARGIN: `-${Math.floor(BASE_HEIGHT_CARD / 8) + 25}px`,
+  MARGIN: `-${Math.floor(BASE_HEIGHT_CARD / 8) + 35}px`,
 };
