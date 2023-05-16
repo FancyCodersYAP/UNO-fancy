@@ -89,12 +89,13 @@ const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
     formData.append('avatar', avatarFile);
     dispatch(fetchAvatarChange(formData)).then(action => {
       if ('error' in action && action.error) return;
+      errorCancel();
       handleCloseModal();
     });
   };
 
   return (
-    <StAvatarContainer onSubmit={onSubmit} onClick={errorCancel}>
+    <StAvatarContainer onSubmit={onSubmit}>
       <StAvatarInput
         name="avatarFile"
         type="file"
