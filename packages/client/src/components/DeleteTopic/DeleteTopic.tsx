@@ -8,9 +8,8 @@ import {
 } from './style';
 import { css } from 'styled-components';
 import { fetchForumTopicDel } from 'store/Forum/forumActions';
-import { useAppDispatch } from 'hooks/redux';
-import { errorReset } from 'store/User/userSlice';
-import { userState } from 'hooks/userState';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { forumErrorReset } from 'store/Forum/forumSlice';
 
 const buttonStyle = css`
   width: 200px;
@@ -30,10 +29,10 @@ interface DeleteTopicType {
 const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
   const dispatch = useAppDispatch();
 
-  const { userError } = userState();
+  const topicDelError = useAppSelector(state => state.FORUM.error);
 
   const errorCancel = () => {
-    if (userError) dispatch(errorReset());
+    if (topicDelError) dispatch(forumErrorReset());
   };
 
   const handelDeleteTopic = (evt: React.SyntheticEvent<HTMLFormElement>) => {
@@ -50,7 +49,7 @@ const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
       <StDeleteTopicWrapper>
         <StTopicName>{topicInfo.name}</StTopicName>
 
-        <StDeleteError>{userError}</StDeleteError>
+        <StDeleteError>{topicDelError}</StDeleteError>
       </StDeleteTopicWrapper>
 
       <StFlex justifyContent="space-between">
