@@ -49,24 +49,6 @@ const TopicMessage = ({
   created_at,
   clickOnMessageButton,
 }: ITopicMessage) => {
-  // const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
-  // const [askMessageInfo, setAskMessageInfo] = useState<Answer>();
-  //
-  // useEffect(() => {
-  //   const messageInfo = TopicContent?.messages.filter(
-  //     el => el.id === id_head_answer
-  //   )[0];
-  //
-  //   if (messageInfo) {
-  //     const info = {
-  //       user: messageInfo.user.display_name,
-  //       message: messageInfo.content,
-  //     };
-  //
-  //     setAskMessageInfo(info);
-  //   }
-  // }, []);
-
   return (
     <StMessage id={String(id)} data-message={id} onClick={clickOnMessageButton}>
       <StUser css={flexStyles}>
