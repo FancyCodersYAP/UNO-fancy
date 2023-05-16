@@ -16,9 +16,14 @@ import {
   StTopicText,
   StTopicDate,
   StTopicDiscussion,
+  StButtonBackIcon,
+  StButtonBackToForum,
+  StTopicDiscussionEmpty,
 } from './style';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from 'utils/constants';
 import AddAnswer from 'components/AddAnswer/AddAnswer';
 import { StModalTitle } from 'components/Modal/style';
 import { useState } from 'react';
@@ -46,6 +51,12 @@ const ForumTopic = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [userInfo, setUserInfo] = useState<AddAnswerModalUserInfo>();
   const { topicId } = useParams();
+
+  const navigate = useNavigate();
+  const navigateToForum = () => {
+    navigate(`${AppRoute.FORUM}`);
+  };
+
   const dispatch = useAppDispatch();
 
   const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
@@ -96,6 +107,12 @@ const ForumTopic = () => {
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
       <StTopic>
+        <StButtonBackToForum onClick={navigateToForum}>
+          <StButtonBackIcon>
+            <use href="/assets/icons/icons_sprite.svg#icon-back"></use>
+          </StButtonBackIcon>
+          назад к темам
+        </StButtonBackToForum>
         <StUser>
           <StUserAvatar image={TopicContent.user.avatar} />
           <StUserInfo>
@@ -116,15 +133,21 @@ const ForumTopic = () => {
         </StTopicWrapper>
       </StTopic>
 
-      <StTopicDiscussion ref={feedRef}>
-        {TopicContent.messages.map(message => (
-          <TopicMessage
-            key={message.id}
-            {...message}
-            clickOnMessageButton={clickOnMessageButton}
-          />
-        ))}
-      </StTopicDiscussion>
+      {TopicContent.messages.length !== 0 ? (
+        <StTopicDiscussion ref={feedRef}>
+          {TopicContent.messages.map(message => (
+            <TopicMessage
+              key={message.id}
+              {...message}
+              clickOnMessageButton={clickOnMessageButton}
+            />
+          ))}
+        </StTopicDiscussion>
+      ) : (
+        <StTopicDiscussionEmpty>
+          Пока еще никто не успел ответить на данную тему, будь первым!
+        </StTopicDiscussionEmpty>
+      )}
 
       <Button text="Написать сообщение" onClick={handelReplyToTopic} />
 
