@@ -17,11 +17,8 @@ import {
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
-import { useAppDispatch } from '../../hooks/redux';
-import {
-  fetchForumTopicDel,
-  fetchForumTopicsGet,
-} from 'store/Forum/forumActions';
+import { useAppDispatch } from 'hooks/redux';
+import { fetchForumTopicsGet } from 'store/Forum/forumActions';
 import { useEffect, useRef } from 'react';
 import { useAppSelector } from 'hooks/redux';
 
@@ -54,9 +51,6 @@ const ForumPage = () => {
       [...target.children].filter(el => el.closest('button'))[0];
 
     if (basket) {
-      const topic = basket.closest('article');
-      const topicId = topic?.dataset.topic;
-      topicId && dispatch(fetchForumTopicDel(topicId));
       return;
     }
     const topic = target.closest('article');
