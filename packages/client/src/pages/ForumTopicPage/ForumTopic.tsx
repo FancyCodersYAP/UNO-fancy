@@ -33,7 +33,7 @@ import { useEffect, useRef } from 'react';
 import { fetchForumTopicGetById } from 'store/Forum';
 import { dateStringParse } from 'utils/dateStringParse';
 import { AddAnswerModalUserInfo } from 'types';
-import { useTitle, TITLES } from 'utils/useTitle';
+import { useTitle } from 'utils/useTitle';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -49,7 +49,7 @@ export const addAnswerModalStyles = css`
 `;
 
 const ForumTopic = () => {
-  useTitle(TITLES.forum);
+  // TODO: заменить тестовые данные на данные с сервера
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [userInfo, setUserInfo] = useState<AddAnswerModalUserInfo>();
   const { topicId } = useParams();
@@ -62,6 +62,8 @@ const ForumTopic = () => {
   const dispatch = useAppDispatch();
 
   const TopicContent = useAppSelector(state => state.FORUM.currentTopic);
+
+  TopicContent && useTitle(TopicContent.name);
 
   const clickOnMessageButton = (evt: React.SyntheticEvent<HTMLElement>) => {
     const target = evt.target as HTMLElement;
@@ -101,6 +103,7 @@ const ForumTopic = () => {
   }, []);
 
   const feedRef = useRef<HTMLDivElement | null>(null);
+
   if (!TopicContent) return <></>;
 
   return (
