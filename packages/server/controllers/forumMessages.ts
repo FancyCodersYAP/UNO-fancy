@@ -21,6 +21,16 @@ export const messageGetByID = async (id: string) => {
           ],
         ],
       },
+      {
+        model: ForumMessage,
+        attributes: ['id', 'content'],
+        include: [
+          {
+            model: User,
+            attributes: ['display_name'],
+          },
+        ],
+      },
     ],
   });
 };

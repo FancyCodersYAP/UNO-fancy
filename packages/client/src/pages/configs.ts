@@ -144,10 +144,20 @@ export const addTopicConfig: FormConfigType[] = [
   {
     name: 'description',
     label: 'Описание темы',
-    pattern: ValidationType.ToopicDescription,
     required: true,
     type: 'text',
     placeholder: 'Описание темы',
+    textarea: true,
+  },
+];
+
+export const addMessageConfig: FormConfigType[] = [
+  {
+    name: 'content',
+    label: 'Текст сообщения',
+    required: true,
+    type: 'text',
+    placeholder: 'Текст сообщения',
     textarea: true,
   },
 ];
