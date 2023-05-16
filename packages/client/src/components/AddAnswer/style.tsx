@@ -1,32 +1,46 @@
-import styled, { css } from 'styled-components';
-import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
-import { customScrollbar } from 'styles/global';
+import styled from 'styled-components';
+import { StTopicForm } from 'components/AddTopic/style';
+import { StTextarea, StTextareaContainer } from 'components/Textarea/style';
+import { StEmojiWrapper } from 'components/EmojisButton/style';
 
-export const StTopicLabel = styled.label`
-  visibility: hidden;
-  display: none;
-`;
+export const StMessageForm = styled(StTopicForm)`
+  ${StTextareaContainer} {
+    height: 168px;
+  }
 
-const inputStyle = css`
-  width: 100%;
-  border-radius: 20px;
-  font-size: ${BORDER_RADIUS_SIZE};
-  line-height: 26px;
-  color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
-  border: none;
-  background-color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
-  padding: 17px 24px 13px;
-  margin-bottom: 32px;
+  ${StTextarea} {
+    height: 168px;
+    padding-top: 30px;
+  }
 
-  &::placeholder {
-    color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
-    filter: opacity(50%);
+  ${StEmojiWrapper} {
+    display: block;
   }
 `;
 
-export const StTopicTextarea = styled.textarea`
-  ${inputStyle}
-  ${customScrollbar}
-  resize: none;
-  height: 168px;
+export const StAnswerWrapper = styled.div`
+  position: absolute;
+  z-index: 100;
+  margin: 7px 0 0 13px;
+  padding: 2px 5px;
+  background-color: ${props => props.theme?.COLOR_BACKGROUND_SECONDARY};
+`;
+
+export const StAnswerAll = styled.span`
+  font-size: 16px;
+  line-height: 19px;
+  text-decoration-line: underline;
+  color: ${props => props.theme?.COLOR_TEXT_ACTIVE};
+  filter: opacity(50%);
+  display: block;
+`;
+
+export const StAnswer = styled(StAnswerAll)`
+  font-size: 13px;
+  color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  border-left: 5px solid ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
+  filter: opacity(100%);
+  text-decoration-line: none;
+  padding-left: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
 `;

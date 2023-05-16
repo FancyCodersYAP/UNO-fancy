@@ -13,8 +13,8 @@ import {
   StMessageText,
   StAnswer,
 } from './style';
-import { dateStringParse } from '../../utils/dateStringParse';
-import { IUserForum } from '../../store/types';
+import { dateStringParse } from 'utils/dateStringParse';
+import { IUserForum } from 'store/types';
 
 const MAX_ANSWER_LENGTH = 20;
 
@@ -30,9 +30,10 @@ export interface ITopicMessage {
   topic_id: number;
   user: IUserForum;
   answer?: Answer;
+  clickOnMessageButton: (evt: React.SyntheticEvent<HTMLElement>) => void;
   content: string;
   created_at: string;
-  onClick?: () => void;
+  id_head_answer?: number;
 }
 
 const flexStyles = css`
@@ -46,10 +47,10 @@ const TopicMessage = ({
   answer,
   content,
   created_at,
-  onClick,
+  clickOnMessageButton,
 }: ITopicMessage) => {
   return (
-    <StMessage id={String(id)} data-message={id}>
+    <StMessage id={String(id)} data-message={id} onClick={clickOnMessageButton}>
       <StUser css={flexStyles}>
         <StMessageAvatar image={user.avatar} />
         <StUserInfo>
@@ -69,9 +70,7 @@ const TopicMessage = ({
           <StMessageText>{content}</StMessageText>
         </div>
 
-        <StButtonReply onClick={onClick} disignType="secondary">
-          ответить
-        </StButtonReply>
+        <StButtonReply disignType="secondary">ответить</StButtonReply>
         <StTopicDate>сообщение от: {dateStringParse(created_at)}</StTopicDate>
       </StMessageWrapper>
     </StMessage>
