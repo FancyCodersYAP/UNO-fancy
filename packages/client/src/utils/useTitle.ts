@@ -1,13 +1,10 @@
-import { useEffect } from 'react';
-
 export const useTitle = (title: TITLES | string) => {
-  useEffect(() => {
-    const prevTitle = document.title;
-    document.title = title;
-    return () => {
-      document.title = prevTitle;
-    };
-  });
+  if (typeof document === 'undefined') return;
+  const prevTitle = document.title;
+  document.title = title;
+  return () => {
+    document.title = prevTitle;
+  };
 };
 
 export enum TITLES {
