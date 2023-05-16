@@ -18,8 +18,10 @@ import { UserType } from 'types';
 import { profileConfig } from '../configs';
 import { fetchProfileChange } from 'store/User/profile/actions';
 import { StFlex } from 'styles/global';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const EditProfile: FC = () => {
+  useTitle(TITLES.editProfile);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

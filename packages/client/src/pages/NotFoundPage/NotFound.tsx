@@ -11,6 +11,7 @@ import {
   NOT_FOUND_PAGE_WIDTH_CARD,
   NOT_FOUND_PAGE_HEIGHT_CARD,
 } from 'game/utils/constants';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const titleStyles = css`
   font-size: 42px;
@@ -18,6 +19,7 @@ const titleStyles = css`
 `;
 
 const CanvasErorr404 = () => {
+  useTitle(TITLES.notfound);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
