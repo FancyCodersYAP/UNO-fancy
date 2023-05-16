@@ -9,10 +9,12 @@ export const StErrorFallbackContainer = styled.div`
   padding: 40px 60px;
   box-shadow: ${DEPTH_CONTAINER};
   border-radius: 50px;
+  max-width: 920px;
 `;
 
 export const StErrorMessage = styled.pre`
   color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
   font-size: 20px;
   text-align: center;
+  white-space: pre-wrap;
 `;
