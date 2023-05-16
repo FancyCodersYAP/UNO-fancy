@@ -18,6 +18,7 @@ import {
   StTopicDiscussion,
   StButtonBackIcon,
   StButtonBackToForum,
+  StTopicDiscussionEmpty,
 } from './style';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
@@ -90,15 +91,21 @@ const ForumTopic = () => {
         </StTopicWrapper>
       </StTopic>
 
-      <StTopicDiscussion ref={feedRef}>
-        {TopicContent.messages.map(message => (
-          <TopicMessage
-            key={message.id}
-            {...message}
-            onClick={handleOpenModal}
-          />
-        ))}
-      </StTopicDiscussion>
+      {TopicContent.messages.length !== 0 ? (
+        <StTopicDiscussion ref={feedRef}>
+          {TopicContent.messages.map(message => (
+            <TopicMessage
+              key={message.id}
+              {...message}
+              onClick={handleOpenModal}
+            />
+          ))}
+        </StTopicDiscussion>
+      ) : (
+        <StTopicDiscussionEmpty>
+          Пока еще никто не успел ответить на данную тему, будь первым!
+        </StTopicDiscussionEmpty>
+      )}
 
       <Button text="Написать сообщение" onClick={handleOpenModal} />
 

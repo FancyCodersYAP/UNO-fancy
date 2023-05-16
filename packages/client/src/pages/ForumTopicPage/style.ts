@@ -11,9 +11,7 @@ import { BOX_SHADOW } from 'styles/variables/styleConstants';
 import { API_ENDPOINTS } from '../../store/constants';
 
 export const stBoardStyle = css`
-  overflow: inherit;
-  padding: 35px 70px;
-  min-width: 880px;
+  min-width: 1128px;
 `;
 
 export const lineHeight130Percent = css`
@@ -229,4 +227,12 @@ export const StButtonBackToForum = styled(StButton)`
       filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.4));
     }
   }
+`;
+
+export const StTopicDiscussionEmpty = styled.p`
+  font-size: 17px;
+  line-height: 15px;
+  color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  margin: 40px 0;
+  text-align: center;
 `;
