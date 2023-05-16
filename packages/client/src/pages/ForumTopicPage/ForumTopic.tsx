@@ -16,10 +16,14 @@ import {
   StTopicText,
   StTopicDate,
   StTopicDiscussion,
+  StButtonBackIcon,
+  StButtonBackToForum,
   StTopicDiscussionEmpty,
 } from './style';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from 'utils/constants';
 import AddAnswer from 'components/AddAnswer/AddAnswer';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -40,6 +44,11 @@ const ForumTopic = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const { topicId } = useParams();
 
+  const navigate = useNavigate();
+  const navigateToForum = () => {
+    navigate(`${AppRoute.FORUM}`);
+  };
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -56,6 +65,12 @@ const ForumTopic = () => {
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
       <StTopic>
+        <StButtonBackToForum onClick={navigateToForum}>
+          <StButtonBackIcon>
+            <use href="/assets/icons/icons_sprite.svg#icon-back"></use>
+          </StButtonBackIcon>
+          назад к темам
+        </StButtonBackToForum>
         <StUser>
           <StUserAvatar image={TopicContent.user.avatar} />
           <StUserInfo>
