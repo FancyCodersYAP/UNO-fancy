@@ -17,11 +17,8 @@ import {
 import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
-import { useAppDispatch } from '../../hooks/redux';
-import {
-  fetchForumTopicDel,
-  fetchForumTopicsGet,
-} from 'store/Forum/forumActions';
+import { useAppDispatch } from 'hooks/redux';
+import { fetchForumTopicsGet } from 'store/Forum/forumActions';
 import { useEffect, useRef } from 'react';
 import { useAppSelector } from 'hooks/redux';
 
@@ -54,14 +51,11 @@ const ForumPage = () => {
       [...target.children].filter(el => el.closest('button'))[0];
 
     if (basket) {
-      const topic = basket.closest('article');
-      const topicId = topic?.dataset.topic;
-      topicId && dispatch(fetchForumTopicDel(topicId));
       return;
     }
     const topic = target.closest('article');
 
-    if (!topic) return; //так как я отключил события на article то таргетом будет body и при попадании мимо текстового узла выходим
+    if (!topic) return;
 
     const topicId = topic?.dataset.topic;
     navigate(`${AppRoute.FORUM}/${topicId}`);
@@ -75,7 +69,7 @@ const ForumPage = () => {
       ? templateHeadWithScroll
       : ''}
   `;
-  //для первого рендера при роутинге с другой страницы
+
   if (!forumTopics?.length && isLoading) return <></>;
 
   return (

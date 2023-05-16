@@ -6,7 +6,11 @@ import {
   StDeleteTopicIcon,
 } from './style';
 import { css } from 'styled-components';
-import { IUserForum } from '../../store/types';
+import Modal from 'components/Modal';
+import useModal from 'hooks/useModal';
+import DeleteTopic from 'components/DeleteTopic';
+import { StModalTitle } from 'components/Modal/style';
+import { IUserForum } from 'store/types';
 
 interface ForumTopicType {
   id: number;
@@ -30,6 +34,15 @@ const fontStyle = css`
   line-height: 130%;
 `;
 
+const addTopicModalStyles = css`
+  width: 700px;
+  padding: 55px 101px 77px;
+
+  ${StModalTitle} {
+    margin-bottom: 62px;
+  }
+`;
+
 const hoverStyle = css`
   button {
     cursor: pointer;
@@ -51,32 +64,47 @@ const ForumTopic = ({
   total_messages,
   last_message,
 }: ForumTopicType) => {
-  name = stringShorten(name, MAX_TOPIC_LENGTH);
-  last_message = last_message
-    ? stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)
-    : '...';
+  last_message = last_message || '...';
+
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+
+  const topicInfo = {
+    id,
+    name,
+  };
+
   return (
-    <StTableTopic data-topic={id}>
-      <StTableCell css={hoverStyle}>
-        <StDeleteTopicButton>
-          <StDeleteTopicIcon>
-            <use href="/assets/icons/icons_sprite.svg#icon-basket"></use>
-          </StDeleteTopicIcon>
-        </StDeleteTopicButton>
-      </StTableCell>
-      <StTableCell css={textAlignLeft}>
-        <p>{name}</p>
-      </StTableCell>
-      <StTableCell>
-        <p>{total_messages}</p>
-      </StTableCell>
-      <StTableCell>
-        <p>{user.display_name}</p>
-      </StTableCell>
-      <StTableCell css={fontStyle}>
-        <p>{last_message}</p>
-      </StTableCell>
-    </StTableTopic>
+    <>
+      <StTableTopic data-topic={id}>
+        <StTableCell css={hoverStyle}>
+          <StDeleteTopicButton onClick={handleOpenModal}>
+            <StDeleteTopicIcon>
+              <use href="/assets/icons/icons_sprite.svg#icon-basket"></use>
+            </StDeleteTopicIcon>
+          </StDeleteTopicButton>
+        </StTableCell>
+        <StTableCell css={textAlignLeft}>
+          <p>{stringShorten(name, MAX_TOPIC_LENGTH)}</p>
+        </StTableCell>
+        <StTableCell>
+          <p>{total_messages}</p>
+        </StTableCell>
+        <StTableCell>
+          <p>{user.display_name}</p>
+        </StTableCell>
+        <StTableCell css={fontStyle}>
+          <p>{stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)}</p>
+        </StTableCell>
+      </StTableTopic>
+      {isOpen && (
+        <Modal title="Удалить тему?" styles={addTopicModalStyles}>
+          <DeleteTopic
+            topicInfo={topicInfo}
+            handleCloseModal={handleCloseModal}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 

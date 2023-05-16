@@ -37,3 +37,14 @@ export const StTextarea = styled.textarea`
   resize: none;
   height: 111px;
 `;
+
+export const StTextareaLengthMessage = styled.span`
+  position: absolute;
+  right: 13px;
+  top: 9px;
+  z-index: 100;
+  padding: 2px;
+  font-size: 13px;
+  color: ${props => props?.theme.COLOR_TEXT_SECONDARY};
+  background-color: ${props => props.theme?.COLOR_BACKGROUND_SECONDARY};
+`;

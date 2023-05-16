@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import Header from 'components/Header';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { StContainer } from 'styles/global';
@@ -9,6 +10,7 @@ import { StContainer } from 'styles/global';
 import bgImage from '/assets/img/background.png';
 import { fetchOauthCodePost } from '../../store/User/oauth/actions';
 import { REDIRECT_URL } from '../../store/constants';
+import ErrorFallback from 'components/ErrorFallback/ErrorFallback';
 
 const StMainScreen = styled.div`
   display: flex;
@@ -54,7 +56,11 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
     <StMainScreen>
       <StContainer flexDirection="column" alignItems="stretch">
         <Header />
-        <StContent>{children ?? <Outlet />}</StContent>
+        <StContent>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            {children ?? <Outlet />}
+          </ErrorBoundary>
+        </StContent>
       </StContainer>
     </StMainScreen>
   );
