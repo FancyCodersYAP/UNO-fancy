@@ -1,6 +1,10 @@
-import { EntityTypes, HandEntityTypes } from '../types';
-import { BASE_WIDTH_CARD, BASE_HEIGHT_CARD, margin } from './constants';
-import { getHandOrientation, HandOrientationTypes } from './getHandOrientation';
+import { EntityTypes, HandEntityTypes } from 'game/types';
+import {
+  BASE_WIDTH_CARD,
+  BASE_HEIGHT_CARD,
+  margin,
+} from 'game/utils/constants';
+import { getHandOrientation, HandOrientationTypes } from 'game/utils';
 
 /* Расчёт ширины и высоты слоя */
 export const calcCanvasMaxSizes = (
@@ -25,7 +29,7 @@ export const calcCanvasMaxSizes = (
       break;
     case 'table':
       width = BASE_WIDTH_CARD * 2 + margin;
-      height = BASE_HEIGHT_CARD;
+      height = +BASE_HEIGHT_CARD;
       break;
     case 'animation':
       width = window.innerWidth;
