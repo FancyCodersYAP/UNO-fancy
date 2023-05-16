@@ -1,40 +1,49 @@
 import { StAvatar } from './style';
-import styled from 'styled-components';
-import { fetchAvatarChange } from 'store/User/profile/actions';
-import { useAppDispatch } from 'hooks/redux';
 import { StFlex } from '../../styles/global';
-import { API_ENDPOINTS } from 'store/constants';
+import Modal from 'components/Modal';
+import useModal from 'hooks/useModal';
+import AvatarModalWindow from 'components/AvatarModalWindow';
+import { css } from 'styled-components';
+import { StModalTitle } from 'components/Modal/style';
+import { API_ENDPOINTS } from '../../store/constants';
+
+const avatarModalStyles = css`
+  width: 586px;
+  padding: 48px 105px 67px;
+
+  ${StModalTitle} {
+    margin-bottom: 45px;
+  }
+`;
+
 
 interface IAvatar {
   image: string | undefined;
 }
 
-const StImageInput = styled.input`
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
-`;
 const ProfileAvatar = ({ image }: IAvatar) => {
-  const dispatch = useAppDispatch();
-
-  const onAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) {
-      return;
-    }
-    const file = event.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('avatar', file);
-      dispatch(fetchAvatarChange(formData));
-    }
-  };
   const avatar = image && API_ENDPOINTS.resources + image;
+
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+
 
   return (
     <StFlex flexDirection="column" alignItems="center">
       <label>
-        <StImageInput type="file" onChange={onAvatarChange} />
-        <StAvatar image={avatar} />
+        <StAvatar onClick={handleOpenModal} image={avatar} />
       </label>
+      {isOpen && (
+        <Modal
+          title="Изменить аватар"
+          hasCrossButton
+          handleCloseModal={handleCloseModal}
+          styles={avatarModalStyles}>
+          <AvatarModalWindow
+            handleCloseModal={handleCloseModal}
+            image={avatar}
+          />
+        </Modal>
+      )}
     </StFlex>
   );
 };
