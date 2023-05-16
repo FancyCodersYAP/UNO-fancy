@@ -17,8 +17,10 @@ import { fetchPassChange } from '../../store/User/profile/actions';
 import { userState } from '../../hooks/userState';
 import ProfileAvatar from './ProfileAvatar';
 import { StFlex } from 'styles/global';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const Password: FC = () => {
+  useTitle(TITLES.password);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = userState();

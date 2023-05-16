@@ -21,6 +21,7 @@ import { useAppDispatch } from 'hooks/redux';
 import { fetchForumTopicsGet } from 'store/Forum/forumActions';
 import { useEffect, useRef } from 'react';
 import { useAppSelector } from 'hooks/redux';
+import { useTitle, TITLES } from 'utils/useTitle';
 
 const marginBottom58px = css`
   margin: 0 0 58px;
@@ -32,6 +33,7 @@ const addTopicModalStyles = css`
 `;
 
 const ForumPage = () => {
+  useTitle(TITLES.forum);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const dispatch = useAppDispatch();
 
