@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   StStatusBar,
   StButtonStatusBar,
@@ -7,6 +7,7 @@ import {
 } from './style';
 import Timer from 'components/Timer/Timer';
 import { StStatusBarIcon } from './style';
+import { useThemeContext } from 'contexts/ThemeContext';
 
 type StatusBarProps = {
   isGameOn: boolean;
@@ -27,15 +28,32 @@ const StatusBar = ({
 }: StatusBarProps) => {
   const [fullScreen, setFullScreen] = useState(false);
 
+  const { handleThemeChange, isDarkTheme } = useThemeContext();
+
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
-      setFullScreen(true);
+      setFullScreenState();
     } else {
       document.exitFullscreen();
-      setFullScreen(false);
+      setFullScreenState();
     }
   };
+
+  const setFullScreenState = () => {
+    if (!document.fullscreenElement) {
+      setFullScreen(false);
+    } else {
+      setFullScreen(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('fullscreenchange', setFullScreenState);
+    return () => {
+      document.removeEventListener('fullscreenchange', setFullScreenState);
+    };
+  }, []);
 
   return (
     <StStatusBar>
@@ -58,6 +76,15 @@ const StatusBar = ({
             </StStatusBarIcon>
           </StButtonStatusBar>
         )}
+        <StButtonStatusBar onClick={handleThemeChange} type="button">
+          <StStatusBarIcon>
+            {isDarkTheme ? (
+              <use href="/assets/icons/status-bar_sprite.svg#moon"></use>
+            ) : (
+              <use href="/assets/icons/status-bar_sprite.svg#sun"></use>
+            )}
+          </StStatusBarIcon>
+        </StButtonStatusBar>
         <StButtonStatusBar onClick={toggleFullScreen} type="button">
           <StStatusBarIcon css={fullScreen ? StStatusBarIconActive : ''}>
             {fullScreen ? (

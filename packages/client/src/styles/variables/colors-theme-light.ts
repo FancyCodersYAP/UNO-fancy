@@ -17,6 +17,6 @@ export const BACKGROUND_COLOR_TOPIC_MESSAGE = '#d9d9d9';
 export const BACKGROUND_COLOR_FORUM_SECONDARY = '#88927E';
 export const BACKGROUND_COLOR_BUTTON = '#23cbb7';
 export const BACKGROUND_COLOR_SCROLLBAR = '#f5b945';
-
+export const BACKGROUND_COLOR_GAME = 'radial-gradient(#b0c9d7, #23b7cb)';
 
 export const name = 'light';

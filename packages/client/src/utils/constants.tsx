@@ -21,7 +21,6 @@ export enum ValidationType {
   Phone = 'phone',
   Name = 'name',
   TopicName = 'topicName',
-  ToopicDescription = 'topicDescription',
 }
 
 export const ValidationPattern = {
@@ -48,14 +47,9 @@ export const ValidationPattern = {
     message: '10-15 цифр, может начинаться с плюса',
   },
   topicName: {
-    value: /^(?=.*[\D])[_0-9A-ZА-ЯËa-zа-яё-]{3,50}$/g,
+    value: /^(?=.*[\D\s])[\s_0-9A-ZА-ЯËa-zа-яё-]{3,50}$/g,
     message:
       '3-50 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',
-  },
-  topicDescription: {
-    value: /^(?=.*[\D])[_0-9A-ZА-ЯËa-zа-яё-]{1,255}$/g,
-    message:
-      '1-255 символов, допустимые символы: буквы, цифры, дефис, подчеркивание',
   },
 };
 

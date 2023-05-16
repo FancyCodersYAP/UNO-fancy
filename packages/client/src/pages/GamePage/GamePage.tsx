@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { userState } from 'hooks/userState';
-import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
 import useTimer from 'hooks/useTimer';
 import { leaderboardList } from 'hooks/leaderboardState';
+import { useAppDispatch } from 'hooks/redux';
 import { fetchLeaderboard, fetchUserDataLB } from 'store/Leaderboard/actions';
 import { controller } from 'game/Controller';
 import { audioManager } from 'game/services/audioManager';

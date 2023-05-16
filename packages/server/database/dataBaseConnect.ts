@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { type SequelizeOptions, Sequelize } from 'sequelize-typescript';
 import { Themes } from '../models/Themes';
+import { Ranks } from '../models/Ranks';
 
 const {
   POSTGRES_USER,
@@ -39,12 +40,22 @@ export const initPostgresDBConnection = async (): Promise<
         [{ theme_name: 'dark' }, { theme_name: 'light' }],
         { ignoreDuplicates: true }
       );
+      await Ranks.bulkCreate(
+        [
+          { rank_name: 'новичок' },
+          { rank_name: 'игрок' },
+          { rank_name: 'заядлый игрок' },
+          { rank_name: 'профи' },
+        ],
+        { ignoreDuplicates: true }
+      );
     } else {
       console.log('⛔️ DB Sync error ⛔️');
     }
 
     console.log('  ➜ 🎸 Connected to the Postgres database');
   } catch (e) {
+    // console.log(e);// не трогать оставил для дебага
     console.log('  ➜ 🌐 DB Connection error ⛔️');
   }
 

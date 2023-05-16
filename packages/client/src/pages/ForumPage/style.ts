@@ -3,7 +3,6 @@ import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { customScrollbar } from 'styles/global';
 
 export const stBoardStyle = css`
-  overflow: inherit;
   min-width: 1128px;
 `;
 
@@ -13,7 +12,7 @@ const tableCellStyle = css`
   align-items: center;
 `;
 
-const gridTemplateColumnsStyle = css`
+export const gridTemplateColumnsStyle = css`
   display: grid;
   grid-template-columns: 58px 1fr 163px 174px 305px;
 `;
@@ -27,6 +26,7 @@ export const StDeleteTopicButton = styled.button`
   background-color: inherit;
   border-radius: initial;
   border: none;
+  pointer-events: auto;
 `;
 
 export const StDeleteTopicIcon = styled.svg`
@@ -46,8 +46,8 @@ export const StTable = styled.div`
 `;
 
 export const StHead = styled.div`
-  display: grid;
-  grid-template-columns: 58px 1fr 163px 174px 315px;
+  ${gridTemplateColumnsStyle};
+
   height: 68px;
 
   & > p,
@@ -59,6 +59,12 @@ export const StHead = styled.div`
     height: 100%;
     background-color: ${props => props.theme?.BACKGROUND_COLOR_FORUM_PRIMARY};
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+`;
+
+export const templateHeadWithScroll = css`
+  ${StHead} {
+    grid-template-columns: 58px 1fr 163px 174px 315px;
   }
 `;
 
@@ -81,7 +87,6 @@ export const StTableCell = styled.div`
 export const StTableTopic = styled.article`
   ${gridTemplateColumnsStyle}
   grid-auto-rows: minmax(68px, auto);
-  cursor: pointer;
 
   & ${StTableCell}:nth-child(5n) {
     border-right: none;
@@ -96,8 +101,13 @@ export const StTableTopic = styled.article`
   }
 
   &:hover {
-    font-size: 23px;
-    text-shadow: 1px 1px 1px rgb(0 0 0 / 50%);
+    text-shadow: 2px 2px 2px rgb(0 0 0 / 50%);
+  }
+  pointer-events: none;
+
+  & p {
+    pointer-events: auto;
+    cursor: pointer;
   }
 `;
 

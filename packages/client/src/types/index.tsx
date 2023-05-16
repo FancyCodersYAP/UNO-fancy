@@ -3,7 +3,7 @@ import { ValidationType } from 'utils/constants';
 export interface FormConfigType {
   name: string;
   label: string;
-  pattern: ValidationType;
+  pattern?: ValidationType;
   required: boolean;
   value?: string;
   type: string;
@@ -39,4 +39,15 @@ export interface UserType {
   login: string;
   email: string;
   phone: string;
+}
+
+export interface AddAnswerModalUserInfo {
+  id: number;
+  user: string;
+  message: string;
+}
+
+export interface Answer {
+  user: string;
+  message: string;
 }
