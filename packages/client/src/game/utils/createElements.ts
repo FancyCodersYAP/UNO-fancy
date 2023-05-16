@@ -1,39 +1,32 @@
-import { clickOnHand, clickOnTable, clickOnUno } from './events';
-import { EntityTypes, HandEntityTypes } from '../types';
+import { clickOnHand, clickOnTable, clickOnUno } from 'game/utils/events';
+import { EntityTypes, HandEntityTypes } from 'game/types';
 import {
+  BUBBLE_STYLES,
+  COLOR_BOX_STYLES,
   NAME_STYLES,
-  LAYER_STYLES,
-  BUTTON_AND_BOX_STYLES,
   UNO_BUTTON_STYLES,
-} from '../styles';
+} from 'game/styles';
 
 export const createLayer = (
   entityName: EntityTypes,
   zIndex: number
 ): HTMLDivElement => {
   const layer = document.createElement('div');
-
-  layer.style.position = LAYER_STYLES.POSITION;
-  layer.style.display = LAYER_STYLES.DISPLAY;
-  layer.style.alignItems = LAYER_STYLES.ALIGN_ITEMS;
+  layer.classList.add('layer');
   layer.style.zIndex = zIndex.toString();
 
   switch (entityName) {
     case 'frontHand':
-      layer.style.bottom = LAYER_STYLES.MARGIN;
-      layer.style.justifyContent = LAYER_STYLES.JUSTIFY_CONTENT;
-      layer.style.flexDirection = LAYER_STYLES.FLEX_DIRECTION;
+      layer.classList.add('layer_front', 'layer-horizontal');
       break;
     case 'topHand':
-      layer.style.top = LAYER_STYLES.MARGIN;
-      layer.style.justifyContent = LAYER_STYLES.JUSTIFY_CONTENT;
-      layer.style.flexDirection = LAYER_STYLES.FLEX_DIRECTION;
+      layer.classList.add('layer_top', 'layer-horizontal');
       break;
     case 'rightHand':
-      layer.style.right = LAYER_STYLES.MARGIN;
+      layer.classList.add('layer_right');
       break;
     case 'leftHand':
-      layer.style.left = LAYER_STYLES.MARGIN;
+      layer.classList.add('layer_left');
       break;
   }
 
@@ -77,8 +70,7 @@ export const createAnimationCanvas = (
   zIndex: number
 ): HTMLCanvasElement => {
   const canvas = createCanvas('animation', width, height, zIndex);
-
-  canvas.style.position = 'absolute';
+  canvas.classList.add('canvas_animation');
   canvas.style.zIndex = zIndex.toString();
 
   const gamePage = document.getElementById('game-page');
@@ -92,13 +84,8 @@ export const createNameLayer = (
   name: string
 ): HTMLParagraphElement => {
   const p = document.createElement('p');
-
-  p.style.textAlign = 'center';
-  p.style.color = NAME_STYLES.COLOR;
+  p.classList.add('name_layer');
   p.style.fontSize = NAME_STYLES.SIZE;
-  p.style.fontFamily = NAME_STYLES.FONT_FAMILY;
-  p.style.fontWeight = NAME_STYLES.FONT_WEIGHT;
-  p.style.lineHeight = '0';
   p.textContent = name.toLocaleUpperCase();
 
   switch (entityName) {
@@ -110,13 +97,11 @@ export const createNameLayer = (
       p.style.margin = '20px 0 0 0';
       break;
     case 'rightHand':
-      p.style.margin = '0';
       p.style.order = '0';
       p.style.transformOrigin = 'center';
       p.style.transform = 'rotate(270deg)';
       break;
     case 'leftHand':
-      p.style.margin = '0';
       p.style.transformOrigin = 'center';
       p.style.transform = 'rotate(90deg)';
       break;
@@ -126,18 +111,13 @@ export const createNameLayer = (
 
 export const createUnoButton = (): HTMLButtonElement => {
   const button = document.createElement('button');
-
-  button.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
-  button.style.width = BUTTON_AND_BOX_STYLES.WIDTH;
-  button.style.position = BUTTON_AND_BOX_STYLES.POSITION;
-  button.style.margin = UNO_BUTTON_STYLES.MARGIN;
-  button.style.right = UNO_BUTTON_STYLES.RIGHT;
-  button.style.backgroundColor = UNO_BUTTON_STYLES.BACKGROUND_COLOR;
-  button.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDER_RADIUS;
-  button.style.textAlign = UNO_BUTTON_STYLES.TEXT_ALIGN;
-  button.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
-  button.style.color = UNO_BUTTON_STYLES.COLOR;
-  button.style.border = UNO_BUTTON_STYLES.BORDER;
+  button.classList.add('uno_button', 'button_and_box');
+  button.style.cssText = `
+    height: ${UNO_BUTTON_STYLES.HEIGHT};
+    width: ${UNO_BUTTON_STYLES.WIDTH};
+    right: ${UNO_BUTTON_STYLES.RIGHT};
+    font-size: ${UNO_BUTTON_STYLES.FONT_SIZE};
+  `;
   button.textContent = 'UNO';
 
   button.addEventListener('click', clickOnUno);
@@ -147,13 +127,45 @@ export const createUnoButton = (): HTMLButtonElement => {
 
 export const createColorBox = (): HTMLDivElement => {
   const div = document.createElement('div');
+  div.classList.add('color_box', 'button_and_box');
+  div.style.cssText = `
+    height: ${COLOR_BOX_STYLES.HEIGHT};
+    width: ${COLOR_BOX_STYLES.WIDTH};
+    left: ${COLOR_BOX_STYLES.LEFT};
+  `;
 
-  div.style.height = BUTTON_AND_BOX_STYLES.HEIGHT;
-  div.style.width = BUTTON_AND_BOX_STYLES.WIDTH;
-  div.style.position = BUTTON_AND_BOX_STYLES.POSITION;
-  div.style.borderRadius = BUTTON_AND_BOX_STYLES.BORDER_RADIUS;
-  div.style.zIndex = BUTTON_AND_BOX_STYLES.Z_INDEX;
-  div.style.left = '-80px';
+  return div;
+};
+
+export const createBubble = (entityName: HandEntityTypes): HTMLDivElement => {
+  const div = document.createElement('div');
+  div.classList.add('bubble');
+  div.style.cssText = `
+    height: ${BUBBLE_STYLES.HEIGHT};
+    width: ${BUBBLE_STYLES.WIDTH};
+    font-size: ${BUBBLE_STYLES.FONT_SIZE};
+    line-height: ${BUBBLE_STYLES.LINE_HEIGHT};
+  `;
+  div.textContent = 'UNO';
+
+  switch (entityName) {
+    case 'frontHand':
+      div.classList.add('bubble_horizontal', 'bubble_front');
+      div.style.top = BUBBLE_STYLES.MARGIN;
+      break;
+    case 'topHand':
+      div.classList.add('bubble_horizontal', 'bubble_top');
+      div.style.bottom = BUBBLE_STYLES.MARGIN;
+      break;
+    case 'rightHand':
+      div.classList.add('bubble_vertical');
+      div.style.left = BUBBLE_STYLES.MARGIN;
+      break;
+    case 'leftHand':
+      div.classList.add('bubble_vertical');
+      div.style.right = BUBBLE_STYLES.MARGIN;
+      break;
+  }
 
   return div;
 };

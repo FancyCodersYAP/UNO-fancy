@@ -39,7 +39,12 @@ export type ResultData = {
 export type HandEntityTypes = keyof typeof FourPlayerLayers;
 export type EntityTypes = 'table' | HandEntityTypes;
 export type AnimatedCardType = 'close' | 'open';
-export type CardMovementDirection = 'fromUser' | 'fromBot' | 'fromTable';
+export type CardMovementDirection =
+  | 'fromUser'
+  | 'fromBot'
+  | 'toBot'
+  | 'toUser'
+  | 'onTable';
 
 export type PlayerClickPosition = Record<string, number>;
 

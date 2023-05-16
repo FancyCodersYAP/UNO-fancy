@@ -1,6 +1,10 @@
-import { Game } from './Game';
-import { GameEvents, GamePlayerType, ResultData } from './types';
-import { PlayerClickPosition } from './types';
+import { Game } from 'game';
+import {
+  GameEvents,
+  GamePlayerType,
+  PlayerClickPosition,
+  ResultData,
+} from 'game/types';
 
 class Controller {
   game!: Game;
