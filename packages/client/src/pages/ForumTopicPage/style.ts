@@ -142,7 +142,7 @@ export const StTopicDiscussion = styled.div`
   max-height: 400px;
 `;
 
-export const StMessage = styled.div`
+export const StMessage = styled.article`
   ${containerStyle}
   grid-template-columns: 134px 1fr;
   min-height: 78px;

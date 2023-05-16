@@ -7,7 +7,7 @@ import { FieldValues } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks/redux';
 import { fetchForumTopicPost } from 'store/Forum/forumActions';
 
-const buttonStyle = css`
+export const buttonStyle = css`
   width: 200px;
   margin: 0;
 `;
@@ -51,6 +51,7 @@ const AddTopic = (props: AddTopicType) => {
       />
       <Button
         css={buttonStyle}
+        type="reset"
         text="Отмена"
         disignType="alternate"
         onClick={handleCloseModal}
