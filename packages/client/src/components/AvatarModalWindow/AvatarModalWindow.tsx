@@ -95,7 +95,7 @@ const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
   };
 
   return (
-    <StAvatarContainer onSubmit={onSubmit}>
+    <StAvatarContainer onSubmit={onSubmit} onClick={errorCancel}>
       <StAvatarInput
         name="avatarFile"
         type="file"
