@@ -387,7 +387,7 @@ export class Game extends EventBus {
     activePlayer.removeHighlight();
 
     this.changeActivePlayerId();
-    activePlayer.highlight();
+    this.getActivePlayer()!.highlight();
 
     const { isBot } = this.players[this.activePlayerId];
 
