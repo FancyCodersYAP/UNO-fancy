@@ -13,24 +13,27 @@ import {
   StMessageText,
   StAnswer,
 } from './style';
+import { dateStringParse } from 'utils/dateStringParse';
+import { IUserForum } from 'store/types';
 
 const MAX_ANSWER_LENGTH = 20;
 
 type Answer = {
-  askingId: number;
+  id: number;
+  user: IUserForum;
   name: string;
-  message: string;
+  content: string;
 };
 
-interface TopicMessage {
+export interface ITopicMessage {
   id: number;
-  avatar?: string;
-  author: string;
-  rank: string;
+  topic_id: number;
+  user: IUserForum;
   answer?: Answer;
-  messages: string;
-  date: string;
-  onClick?: () => void;
+  clickOnMessageButton: (evt: React.SyntheticEvent<HTMLElement>) => void;
+  content: string;
+  created_at: string;
+  id_head_answer?: number;
 }
 
 const flexStyles = css`
@@ -40,39 +43,35 @@ const flexStyles = css`
 
 const TopicMessage = ({
   id,
-  avatar,
-  author,
-  rank,
+  user,
   answer,
-  messages,
-  date,
-  onClick,
-}: TopicMessage) => {
+  content,
+  created_at,
+  clickOnMessageButton,
+}: ITopicMessage) => {
   return (
-    <StMessage id={String(id)} data-message={id}>
+    <StMessage id={String(id)} data-message={id} onClick={clickOnMessageButton}>
       <StUser css={flexStyles}>
-        <StMessageAvatar image={avatar} />
+        <StMessageAvatar image={user.avatar} />
         <StUserInfo>
-          <StUserName>{author}</StUserName>
-          <StUserRank>{rank}</StUserRank>
+          <StUserName>{user.display_name}</StUserName>
+          <StUserRank>{user.rank}</StUserRank>
         </StUserInfo>
       </StUser>
 
       <StMessageWrapper>
         <div>
           {answer && (
-            <StAnswer href={`#${answer.askingId}`}>
-              {answer.name}: "{stringShorten(answer.message, MAX_ANSWER_LENGTH)}
-              "
+            <StAnswer href={`#${answer.id}`}>
+              {answer.user.display_name}: "
+              {stringShorten(answer.content, MAX_ANSWER_LENGTH)}"
             </StAnswer>
           )}
-          <StMessageText>{messages}</StMessageText>
+          <StMessageText>{content}</StMessageText>
         </div>
 
-        <StButtonReply onClick={onClick} disignType="secondary">
-          ответить
-        </StButtonReply>
-        <StTopicDate>тема создана: {date}</StTopicDate>
+        <StButtonReply disignType="secondary">ответить</StButtonReply>
+        <StTopicDate>сообщение от: {dateStringParse(created_at)}</StTopicDate>
       </StMessageWrapper>
     </StMessage>
   );

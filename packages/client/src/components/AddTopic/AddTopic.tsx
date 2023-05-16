@@ -4,8 +4,10 @@ import { StTopicForm } from './style';
 import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
+import { useAppDispatch } from '../../hooks/redux';
+import { fetchForumTopicPost } from 'store/Forum/forumActions';
 
-const buttonStyle = css`
+export const buttonStyle = css`
   width: 200px;
   margin: 0;
 `;
@@ -19,16 +21,24 @@ export interface TopicFormParams extends FieldValues {
   description: string;
 }
 
+export interface MessageFormParams extends FieldValues {
+  content: string;
+  topic_id: number;
+}
+
 interface AddTopicType {
   handleCloseModal: () => void;
 }
 
 const AddTopic = (props: AddTopicType) => {
   const { handleCloseModal } = props;
+  const dispatch = useAppDispatch();
 
   const submitNewTopic = (data: TopicFormParams): void => {
-    // временный код для проверки данных
-    console.log(data);
+    dispatch(fetchForumTopicPost(data)).then(action => {
+      if ('error' in action && action.error) return;
+      handleCloseModal();
+    });
   };
 
   const footer = (
@@ -41,6 +51,7 @@ const AddTopic = (props: AddTopicType) => {
       />
       <Button
         css={buttonStyle}
+        type="reset"
         text="Отмена"
         disignType="alternate"
         onClick={handleCloseModal}

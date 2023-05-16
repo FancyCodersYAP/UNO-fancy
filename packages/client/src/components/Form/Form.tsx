@@ -13,8 +13,12 @@ import { useAppDispatch } from '../../hooks/redux';
 import { errorReset } from '../../store/User/userSlice';
 import { userState } from '../../hooks/userState';
 import { TopicFormParams } from 'components/AddTopic/AddTopic';
+import { MessageFormParams } from 'components/AddAnswer/AddAnswer';
 
-export type DataType = LoginFormParams & RegFormParams & TopicFormParams;
+export type DataType = LoginFormParams &
+  RegFormParams &
+  TopicFormParams &
+  MessageFormParams;
 
 type FormProps = {
   title?: string | ReactNode;

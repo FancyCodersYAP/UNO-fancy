@@ -61,11 +61,15 @@ export const audioManager = () => {
 
     if (audioPaused) {
       setAudioPaused(false);
-      play(audioList['background'].audio);
+      if (audioList['background']) {
+        play(audioList['background'].audio);
+      }
       muteAudio(false);
     } else {
       setAudioPaused(true);
-      audioList['background'].audio.pause();
+      if (audioList['background']) {
+        audioList['background'].audio.pause();
+      }
       muteAudio(true);
     }
   };

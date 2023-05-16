@@ -4,10 +4,6 @@ import { css } from 'styled-components';
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
 
-const marginBottom40px = css`
-  margin: 0 0 40px;
-`;
-
 import {
   StBoard,
   StTitle,
@@ -22,6 +18,10 @@ import BoardItem from './BoardItem';
 import { leaderboardList } from 'hooks/leaderboardState';
 import { fetchLeaderboard } from 'store/Leaderboard/actions';
 import { TITLES, useTitle } from 'utils/useTitle';
+
+const marginBottom40px = css`
+  margin: 0 0 40px;
+`;
 
 const LeaderBoard: FC = () => {
   useTitle(TITLES.leaderboard);

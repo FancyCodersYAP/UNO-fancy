@@ -1,10 +1,16 @@
-import { BASE_WIDTH_CARD, margin, ANIMATION_TIME } from './constants';
+import {
+  BASE_WIDTH_CARD,
+  margin,
+  ANIMATION_TIME,
+  MOVEMENT_ANIMATION_TIME,
+  FLIPPING_ANIMATION_TIME,
+} from 'game/utils/constants';
 import {
   CardType,
   CardMovementDirection,
   AnimatedCardType,
   EntityTypes,
-} from '../types';
+} from 'game/types';
 import {
   createAnimationCanvas,
   removeLayer,
@@ -12,7 +18,7 @@ import {
   drawCardFront,
   calcCanvasMaxSizes,
   calcCanvasCoords,
-} from '.';
+} from 'game/utils';
 
 /* Анимация перемещения карты */
 const animateCardMovement = (
@@ -20,14 +26,71 @@ const animateCardMovement = (
   startCoords: number[],
   finishCoords: number[],
   card: CardType,
-  cardView: AnimatedCardType
+  direction: CardMovementDirection
 ): void => {
   const startTime = performance.now();
-  const animationTime = ANIMATION_TIME;
-  let animateStep = 0;
+  const animationTime = MOVEMENT_ANIMATION_TIME;
 
   const xLength = startCoords[0] - finishCoords[0];
   const yLength = startCoords[1] - finishCoords[1];
+
+  requestAnimationFrame(animate);
+
+  function animate() {
+    const time = performance.now();
+    const shiftTime = time - startTime;
+    const multiply = Math.min(shiftTime / animationTime, 1);
+
+    if (multiply < 1) {
+      requestAnimationFrame(animate);
+    }
+
+    const newX = startCoords[0] - xLength * multiply;
+    const newY = startCoords[1] - yLength * multiply;
+
+    context.clearRect(0, 0, 5000, 5000);
+    if (direction === 'fromUser') {
+      drawCardFront(context, newX, newY, card.color, card.sign);
+    } else {
+      drawCardBack(context, newX, newY);
+    }
+  }
+
+  if (direction === 'fromUser' || direction === 'toBot') return;
+
+  setTimeout(() => {
+    animateCardFlipping(
+      context,
+      card,
+      finishCoords[0],
+      finishCoords[1],
+      'close'
+    );
+  }, animationTime);
+  setTimeout(() => {
+    animateCardFlipping(
+      context,
+      card,
+      finishCoords[0],
+      finishCoords[1],
+      'open'
+    );
+  }, animationTime + FLIPPING_ANIMATION_TIME);
+};
+
+/* Анимация переворачинвания карты */
+export const animateCardFlipping = (
+  context: CanvasRenderingContext2D,
+  card: CardType,
+  x: number,
+  y: number,
+  cardView: AnimatedCardType
+) => {
+  const xLength = BASE_WIDTH_CARD / 2;
+
+  const startTime = performance.now();
+  const animationTime = FLIPPING_ANIMATION_TIME;
+  const startScale = cardView === 'close' ? 1 : 0;
 
   requestAnimationFrame(animate);
 
@@ -40,14 +103,22 @@ const animateCardMovement = (
       requestAnimationFrame(animate);
     }
 
-    const newX = startCoords[0] - xLength * multiply;
-    const newY = startCoords[1] - yLength * multiply;
+    const scale =
+      cardView === 'close' ? startScale - multiply : startScale + multiply;
+    const newX =
+      cardView === 'close'
+        ? x + xLength * multiply
+        : x + xLength - xLength * multiply;
 
     context.clearRect(0, 0, 5000, 5000);
-    if (cardView === 'open')
-      drawCardFront(context, newX, newY, card.color, card.sign);
-    if (cardView === 'close') drawCardBack(context, newX, newY);
-    animateStep++;
+    if (cardView === 'close') {
+      context.transform(scale, 0, 0, 1, newX, y);
+      drawCardBack(context, 0, 0);
+    } else {
+      context.transform(scale, 0, 0, 1, newX, y);
+      drawCardFront(context, 0, 0, card.color, card.sign);
+    }
+    context.resetTransform();
   }
 };
 
@@ -88,23 +159,21 @@ export const moveCard = (
 
   if (card.x !== undefined && card.y !== undefined) {
     const movementStartCoords =
-      direction === 'fromTable'
-        ? [tableCanvasX, tableCanvasY]
-        : [handCanvasX + card.x, handCanvasY + card.y];
+      direction === 'fromUser' || direction === 'fromBot'
+        ? [handCanvasX + card.x, handCanvasY + card.y]
+        : [tableCanvasX, tableCanvasY];
 
     const movementFinishCoords =
-      direction === 'fromTable'
-        ? [handCanvasX + card.x, handCanvasY + card.y]
-        : [tableCanvasX + BASE_WIDTH_CARD + margin, tableCanvasY];
-
-    const cardView = direction === 'fromUser' ? 'open' : 'close';
+      direction === 'fromUser' || direction === 'fromBot'
+        ? [tableCanvasX + BASE_WIDTH_CARD + margin, tableCanvasY]
+        : [handCanvasX + card.x, handCanvasY + card.y];
 
     animateCardMovement(
       context,
       movementStartCoords,
       movementFinishCoords,
       card,
-      cardView
+      direction
     );
     setTimeout(() => {
       playSound();

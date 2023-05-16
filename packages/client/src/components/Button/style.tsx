@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ButtonProps } from './Button';
+import { BOX_SHADOW_BUTTON } from 'styles/variables/styleConstants';
 
 export const StButton = styled.button`
   background: ${(props: ButtonProps) => {
@@ -30,8 +31,7 @@ export const StButton = styled.button`
     return props?.disignType === 'secondary' ? `1px solid #acb5bd` : `none`;
   }};
   border-radius: 1em;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25),
-    inset 4px 4px 4px rgba(130, 128, 128, 0.25); //добавил по макету в фигме для экспереимента
+  box-shadow: ${BOX_SHADOW_BUTTON};
   font-weight: 700;
   text-align: center;
   font-size: ${(props: ButtonProps) => {
@@ -72,6 +72,9 @@ export const StButton = styled.button`
   &&:hover {
     filter: saturate(1.3);
   }
+  &&:active {
+    transform: translate(1%, 1%);
+  }
 `;
 
 export const StButtonCloseModal = styled(StButton)`
@@ -88,6 +91,7 @@ export const StButtonReply = styled(StButton)`
   padding: 5px 7px;
   height: min-content;
   margin: 0;
+  font-size: 13px;
 `;
 
 export const StButtonNewTopic = styled(StButton)`
