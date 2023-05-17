@@ -12,6 +12,7 @@ export default defineConfig({
   },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
+    __DEV_MODE__: process.env.NODE_ENV === 'development',
   },
   plugins: [
     react({
