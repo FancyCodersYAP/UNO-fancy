@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { addUserData } from '../controllers/user';
 import { forumTopicsList } from '../controllers/forumTopicsList';
-
-const API_ROOT = 'https://ya-praktikum.tech/api/v2/';
+import { YANDEX_API_HOST } from '../config/constants';
 
 export interface IUser {
   id: number;
@@ -19,7 +18,7 @@ export class ApiRepository {
   constructor(private _cookieHeader: string | undefined) {}
 
   async getCurrentUser(): Promise<IUser | unknown> {
-    const { data } = await axios.get(`${API_ROOT}/auth/user`, {
+    const { data } = await axios.get(`${YANDEX_API_HOST}/auth/user`, {
       headers: {
         cookie: this._cookieHeader,
       },
