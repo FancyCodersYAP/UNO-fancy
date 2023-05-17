@@ -42,7 +42,10 @@ const Modal = (props: ModalType) => {
       <StModalWrapper css={styles} onClick={stopPropagationEvent}>
         {title && <StModalTitle>{title}</StModalTitle>}
         {hasCrossButton && (
-          <StButtonCloseModal aria-label="close" onClick={handleCloseModal}>
+          <StButtonCloseModal
+            aria-label="close"
+            type="reset"
+            onClick={handleCloseModal}>
             <StModalCloseIcon data-testid="close icon">
               <use href="/assets/icons/icons_sprite.svg#icon-close-modal"></use>
             </StModalCloseIcon>

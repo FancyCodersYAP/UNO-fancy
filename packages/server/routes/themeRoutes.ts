@@ -3,6 +3,7 @@ import { checkUserAuth } from '../middlewares/checkUserAuth';
 import { themeGet, themePost } from '../controllers/userThemes';
 
 export const themeRoutes = Router()
+  .use(express.urlencoded({ extended: true }))
   .use(express.json())
   .use('/', checkUserAuth)
   .get(

@@ -6,13 +6,13 @@ export const xssValidator = () =>
 
 export const xssErrorHandler = (
   req: Request,
-  _res: Response,
+  res: Response,
   next: NextFunction
 ) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     next();
   } else {
-    next(Error('Запрещенный тег внутри строки'));
+    res.status(403).json({ reason: 'Запрещенный тег внутри строки' });
   }
 };

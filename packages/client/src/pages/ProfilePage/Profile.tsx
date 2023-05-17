@@ -13,7 +13,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { fetchProfileChange } from '../../store/User/profile/actions';
 import ProfileAvatar from './ProfileAvatar';
-import { fetchLogout } from '../../store/User/auth/actions';
+import { errorReset } from '../../store/User/userSlice';
 import { TITLES, useTitle } from 'utils/useTitle';
 
 const Profile: FC = () => {
@@ -21,7 +21,7 @@ const Profile: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { user } = userState();
+  const { user, userError } = userState();
 
   const avatar = <ProfileAvatar image={user!.avatar} />;
   const title = <StUserName>{user?.first_name}</StUserName>;
@@ -56,6 +56,9 @@ const Profile: FC = () => {
       handleChangePassword={handleChangePassword}
     />
   );
+  const errorCancel = () => {
+    if (userError) dispatch(errorReset());
+  };
 
   return (
     <StyledForm
@@ -66,6 +69,8 @@ const Profile: FC = () => {
       defaultValues={defaultValues}
       footer={footer}
       inputCss={inputCss}
+      error={userError}
+      errorReset={errorCancel}
     />
   );
 };
