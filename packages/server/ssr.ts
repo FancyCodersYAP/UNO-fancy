@@ -4,6 +4,7 @@ import type { ViteDevServer } from 'vite';
 import app from './app/app';
 import { expressCspHeader } from 'express-csp-header';
 import { getCspDirectives } from './config/cspConfig';
+
 dotenv.config();
 
 import express from 'express';
@@ -42,63 +43,58 @@ export const startSSR = async () => {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
 
-  app.use(
-    '*',
-    expressCspHeader({ directives: getCspDirectives() }),
-    cookieParser(),
-    async (req, res, next) => {
-      const url = req.originalUrl;
+  app.use('*', cookieParser(), async (req, res, next) => {
+    const url = req.originalUrl;
 
-      try {
-        let template: string;
+    try {
+      let template: string;
 
-        if (!isDev()) {
-          template = fs.readFileSync(
-            path.resolve(distPath, 'index.html'),
-            'utf-8'
-          );
-        } else {
-          template = fs.readFileSync(
-            path.resolve(srcPath, 'index.html'),
-            'utf-8'
-          );
-
-          template = await vite!.transformIndexHtml(url, template);
-        }
-
-        let mod: SSRModule;
-
-        if (isDev()) {
-          mod = (await vite!.ssrLoadModule(
-            path.resolve(srcPath, 'ssr.tsx')
-          )) as SSRModule;
-        } else {
-          mod = await import(ssrClientPath);
-        }
-
-        const { render } = mod;
-        const [initialState, appHtml, css] = await render(
-          url,
-          new ApiRepository(req.headers['cookie']),
-          req.headers['cookie']
+      if (!isDev()) {
+        template = fs.readFileSync(
+          path.resolve(distPath, 'index.html'),
+          'utf-8'
+        );
+      } else {
+        template = fs.readFileSync(
+          path.resolve(srcPath, 'index.html'),
+          'utf-8'
         );
 
-        const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-          initialState
-        ).replace(/</g, '\\u003c')}</script>`;
-
-        const html = template
-          .replace(`<!--ssr-outlet-->`, appHtml)
-          .replace('<!--preloadedState-->', stateMarkup)
-          .replace(`<!--styles-->`, css);
-
-        res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-      } catch (e) {
-        if (isDev()) {
-          vite!.ssrFixStacktrace(e as Error);
-        }
-        next(e);
+        template = await vite!.transformIndexHtml(url, template);
       }
+
+      let mod: SSRModule;
+
+      if (isDev()) {
+        mod = (await vite!.ssrLoadModule(
+          path.resolve(srcPath, 'ssr.tsx')
+        )) as SSRModule;
+      } else {
+        mod = await import(ssrClientPath);
+      }
+
+      const { render } = mod;
+      const [initialState, appHtml, css] = await render(
+        url,
+        new ApiRepository(req.headers['cookie']),
+        req.headers['cookie']
+      );
+
+      const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
+        initialState
+      ).replace(/</g, '\\u003c')}</script>`;
+
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace('<!--preloadedState-->', stateMarkup)
+        .replace(`<!--styles-->`, css);
+
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+    } catch (e) {
+      if (isDev()) {
+        vite!.ssrFixStacktrace(e as Error);
+      }
+      next(e);
     }
-  );
+  });
 };
