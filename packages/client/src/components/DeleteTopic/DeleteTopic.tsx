@@ -1,7 +1,7 @@
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
 import {
-  StDeleteTopicContainer,
+  StDeleteTopicFrom,
   StDeleteTopicWrapper,
   StTopicName,
   StDeleteError,
@@ -45,7 +45,7 @@ const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
   };
 
   return (
-    <StDeleteTopicContainer onSubmit={handelDeleteTopic} onClick={errorCancel}>
+    <StDeleteTopicFrom onSubmit={handelDeleteTopic} onClick={errorCancel}>
       <StDeleteTopicWrapper>
         <StTopicName>{topicInfo.name}</StTopicName>
 
@@ -61,7 +61,7 @@ const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
           disignType="alternate"
         />
       </StFlex>
-    </StDeleteTopicContainer>
+    </StDeleteTopicFrom>
   );
 };
 

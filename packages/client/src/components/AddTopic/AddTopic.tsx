@@ -4,8 +4,9 @@ import { StTopicForm } from './style';
 import { css } from 'styled-components';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchForumTopicPost } from 'store/Forum/forumActions';
+import { forumErrorReset } from '../../store/Forum/forumSlice';
 
 export const buttonStyle = css`
   width: 200px;
@@ -41,6 +42,12 @@ const AddTopic = (props: AddTopicType) => {
     });
   };
 
+  const forumError = useAppSelector(state => state.FORUM.error);
+
+  const errorCancel = () => {
+    if (forumError) dispatch(forumErrorReset());
+  };
+
   const footer = (
     <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
       <Button
@@ -64,6 +71,8 @@ const AddTopic = (props: AddTopicType) => {
       fields={addTopicConfig}
       handleFormSubmit={submitNewTopic}
       footer={footer}
+      error={forumError}
+      errorReset={errorCancel}
     />
   );
 };

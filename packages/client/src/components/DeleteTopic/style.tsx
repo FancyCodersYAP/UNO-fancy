@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StDeleteTopicContainer = styled.form``;
+export const StDeleteTopicFrom = styled.form``;
 
 export const StDeleteTopicWrapper = styled.div`
   position: relative;
