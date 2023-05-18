@@ -7,6 +7,16 @@ const URLS = [
   '/assets/sounds/music.mp3',
   '/assets/sounds/skip-uno.mp3',
   '/assets/sounds/uno.mp3',
+  '/assets/img/background.png',
+  '/assets/img/colorLogo.png',
+  '/assets/img/logo.png',
+  '/assets/img/start-game-1.jpg',
+  '/assets/img/start-game-2.jpg',
+  '/assets/img/start-game-3.jpg',
+  '/assets/icons/default-avatar.svg',
+  '/assets/icons/icons_sprite.svg',
+  '/assets/icons/medal.svg',
+  '/assets/icons/status-bar_sprite.svg',
 ];
 
 const responseBody = `<h3>Проверьте подключение к интернету и повторите попытку</h3>`;
