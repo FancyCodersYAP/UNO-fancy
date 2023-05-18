@@ -83,6 +83,7 @@ const Textarea: FC<TextareaProps> = ({
         ref={combinedRefs}
         onInput={changeTextareaBorderRadius}
         maxLength={255}
+        onClick={handleEmoji}
         placeholder={placeholder || ''}></StTextarea>
       {error && <StError>{errorMessage}</StError>}
     </StTextareaContainer>
