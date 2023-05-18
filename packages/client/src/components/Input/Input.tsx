@@ -2,7 +2,6 @@ import { FC, InputHTMLAttributes } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 import { StError, StInput, StInputContainer, StLabel } from './style';
 import { ValidationPattern, ValidationType } from 'utils/constants';
-import { CSSProp } from 'styled-components';
 import { DataType } from '../Form/Form';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -13,8 +12,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
   required?: boolean;
   pattern?: ValidationType;
-  inputCss?: CSSProp;
   placeholder?: string;
+  className?: string;
 }
 
 const Input: FC<InputProps> = ({
@@ -25,8 +24,8 @@ const Input: FC<InputProps> = ({
   error,
   errorMessage,
   pattern,
-  inputCss,
   placeholder,
+  className,
   ...rest
 }) => {
   const options = {
@@ -39,7 +38,7 @@ const Input: FC<InputProps> = ({
       <StInput
         {...register(name, options)}
         placeholder={placeholder || ''}
-        css={inputCss}
+        className={className}
         id={name}
         {...rest}
       />

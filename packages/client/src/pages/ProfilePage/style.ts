@@ -75,10 +75,6 @@ export const StSaveButton = styled(StFooterButton)`
   margin: 50px auto 0;
 `;
 
-export const inputCss = css`
-  text-align: right;
-`;
-
 export const stFlexStyles = css`
   position: relative;
 `;

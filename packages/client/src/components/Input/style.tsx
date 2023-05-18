@@ -6,6 +6,10 @@ export const StInputContainer = styled.div`
   height: 50px;
   position: relative;
   width: 100%;
+
+  .profile_input {
+    text-align: right;
+  }
 `;
 
 export const StInput = styled.input`
