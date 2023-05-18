@@ -1,5 +1,5 @@
 import express, { type Request, type Response, Router } from 'express';
-import { xssErrorHandler, xssValidator } from '../middlewares/xssValidation';
+import { xssValidator } from '../middlewares/xssValidation';
 import { checkUserAuth } from '../middlewares/checkUserAuth';
 import { messageGetByID, messagePost } from '../controllers/forumMessages';
 export const forumMessages = Router()
@@ -15,15 +15,10 @@ export const forumMessages = Router()
       })
       .catch(next);
   })
-  .post(
-    '/',
-    xssValidator(),
-    xssErrorHandler,
-    (req: Request, res: Response, next) => {
-      req.body.user_id = res.locals.user.id;
-      messagePost(req.body)
-        .then(message => messageGetByID(message.id))
-        .then(message => res.status(200).json(message))
-        .catch(next);
-    }
-  );
+  .post('/', xssValidator(), (req: Request, res: Response, next) => {
+    req.body.user_id = res.locals.user.id;
+    messagePost(req.body)
+      .then(message => messageGetByID(message.id))
+      .then(message => res.status(200).json(message))
+      .catch(next);
+  });

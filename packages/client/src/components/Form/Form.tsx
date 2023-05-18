@@ -11,8 +11,6 @@ import { LoginFormParams } from 'pages/LoginPage/LoginPage';
 import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
 import { TopicFormParams } from 'components/AddTopic/AddTopic';
 import { MessageFormParams } from 'components/AddAnswer/AddAnswer';
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
 
 export type DataType = LoginFormParams &
   RegFormParams &
@@ -67,9 +65,7 @@ const Form: FC<FormProps> = ({
         </StFormTitle>
       )}
 
-      <form
-        onSubmit={handleSubmit(handleFormSubmit)}
-        onClick={() => errorReset}>
+      <form onSubmit={handleSubmit(handleFormSubmit)} onClick={errorReset}>
         <StFieldList css={fieldListCss}>
           {fields.map(({ name, textarea, ...rest }) =>
             textarea ? (
