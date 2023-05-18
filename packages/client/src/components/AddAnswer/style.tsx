@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { StTopicForm } from 'components/AddTopic/style';
 import { StTextarea, StTextareaContainer } from 'components/Textarea/style';
 import { StEmojiWrapper } from 'components/EmojisButton/style';
+import { StFlex } from 'styles/global';
+import Button from 'components/Button/Button';
 
 export const StMessageForm = styled(StTopicForm)`
   ${StTextareaContainer} {
@@ -43,4 +45,13 @@ export const StAnswer = styled(StAnswerAll)`
   text-decoration-line: none;
   padding-left: 5px;
   background-color: rgba(0, 0, 0, 0.1);
+`;
+
+export const StFlexButtonsWrapperStyle = styled(StFlex)`
+  margin-top: 32px;
+`;
+
+export const StButtonAddAnswer = styled(Button)`
+  width: 200px;
+  margin: 0;
 `;

@@ -5,10 +5,6 @@ import {
 } from 'styles/variables/styleConstants';
 import { customScrollbar } from 'styles/global';
 
-export const stBoardStyle = css`
-  min-width: 1128px;
-`;
-
 const tableCellStyle = css`
   display: flex;
   justify-content: center;

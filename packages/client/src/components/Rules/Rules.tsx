@@ -10,31 +10,9 @@ import {
   width100Percent,
 } from 'styles/global';
 import { cardsWithRules } from 'data/cardsWithRules';
+import { StMoreButton, StBackButton } from './style';
 
 const TOTAL_SLIDES = 2;
-
-const padding15AliginItemsCenter = css`
-  padding-top: 15px;
-  padding-bottom: 15px;
-  align-items: center;
-`;
-
-const moreButtonStyle = css`
-  ${padding15AliginItemsCenter}
-
-  svg {
-    margin-left: 15px;
-  }
-`;
-
-const backButtonStyle = css`
-  ${padding15AliginItemsCenter}
-
-  svg {
-    transform: rotate(180deg);
-    margin-right: 15px;
-  }
-`;
 
 const Rules = () => {
   const { ref, goNext, goPrev } = useCarousel(TOTAL_SLIDES);
@@ -65,10 +43,9 @@ const Rules = () => {
             ))}
           </StFlex>
 
-          <Button
+          <StMoreButton
             onClick={goNext}
             svg={iconMoreButton}
-            css={moreButtonStyle}
             text="Подробнее"
             disignType="alternate"
           />
@@ -77,10 +54,9 @@ const Rules = () => {
         <StCarouselBox>
           <RulesInfo />
 
-          <Button
+          <StBackButton
             onClick={goPrev}
             svg={iconBackButton}
-            css={backButtonStyle}
             text="Назад"
             disignType="alternate"
           />

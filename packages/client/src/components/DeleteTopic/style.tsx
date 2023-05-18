@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from 'components/Button/Button';
 
 export const StDeleteTopicForm = styled.form``;
 
@@ -24,4 +25,9 @@ export const StDeleteError = styled.p`
   width: 100%;
   color: ${props => props.theme?.COLOR_ELEMENT_WARN};
   filter: opacity(80%);
+`;
+
+export const StButton = styled(Button)`
+  width: 200px;
+  margin: 0;
 `;

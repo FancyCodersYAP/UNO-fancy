@@ -4,6 +4,8 @@ import { StFieldList } from 'components/Form/style';
 import { StInputContainer, StInput, StLabel } from 'components/Input/style';
 import { StEmojiWrapper } from 'components/EmojisButton/style';
 import { FormError } from '../Form/style';
+import { StFlex } from 'styles/global';
+import Button from 'components/Button/Button';
 
 export const StTopicForm = styled(Form)`
   width: 100%;
@@ -42,4 +44,13 @@ export const StTopicForm = styled(Form)`
   && ${FormError} {
     bottom: -10%;
   }
+`;
+
+export const StFlexButtonsWrapperStyle = styled(StFlex)`
+  margin-top: 32px;
+`;
+
+export const StButtonAddTopic = styled(Button)`
+  width: 200px;
+  margin: 0;
 `;

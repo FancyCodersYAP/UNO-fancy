@@ -1,21 +1,13 @@
-import Button from 'components/Button';
-import { StFlex } from 'styles/global';
-import { StTopicForm } from './style';
-import { css } from 'styled-components';
+import {
+  StTopicForm,
+  StFlexButtonsWrapperStyle,
+  StButtonAddTopic,
+} from './style';
 import { addTopicConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchForumTopicPost } from 'store/Forum/forumActions';
 import { forumErrorReset } from '../../store/Forum/forumSlice';
-
-export const buttonStyle = css`
-  width: 200px;
-  margin: 0;
-`;
-
-const buttonsWrapperStyle = css`
-  margin-top: 40px;
-`;
 
 export interface TopicFormParams extends FieldValues {
   name: string;
@@ -49,21 +41,15 @@ const AddTopic = (props: AddTopicType) => {
   };
 
   const footer = (
-    <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
-      <Button
-        css={buttonStyle}
-        text="Создать"
-        type="submit"
-        disignType="primary"
-      />
-      <Button
-        css={buttonStyle}
+    <StFlexButtonsWrapperStyle justifyContent="space-between">
+      <StButtonAddTopic text="Создать" type="submit" disignType="primary" />
+      <StButtonAddTopic
         type="reset"
         text="Отмена"
         disignType="alternate"
         onClick={handleCloseModal}
       />
-    </StFlex>
+    </StFlexButtonsWrapperStyle>
   );
 
   return (

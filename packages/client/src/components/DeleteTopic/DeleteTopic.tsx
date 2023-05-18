@@ -1,20 +1,14 @@
-import Button from 'components/Button';
 import { StFlex } from 'styles/global';
 import {
   StDeleteTopicForm,
   StDeleteTopicWrapper,
   StTopicName,
   StDeleteError,
+  StButton,
 } from './style';
-import { css } from 'styled-components';
 import { fetchForumTopicDel } from 'store/Forum/forumActions';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { forumErrorReset } from 'store/Forum/forumSlice';
-
-const buttonStyle = css`
-  width: 200px;
-  margin: 0;
-`;
 
 type topicInfoType = {
   id: number;
@@ -53,10 +47,9 @@ const DeleteTopic = ({ handleCloseModal, topicInfo }: DeleteTopicType) => {
       </StDeleteTopicWrapper>
 
       <StFlex justifyContent="space-between">
-        <Button css={buttonStyle} text="Удалить" type="submit" />
-        <Button
+        <StButton text="Удалить" type="submit" />
+        <StButton
           onClick={handleCloseModal}
-          css={buttonStyle}
           text="Отмена"
           disignType="alternate"
         />

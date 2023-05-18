@@ -6,7 +6,6 @@ import useModal from 'hooks/useModal';
 import AddTopic from 'components/AddTopic';
 import ForumTopic from './ForumTopic';
 import {
-  stBoardStyle,
   StNewTopicIcon,
   StTable,
   StHead,
@@ -23,10 +22,6 @@ import { fetchForumTopicsGet } from 'store/Forum/forumActions';
 import { useEffect, useRef } from 'react';
 import { useAppSelector } from 'hooks/redux';
 import { useTitle, TITLES } from 'utils/useTitle';
-
-const marginBottom58px = css`
-  margin: 0 0 58px;
-`;
 
 const addTopicModalStyles = css`
   width: 700px;
@@ -77,7 +72,7 @@ const ForumPage = () => {
 
   return (
     <StBoard>
-      <StTitle css={marginBottom58px}>Форум</StTitle>
+      <StTitle>Форум</StTitle>
 
       <StTable css={headStyleTemplate}>
         <StHead>

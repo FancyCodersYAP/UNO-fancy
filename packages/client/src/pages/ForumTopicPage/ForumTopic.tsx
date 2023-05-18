@@ -1,4 +1,4 @@
-import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
+import { StBoard } from 'pages/ForumPage/style';
 import Button from 'components/Button/Button';
 import TopicMessage from './TopicMessage';
 import { css } from 'styled-components';
@@ -12,13 +12,13 @@ import {
   StTopicWrapper,
   StTopicNameContainer,
   StTopicName,
-  stBoardStyle,
   StTopicText,
   StTopicDate,
   StTopicDiscussion,
   StButtonBackIcon,
   StButtonBackToForum,
   StTopicDiscussionEmpty,
+  StTitleForumTopic,
 } from './style';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
@@ -34,10 +34,6 @@ import { fetchForumTopicGetById } from 'store/Forum';
 import { dateStringParse } from 'utils/dateStringParse';
 import { AddAnswerModalUserInfo } from 'types';
 import { useTitle } from 'utils/useTitle';
-
-const marginBottom58px = css`
-  margin: 0 0 58px;
-`;
 
 export const addAnswerModalStyles = css`
   width: 700px;
@@ -107,8 +103,8 @@ const ForumTopic = () => {
   if (!TopicContent) return <></>;
 
   return (
-    <StBoard css={stBoardStyle}>
-      <StTitle css={marginBottom58px}>Форум</StTitle>
+    <StBoard>
+      <StTitleForumTopic>Форум</StTitleForumTopic>
 
       <StTopic>
         <StButtonBackToForum onClick={navigateToForum}>

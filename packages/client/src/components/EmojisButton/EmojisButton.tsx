@@ -1,5 +1,6 @@
 import {
   StEmojiWrapper,
+  StEmojiList,
   StButtonEmoji,
   StSmileIcon,
   StEmojiContainer,
@@ -43,11 +44,13 @@ const EmojisButton = ({
 
       {isOpen && (
         <StEmojiContainer>
-          {emojiArray.map((el, index) => (
-            <StEmojiItem key={index + 1} onClick={clickOnEmoji}>
-              {el}
-            </StEmojiItem>
-          ))}
+          <StEmojiList>
+            {emojiArray.map((el, index) => (
+              <StEmojiItem key={index + 1} onClick={clickOnEmoji}>
+                {el}
+              </StEmojiItem>
+            ))}
+          </StEmojiList>
         </StEmojiContainer>
       )}
     </StEmojiWrapper>

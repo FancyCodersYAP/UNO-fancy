@@ -1,10 +1,13 @@
-import Button from 'components/Button';
-import { StFlex } from 'styles/global';
-import { StMessageForm, StAnswerWrapper, StAnswerAll, StAnswer } from './style';
-import { css } from 'styled-components';
+import {
+  StMessageForm,
+  StAnswerWrapper,
+  StAnswerAll,
+  StAnswer,
+  StFlexButtonsWrapperStyle,
+  StButtonAddAnswer,
+} from './style';
 import { addMessageConfig } from 'pages/configs';
 import { FieldValues } from 'react-hook-form';
-import { buttonStyle } from 'components/AddTopic/AddTopic';
 import stringShorten from 'utils/stringShorten';
 import { fetchForumMessagePost } from 'store/Forum/messageAction';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
@@ -19,10 +22,6 @@ interface AddAnswerType {
   handleCloseModal: () => void;
   userInfo?: AddAnswerModalUserInfo;
 }
-
-const buttonsWrapperStyle = css`
-  margin-top: 32px;
-`;
 
 export interface MessageFormParams extends FieldValues {
   content: string;
@@ -58,21 +57,15 @@ const AddAnswer = ({
   };
 
   const footer = (
-    <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
-      <Button
-        css={buttonStyle}
-        text="Отправить"
-        type="submit"
-        disignType="primary"
-      />
-      <Button
-        css={buttonStyle}
+    <StFlexButtonsWrapperStyle justifyContent="space-between">
+      <StButtonAddAnswer text="Отправить" type="submit" disignType="primary" />
+      <StButtonAddAnswer
         text="Отмена"
         type="reset"
         disignType="alternate"
         onClick={handleCloseModal}
       />
-    </StFlex>
+    </StFlexButtonsWrapperStyle>
   );
 
   return (

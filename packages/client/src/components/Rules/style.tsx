@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { customScrollbar } from 'styles/global';
 import { BACKGROUND_COLOR_OPACITY_LIGHT } from 'styles/variables/colors-const';
+import Button from 'components/Button/Button';
 
 export const StRulesTextContainer = styled.div`
   ${customScrollbar}
@@ -34,5 +35,26 @@ export const StRulesTextContainer = styled.div`
   a {
     border-bottom: 1px ${props => props.theme?.COLOR_TEXT_PRIMARY} solid;
     color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  }
+`;
+
+export const StMoreButton = styled(Button)`
+  padding-top: 15px;
+  padding-bottom: 15px;
+  align-items: center;
+
+  svg {
+    margin-left: 15px;
+  }
+`;
+
+export const StBackButton = styled(Button)`
+  padding-top: 15px;
+  padding-bottom: 15px;
+  align-items: center;
+
+  svg {
+    transform: rotate(180deg);
+    margin-right: 15px;
   }
 `;

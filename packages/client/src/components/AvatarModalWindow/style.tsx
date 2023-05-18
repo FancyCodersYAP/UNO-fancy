@@ -2,6 +2,9 @@ import styled, { css } from 'styled-components';
 import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
 import { BORDER_COLOR_BUTTON } from 'styles/variables/colors-const';
 import { BOX_SHADOW_BUTTON } from 'styles/variables/styleConstants';
+import Button from 'components/Button/Button';
+import { StAvatar } from 'pages/ProfilePage/style';
+import { FormError } from 'components/Form/style';
 
 export const StAvatarContainer = styled.form`
   display: flex;
@@ -10,15 +13,7 @@ export const StAvatarContainer = styled.form`
   align-items: center;
 `;
 
-export const avatarStyles = css`
-  border: 1px solid ${props => props.theme?.COLOR_TEXT_PRIMARY};
-  width: 160px;
-  height: 160px;
-
-  &:hover::before {
-    display: none;
-  }
-`;
+export const avatarStyles = css``;
 
 export const StAvatarInputWrapper = styled.div`
   width: 100%;
@@ -70,8 +65,25 @@ export const StButtonWrapper = styled.div`
   position: relative;
 `;
 
-export const errorStyle = css`
+export const StError = styled(FormError)`
   font-size: 22px;
   bottom: -40px;
   transform: translateX(-50%);
+`;
+
+export const StAvatarModal = styled(StAvatar)`
+  border: 1px solid ${props => props.theme?.COLOR_TEXT_PRIMARY};
+  width: 160px;
+  height: 160px;
+
+  &:hover::before {
+    display: none;
+  }
+`;
+
+export const StButtonAvatar = styled(Button)`
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 38px;
+  width: 372px;
 `;

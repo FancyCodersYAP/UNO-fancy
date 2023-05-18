@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { StTitle } from 'pages/LeaderBoardPage/style';
 
 export const St404Wrapper = styled.div`
   border-radius: 50px;
@@ -14,4 +15,9 @@ export const St404Text = styled.p`
   margin: 20px 0 40px;
   text-align: center;
   font-size: 22px;
+`;
+
+export  const StTitle404 = styled(StTitle)`
+  font-size: 42px;
+  margin-bottom: 20px;
 `;

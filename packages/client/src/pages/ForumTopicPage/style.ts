@@ -9,14 +9,7 @@ import { AvatarType } from 'types';
 import { StButton } from 'components/Button/style';
 import { BOX_SHADOW } from 'styles/variables/styleConstants';
 import { API_ENDPOINTS } from '../../store/constants';
-
-export const stBoardStyle = css`
-  min-width: 1128px;
-`;
-
-export const lineHeight130Percent = css`
-  line-height: 130%;
-`;
+import { StTitle } from 'pages/LeaderBoardPage/style';
 
 const containerStyle = css`
   display: grid;
@@ -24,6 +17,10 @@ const containerStyle = css`
   margin-bottom: 12px;
   background: ${props => props.theme?.BACKGROUND_COLOR_TOPIC_MESSAGE};
   box-shadow: ${BOX_SHADOW};
+`;
+
+export const StTitleForumTopic = styled(StTitle)`
+  margin: 0 0 58px;
 `;
 
 export const StTopic = styled.div`
@@ -92,7 +89,7 @@ export const StTopicWrapper = styled.div`
 export const StTopicName = styled.h3`
   font-size: 15px;
   font-weight: 400;
-  ${lineHeight130Percent}
+  line-height: 130%;
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
   text-align: center;
   position: absolute;
@@ -115,7 +112,7 @@ export const StTopicNameContainer = styled.div`
 
 export const StTopicText = styled.p`
   font-size: 18px;
-  ${lineHeight130Percent}
+  line-height: 130%;
   color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
   position: relative;
   padding: 25px 15px;
@@ -124,7 +121,7 @@ export const StTopicText = styled.p`
 
 export const StTopicDate = styled.span`
   font-size: 10px;
-  ${lineHeight130Percent}
+  line-height: 130%;
   color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
   position: absolute;
   bottom: 5px;
@@ -154,11 +151,7 @@ export const StMessage = styled.article`
 
 export const StMessageAvatar = styled(StUserAvatar)`
   padding: 25px;
-  //width: 50px;
-  //height: 50px;
-  //margin-right: 12px;
   margin-bottom: 0;
-  //background-size: 20px;
 `;
 
 export const StMessageWrapper = styled.div`
@@ -173,7 +166,7 @@ export const StMessageWrapper = styled.div`
 
 export const StMessageText = styled.p`
   font-size: 15px;
-  ${lineHeight130Percent}
+  line-height: 130%;
   color: ${COLOR_ELEMENT_CONTRAST_REVERSE};
   max-width: 775px;
   padding-bottom: 10px;

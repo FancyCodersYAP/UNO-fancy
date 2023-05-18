@@ -2,21 +2,14 @@ import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Button from 'components/Button';
-import { StTitle } from 'pages/LeaderBoardPage/style';
-import { St404Wrapper, St404Text } from './style';
+import { St404Wrapper, St404Text, StTitle404 } from './style';
 import { drawCardFront } from 'game/utils';
 import { cardColors } from 'game/utils';
-import { css } from 'styled-components';
 import {
   NOT_FOUND_PAGE_WIDTH_CARD,
   NOT_FOUND_PAGE_HEIGHT_CARD,
 } from 'game/utils/constants';
 import { TITLES, useTitle } from 'utils/useTitle';
-
-const titleStyles = css`
-  font-size: 42px;
-  margin-bottom: 20px;
-`;
 
 const CanvasErorr404 = () => {
   useTitle(TITLES.notfound);
@@ -58,7 +51,7 @@ const CanvasErorr404 = () => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} width={300} height={215} />;
+  return <canvas ref={canvasRef} width={310} height={230} />;
 };
 
 const NotFoundPage = () => {
@@ -70,7 +63,7 @@ const NotFoundPage = () => {
 
   return (
     <St404Wrapper>
-      <StTitle css={titleStyles}>Ошибка</StTitle>
+      <StTitle404>Ошибка</StTitle404>
       <CanvasErorr404 />
       <St404Text>Такой страницы нет</St404Text>
       <Button

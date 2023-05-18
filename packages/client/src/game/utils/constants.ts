@@ -8,7 +8,7 @@ export const BASE_WIDTH_CARD =
     ? Math.floor(CANVAS_WIDTH / 10)
     : Math.floor(CANVAS_HEIGHT / 7);
 export const BASE_HEIGHT_CARD = Math.floor(BASE_WIDTH_CARD * 1.5);
-export const NOT_FOUND_PAGE_WIDTH_CARD = 120;
+export const NOT_FOUND_PAGE_WIDTH_CARD = 130;
 export const NOT_FOUND_PAGE_HEIGHT_CARD = NOT_FOUND_PAGE_WIDTH_CARD * 1.5;
 
 export const START_NUM_CARDS_IN_HAND = 7;

@@ -1,32 +1,22 @@
-import { StAvatar } from 'pages/ProfilePage/style';
 import { fetchAvatarChange } from 'store/User/profile/actions';
 import { useAppDispatch } from 'hooks/redux';
-import Button from 'components/Button/Button';
 import {
-  avatarStyles,
+  StAvatarModal,
   StAvatarContainer,
   StAvatarInputWrapper,
   StAvatarInput,
   StAvatarLabel,
   StAvatarError,
   StButtonWrapper,
-  errorStyle,
+  StError,
+  StButtonAvatar,
 } from './style';
 import formatBytes from 'utils/formatBytes';
-import { css } from 'styled-components';
 import { useRef } from 'react';
 import { errorReset } from 'store/User/userSlice';
 import { userState } from 'hooks/userState';
-import { FormError } from 'components/Form/style';
 
 const MAX_FILE_SIZE = 1048576;
-
-const buttontStyles = css`
-  font-weight: 700;
-  font-size: 25px;
-  line-height: 38px;
-  width: 372px;
-`;
 
 interface AvatarModal {
   handleCloseModal: () => void;
@@ -107,14 +97,10 @@ const AvatarModalWindow = ({ handleCloseModal, image }: AvatarModal) => {
         <StAvatarLabel htmlFor="avatarFile">Выбрать файл</StAvatarLabel>
         <StAvatarError ref={avatarErrorRef}></StAvatarError>
       </StAvatarInputWrapper>
-      <StAvatar ref={userAvatarRef} css={avatarStyles} image={image} />
+      <StAvatarModal ref={userAvatarRef} image={image} />
       <StButtonWrapper>
-        <Button
-          css={buttontStyles}
-          type="submit"
-          text="Установить фотографию"
-        />
-        <FormError css={errorStyle}>{userError}</FormError>
+        <StButtonAvatar type="submit" text="Установить фотографию" />
+        <StError>{userError}</StError>
       </StButtonWrapper>
     </StAvatarContainer>
   );
