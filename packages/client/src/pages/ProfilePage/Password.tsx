@@ -18,12 +18,13 @@ import { userState } from '../../hooks/userState';
 import ProfileAvatar from './ProfileAvatar';
 import { StFlex } from 'styles/global';
 import { TITLES, useTitle } from 'utils/useTitle';
+import { errorReset } from '../../store/User/userSlice';
 
 const Password: FC = () => {
   useTitle(TITLES.password);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = userState();
+  const { user, userError } = userState();
 
   const navigateToProfile = () => {
     navigate(`${AppRoute.PROFILE}`);
@@ -40,6 +41,10 @@ const Password: FC = () => {
   const title = <StUserName>{user!.first_name}</StUserName>;
   const footer = <StSaveButton text="Сохранить" type="submit" />;
 
+  const errorCancel = () => {
+    if (userError) dispatch(errorReset());
+  };
+
   return (
     <StFlex css={stFlexStyles}>
       <StButtonBackToProfile onClick={navigateToProfile}>
@@ -54,6 +59,8 @@ const Password: FC = () => {
         handleFormSubmit={changePassword}
         footer={footer}
         inputCss={inputCss}
+        error={userError}
+        errorReset={errorCancel}
       />
     </StFlex>
   );

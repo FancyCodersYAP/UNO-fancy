@@ -7,8 +7,9 @@ import { FieldValues } from 'react-hook-form';
 import { buttonStyle } from 'components/AddTopic/AddTopic';
 import stringShorten from 'utils/stringShorten';
 import { fetchForumMessagePost } from 'store/Forum/messageAction';
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { AddAnswerModalUserInfo } from 'types';
+import { forumErrorReset } from '../../store/Forum/forumSlice';
 
 const MAX_ANSWER_LENGTH = 20;
 
@@ -50,6 +51,12 @@ const AddAnswer = ({
     });
   };
 
+  const forumError = useAppSelector(state => state.FORUM.error);
+
+  const errorCancel = () => {
+    if (forumError) dispatch(forumErrorReset());
+  };
+
   const footer = (
     <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
       <Button
@@ -70,7 +77,7 @@ const AddAnswer = ({
 
   return (
     <>
-      <StAnswerWrapper>
+      <StAnswerWrapper onClick={errorCancel}>
         {userInfo ? (
           <StAnswer>
             {userInfo.user}: "
@@ -85,6 +92,8 @@ const AddAnswer = ({
         fields={addMessageConfig}
         handleFormSubmit={submitNewTopicMessage}
         footer={footer}
+        error={forumError}
+        errorReset={errorCancel}
       />
     </>
   );

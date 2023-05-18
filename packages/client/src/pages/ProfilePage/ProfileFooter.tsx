@@ -24,7 +24,7 @@ const ProfileFooter: FC<ProfileFooterProps> = ({
       </StFlex>
       <StQuitButton
         text="Выйти"
-        type="button"
+        type="reset"
         disignType="secondary"
         onClick={logout}
       />
