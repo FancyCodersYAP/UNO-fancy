@@ -17,12 +17,14 @@ import {
 import BoardItem from './BoardItem';
 import { leaderboardList } from 'hooks/leaderboardState';
 import { fetchLeaderboard } from 'store/Leaderboard/actions';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const StyledTitleWithMargin = styled(StTitle)`
   margin: 0 0 40px;
 `;
 
 const LeaderBoard: FC = () => {
+  useTitle(TITLES.leaderboard);
   const dispatch = useAppDispatch();
   const [hasScroll, setScrollPresence] = useState(true);
 

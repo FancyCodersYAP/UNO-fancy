@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { userState } from 'hooks/userState';
-import { useAppDispatch } from 'hooks/redux';
 import useModal from 'hooks/useModal';
 import useTimer from 'hooks/useTimer';
 import { leaderboardList } from 'hooks/leaderboardState';
+import { useAppDispatch } from 'hooks/redux';
 import { fetchLeaderboard, fetchUserDataLB } from 'store/Leaderboard/actions';
 import { controller } from 'game/Controller';
 import { audioManager } from 'game/services/audioManager';
@@ -22,6 +22,7 @@ import StatusBar from 'components/StatusBar/StatusBar';
 import { PlayModal } from './PlayModal';
 import { StGameFlex } from './style';
 import { PUT_LEADERBOARD_DATA } from 'store/constants';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const modalWidth = css`
   width: 700px;
@@ -32,6 +33,7 @@ const modalPadding = css`
 `;
 
 export function GamePage() {
+  useTitle(TITLES.game);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -1,5 +1,5 @@
-import { GamePlayerType } from '../types';
-import { namesForBots } from './data';
+import { GamePlayerType } from 'game/types';
+import { namesForBots } from 'game/utils/data';
 
 /* Добавление в игру юзера и ботов */
 export const addPlayers = (

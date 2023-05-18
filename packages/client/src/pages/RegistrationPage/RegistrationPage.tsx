@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { fetchRegistration } from '../../store/User/auth/actions';
 import { userState } from '../../hooks/userState';
 import { registrationConfig } from '../configs';
+import { TITLES, useTitle } from 'utils/useTitle';
+import { errorReset } from '../../store/User/userSlice';
 
 export interface RegFormParams extends FieldValues {
   first_name: string;
@@ -27,10 +29,11 @@ const StyledFormFooter = styled(StFormFooter)`
 `;
 
 const RegistrationPage: FC = () => {
+  useTitle(TITLES.registration);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { user } = userState();
+  const { user, userError } = userState();
 
   useEffect(() => {
     if (user) {
@@ -49,6 +52,10 @@ const RegistrationPage: FC = () => {
     </StyledFormFooter>
   );
 
+  const errorCancel = () => {
+    if (userError) dispatch(errorReset());
+  };
+
   return (
     <StContainer alignItems="center" padding="0 40">
       <Form
@@ -56,6 +63,8 @@ const RegistrationPage: FC = () => {
         fields={registrationConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
+        error={userError}
+        errorReset={errorCancel}
       />
       <StTextGamePreviewContainer>
         {GAME_DESCRIPTION}

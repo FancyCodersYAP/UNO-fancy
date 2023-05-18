@@ -25,10 +25,10 @@ const EndGame = ({
         <use href="/assets/icons/icons_sprite.svg#medal"></use>
       </StMedalIcon>
       <StEndGameTextWrapper>
-        <EndGameText text={`время игры: ${time}`} />
-        <EndGameText text={`игроков: ${countPlace}`} />
-        <EndGameText text={`очки: ${points}`} />
         <EndGameText text={`результат: ${result}`} />
+        <EndGameText text={`очки: ${points}`} />
+        <EndGameText text={`игроков: ${countPlace}`} />
+        <EndGameText text={`время игры: ${time}`} />
       </StEndGameTextWrapper>
     </StFlexBg>
 

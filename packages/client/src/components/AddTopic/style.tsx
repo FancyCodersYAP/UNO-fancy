@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Form from 'components/Form/Form';
 import { StFieldList } from 'components/Form/style';
 import { StInputContainer, StInput, StLabel } from 'components/Input/style';
+import { StEmojiWrapper } from 'components/EmojisButton/style';
+import { FormError } from '../Form/style';
 
 export const StTopicForm = styled(Form)`
   width: 100%;
@@ -31,5 +33,13 @@ export const StTopicForm = styled(Form)`
 
   ${StLabel} {
     display: none;
+  }
+
+  ${StEmojiWrapper} {
+    display: none;
+  }
+
+  && ${FormError} {
+    bottom: -10%;
   }
 `;

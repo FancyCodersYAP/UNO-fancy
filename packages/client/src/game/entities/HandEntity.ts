@@ -1,9 +1,20 @@
-import { drawCardBack, drawCardFront } from '../utils/drawCard';
-import { Entity } from './Entity';
-import { CardType, GamePlayerType, HandEntityTypes } from '../types';
-import { calcStartCoords, calcVisiblePartOfCard, moveCard } from '../utils';
-import { ANIMATION_TIME } from '../utils/constants';
-import { getHandOrientation } from '../utils/getHandOrientation';
+import { Entity } from 'game/entities';
+import {
+  CardMovementDirection,
+  CardType,
+  GamePlayerType,
+  HandEntityTypes,
+} from 'game/types';
+import {
+  drawCardBack,
+  drawCardFront,
+  calcStartCoords,
+  calcVisiblePartOfCard,
+  moveCard,
+  getHandOrientation,
+  createBubble,
+} from 'game/utils';
+import { ANIMATION_TIME } from 'game/utils/constants';
 
 export class HandEntity extends Entity<HandEntityTypes> {
   private cards: CardType[] = [];
@@ -42,6 +53,9 @@ export class HandEntity extends Entity<HandEntityTypes> {
       yCard = y;
     }
 
+    const direction: CardMovementDirection = this.player?.isBot
+      ? 'toBot'
+      : 'toUser';
     let timer = 0;
 
     for (let i = 0; i < cards.length; i++) {
@@ -53,7 +67,7 @@ export class HandEntity extends Entity<HandEntityTypes> {
         moveCard(
           cards[i],
           this.entityName,
-          'fromTable',
+          direction,
           this.width,
           this.height,
           playSound
@@ -63,13 +77,6 @@ export class HandEntity extends Entity<HandEntityTypes> {
       setTimeout(() => {
         if (this.player && this.player.isBot) {
           drawCardBack(this.context, cards[i].x!, cards[i].y!);
-          // drawCardFront(
-          //   this.context,
-          //   cards[i].x!,
-          //   cards[i].y!,
-          //   cards[i].color,
-          //   cards[i].sign
-          // );
         } else {
           drawCardFront(
             this.context,
@@ -87,7 +94,7 @@ export class HandEntity extends Entity<HandEntityTypes> {
         yCard += visiblePart;
       }
 
-      timer += ANIMATION_TIME;
+      timer += ANIMATION_TIME / 2;
     }
   }
 
@@ -137,7 +144,6 @@ export class HandEntity extends Entity<HandEntityTypes> {
       if (color !== undefined && sign !== undefined) {
         if (this.player && this.player.isBot) {
           drawCardBack(this.context, x, y);
-          // drawCardFront(this.context, x, y, color, sign);
         } else {
           drawCardFront(this.context, x, y, color, sign);
         }
@@ -187,5 +193,14 @@ export class HandEntity extends Entity<HandEntityTypes> {
 
   getCards() {
     return this.cards;
+  }
+
+  showTooltip() {
+    const tooltip = createBubble(this.entityName);
+    this.layer.appendChild(tooltip);
+
+    setTimeout(() => {
+      tooltip.remove();
+    }, 2500);
   }
 }
