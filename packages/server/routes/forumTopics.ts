@@ -4,7 +4,7 @@ import express, {
   Router,
   type NextFunction,
 } from 'express';
-import { xssErrorHandler, xssValidator } from '../middlewares/xssValidation';
+import { xssValidator } from '../middlewares/xssValidation';
 
 import { checkUserAuth } from '../middlewares/checkUserAuth';
 import {
@@ -32,17 +32,12 @@ export const forumTopics = Router()
       })
       .catch(next);
   })
-  .post(
-    '/',
-    xssValidator(),
-    xssErrorHandler,
-    (req: Request, res: Response, next) => {
-      req.body.user_id = res.locals.user.id;
-      topicPost(req.body)
-        .then(topic => res.status(201).send(topic))
-        .catch(next);
-    }
-  )
+  .post('/', xssValidator(), (req: Request, res: Response, next) => {
+    req.body.user_id = res.locals.user.id;
+    topicPost(req.body)
+      .then(topic => res.status(201).send(topic))
+      .catch(next);
+  })
   .delete('/:id', (req: Request, res: Response, next) => {
     topicDel(req.params.id, res.locals.user.id)
       .then(topic => {
