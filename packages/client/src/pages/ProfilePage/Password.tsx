@@ -6,7 +6,7 @@ import { DataType } from 'components/Form/Form';
 
 import { passwordConfig } from '../configs';
 
-import { StSaveButton, StUserName, StyledForm, inputCss } from './style';
+import { StSaveButton, StUserName, StyledForm } from './style';
 import { useAppDispatch } from '../../hooks/redux';
 import { fetchPassChange } from '../../store/User/profile/actions';
 import { userState } from '../../hooks/userState';
@@ -35,7 +35,7 @@ const Password: FC = () => {
       fields={passwordConfig}
       handleFormSubmit={changePassword}
       footer={footer}
-      inputCss={inputCss}
+      inputClassName={'profile_input'}
     />
   );
 };

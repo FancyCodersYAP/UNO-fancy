@@ -7,13 +7,12 @@ import { DataType } from 'components/Form/Form';
 
 import { profileConfig } from '../configs';
 
-import { StUserName, StSaveButton, StyledForm, inputCss } from './style';
+import { StUserName, StSaveButton, StyledForm } from './style';
 import ProfileFooter from './ProfileFooter';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { fetchProfileChange } from '../../store/User/profile/actions';
 import ProfileAvatar from './ProfileAvatar';
-import { fetchLogout } from '../../store/User/auth/actions';
 
 const Profile: FC = () => {
   const [isEditMode, setEditMode] = useState(false);
@@ -67,7 +66,7 @@ const Profile: FC = () => {
       handleFormSubmit={updateData}
       defaultValues={defaultValues}
       footer={footer}
-      inputCss={inputCss}
+      inputClassName={'profile_input'}
     />
   );
 };
