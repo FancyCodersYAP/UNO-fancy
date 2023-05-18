@@ -4,6 +4,7 @@ import { StFieldList } from 'components/Form/style';
 import { StInputContainer, StInput, StLabel } from 'components/Input/style';
 import { StEmojiWrapper } from 'components/EmojisButton/style';
 import { FormError } from '../Form/style';
+import { StTextarea } from 'components/Textarea/style';
 
 export const StTopicForm = styled(Form)`
   width: 100%;
@@ -29,6 +30,10 @@ export const StTopicForm = styled(Form)`
       filter: opacity(50%);
       text-align: center;
     }
+  }
+
+  ${StTextarea} {
+    padding-top: 25px;
   }
 
   ${StLabel} {
