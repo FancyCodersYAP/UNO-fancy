@@ -25,12 +25,17 @@ export const StSmileIcon = styled.svg`
   }
 `;
 
-export const StEmojiContainer = styled.ul`
+export const StEmojiContainer = styled.div`
   position: absolute;
   top: -70px;
   left: -111px;
   width: 150px;
-  margin: 0;
+  border-radius: 10px;
+  background-color: ${props => props.theme?.COLOR_BACKGROUND_SECONDARY};
+`;
+
+export const StEmojiList = styled.ul`
+  position: relative;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
