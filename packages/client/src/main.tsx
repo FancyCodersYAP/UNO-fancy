@@ -7,6 +7,7 @@ import { setupStore } from './store/store';
 import { DataService } from './api/DataService';
 import { ApiRepository } from './repository/ApiRepository';
 import { ThemeContextProvider } from 'contexts/ThemeContext';
+import { startServiceWorker } from 'utils/startSW';
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
@@ -19,3 +20,5 @@ ReactDOM.hydrateRoot(
     </Provider>
   </BrowserRouter>
 );
+
+startServiceWorker();

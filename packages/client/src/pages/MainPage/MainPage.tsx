@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
@@ -17,7 +17,7 @@ const StMainLogo = styled.div`
   mix-blend-mode: multiply; //darken color-burn
 `;
 
-export const marginTop20 = css`
+const StyledButtonWithMargin = styled(Button)`
   margin-top: 20px;
 `;
 
@@ -40,9 +40,8 @@ const MainPage: FC = () => {
         marginBottom={100}>
         <StMainLogo />
         <Button text="Начать игру" size="large" onClick={handlePlay} />
-        <Button
+        <StyledButtonWithMargin
           onClick={handleOpenModal}
-          css={marginTop20}
           text="Правила"
           disignType="alternate"
         />

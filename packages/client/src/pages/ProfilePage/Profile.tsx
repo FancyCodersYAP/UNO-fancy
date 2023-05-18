@@ -7,7 +7,7 @@ import { DataType } from 'components/Form/Form';
 
 import { profileConfig } from '../configs';
 
-import { StUserName, StyledForm, inputCss } from './style';
+import { StUserName, StyledForm } from './style';
 import ProfileFooter from './ProfileFooter';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
@@ -64,7 +64,7 @@ const Profile: FC = () => {
       handleFormSubmit={updateData}
       defaultValues={defaultValues}
       footer={footer}
-      inputCss={inputCss}
+      inputClassName={'profile_input'}
     />
   );
 };
