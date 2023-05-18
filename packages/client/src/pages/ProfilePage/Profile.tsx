@@ -13,7 +13,6 @@ import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { fetchProfileChange } from '../../store/User/profile/actions';
 import ProfileAvatar from './ProfileAvatar';
-import { fetchLogout } from '../../store/User/auth/actions';
 import { TITLES, useTitle } from 'utils/useTitle';
 
 const Profile: FC = () => {

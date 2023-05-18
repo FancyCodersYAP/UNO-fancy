@@ -19,6 +19,7 @@ import { profileConfig } from '../configs';
 import { fetchProfileChange } from 'store/User/profile/actions';
 import { StFlex } from 'styles/global';
 import { TITLES, useTitle } from 'utils/useTitle';
+import { errorReset } from '../../store/User/userSlice';
 
 const EditProfile: FC = () => {
   useTitle(TITLES.editProfile);
@@ -29,7 +30,7 @@ const EditProfile: FC = () => {
     navigate(`${AppRoute.PROFILE}`);
   };
 
-  const { user } = userState();
+  const { user, userError } = userState();
 
   const avatar = <ProfileAvatar image={user!.avatar} />;
   const title = <StUserName>{user!.first_name}</StUserName>;
@@ -46,6 +47,10 @@ const EditProfile: FC = () => {
     return (defaultValues[el.name] = user![el.name as keyof UserType]);
   });
 
+  const errorCancel = () => {
+    if (userError) dispatch(errorReset());
+  };
+
   return (
     <StFlex css={stFlexStyles}>
       <StButtonBackToProfile onClick={navigateToProfile}>
@@ -61,6 +66,8 @@ const EditProfile: FC = () => {
         defaultValues={defaultValues}
         footer={footer}
         inputCss={inputCss}
+        error={userError}
+        errorReset={errorCancel}
       />
     </StFlex>
   );
