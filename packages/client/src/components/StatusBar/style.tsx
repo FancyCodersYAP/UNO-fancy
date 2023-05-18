@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import * as COLORS from 'styles/variables/colors-const';
-import { COLOR_ELEMENT_ALTERNATE } from 'styles/variables/colors-theme-light';
 
 export const StStatusBar = styled.div`
   position: absolute;
@@ -23,20 +22,23 @@ export const StButtonStatusBar = styled.button`
   }
 
   &:hover p {
-    color: ${COLOR_ELEMENT_ALTERNATE};
+    color: ${props => props.theme?.COLOR_ELEMENT_ALTERNATE};
   }
 
   &:hover svg {
-    fill: ${COLOR_ELEMENT_ALTERNATE};
+    color: ${props => props.theme?.COLOR_ELEMENT_ALTERNATE};
+    fill: ${props => props.theme?.COLOR_ELEMENT_ALTERNATE};
   }
 `;
 
 export const StStatusBarIcon = styled.svg`
   width: 25px;
   height: 25px;
+  color: ${COLORS.COLOR_ELEMENT_CONTRAST};
   fill: ${COLORS.COLOR_ELEMENT_CONTRAST};
 `;
 
 export const StStatusBarIconActive = css`
-  fill: ${COLOR_ELEMENT_ALTERNATE};
+  color: ${props => props.theme?.COLOR_ELEMENT_ALTERNATE};
+  fill: ${props => props.theme?.COLOR_ELEMENT_ALTERNATE};
 `;

@@ -9,12 +9,13 @@ import Textarea from 'components/Textarea/Textarea';
 import { FormConfigType } from 'types';
 import { LoginFormParams } from 'pages/LoginPage/LoginPage';
 import { RegFormParams } from 'pages/RegistrationPage/RegistrationPage';
-import { useAppDispatch } from '../../hooks/redux';
-import { errorReset } from '../../store/User/userSlice';
-import { userState } from '../../hooks/userState';
 import { TopicFormParams } from 'components/AddTopic/AddTopic';
+import { MessageFormParams } from 'components/AddAnswer/AddAnswer';
 
-export type DataType = LoginFormParams & RegFormParams & TopicFormParams;
+export type DataType = LoginFormParams &
+  RegFormParams &
+  TopicFormParams &
+  MessageFormParams;
 
 type FormProps = {
   title?: string | ReactNode;
@@ -27,6 +28,8 @@ type FormProps = {
   fieldListCss?: CSSProp;
   defaultValues?: Record<string, string>;
   inputClassName?: string;
+  error?: string;
+  errorReset?: () => void;
 };
 
 const Form: FC<FormProps> = ({
@@ -40,6 +43,8 @@ const Form: FC<FormProps> = ({
   fieldListCss,
   defaultValues,
   inputClassName,
+  error,
+  errorReset,
 }) => {
   const {
     register,
@@ -49,13 +54,6 @@ const Form: FC<FormProps> = ({
     mode: 'onBlur',
     defaultValues: useMemo(() => defaultValues, [defaultValues]),
   });
-
-  const dispatch = useAppDispatch();
-  const { userError } = userState();
-
-  const errorCancel = () => {
-    if (userError) dispatch(errorReset());
-  };
 
   return (
     <StFormContainer className={className}>
@@ -67,7 +65,7 @@ const Form: FC<FormProps> = ({
         </StFormTitle>
       )}
 
-      <form onSubmit={handleSubmit(handleFormSubmit)} onClick={errorCancel}>
+      <form onSubmit={handleSubmit(handleFormSubmit)} onClick={errorReset}>
         <StFieldList css={fieldListCss}>
           {fields.map(({ name, textarea, ...rest }) =>
             textarea ? (
@@ -92,7 +90,7 @@ const Form: FC<FormProps> = ({
           )}
         </StFieldList>
         {footer}
-        <FormError>{userError}</FormError>
+        <FormError>{error}</FormError>
       </form>
     </StFormContainer>
   );

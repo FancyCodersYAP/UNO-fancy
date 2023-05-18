@@ -1,8 +1,9 @@
 import Button from 'components/Button';
 import Form from 'components/Form';
-import styled from 'styled-components';
-
+import styled, { css } from 'styled-components';
 import { AvatarType } from 'types';
+import { StButton } from 'components/Button/style';
+import { BOX_SHADOW } from 'styles/variables/styleConstants';
 
 export const StyledForm = styled(Form)`
   width: 928px;
@@ -66,10 +67,39 @@ export const StQuitButton = styled(StFooterButton)`
   margin: 50px auto 0;
   padding: 10px 50px;
   font-size: 16px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(${BOX_SHADOW});
 `;
 
 export const StSaveButton = styled(StFooterButton)`
   padding: 10px 88px;
   margin: 50px auto 0;
+`;
+
+export const stFlexStyles = css`
+  position: relative;
+`;
+
+export const StButtonBackIcon = styled.svg`
+  width: 36px;
+  height: 113px;
+`;
+
+export const StButtonBackToProfile = styled(StButton)`
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background-color: initial;
+  border: none;
+  box-shadow: none;
+  padding: 10px;
+
+  &:hover svg {
+    filter: drop-shadow(${BOX_SHADOW});
+  }
+
+  &&:active {
+    transform: translateY(-50%);
+  }
 `;

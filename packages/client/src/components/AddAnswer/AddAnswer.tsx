@@ -1,58 +1,100 @@
 import Button from 'components/Button';
 import { StFlex } from 'styles/global';
-import { StTopicLabel, StTopicTextarea } from './style';
+import { StMessageForm, StAnswerWrapper, StAnswerAll, StAnswer } from './style';
+import { css } from 'styled-components';
+import { addMessageConfig } from 'pages/configs';
+import { FieldValues } from 'react-hook-form';
+import { buttonStyle } from 'components/AddTopic/AddTopic';
+import stringShorten from 'utils/stringShorten';
 import { fetchForumMessagePost } from 'store/Forum/messageAction';
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { AddAnswerModalUserInfo } from 'types';
+import { forumErrorReset } from '../../store/Forum/forumSlice';
+
+const MAX_ANSWER_LENGTH = 20;
 
 interface AddAnswerType {
   topicId: number;
   feedRef: React.RefObject<HTMLDivElement>;
   handleCloseModal: () => void;
+  userInfo?: AddAnswerModalUserInfo;
 }
 
-const AddAnswer = (props: AddAnswerType) => {
-  const { handleCloseModal, topicId } = props;
+const buttonsWrapperStyle = css`
+  margin-top: 32px;
+`;
+
+export interface MessageFormParams extends FieldValues {
+  content: string;
+  topic_id: number;
+}
+
+const AddAnswer = ({
+  handleCloseModal,
+  userInfo,
+  topicId,
+  feedRef,
+}: AddAnswerType) => {
   const dispatch = useAppDispatch();
 
-  const submitNewTopic = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    /**код по определению элемента временный будет замена из другой ветки**/
-    //@ts-ignore
-    if (evt.target.topic_answer.value) {
-      //@ts-ignore
-      const content = evt.target.topic_answer.value;
-      const sendData = {
-        content,
-        topic_id: topicId,
-      };
-      dispatch(fetchForumMessagePost(sendData)).then(action => {
-        if ('error' in action && action.error) return;
-        handleCloseModal();
-        //после отправки сообщения мы получаем его в отвтвете и прокручивает скрол вниз
-        const feedScroll = props.feedRef.current?.scrollHeight || 0;
-        props.feedRef.current?.scroll(0, feedScroll);
-      });
+  const submitNewTopicMessage = (data: MessageFormParams): void => {
+    if (userInfo) {
+      data.id_head_answer = userInfo.id;
     }
+    data.topic_id = topicId;
+
+    dispatch(fetchForumMessagePost(data)).then(action => {
+      if ('error' in action && action.error) return;
+      handleCloseModal();
+      const feedScroll = feedRef.current?.scrollHeight || 0;
+      feedRef.current?.scroll(0, feedScroll);
+    });
   };
+
+  const forumError = useAppSelector(state => state.FORUM.error);
+
+  const errorCancel = () => {
+    if (forumError) dispatch(forumErrorReset());
+  };
+
+  const footer = (
+    <StFlex css={buttonsWrapperStyle} justifyContent="space-between">
+      <Button
+        css={buttonStyle}
+        text="Отправить"
+        type="submit"
+        disignType="primary"
+      />
+      <Button
+        css={buttonStyle}
+        text="Отмена"
+        type="reset"
+        disignType="alternate"
+        onClick={handleCloseModal}
+      />
+    </StFlex>
+  );
 
   return (
     <>
-      <form onSubmit={submitNewTopic}>
-        <StTopicLabel htmlFor="topic_answer">Текст сообщения</StTopicLabel>
-        <StTopicTextarea
-          name="topic_answer"
-          id="topic_answer"
-          placeholder="Текст сообщения"
-          required></StTopicTextarea>
-        <StFlex>
-          <Button text="Отправить" />
-          <Button
-            text="Отмена"
-            disignType="alternate"
-            onClick={handleCloseModal}
-          />
-        </StFlex>
-      </form>
+      <StAnswerWrapper onClick={errorCancel}>
+        {userInfo ? (
+          <StAnswer>
+            {userInfo.user}: "
+            {stringShorten(userInfo.message, MAX_ANSWER_LENGTH)}"
+          </StAnswer>
+        ) : (
+          <StAnswerAll>Всем:</StAnswerAll>
+        )}
+      </StAnswerWrapper>
+
+      <StMessageForm
+        fields={addMessageConfig}
+        handleFormSubmit={submitNewTopicMessage}
+        footer={footer}
+        error={forumError}
+        errorReset={errorCancel}
+      />
     </>
   );
 };

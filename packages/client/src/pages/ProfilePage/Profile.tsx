@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { UserType } from 'types';
@@ -7,15 +7,16 @@ import { DataType } from 'components/Form/Form';
 
 import { profileConfig } from '../configs';
 
-import { StUserName, StSaveButton, StyledForm } from './style';
+import { StUserName, StyledForm } from './style';
 import ProfileFooter from './ProfileFooter';
 import { useAppDispatch } from '../../hooks/redux';
 import { userState } from '../../hooks/userState';
 import { fetchProfileChange } from '../../store/User/profile/actions';
 import ProfileAvatar from './ProfileAvatar';
+import { TITLES, useTitle } from 'utils/useTitle';
 
 const Profile: FC = () => {
-  const [isEditMode, setEditMode] = useState(false);
+  useTitle(TITLES.profile);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -24,23 +25,22 @@ const Profile: FC = () => {
   const avatar = <ProfileAvatar image={user!.avatar} />;
   const title = <StUserName>{user?.first_name}</StUserName>;
 
-  const handleChangeData = () => {
-    setEditMode(true);
-  };
-
   const handleChangePassword = () => {
     navigate(`${AppRoute.PROFILE}/password`);
+  };
+
+  const handleEditProfile = () => {
+    navigate(`${AppRoute.PROFILE}/edit`);
   };
 
   const updateData = (data: DataType) => {
     dispatch(fetchProfileChange(data)).then(action => {
       if ('error' in action && action.error) return;
-      setEditMode(false);
     });
   };
 
   const fields = profileConfig.map(field => ({
-    disabled: !isEditMode,
+    disabled: true,
     ...field,
   }));
 
@@ -49,11 +49,9 @@ const Profile: FC = () => {
     {}
   );
 
-  const footer = isEditMode ? (
-    <StSaveButton text="Сохранить" type="submit" />
-  ) : (
+  const footer = (
     <ProfileFooter
-      handleChangeData={handleChangeData}
+      handleChangeData={handleEditProfile}
       handleChangePassword={handleChangePassword}
     />
   );

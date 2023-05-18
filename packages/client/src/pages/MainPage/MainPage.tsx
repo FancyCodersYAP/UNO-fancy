@@ -7,6 +7,7 @@ import { AppRoute } from 'utils/constants';
 import Modal from 'components/Modal';
 import useModal from 'hooks/useModal';
 import Rules from 'components/Rules';
+import { useTitle, TITLES } from 'utils/useTitle';
 
 const StMainLogo = styled.div`
   padding: 210px 400px;
@@ -21,6 +22,7 @@ const StyledButtonWithMargin = styled(Button)`
 `;
 
 const MainPage: FC = () => {
+  useTitle(TITLES.main);
   const navigate = useNavigate();
 
   const handlePlay = () => {
