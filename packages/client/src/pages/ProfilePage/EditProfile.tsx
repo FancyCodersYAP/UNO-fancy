@@ -6,7 +6,6 @@ import {
   StSaveButton,
   StUserName,
   StyledForm,
-  inputCss,
   StButtonBackIcon,
   stFlexStyles,
   StButtonBackToProfile,
@@ -65,7 +64,7 @@ const EditProfile: FC = () => {
         handleFormSubmit={updateData}
         defaultValues={defaultValues}
         footer={footer}
-        inputCss={inputCss}
+        inputClassName={'profile_input'}
         error={userError}
         errorReset={errorCancel}
       />

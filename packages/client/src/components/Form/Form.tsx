@@ -26,8 +26,8 @@ type FormProps = {
   avatar?: ReactNode;
   className?: string;
   fieldListCss?: CSSProp;
-  inputCss?: CSSProp;
   defaultValues?: Record<string, string>;
+  inputClassName?: string;
   error?: string;
   errorReset?: () => void;
 };
@@ -41,8 +41,8 @@ const Form: FC<FormProps> = ({
   avatar,
   className,
   fieldListCss,
-  inputCss,
   defaultValues,
+  inputClassName,
   error,
   errorReset,
 }) => {
@@ -82,7 +82,7 @@ const Form: FC<FormProps> = ({
                 register={register}
                 error={!!errors[name]?.message}
                 errorMessage={errors[name]?.message?.toString()}
-                inputCss={inputCss}
+                className={inputClassName}
                 name={name}
                 {...rest}
               />

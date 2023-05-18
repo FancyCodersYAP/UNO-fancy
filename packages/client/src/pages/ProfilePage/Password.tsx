@@ -7,7 +7,6 @@ import {
   StSaveButton,
   StUserName,
   StyledForm,
-  inputCss,
   StButtonBackIcon,
   stFlexStyles,
   StButtonBackToProfile,
@@ -58,7 +57,7 @@ const Password: FC = () => {
         fields={passwordConfig}
         handleFormSubmit={changePassword}
         footer={footer}
-        inputCss={inputCss}
+        inputClassName={'profile_input'}
         error={userError}
         errorReset={errorCancel}
       />

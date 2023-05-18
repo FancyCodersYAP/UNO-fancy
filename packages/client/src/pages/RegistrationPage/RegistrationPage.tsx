@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { css } from 'styled-components';
+import styled from 'styled-components';
 import { FieldValues } from 'react-hook-form';
 
 import Form from 'components/Form';
@@ -24,7 +24,7 @@ export interface RegFormParams extends FieldValues {
   phone: string;
 }
 
-export const gap25 = css`
+const StyledFormFooter = styled(StFormFooter)`
   gap: 25px;
 `;
 
@@ -46,10 +46,10 @@ const RegistrationPage: FC = () => {
   };
 
   const footer = (
-    <StFormFooter css={gap25}>
+    <StyledFormFooter>
       <Button text="Зарегистрироваться" type="submit" block />
       <StLink to={AppRoute.LOGIN}>Есть аккаунт?</StLink>
-    </StFormFooter>
+    </StyledFormFooter>
   );
 
   const errorCancel = () => {
