@@ -6,7 +6,7 @@ on:
 
   push:
     branches:
-      - Docker_test
+      - deploy
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
           POSTGRES_DB: postgres
           POSTGRES_PORT: 5432
           APP_HOSTNAME: uno-fancy
-          POSTGRES_HOST: localhost
+          POSTGRES_HOST: postgres
 
         run: |
           docker compose build

@@ -9,9 +9,13 @@ export const themeGet = async (user_id: string) => {
 };
 
 export const themePost = async (theme_name: string, user_id: string) => {
+  console.log('theme_name', theme_name, 'user_id', user_id);
+
   const theme = await Themes.findOne({
     where: { theme_name },
   });
+
+  theme && console.log('тема найдена', theme);
 
   return (
     theme &&
