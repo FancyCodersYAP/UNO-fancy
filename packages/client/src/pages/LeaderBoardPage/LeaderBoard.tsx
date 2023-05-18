@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
@@ -18,7 +18,7 @@ import BoardItem from './BoardItem';
 import { leaderboardList } from 'hooks/leaderboardState';
 import { fetchLeaderboard } from 'store/Leaderboard/actions';
 
-const marginBottom40px = css`
+const StyledTitleWithMargin = styled(StTitle)`
   margin: 0 0 40px;
 `;
 
@@ -51,7 +51,7 @@ const LeaderBoard: FC = () => {
     <StBoard>
       {isArrayAndHasItems(topPlayers) ? (
         <>
-          <StTitle css={marginBottom40px}>Рейтинг игроков</StTitle>
+          <StyledTitleWithMargin>Рейтинг игроков</StyledTitleWithMargin>
           <StTable hasScroll={hasScroll}>
             <StHead>
               <StHeadChild>#</StHeadChild>

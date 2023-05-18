@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import Form from 'components/Form';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { AvatarType } from 'types';
 
@@ -72,8 +72,4 @@ export const StQuitButton = styled(StFooterButton)`
 export const StSaveButton = styled(StFooterButton)`
   padding: 10px 88px;
   margin: 50px auto 0;
-`;
-
-export const inputCss = css`
-  text-align: right;
 `;

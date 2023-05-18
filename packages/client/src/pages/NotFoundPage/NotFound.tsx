@@ -6,13 +6,13 @@ import { StTitle } from 'pages/LeaderBoardPage/style';
 import { St404Wrapper, St404Text } from './style';
 import { drawCardFront } from 'game/utils';
 import { cardColors } from 'game/utils';
-import { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   NOT_FOUND_PAGE_WIDTH_CARD,
   NOT_FOUND_PAGE_HEIGHT_CARD,
 } from 'game/utils/constants';
 
-const titleStyles = css`
+const StyledTitle = styled(StTitle)`
   font-size: 42px;
   margin-bottom: 20px;
 `;
@@ -68,7 +68,7 @@ const NotFoundPage = () => {
 
   return (
     <St404Wrapper>
-      <StTitle css={titleStyles}>Ошибка</StTitle>
+      <StyledTitle>Ошибка</StyledTitle>
       <CanvasErorr404 />
       <St404Text>Такой страницы нет</St404Text>
       <Button
