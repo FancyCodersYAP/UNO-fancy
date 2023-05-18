@@ -34,6 +34,14 @@ export default defineConfig({
     rollupOptions: {
       input: {
         app: resolve(__dirname, 'index.html'),
+        sw: resolve(__dirname, './src/sw.js'),
+      },
+      output: {
+        entryFileNames: assetInfo => {
+          return assetInfo.name === 'sw'
+            ? '[name].js'
+            : 'assets/[name]-[hash].js';
+        },
       },
     },
   },
