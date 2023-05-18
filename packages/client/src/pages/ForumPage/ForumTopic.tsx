@@ -23,37 +23,12 @@ interface ForumTopicType {
 const MAX_TOPIC_LENGTH = 35;
 const MAX_LAST_MESSAGE_LENGTH = 60;
 
-const textAlignLeft = css`
-  text-align: left;
-  justify-content: left;
-`;
-
-const fontStyle = css`
-  ${textAlignLeft}
-  font-size: 16px;
-  line-height: 130%;
-`;
-
 const addTopicModalStyles = css`
   width: 700px;
   padding: 55px 101px 77px;
 
   ${StModalTitle} {
     margin-bottom: 62px;
-  }
-`;
-
-const hoverStyle = css`
-  button {
-    cursor: pointer;
-  }
-
-  svg {
-    opacity: 0.5;
-  }
-
-  svg:hover {
-    opacity: 1;
   }
 `;
 
@@ -76,14 +51,14 @@ const ForumTopic = ({
   return (
     <>
       <StTableTopic data-topic={id}>
-        <StTableCell css={hoverStyle}>
+        <StTableCell className="cell__button_hovered">
           <StDeleteTopicButton onClick={handleOpenModal}>
             <StDeleteTopicIcon>
               <use href="/assets/icons/icons_sprite.svg#icon-basket"></use>
             </StDeleteTopicIcon>
           </StDeleteTopicButton>
         </StTableCell>
-        <StTableCell css={textAlignLeft}>
+        <StTableCell className="cell-content_left">
           <p>{stringShorten(name, MAX_TOPIC_LENGTH)}</p>
         </StTableCell>
         <StTableCell>
@@ -92,7 +67,7 @@ const ForumTopic = ({
         <StTableCell>
           <p>{user.display_name}</p>
         </StTableCell>
-        <StTableCell css={fontStyle}>
+        <StTableCell className="cell-content_left cell__font_small">
           <p>{stringShorten(last_message, MAX_LAST_MESSAGE_LENGTH)}</p>
         </StTableCell>
       </StTableTopic>

@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
-import { BORDER_RADIUS_SIZE } from 'styles/variables/styleConstants';
+import {
+  BORDER_RADIUS_SIZE,
+  DEPTH_CONTAINER,
+} from 'styles/variables/styleConstants';
 import { customScrollbar } from 'styles/global';
 
 export const stBoardStyle = css`
@@ -85,6 +88,30 @@ export const StTableCell = styled.div`
 `;
 
 export const StTableTopic = styled.article`
+  .cell__button_hovered {
+    button {
+      cursor: pointer;
+    }
+
+    svg {
+      opacity: 0.5;
+    }
+
+    svg:hover {
+      opacity: 1;
+    }
+  }
+
+  .cell-content_left {
+    text-align: left;
+    justify-content: left;
+  }
+
+  .cell__font_small {
+    font-size: 16px;
+    line-height: 130%;
+  }
+
   ${gridTemplateColumnsStyle}
   grid-auto-rows: minmax(68px, auto);
 
@@ -103,6 +130,7 @@ export const StTableTopic = styled.article`
   &:hover {
     text-shadow: 2px 2px 2px rgb(0 0 0 / 50%);
   }
+
   pointer-events: none;
 
   & p {
@@ -117,4 +145,29 @@ export const StEmptyTable = styled.p`
   color: ${props => props.theme?.COLOR_TEXT_PRIMARY};
   width: 100%;
   padding: 20px;
+`;
+
+export const StTitle = styled.h1`
+  text-align: center;
+  color: ${props => props?.theme.COLOR_TEXT_PRIMARY};
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 500;
+  margin: 0 0 58px;
+`;
+
+export const StBoard = styled.div`
+  width: 100%;
+  border-radius: 50px;
+  background-color: ${props => props?.theme.COLOR_PREVIEW_PRIMARY};
+  box-shadow: ${DEPTH_CONTAINER};
+  padding: 40px 64px;
+  margin: 0 40px auto;
+  overflow: overlay;
+  min-height: 200px;
+  min-width: 1128px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
