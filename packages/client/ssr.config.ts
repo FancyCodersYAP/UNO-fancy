@@ -4,6 +4,10 @@ import * as path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    __SERVER_PORT__: process.env.SERVER_PORT,
+    __DEV_MODE__: process.env.NODE_ENV === 'development',
+  },
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),
