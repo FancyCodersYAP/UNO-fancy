@@ -43,8 +43,8 @@ const Modal = (props: ModalType) => {
         {title && <StModalTitle>{title}</StModalTitle>}
         {hasCrossButton && (
           <StButtonCloseModal
-            type="reset"
             aria-label="close"
+            type="reset"
             onClick={handleCloseModal}>
             <StModalCloseIcon data-testid="close icon">
               <use href="/assets/icons/icons_sprite.svg#icon-close-modal"></use>

@@ -13,8 +13,9 @@ import {
   StBody,
   StEmptyTable,
   templateHeadWithScroll,
+  StTitle,
+  StBoard,
 } from './style';
-import { StBoard, StTitle } from 'pages/LeaderBoardPage/style';
 import { StButtonNewTopic } from 'components/Button/style';
 import { isArrayAndHasItems } from 'utils';
 import { useAppDispatch } from 'hooks/redux';
@@ -75,7 +76,7 @@ const ForumPage = () => {
   if (!forumTopics?.length && isLoading) return <></>;
 
   return (
-    <StBoard css={stBoardStyle}>
+    <StBoard>
       <StTitle css={marginBottom58px}>Форум</StTitle>
 
       <StTable css={headStyleTemplate}>

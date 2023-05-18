@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 import app from './app/app';
+import { expressCspHeader } from 'express-csp-header';
+import { getCspDirectives } from './config/cspConfig';
 
 dotenv.config();
 

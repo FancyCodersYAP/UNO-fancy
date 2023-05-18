@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { PutLeaderboardData } from './types';
-export const REDIRECT_URL = ''; //TODO удалить совсем
 
-const API_MAIN_ENDPOINT = `${REDIRECT_URL}/api/v2`;
+const SERVER_PORT = 3000;
+export const REDIRECT_URL = __DEV_MODE__
+  ? `http://localhost:${SERVER_PORT}`
+  : 'https://uno-fancy.ru/login';
+
+const API_MAIN_ENDPOINT = '/api/v2';
 
 export const API_ENDPOINTS = {
   auth: `${API_MAIN_ENDPOINT}/auth`,
@@ -10,9 +14,9 @@ export const API_ENDPOINTS = {
   profile: `${API_MAIN_ENDPOINT}/user`,
   leaderboard: `${API_MAIN_ENDPOINT}/leaderboard`,
   resources: `${API_MAIN_ENDPOINT}/resources`,
-  theme: `${REDIRECT_URL}/theme-service`,
-  forum: `${REDIRECT_URL}/api/forum`,
-  sendMessage: `${REDIRECT_URL}/api/forum/message`,
+  theme: '/theme-service',
+  forum: '/api/forum',
+  sendMessage: '/api/forum/message',
 };
 axios.interceptors.request.use(function (config) {
   config.withCredentials = true;

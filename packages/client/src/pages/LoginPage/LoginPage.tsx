@@ -14,6 +14,7 @@ import { userState } from '../../hooks/userState';
 import { loginConfig } from '../configs';
 import { fetchOauthServiceIdGet } from '../../store/User/oauth/actions';
 import { TITLES, useTitle } from 'utils/useTitle';
+import { errorReset } from '../../store/User/userSlice';
 
 export interface LoginFormParams extends FieldValues {
   first_name: string;
@@ -25,7 +26,7 @@ const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { user } = userState();
+  const { user, userError } = userState();
   useEffect(() => {
     if (user) {
       navigate(AppRoute.MAIN);
@@ -54,6 +55,10 @@ const LoginPage: FC = () => {
     </StFormFooter>
   );
 
+  const errorCancel = () => {
+    if (userError) dispatch(errorReset());
+  };
+
   return (
     <StContainer alignItems="center" padding="0 40">
       <Form
@@ -61,6 +66,8 @@ const LoginPage: FC = () => {
         fields={loginConfig}
         handleFormSubmit={handleLogin}
         footer={footer}
+        error={userError}
+        errorReset={errorCancel}
       />
       <StTextGamePreviewContainer>
         {GAME_DESCRIPTION}
