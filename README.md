@@ -1,4 +1,4 @@
-<div style="text-align:center;">
+<div align="center">
 
 # Веб-игра <img src="./packages/client/public/assets/img/colorLogo.png" height="30">
 
@@ -34,8 +34,6 @@
 - Fullscreen API
 - Service Worker
 
-<br>
-
 ### Механика игры
 
 [<img src="https://github.com/FancyCodersYAP/UNO-fancy/assets/114286265/2eb36fa3-e6c7-4554-b8c0-8fec1a3766a9" height="250">](https://github.com/FancyCodersYAP/UNO-fancy/blob/main/docs/rules.md)
@@ -46,15 +44,11 @@
 
 В [правилах игры](https://github.com/FancyCodersYAP/UNO-fancy/blob/main/docs/rules.md) можно узнать подробнее о картах в игре, возможных ходах и подсчёте очков.
 
-<br>
-
 ### UI
 
 Макет доступен на\
 \
 [![Figma Badge](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=fff&style=flat)](https://www.figma.com/file/5kzuqt4PbewPnbky7TI3eH/UNO-fancy?type=design&node-id=50-1958&t=SHS23ZV9j4Tcmp7K-0)
-
-<br>
 
 ### Установка и запуск проекта
 
@@ -64,8 +58,6 @@
 4. Выполните команду `yarn dev:server`
 
 Проект запустится на 3000 порту
-
-<br>
 
 ### Добавление зависимостей
 
@@ -139,8 +131,6 @@ yarn preview
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
-
-<br>
 
 ### Команда
 
