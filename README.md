@@ -1,10 +1,10 @@
 <div style="text-align:center;">
 
-# Веб-игра UNO
+# Веб-игра <img src="./packages/client/public/assets/img/colorLogo.png" height="30">
 
-Командный проект курса ["Мидл-фронтенд разработчик"](https://practicum.yandex.ru/middle-frontend/) от [Яндекс Практикум](https://practicum.yandex.ru/)\
-\
-<img src="./packages/client/public/assets/img/colorLogo.png" height="50">
+Командный проект курса ["Мидл-фронтенд разработчик"](https://practicum.yandex.ru/middle-frontend/) от [Яндекс Практикум](https://practicum.yandex.ru/)
+
+[<img src="https://github.com/FancyCodersYAP/UNO-fancy/assets/114286265/c364ca4e-789b-4bcf-90d8-c107cfd34e59" height="250">](https://www.figma.com/file/5kzuqt4PbewPnbky7TI3eH/UNO-fancy?type=design&node-id=50-1958&t=SHS23ZV9j4Tcmp7K-0)
 
 </div>
 
@@ -50,10 +50,9 @@
 
 ### UI
 
-Макет доступен на  
+Макет доступен на\
+\
 [![Figma Badge](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=fff&style=flat)](https://www.figma.com/file/5kzuqt4PbewPnbky7TI3eH/UNO-fancy?type=design&node-id=50-1958&t=SHS23ZV9j4Tcmp7K-0)
-
-[<img src="https://github.com/FancyCodersYAP/UNO-fancy/assets/114286265/c364ca4e-789b-4bcf-90d8-c107cfd34e59" height="250">](https://www.figma.com/file/5kzuqt4PbewPnbky7TI3eH/UNO-fancy?type=design&node-id=50-1958&t=SHS23ZV9j4Tcmp7K-0)
 
 <br>
 
